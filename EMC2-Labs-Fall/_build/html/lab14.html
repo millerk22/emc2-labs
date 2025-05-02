@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>Lab 14: Applications of Eigenvectors &#8212; Math 495R EMC2 Python Labs</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=83e35b93" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=6fefd858"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 15: The Euclidean Algorithm" href="lab15.html" />
+    <link rel="prev" title="Lab 13: Basis-finding" href="lab13.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=blue-grey data-md-color-accent=blue>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#lab14" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="Math 495R EMC2 Python Labs"
+           class="md-header-nav__button md-logo">
+          
+            &nbsp;
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Fall EMC2 Labs</span>
+          <span class="md-header-nav__topic"> Lab 14: Applications of Eigenvectors </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+      
+  
+  <script src="_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = ""versions.json"",
+        target_loc = "../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">Math 495R EMC2 Python Labs</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="Math 495R EMC2 Python Labs" class="md-nav__button md-logo">
+      
+        <img src="_static/" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="index.html"
+       title="Math 495R EMC2 Python Labs">Fall EMC2 Labs</a>
+  </label>
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="lab01.html" class="md-nav__link">Lab 1: Introduction to Python, Part I</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab02.html" class="md-nav__link">Lab 2: Introduction to Python, Part II</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab03.html" class="md-nav__link">Lab 3: Introduction to Python, Part III</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab04.html" class="md-nav__link">Lab 4: Introduction to LaTeX</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab05.html" class="md-nav__link">Lab 5: Vector Arithmetic Using Python Lists</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab06.html" class="md-nav__link">Lab 6: The Caesar Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab07.html" class="md-nav__link">Lab 7: Matrix Row Reduction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab08.html" class="md-nav__link">Lab 8: The Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab09.html" class="md-nav__link">Lab 9: Solving Systems of Linear Equations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab10.html" class="md-nav__link">Lab 10: Counterexamples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab11.html" class="md-nav__link">Lab 11: Inverting matrices</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab12.html" class="md-nav__link">Lab 12: Recursion</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab13.html" class="md-nav__link">Lab 13: Basis-finding</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Lab 14: Applications of Eigenvectors </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Lab 14: Applications of Eigenvectors</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab14--page-root" class="md-nav__link">Lab 14: Applications of Eigenvectors</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#modeling-population-dynamics-with-a-transition-matrix" class="md-nav__link">Modeling Population Dynamics with a Transition Matrix</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#bonus-questions" class="md-nav__link">Bonus Questions</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab14.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab15.html" class="md-nav__link">Lab 15: The Euclidean Algorithm</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab16.html" class="md-nav__link">Lab 16: The Gram-Schmidt Process</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab17.html" class="md-nav__link">Lab 17: Recursion Reloaded</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab18.html" class="md-nav__link">Lab 18: Modular Arithmetic</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab19.html" class="md-nav__link">Lab 19: Image Compression with SVD</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab20.html" class="md-nav__link">Lab 20: Cracking the Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab21.html" class="md-nav__link">Lab 21: Least Squares Lab</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab22.html" class="md-nav__link">Lab 22: Determinants</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab23.html" class="md-nav__link">Lab 23: The Lean Theorem Prover</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab24.html" class="md-nav__link">Lab 24: Lucas Sequences</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab14--page-root" class="md-nav__link">Lab 14: Applications of Eigenvectors</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#modeling-population-dynamics-with-a-transition-matrix" class="md-nav__link">Modeling Population Dynamics with a Transition Matrix</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#bonus-questions" class="md-nav__link">Bonus Questions</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab14.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="lab-14-applications-of-eigenvectors">
+<h1 id="lab14--page-root">Lab 14: Applications of Eigenvectors<a class="headerlink" href="#lab14--page-root" title="Link to this heading">¶</a></h1>
+<p>In this lab you will explore an application of eigenvalues and eigenvectors for population modeling. You will need to import
+the following libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+</pre></div>
+</div>
+<p>Population dynamics is the study of how a population of individuals (e.g., organisms or animals) changes over time, including the numbers and ages of the organisms that comprise the population.
+It is common to model these population dynamics by a <strong>matrix population model</strong> that categorizes population members into
+various groups. We define categories of <em>infants</em>, <em>juveniles</em>, and <em>adults</em>.</p>
+<p>Before we dive into the details of computing population dynamics with eigenvalues and eigenvectors, navigate in another tab
+to this <a class="reference external" href="https://jhtullis.github.io/test_eigenbears/">Black Bear Population Demo</a>. It takes a bit to load, and so we’ll let that load while we proceed.</p>
+<section id="modeling-population-dynamics-with-a-transition-matrix">
+<h2 id="modeling-population-dynamics-with-a-transition-matrix">Modeling Population Dynamics with a Transition Matrix<a class="headerlink" href="#modeling-population-dynamics-with-a-transition-matrix" title="Link to this heading">¶</a></h2>
+<p>Population members begin in one stage (class) and transition through to other stages or possibly die off.
+Our simplified setting models transitions from stage to stage on a yearly basis, meaning that we consider an individual to be in a single class for the entirety of a year, possibly changing to another class the next year.
+More specifically, we will consider <strong>stasis</strong>, <strong>maturation</strong>, <strong>fertility</strong> transition values:</p>
+<ul class="simple">
+<li><p><strong>stasis</strong>, <span class="math notranslate nohighlight">\(s_i\)</span>: Probability that an individual in state <span class="math notranslate nohighlight">\(i\)</span> remains in state <span class="math notranslate nohighlight">\(i\)</span></p></li>
+<li><p><strong>maturation</strong>, <span class="math notranslate nohighlight">\(m_i\)</span>: Probability that an individual in state <span class="math notranslate nohighlight">\(i\)</span> transitions to state <span class="math notranslate nohighlight">\(i+1\)</span> (if such next state is possible)</p></li>
+<li><p><strong>fertility</strong>, <span class="math notranslate nohighlight">\(f_i\)</span>: Probability that an individual in state <span class="math notranslate nohighlight">\(i\)</span> produces an offspring in state <span class="math notranslate nohighlight">\(1\)</span></p></li>
+</ul>
+<p><strong>NOTE:</strong> Although our model really has four states - cub, juvenile, adult, and dead - we can model the “dead state” implicitly as an “absorbing” state (that is, no dead bear can become a living cub, juvenile, or adult).
+Note that the probability of death can be inferred by the other parameters as <span class="math notranslate nohighlight">\(d_i = 1 - s_i - m_i\)</span>.</p>
+<p>The following diagram shows an example population dynamics model for a population of black bears. In the case of this
+specific population, <span class="math notranslate nohighlight">\(s_1, f_1, f_2, m_3 = 0\)</span> because of biological characteristics of the species. For example,
+<span class="math notranslate nohighlight">\(s_1 = 0\)</span> because cubs only remain in the cub stage for at most one year, and so no stasis is possible for that class.</p>
+<a class="reference internal image-reference" href="_images/black_bear_state.png"><img alt="_images/black_bear_state.png" src="_images/black_bear_state.png" style="width: 800px;"/></a>
+<p>We can translate a state diagram that describes the transitions between different states as a <strong>transition matrix</strong>, <span class="math notranslate nohighlight">\(A\)</span>, for
+the three states <strong>cub</strong>, <strong>juvenile</strong>, and <strong>adult</strong>, where the entry
+<span class="math notranslate nohighlight">\(A_{ij}\)</span> corresponds to the average number of individuals that enter into state <span class="math notranslate nohighlight">\(i\)</span> from a single individual in
+state <span class="math notranslate nohighlight">\(j\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{pmatrix}
+   s_1 &amp; f_2 &amp; f_3 \\
+   m_1 &amp; s_2 &amp; 0 \\
+   0 &amp; m_2 &amp; s_3 \\
+\end{pmatrix}.\end{split}\]</div>
+<p>The eigenvectors and eigenvalues of this transition matrix identify important long-term behavior of the corresponding
+population; namely, both (i) the growth/death of the population and (ii) the long-term population ratio can be inferred
+from the dominant eigenvalue and corresponding eigenvector of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Since <span class="math notranslate nohighlight">\(A\)</span> has non-negative entries and is irreducible, then by the Perron-Frobenius Theorem</p>
+<ol class="arabic simple">
+<li><p>There exists a unique dominant, <strong>positive</strong> eigenvalue <span class="math notranslate nohighlight">\(\lambda_1 &gt; 0\)</span>, with <span class="math notranslate nohighlight">\(\lambda_1 &gt; |\lambda_i|\)</span> for all <span class="math notranslate nohighlight">\(i = 2, \ldots, n\)</span>.</p></li>
+<li><p>The eigenvector <span class="math notranslate nohighlight">\(v_1\)</span> associated with <span class="math notranslate nohighlight">\(\lambda_1\)</span> can be scaled to have all positive entries.</p></li>
+</ol>
+<p>This eigenpair <span class="math notranslate nohighlight">\((\lambda_1, v_1)\)</span> is referred to as the <strong>principal</strong> eigenvalue and eigenvector of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>In the context of population modeling, <span class="math notranslate nohighlight">\(\lambda_1\)</span> corresponds to the population’s asymptotic growth rate, and  <span class="math notranslate nohighlight">\(v_1\)</span> corresponds to the stable age distribution. The “stable age distribution” is the proportion of individuals of each stage that
+will remain constant barring changes to the vital rates.</p>
+<section id="task-1">
+<h3 id="task-1">Task 1<a class="headerlink" href="#task-1" title="Link to this heading">¶</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">pop_transition_matrix(s1,</span> <span class="pre">s2,</span> <span class="pre">s3,</span> <span class="pre">m1,</span> <span class="pre">m2,</span> <span class="pre">f2,</span> <span class="pre">f3)</span></code> that accepts stasis, maturation, and fertility values and constructs the corresponding transition matrix using a <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> array.
+Make sure the corresponding transition matrix reflects a valid population dynamics model. Namely,</p>
+<ul class="simple">
+<li><p>All entries must be non-negative.</p></li>
+<li><p>The stasis and maturation parameters for a given state (i.e., column of <span class="math notranslate nohighlight">\(A\)</span>) must sum to a value less than or equal to <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+</ul>
+<p>If the matrix is not a valid population dynamics model, raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</section>
+<section id="task-2">
+<h3 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Link to this heading">¶</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">compute_principal_eig(A)</span></code> that accepts a transition matrix and returns the principal eigenvalue and its corresponding eigenvector in a list. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html">See the Numpy function</a> <code class="docutils literal notranslate"><span class="pre">numpy.linalg.eig</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> function <code class="docutils literal notranslate"><span class="pre">eig</span></code> will sometimes return numbers of the form <code class="docutils literal notranslate"><span class="pre">a+b*j</span></code>, where <code class="docutils literal notranslate"><span class="pre">j</span></code> is the square root of <code class="docutils literal notranslate"><span class="pre">-1</span></code>. As this may return complex values of the form <code class="docutils literal notranslate"><span class="pre">a+0*j</span></code>, use <code class="docutils literal notranslate"><span class="pre">np.real</span></code> to convert these values into (real) floats. You may need to use the command <code class="docutils literal notranslate"><span class="pre">float()</span></code> to convert the results of this function from <code class="docutils literal notranslate"><span class="pre">np.float64</span></code> to the usual <code class="docutils literal notranslate"><span class="pre">float</span></code> data type.</p>
+</section>
+<section id="task-3">
+<h3 id="task-3">Task 3<a class="headerlink" href="#task-3" title="Link to this heading">¶</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">simulate(A,</span> <span class="pre">p,</span> <span class="pre">t)</span></code> that simulates <code class="docutils literal notranslate"><span class="pre">t</span></code> steps of the population dynamics model represented by the <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> array <code class="docutils literal notranslate"><span class="pre">A</span></code>, with initial population value vector <code class="docutils literal notranslate"><span class="pre">p</span></code> given as a list.
+Return a list of the corresponding <code class="docutils literal notranslate"><span class="pre">t+1</span></code> population vectors.</p>
+<ul class="simple">
+<li><p><strong>NOTE:</strong> If <code class="docutils literal notranslate"><span class="pre">p</span></code> has negative entries, raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+</ul>
+</section>
+<section id="task-4">
+<h3 id="task-4">Task 4<a class="headerlink" href="#task-4" title="Link to this heading">¶</a></h3>
+<p>Head to the Black Bear Population Demo that you opened at the beginning of the lab. This web app computes each of
+the things that you have written in this lab. On the left hand side of the page you can vary the stasis, maturation,
+and fertility parameters.</p>
+<ul class="simple">
+<li><p>The principal eigenvector is displayed as a pie chart reflecting the proportion of the population that each class (state) makes up.</p></li>
+<li><p>The principal eigenvalue is displayed as the title of the plot of the population count.</p></li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol class="arabic simple">
+<li><p>Play around with setting different model parameters <span class="math notranslate nohighlight">\(s_2, s_3, m_1, m_2, f_3\)</span>. <strong>What happens to the population count when</strong> <span class="math notranslate nohighlight">\(\lambda_1 &lt; 1\)</span> <strong>? How about when</strong> <span class="math notranslate nohighlight">\(\lambda_1 &gt; 1\)</span> <strong>?</strong></p></li>
+<li><p>Set the parameters to the following setting: <span class="math notranslate nohighlight">\(s_2 = 0.5, s_3 = 0.93, m_1 = 0.65, m_2 = 0.25, f_3 =0.2\)</span>. Now, for each parameter, see how the principal eigenvalue <span class="math notranslate nohighlight">\(\lambda_1\)</span> changes as a result of changing the parameter by <span class="math notranslate nohighlight">\(\pm 0.05\)</span>. <strong>Which parameter has the greatest effect on the value of</strong> <span class="math notranslate nohighlight">\(\lambda_1\)</span> <strong>?</strong></p></li>
+</ol>
+</section>
+</section>
+<section id="bonus-questions">
+<h2 id="bonus-questions">Bonus Questions<a class="headerlink" href="#bonus-questions" title="Link to this heading">¶</a></h2>
+<p>Given the following matrix <span class="math notranslate nohighlight">\(A\)</span>, complete Task 3 with <span class="math notranslate nohighlight">\(t = 50\)</span> iterations for a few different initial vectors <code class="docutils literal notranslate"><span class="pre">p</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">np.array([500,</span> <span class="pre">400,</span> <span class="pre">1000])</span></code>), <strong>but normalizing the final population vector to have norm one.</strong>
+Compare this normalized population count vector to the principal eigenvector for this given transition matrix.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{pmatrix}
+   0 &amp; 0 &amp; 0.2 \\
+   0.65 &amp; 0.5 &amp; 0 \\
+   0 &amp; 0.25 &amp; 0.92 \\
+\end{pmatrix}.\end{split}\]</div>
+<ul class="simple">
+<li><p>What do you notice about these vectors as compared to the principal eigenvector of <code class="docutils literal notranslate"><span class="pre">A</span></code>?</p></li>
+</ul>
+<p>This demo connects to the Power Method (AKA Power Iteration), which is an iterative method for identifying the principal eigenpair of a diagonalizable matrix.
+One can find the dominant eigenvector of a square matrix by repeatedly applying the matrix in question to an initial vector. See
+<a class="reference external" href="https://en.wikipedia.org/wiki/Power_iteration">the Wikipedia page on the Power Method</a> for more information.</p>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="lab13.html" title="Lab 13: Basis-finding"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> "Previous" </span> Lab 13: Basis-finding </span>
+              </div>
+            </a>
+          
+          
+            <a href="lab15.html" title="Lab 15: The Euclidean Algorithm"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> "Next" </span> Lab 15: The Euclidean Algorithm </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2024, Nick Andersen.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>Lab 1: Introduction to Python, Part I &#8212; Math 495R EMC2 Python Labs</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=83e35b93" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=6fefd858"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 2: Introduction to Python, Part II" href="lab02.html" />
+    <link rel="prev" title="Welcome to the Fall EMC2 Python Labs" href="index.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=blue-grey data-md-color-accent=blue>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#lab01" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="Math 495R EMC2 Python Labs"
+           class="md-header-nav__button md-logo">
+          
+            &nbsp;
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Fall EMC2 Labs</span>
+          <span class="md-header-nav__topic"> Lab 1: Introduction to Python, Part I </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+      
+  
+  <script src="_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = ""versions.json"",
+        target_loc = "../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">Math 495R EMC2 Python Labs</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="Math 495R EMC2 Python Labs" class="md-nav__button md-logo">
+      
+        <img src="_static/" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="index.html"
+       title="Math 495R EMC2 Python Labs">Fall EMC2 Labs</a>
+  </label>
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Lab 1: Introduction to Python, Part I </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Lab 1: Introduction to Python, Part I</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab01--page-root" class="md-nav__link">Lab 1: Introduction to Python, Part I</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#setting-up-google-colab" class="md-nav__link">Setting up Google Colab</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-code-in-cells" class="md-nav__link">Running Code in Cells</a>
+        </li>
+        <li class="md-nav__item"><a href="#python-basics" class="md-nav__link">Python Basics</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#arithmetic" class="md-nav__link">Arithmetic</a>
+        </li>
+        <li class="md-nav__item"><a href="#output-and-print-statements" class="md-nav__link">Output and print statements</a>
+        </li>
+        <li class="md-nav__item"><a href="#variables" class="md-nav__link">Variables</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#functions-part-1" class="md-nav__link">Functions, Part 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#functions-part-2" class="md-nav__link">Functions, Part 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li>
+        <li class="md-nav__item"><a href="#lists" class="md-nav__link">Lists</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-5" class="md-nav__link">Task 5</a>
+        </li>
+        <li class="md-nav__item"><a href="#conditionals" class="md-nav__link">Conditionals</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-6" class="md-nav__link">Task 6</a>
+        </li>
+        <li class="md-nav__item"><a href="#compound-conditions" class="md-nav__link">Compound Conditions</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-7" class="md-nav__link">Task 7</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-8" class="md-nav__link">Task 8</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab01.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab02.html" class="md-nav__link">Lab 2: Introduction to Python, Part II</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab03.html" class="md-nav__link">Lab 3: Introduction to Python, Part III</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab04.html" class="md-nav__link">Lab 4: Introduction to LaTeX</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab05.html" class="md-nav__link">Lab 5: Vector Arithmetic Using Python Lists</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab06.html" class="md-nav__link">Lab 6: The Caesar Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab07.html" class="md-nav__link">Lab 7: Matrix Row Reduction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab08.html" class="md-nav__link">Lab 8: The Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab09.html" class="md-nav__link">Lab 9: Solving Systems of Linear Equations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab10.html" class="md-nav__link">Lab 10: Counterexamples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab11.html" class="md-nav__link">Lab 11: Inverting matrices</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab12.html" class="md-nav__link">Lab 12: Recursion</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab13.html" class="md-nav__link">Lab 13: Basis-finding</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab14.html" class="md-nav__link">Lab 14: Applications of Eigenvectors</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab15.html" class="md-nav__link">Lab 15: The Euclidean Algorithm</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab16.html" class="md-nav__link">Lab 16: The Gram-Schmidt Process</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab17.html" class="md-nav__link">Lab 17: Recursion Reloaded</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab18.html" class="md-nav__link">Lab 18: Modular Arithmetic</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab19.html" class="md-nav__link">Lab 19: Image Compression with SVD</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab20.html" class="md-nav__link">Lab 20: Cracking the Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab21.html" class="md-nav__link">Lab 21: Least Squares</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab22.html" class="md-nav__link">Lab 22: Determinants</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab23.html" class="md-nav__link">Lab 23: The Lean Theorem Prover</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab24.html" class="md-nav__link">Lab 24: Lucas Sequences</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab01--page-root" class="md-nav__link">Lab 1: Introduction to Python, Part I</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#setting-up-google-colab" class="md-nav__link">Setting up Google Colab</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-code-in-cells" class="md-nav__link">Running Code in Cells</a>
+        </li>
+        <li class="md-nav__item"><a href="#python-basics" class="md-nav__link">Python Basics</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#arithmetic" class="md-nav__link">Arithmetic</a>
+        </li>
+        <li class="md-nav__item"><a href="#output-and-print-statements" class="md-nav__link">Output and print statements</a>
+        </li>
+        <li class="md-nav__item"><a href="#variables" class="md-nav__link">Variables</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#functions-part-1" class="md-nav__link">Functions, Part 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#functions-part-2" class="md-nav__link">Functions, Part 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li>
+        <li class="md-nav__item"><a href="#lists" class="md-nav__link">Lists</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-5" class="md-nav__link">Task 5</a>
+        </li>
+        <li class="md-nav__item"><a href="#conditionals" class="md-nav__link">Conditionals</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-6" class="md-nav__link">Task 6</a>
+        </li>
+        <li class="md-nav__item"><a href="#compound-conditions" class="md-nav__link">Compound Conditions</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-7" class="md-nav__link">Task 7</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-8" class="md-nav__link">Task 8</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab01.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="lab-1-introduction-to-python-part-i">
+<h1 id="lab01--page-root">Lab 1: Introduction to Python, Part I<a class="headerlink" href="#lab01--page-root" title="Link to this heading">¶</a></h1>
+<p>This lab is adapted from Math 215 Lab 1.</p>
+<section id="setting-up-google-colab">
+<h2 id="setting-up-google-colab">Setting up Google Colab<a class="headerlink" href="#setting-up-google-colab" title="Link to this heading">¶</a></h2>
+<p>In these labs we will be using Python, which is a powerful, general-purpose programming language that is widely used in science and engineering.
+It has many libraries and packages available to add on that make it a powerful tool for scientific computing and applied mathematics.
+Even better, it is a great first language to learn for beginners to computer programming!
+There are several ways to write programs in Python.
+In these labs we will be using Google’s Colaboratory notebooks to write our code and create the files we will submit for grading.
+This allows us to write and run Python programs in an internet browser without the hassle of downloading and installing any software on our computers.
+This will be described in more detail below.</p>
+<p>The first step is to make sure you have a Google account (if you have a Gmail account, you’re done with this step).
+You can set one up at</p>
+<p><a class="reference external" href="https://accounts.google.com/signup">https://accounts.google.com/signup</a></p>
+<p>Once your Google account is setup, navigate to the page</p>
+<p><a class="reference external" href="https://colab.research.google.com">https://colab.research.google.com</a></p>
+<p>This will take you to a page with some introductory material about Google Colab.
+Click the button in the top right corner to sign into your Google account if you are not
+already signed in.</p>
+<p>From the Google Colab welcome page you can navigate through a variety of introductory material to learn about Google Colab, or you can create a new notebook of your own to play around with.
+We will do the latter and create a new practice notebook in which to work and test our code.</p>
+<p>Create a new notebook by selecting</p>
+<p><code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">New</span> <span class="pre">notebook</span></code></p>
+<p>from the top menu in Google Colab.
+Name your notebook <code class="docutils literal notranslate"><span class="pre">Sandbox</span></code>.
+Your sandbox notebook can be used to test code snippets while you’re learning.
+Use <code class="docutils literal notranslate"><span class="pre">Sandbox</span></code> in the same way you’d use paper to take notes in a lecture course.
+You won’t turn this notebook in; it’s just for your benefit.</p>
+<p>Now select</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Settings</span> <span class="pre">&gt;</span> <span class="pre">AI</span> <span class="pre">Assistance</span></code></p>
+<p>and make sure both options are unchecked.
+(Generative AI is a very useful tool – and it’s really cool – but it’s more of a hindrance when your goal is to learn a new programming language.)</p>
+</section>
+<section id="running-code-in-cells">
+<h2 id="running-code-in-cells">Running Code in Cells<a class="headerlink" href="#running-code-in-cells" title="Link to this heading">¶</a></h2>
+<p>Once you’ve created a new notebook you’ll notice a little box to enter your code underneath the various menus.
+This is called a <code class="docutils literal notranslate"><span class="pre">cell</span></code>, and it is the basic building block of a Colab notebook.
+Any code that you want to execute in a notebook must be placed in a cell.</p>
+<p>In your notebook type the following into the cell:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(These three arrows <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> indicate that the code that follows is something you type into a cell.)</p>
+<p>As you might expect, this is a command which tells the notebook to display the phrase <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world!</span></code> below the cell.
+In order to tell Python to actually perform this command, we must execute the cell, by holding down the Shift button and pressing Return or Enter.</p>
+<p>Execute this cell. You should see the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
+<span class="go">Hello World!</span>
+</pre></div>
+</div>
+<p>(Code written here without the three arrows is the expected output.)</p>
+<p>Congratulations, you’ve just run your first Python program.
+After running your “Hello World!” command, you should notice that a new cell appears beneath the output of your last cell.
+You can enter new commands into this cell, and execute them the same way you did in the above cell.
+You can enter as many commands in a cell as you want, by putting each of them on a separate line.
+When you execute a cell with more than one command, the commands will be executed one at a time, from top to bottom.</p>
+<p>In the cell that was just created write and execute the following two commands:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"I'm hungry."</span><span class="p">)</span>
+<span class="go">Hello World!</span>
+<span class="go">I'm hungry.</span>
+</pre></div>
+</div>
+<p>Each time you execute a cell, a new cell should be created at the bottom of the notebook.
+If at any time you want to create an additional new cell, you can push the <code class="docutils literal notranslate"><span class="pre">+Code</span></code> button at the top of the notebook.
+You can also move any cell up or down in the notebook, by selecting that cell and pushing the ↑ and ↓ buttons that appear in the top right corner of the cell.
+Likewise, you can delete any cell by selecting it first, and then clicking on the 🗑 [trash can] icon that appears in the top right corner of the cell.
+At any time you can go back to a previous cell and edit it, and re-execute it as many times as you’d like.
+It is this ability to execute your code in small bite-sized chunks, and to go back and forth editing different parts, that makes Colab notebooks an easy way to quickly test out different ideas and pieces of code.</p>
+</section>
+<section id="python-basics">
+<h2 id="python-basics">Python Basics<a class="headerlink" href="#python-basics" title="Link to this heading">¶</a></h2>
+<section id="arithmetic">
+<h3 id="arithmetic">Arithmetic<a class="headerlink" href="#arithmetic" title="Link to this heading">¶</a></h3>
+<p>Perhaps the most basic use of our notebook is as a fancy calculator, with all of the standard arithmetic operations defined: <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, and <code class="docutils literal notranslate"><span class="pre">/</span></code>.
+Python follows the usual order of mathematical operations, including the use of parentheses.
+For example, to compute <span class="math notranslate nohighlight">\(15 × 3 − 81 ÷ 9\)</span>, we would enter</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">15</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">81</span> <span class="o">/</span> <span class="mi">9</span>
+<span class="go">36.0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The output is <code class="docutils literal notranslate"><span class="pre">36.0</span></code>, not <code class="docutils literal notranslate"><span class="pre">36</span></code>, because we used division.
+Python now treats the output like a decimal number instead of an integer.
+In Python, the decimal number data type is called <code class="docutils literal notranslate"><span class="pre">float</span></code>, which stands for floating point number.
+The integer data type is called <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<p>If we want to force the output to be an <code class="docutils literal notranslate"><span class="pre">int</span></code> instead, we can use integer division: <code class="docutils literal notranslate"><span class="pre">//</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">15</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">81</span> <span class="o">//</span> <span class="mi">9</span>
+<span class="go">36</span>
+</pre></div>
+</div>
+<p>This works as expected.
+Be careful, though: if you use integer division and the result is not an integer, Python will round down:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">7</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">3.5</span>
+</pre></div>
+</div>
+</div>
+<p>We can compute exponentiation using the <code class="docutils literal notranslate"><span class="pre">**</span></code> operator.
+For example, we can compute <span class="math notranslate nohighlight">\(2^5\)</span>  by typing the following.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">**</span><span class="mi">5</span>
+<span class="go">32</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Practice: Compute the values of <span class="math notranslate nohighlight">\((13 − 17) × 6\)</span> and <span class="math notranslate nohighlight">\(2^3 + 21\)</span> in your practice notebook.
+You should get <code class="docutils literal notranslate"><span class="pre">-24</span></code> and <code class="docutils literal notranslate"><span class="pre">29</span></code> respectively as your answers.</p>
+</div></blockquote>
+</section>
+<section id="output-and-print-statements">
+<h3 id="output-and-print-statements">Output and print statements<a class="headerlink" href="#output-and-print-statements" title="Link to this heading">¶</a></h3>
+<p>As mentioned above, we can include as many statements as
+we want in a single cell by putting each of them on a separate line. Notice, however, that only
+the result of the final command is included in the output displayed underneath the cell:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">11</span><span class="o">+</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">12</span><span class="o">-</span><span class="mi">11</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span><span class="o">*</span><span class="mi">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">15</span> <span class="o">//</span> <span class="mi">3</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>If we’d like to see the output of multiple commands we can use the <code class="docutils literal notranslate"><span class="pre">print</span></code> command to make
+sure that those commands are included in the output display.</p>
+<blockquote>
+<div><p>Practice: Enter the following commands in a cell, and execute them. What output do you see?</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">11</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">12</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">15</span> <span class="o">//</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="variables">
+<h3 id="variables">Variables<a class="headerlink" href="#variables" title="Link to this heading">¶</a></h3>
+<p>Just like in mathematics, a variable in Python is a placeholder for some value. For
+example, we can define a variable called <code class="docutils literal notranslate"><span class="pre">a</span></code> and assign the value <code class="docutils literal notranslate"><span class="pre">2</span></code> to it simply by executing the
+following code:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>After executing this cell, the variable <code class="docutils literal notranslate"><span class="pre">a</span></code> can be used in other cells within this notebook, and
+when executing these statements Python will replace the variable <code class="docutils literal notranslate"><span class="pre">a</span></code> with the value currently
+stored there.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">+</span> <span class="mi">15</span>
+<span class="go">17</span>
+</pre></div>
+</div>
+<p>We can also redefine the value of <code class="docutils literal notranslate"><span class="pre">a</span></code> at any time in our notebook, and we can even use the
+current value of <code class="docutils literal notranslate"><span class="pre">a</span></code> when we redefine it.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">17</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">-17</span>
+</pre></div>
+</div>
+<p>Sometimes it is useful to swap the values of given variables.
+The following does <em>not</em> work. (Try it out!)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To swap variables, we can introduce a
+“placeholder” variable as follows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">2 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">z</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">5 2</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Pratice: Enter the following commands into a cell. What do you expect the output will be? Now, execute the cell and check your answers.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">=</span><span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="o">+</span><span class="mi">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>We can also use symbols such as <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> to compare various quantities and variables. We
+can use a double equal sign <code class="docutils literal notranslate"><span class="pre">==</span></code> to test whether two quantities are equal, and <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> to test
+quantities that are less than or equal to, or greater than or equal to each other.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="p">(</span><span class="mi">7</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Notice that the commands <code class="docutils literal notranslate"><span class="pre">a=5</span></code> and <code class="docutils literal notranslate"><span class="pre">a==5</span></code> have different meanings in the above code. In the
+first case we are assigning the value of <code class="docutils literal notranslate"><span class="pre">5</span></code> to the variable <code class="docutils literal notranslate"><span class="pre">a</span></code>, while in the second case we are
+checking the value of <code class="docutils literal notranslate"><span class="pre">a</span></code> and testing if it equals the number <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+<blockquote>
+<div><p>Practice: What will the output of the following cell be?</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">=-</span><span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="o">+</span><span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">==-</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">==-</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Finally, notice that variables in Python can represent a variety of objects, not just numbers.
+For example, variables can represent strings (<code class="docutils literal notranslate"><span class="pre">str</span></code>), which are sequences of characters, or Booleans (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)
+which are variables that are either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="s2">"my string"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="mi">7</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="go">True my string</span>
+</pre></div>
+</div>
+<div class="admonition-lab-instructions admonition">
+<p class="admonition-title">Lab Instructions</p>
+<p>Until this point, all of the code you’ve written should be in your <code class="docutils literal notranslate"><span class="pre">Sandbox</span></code> notebook.
+Create a new notebook called <code class="docutils literal notranslate"><span class="pre">Lab01</span></code>.
+In these labs, the code you’ll turn in for credit will be labeled <code class="docutils literal notranslate"><span class="pre">Task</span></code>.
+Write the code for each Lab 1 task in your <code class="docutils literal notranslate"><span class="pre">Lab01</span></code> notebook.
+For future labs, create a new notebook each time.</p>
+</div>
+</section>
+</section>
+<section id="task-1">
+<h2 id="task-1">Task 1<a class="headerlink" href="#task-1" title="Link to this heading">¶</a></h2>
+<p>Enter the expression</p>
+<div class="math notranslate nohighlight">
+\[\frac{118+11\times 2}{9-2}\]</div>
+<p>and store it as a variable called <code class="docutils literal notranslate"><span class="pre">my_first_var</span></code>.
+Remember to use parentheses to ensure that the order of operations is correct.
+Don’t just save the numerical value of this expression,
+which is <code class="docutils literal notranslate"><span class="pre">20</span></code>. Save the actual expression with the addition, multiplication, division, subtraction, and parentheses as the variable.</p>
+</section>
+<section id="functions-part-1">
+<h2 id="functions-part-1">Functions, Part 1<a class="headerlink" href="#functions-part-1" title="Link to this heading">¶</a></h2>
+<p>In computer programming, like in mathematics, a function is an object which accepts as
+input values from some set, and produces output which depends both on the input values and
+some given rules. In Python we illustrate how to define simple functions with the following
+example.</p>
+<p>Type the following into a cell, and execute it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reciprocal</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+   <span class="c1"># A function that takes the reciprocal of the input n.</span>
+   <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span>
+</pre></div>
+</div>
+<p>Here we have defined a function called <code class="docutils literal notranslate"><span class="pre">reciprocal</span></code>, which has a single input parameter <code class="docutils literal notranslate"><span class="pre">n</span></code>. The
+first line of the function definition begins with <code class="docutils literal notranslate"><span class="pre">def</span></code>, followed by the name of the function, the
+parameters it accepts in parentheses, and ends with a colon. Each line in the remainder of
+the function <strong>must be indented</strong> (which Colab will do for you automatically), and the function
+definition ends with a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement that defines what the output of the function will be. It
+is customary to put a docstring directly below the def statement, which is a comment designed
+to describe the purpose of the function to the user.
+(A comment is anything written after a <code class="docutils literal notranslate"><span class="pre">#</span></code>; Python will ignore it.)
+In the case of our function <code class="docutils literal notranslate"><span class="pre">reciprocal</span></code>, it
+accepts a single value <code class="docutils literal notranslate"><span class="pre">n</span></code> as its input, and it returns the value <code class="docutils literal notranslate"><span class="pre">1/n</span></code> as its output. To evaluate our
+function on a given input, we write it much as one might expect:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reciprocal</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="go">0.07692307692307693</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reciprocal</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>What do you think will happen if we try:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reciprocal</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should have received an ugly error message when you tried to evaluate <code class="docutils literal notranslate"><span class="pre">reciprocal(0)</span></code>,
+as a result of trying to divide by zero. Python will produce an error message anytime you try to
+execute code that violates one of its rules. Learning to interpret error messages is an important
+part of becoming a good programmer. Be warned though, just because you don’t
+get an error message when you execute your code doesn’t mean that your code is doing what
+you want it to be doing. This is why we will always test our code with various input values.</p>
+</div>
+<p>Our functions can also include more lines of code inside of them, which dictate which steps
+to perform before returning the output of the function. We can also define new variables inside
+of a function. In this case, each step in the function should be on its own line, indented from
+the first line of the function.</p>
+<blockquote>
+<div><p>Practice: Define the following function in your practice notebook. Remember to indent all of the
+lines in the function definition from the second line on! Proper use of indentation and
+whitespace is very important in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">arithmetic</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+   <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span>
+   <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="n">j</span>
+   <span class="n">w</span><span class="o">=</span><span class="n">k</span><span class="o">-</span><span class="mi">5</span>
+   <span class="k">return</span> <span class="n">w</span>
+</pre></div>
+</div>
+<p>What output do the following commands produce? (Try to figure it out before you run the code.)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">arithmetic</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">arithmetic</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="task-2">
+<h2 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Link to this heading">¶</a></h2>
+<p>Define a function called <code class="docutils literal notranslate"><span class="pre">arithmetic2(i)</span></code> which does exactly the same thing
+as the function <code class="docutils literal notranslate"><span class="pre">arithmetic(i)</span></code> defined above, but which only has a <code class="docutils literal notranslate"><span class="pre">def</span></code> line and
+a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement. In other words, write a function that does the exact same thing as
+<code class="docutils literal notranslate"><span class="pre">arithmetic(i)</span></code>, but which fits in only two lines of code.</p>
+<div class="admonition-test-your-code admonition">
+<p class="admonition-title">Test your Code</p>
+<p>Whenever you are instructed to write a function in these labs, we will include some test code that you can run to make sure your code is working properly.
+This is a very important step in programming – don’t skip it!</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arithmetic2</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arithmetic2</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">-29</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="functions-part-2">
+<h2 id="functions-part-2">Functions, Part 2<a class="headerlink" href="#functions-part-2" title="Link to this heading">¶</a></h2>
+<p>One item to note in the <code class="docutils literal notranslate"><span class="pre">arithmetic</span></code> example is how variables are treated by Python when they
+are defined inside of a function (like the variables <code class="docutils literal notranslate"><span class="pre">j</span></code>, <code class="docutils literal notranslate"><span class="pre">k</span></code>, and <code class="docutils literal notranslate"><span class="pre">w</span></code> above). They are examples of
+<strong>local</strong> variables, which are defined and can only be accessed from within the function itself. For
+example, when calling the function <code class="docutils literal notranslate"><span class="pre">arithmetic(3)</span></code>, the intermediate variable <code class="docutils literal notranslate"><span class="pre">k</span></code> is assigned the
+value of <code class="docutils literal notranslate"><span class="pre">15</span></code> as part of the evaluation. However, as soon as the function finishes evaluating, the
+variable <code class="docutils literal notranslate"><span class="pre">k</span></code> and its value are immediately discarded, and can no longer be accessed. Trying to
+access it will result in an error message, indicating that we did something wrong:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arithmetic</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k</span>
+<span class="go">NameError: name 'k' is not defined</span>
+</pre></div>
+</div>
+<p>We can define functions that accept multiple values as inputs, functions that output
+multiple return values, and functions that call other functions when they are being evaluated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multiply</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">21</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="n">y</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sum_diff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">(10, -4)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mult_add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+   <span class="n">w</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="n">x</span>  <span class="c1"># Here we call the function multiply that we defined earlier.</span>
+   <span class="k">return</span> <span class="n">w</span>             <span class="c1"># Make sure that the cell containing the definition of multiply has already been executed.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mult_add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">24</span>
+</pre></div>
+</div>
+</section>
+<section id="task-3">
+<h2 id="task-3">Task 3<a class="headerlink" href="#task-3" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Define a function called <code class="docutils literal notranslate"><span class="pre">triple(y)</span></code> which takes a value <code class="docutils literal notranslate"><span class="pre">y</span></code> as input, and outputs <code class="docutils literal notranslate"><span class="pre">3y</span></code>.</p></li>
+<li><p>Define a function called <code class="docutils literal notranslate"><span class="pre">avg(x,y)</span></code> which takes two values <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as input, and outputs the mean of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. Recall that the <em>mean</em> of two numbers <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is defined to be <span class="math notranslate nohighlight">\((a+b)/2\)</span>.</p></li>
+<li><p>Define a function called <code class="docutils literal notranslate"><span class="pre">combine(x,y)</span></code> which takes a pair of input values <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, and finds the mean of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">3y</span></code>. The function <code class="docutils literal notranslate"><span class="pre">combine(x,y)</span></code> should call both of your functions <code class="docutils literal notranslate"><span class="pre">triple(y)</span></code> and <code class="docutils literal notranslate"><span class="pre">avg(x,y)</span></code> in its definition.</p></li>
+</ol>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">triple</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="go">15.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">combine</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">10.5</span>
+</pre></div>
+</div>
+</section>
+<section id="lists">
+<h2 id="lists">Lists<a class="headerlink" href="#lists" title="Link to this heading">¶</a></h2>
+<p>So far, we have seen the <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, and <code class="docutils literal notranslate"><span class="pre">bool</span></code> data types.
+Another very important data type in Python is the <code class="docutils literal notranslate"><span class="pre">list</span></code> data type. A list is an ordered
+collection of objects (which can be numbers, strings, or even other lists), which we specify by
+enclosing them in square brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"Hello"</span><span class="p">,</span><span class="mf">91.7</span><span class="p">,</span><span class="s2">"world"</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="o">-</span><span class="mf">10.2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here the list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> contains two strings, two floats (decimal values), and two integers. We
+can access any of the elements in a given list, or any subset of the elements by indexing and
+slicing. The elements in a list are all labeled from left to right with an integer index, starting
+at zero. For example, the first element in <code class="docutils literal notranslate"><span class="pre">my_list</span></code> is <code class="docutils literal notranslate"><span class="pre">"Hello"</span></code> which has index <code class="docutils literal notranslate"><span class="pre">0</span></code>, the second
+element is <code class="docutils literal notranslate"><span class="pre">91.7</span></code> and has index <code class="docutils literal notranslate"><span class="pre">1</span></code>, and so on. To access any of the individual objects in the list,
+we use a pair of square brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code> as in the following example.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">Hello</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">100</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>An important thing to remember is that Python begins indexing elements of a list starting
+at <code class="docutils literal notranslate"><span class="pre">0</span></code>. This may seem unusual at first, since humans typically start counting objects with the
+number <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</div>
+<p>We can also access elements from the end of a list by using negative numbers.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">-10.2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">15</span>
+</pre></div>
+</div>
+<p>If we would like to access a range of characters in a list, we can slice the list <code class="docutils literal notranslate"><span class="pre">L</span></code> using the
+notation <code class="docutils literal notranslate"><span class="pre">L[start:stop]</span></code>, where <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> are both integer index values. Using
+this command will return all of the objects in <code class="docutils literal notranslate"><span class="pre">L</span></code> that are between the positions <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code>.
+It will <strong>include</strong> <code class="docutils literal notranslate"><span class="pre">start</span></code> and <strong>exclude</strong> <code class="docutils literal notranslate"><span class="pre">stop</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">L</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="go">[3,4,5]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">[4,5]</span>
+</pre></div>
+</div>
+<p>By not specifying a starting or stopping index, Python returns the elements starting at the
+beginning of the list, or stopping at the end.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">[0,1,2,3]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+<span class="go">[3,4,5,6]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">[5,6]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is something you will need to be careful about when using lists in Python, and in
+particular when you are trying to copy a list. Suppose I create a list, called <code class="docutils literal notranslate"><span class="pre">list_a</span></code> with the
+values <code class="docutils literal notranslate"><span class="pre">[1,2,3]</span></code>. Suppose I then create a second list <code class="docutils literal notranslate"><span class="pre">list_b</span></code>, and assign it the value of <code class="docutils literal notranslate"><span class="pre">list_a</span></code>.
+As expected, when we print the values of <code class="docutils literal notranslate"><span class="pre">list_b</span></code> Python returns the list <code class="docutils literal notranslate"><span class="pre">[1,2,3]</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">list_a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list_b</span><span class="o">=</span><span class="n">list_a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You might expect that what we’ve done above is to create two separate lists, <code class="docutils literal notranslate"><span class="pre">list_a</span></code> and <code class="docutils literal notranslate"><span class="pre">list_b</span></code>,
+both of which happen to have the same values. However, we have actually only created a single
+list, but given it two different names <code class="docutils literal notranslate"><span class="pre">list_a</span></code> and <code class="docutils literal notranslate"><span class="pre">list_b</span></code> to reference it by! For example, if we
+change one of the entries in <code class="docutils literal notranslate"><span class="pre">list_b</span></code>, we will also be changing the list <code class="docutils literal notranslate"><span class="pre">list_a</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">list_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
+<span class="go">[100,2,3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">)</span>
+<span class="go">[100,2,3]</span>
+</pre></div>
+</div>
+<p>There are several ways to create a new copy of a list, which will avoid this behavior. One is
+by using the command <code class="docutils literal notranslate"><span class="pre">list_a.copy()</span></code>, which we illustrate below.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">list_a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list_b</span><span class="o">=</span><span class="n">list_a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Here we create a separate copy of list_a, and assign it to list_b.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">)</span>
+<span class="go">[1,2,3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
+<span class="go">[1,2,3]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">list_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>         <span class="c1"># Now this only changes list_b.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_a</span><span class="p">)</span>
+<span class="go">[1,2,3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
+<span class="go">[100,2,3]</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, we can change lists in a number of ways. One way is to use the index of a list element
+to access that element and to redefine it directly.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="go">[1,2,-15,4]</span>
+</pre></div>
+</div>
+</section>
+<section id="task-4">
+<h2 id="task-4">Task 4<a class="headerlink" href="#task-4" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Write a function <code class="docutils literal notranslate"><span class="pre">first(c)</span></code> which accepts as input any list <code class="docutils literal notranslate"><span class="pre">c</span></code>, and outputs the first element in the list <code class="docutils literal notranslate"><span class="pre">c</span></code>.</p></li>
+<li><p>Write a function <code class="docutils literal notranslate"><span class="pre">first_last(c)</span></code> which accepts as input a list <code class="docutils literal notranslate"><span class="pre">c</span></code>, and outputs two values, the first element and the last element of <code class="docutils literal notranslate"><span class="pre">c</span></code> (in that order).</p></li>
+<li><p>Write a function <code class="docutils literal notranslate"><span class="pre">middle(c)</span></code> which accepts as input a list <code class="docutils literal notranslate"><span class="pre">c</span></code>, and outputs a list which is the same as <code class="docutils literal notranslate"><span class="pre">c</span></code> except that the first element and the last element have been removed.</p></li>
+</ol>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_last</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="go">(1, 5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">middle</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="go">[2,3,4]</span>
+</pre></div>
+</div>
+</section>
+<section id="task-5">
+<h2 id="task-5">Task 5<a class="headerlink" href="#task-5" title="Link to this heading">¶</a></h2>
+<p>Define a function <code class="docutils literal notranslate"><span class="pre">swap(c)</span></code> which accepts a list <code class="docutils literal notranslate"><span class="pre">c</span></code> with two or more elements,
+and returns another list which is the same as <code class="docutils literal notranslate"><span class="pre">c</span></code> except that the first and last elements are
+switched.</p>
+<p>The first line of code in your <code class="docutils literal notranslate"><span class="pre">swap</span></code> function should be</p>
+<p><code class="docutils literal notranslate"><span class="pre">copied_list=c.copy()</span></code></p>
+<p>The rest of your function should only reference <code class="docutils literal notranslate"><span class="pre">copied_list</span></code> so that the original list <code class="docutils literal notranslate"><span class="pre">c</span></code> remains unchanged.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">swap</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">[5,1,2,3,4,0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span>
+<span class="go">[0,1,2,3,4,5]</span>
+</pre></div>
+</div>
+</section>
+<section id="conditionals">
+<h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Link to this heading">¶</a></h2>
+<p>So far we have enough tools to create functions which perform arithmetic operations and
+rearrange lists, but not much else. To define more complicated functions we will need a few
+more building blocks. We will end this lab by talking about <code class="docutils literal notranslate"><span class="pre">if</span></code> statements, and will learn about
+<code class="docutils literal notranslate"><span class="pre">for</span></code> loops in the next lab. We introduce <code class="docutils literal notranslate"><span class="pre">if</span></code> statements with the following example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span><span class="o">&lt;</span><span class="mi">7</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"1 is less than 7"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"1 is not less than 7"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All <code class="docutils literal notranslate"><span class="pre">if</span></code> statements start with a condition, or question, whose answer may be either <code class="docutils literal notranslate"><span class="pre">True</span></code> or
+<code class="docutils literal notranslate"><span class="pre">False</span></code>. In our case, this question is asking whether the number <code class="docutils literal notranslate"><span class="pre">1</span></code> is less than <code class="docutils literal notranslate"><span class="pre">7</span></code>. When Python
+executes the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement it first checks to determine whether the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+If the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> then Python will continue and execute the code which is contained
+immediately below the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement line (this code needs to be indented). If, on the other
+hand, the condition is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then Python will jump immediately to the <code class="docutils literal notranslate"><span class="pre">else</span></code> line and execute
+the indented block of code below it, skipping over any commands in between.</p>
+<p>In our case, because 1 is indeed less than 7, Python will execute the line after the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, and will print the following output.</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">is</span> <span class="pre">less</span> <span class="pre">than</span> <span class="pre">7</span></code></p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">if</span></code> statements do not need to be followed by <code class="docutils literal notranslate"><span class="pre">else</span></code> statements. If an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement
+is not followed by an <code class="docutils literal notranslate"><span class="pre">else</span></code> statement, and the condition contained in the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+then the code won’t do anything:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span><span class="o">&gt;</span><span class="mi">7</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"1 is greater than 7"</span><span class="p">)</span>  <span class="c1">#This won't execute since 1&gt;7 is False.</span>
+</pre></div>
+</div>
+<p>Notice that we can also write <code class="docutils literal notranslate"><span class="pre">if</span></code> statements that contain more than one step. Every step that
+we want to be evaluated should be indented beneath the <code class="docutils literal notranslate"><span class="pre">if</span></code> line or the <code class="docutils literal notranslate"><span class="pre">else</span></code> line (depending on
+if we want it to be evaluated when the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> respectively).</p>
+<p>What will the following code output? And what will the value of <code class="docutils literal notranslate"><span class="pre">a</span></code> be when the code is finished executing?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=-</span><span class="mi">5</span>
+
+<span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="mi">7</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"a was equal to 7"</span><span class="p">)</span>  <span class="c1"># Both of these indented lines will be</span>
+   <span class="n">a</span><span class="o">=</span><span class="mi">4</span>                        <span class="c1"># evaluated if a is equal to 7.</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"a was not equal to 7"</span><span class="p">)</span> <span class="c1"># Both of these indented lines will</span>
+   <span class="n">a</span><span class="o">=</span><span class="mi">7</span>                           <span class="c1"># be evaluated if a is not equal to 7.</span>
+</pre></div>
+</div>
+<p>The most important use of conditional statements is in function definitions.
+Consider the following functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mi">0</span>
+   <span class="k">else</span>
+      <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>Every time we call the function <code class="docutils literal notranslate"><span class="pre">f(x)</span></code> only one of the two <code class="docutils literal notranslate"><span class="pre">return</span></code> statements is
+being executed, while the other is simply skipped over depending on whether the <code class="docutils literal notranslate"><span class="pre">if</span></code> evaluates
+the condition to be <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</section>
+<section id="task-6">
+<h2 id="task-6">Task 6<a class="headerlink" href="#task-6" title="Link to this heading">¶</a></h2>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">absolute_value(x)</span></code> which accepts as input a single
+number <code class="docutils literal notranslate"><span class="pre">x</span></code>, and returns the absolute value of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">absolute_value</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">absolute_value</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+</section>
+<section id="compound-conditions">
+<h2 id="compound-conditions">Compound Conditions<a class="headerlink" href="#compound-conditions" title="Link to this heading">¶</a></h2>
+<p>To test more complicated conditions it is useful to use the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators. The statement <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">and</span> <span class="pre">Q</span></code> will return <code class="docutils literal notranslate"><span class="pre">True</span></code> only if both <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span></code> are <code class="docutils literal notranslate"><span class="pre">True</span></code>. If either one of, or both of, <code class="docutils literal notranslate"><span class="pre">P</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Q</span></code> are <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the statement <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span></code> will return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">10</span><span class="o">&lt;</span><span class="mi">11</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">&gt;=-</span><span class="mi">12</span><span class="p">)</span>   <span class="c1"># This will return True because both (10&lt;11) and (-3&gt;=-12) are True.</span>
+<span class="p">(</span><span class="mi">10</span><span class="o">&lt;</span><span class="mi">11</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">==-</span><span class="mi">12</span><span class="p">)</span>   <span class="c1"># This will return False because one of the statements is False.</span>
+<span class="p">(</span><span class="mi">10</span><span class="o">==</span><span class="mi">11</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">==-</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># This will also return False because both of the statements are False.</span>
+</pre></div>
+</div>
+<p>The statement <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">or</span> <span class="pre">Q</span></code>, on the other hand, will return <code class="docutils literal notranslate"><span class="pre">True</span></code> if at least one of, or both of, <code class="docutils literal notranslate"><span class="pre">P</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Q</span></code> are true. The only situation in which <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">or</span> <span class="pre">Q</span></code> will return False is if both <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span></code> are
+False.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">10</span><span class="o">&lt;</span><span class="mi">11</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">&gt;=-</span><span class="mi">12</span><span class="p">)</span>    <span class="c1"># This will return True because at least one of the statements is True.</span>
+<span class="p">(</span><span class="mi">10</span><span class="o">&lt;</span><span class="mi">11</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">==-</span><span class="mi">12</span><span class="p">)</span>    <span class="c1"># This will return True because at least one of the statements is True.</span>
+<span class="p">(</span><span class="mi">10</span><span class="o">==</span><span class="mi">11</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">==-</span><span class="mi">12</span><span class="p">)</span>   <span class="c1"># This will return False because both of the statements are False.</span>
+</pre></div>
+</div>
+</section>
+<section id="task-7">
+<h2 id="task-7">Task 7<a class="headerlink" href="#task-7" title="Link to this heading">¶</a></h2>
+<p>Define a function, called <code class="docutils literal notranslate"><span class="pre">indicator(lower,upper,n)</span></code> which accepts as input
+three numbers <code class="docutils literal notranslate"><span class="pre">lower</span></code>, <code class="docutils literal notranslate"><span class="pre">upper</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code>, with <code class="docutils literal notranslate"><span class="pre">lower</span> <span class="pre">&lt;=</span> <span class="pre">upper</span></code>, and returns <code class="docutils literal notranslate"><span class="pre">1</span></code> if the number <code class="docutils literal notranslate"><span class="pre">n</span></code>
+satisfies <code class="docutils literal notranslate"><span class="pre">lower</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">upper</span></code>, and returns <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+<section id="task-8">
+<h2 id="task-8">Task 8<a class="headerlink" href="#task-8" title="Link to this heading">¶</a></h2>
+<p>Define a function, called <code class="docutils literal notranslate"><span class="pre">trunc_max(x,y)</span></code> which accepts as input two numbers
+<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and returns the larger of the two numbers if at least one of them is positive, and
+returns <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trunc_max</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trunc_max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trunc_max</span><span class="p">(</span><span class="o">-</span><span class="mi">173</span><span class="p">,</span><span class="o">-</span><span class="mi">21</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>You may need to use multiple <code class="docutils literal notranslate"><span class="pre">if</span></code> statements, possibly nested inside each other. Remember that every time you call an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, you need to indent the code inside the
+<code class="docutils literal notranslate"><span class="pre">if</span></code> statement.
+Here is some “pseudocode” to get you started:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">if both numbers are negative:</span>
+<span class="go">   return 0</span>
+<span class="go">else:</span>
+<span class="go">   if the first number is larger than the second:</span>
+<span class="go">      return the first number</span>
+<span class="go">   else:</span>
+<span class="go">      return the second number</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="index.html" title="Welcome to the Fall EMC2 Python Labs"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> "Previous" </span> Welcome to the Fall EMC2 Python Labs </span>
+              </div>
+            </a>
+          
+          
+            <a href="lab02.html" title="Lab 2: Introduction to Python, Part II"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> "Next" </span> Lab 2: Introduction to Python, Part II </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2024, Nick Andersen.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>Lab 19: Plotting Vector Valued Functions &#8212; Math 495R EMC2 Python Labs</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=83e35b93" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=6fefd858"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 20: Approximate Integration" href="lab20.html" />
+    <link rel="prev" title="Lab 18: K-Means Clustering" href="lab18.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=blue-grey data-md-color-accent=blue>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#lab19" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="Math 495R EMC2 Python Labs"
+           class="md-header-nav__button md-logo">
+          
+            &nbsp;
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Winter EMC2 Labs</span>
+          <span class="md-header-nav__topic"> Lab 19: Plotting Vector Valued Functions </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+      
+  
+  <script src="_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = ""versions.json"",
+        target_loc = "../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">Math 495R EMC2 Python Labs</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="Math 495R EMC2 Python Labs" class="md-nav__button md-logo">
+      
+        <img src="_static/" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="index.html"
+       title="Math 495R EMC2 Python Labs">Winter EMC2 Labs</a>
+  </label>
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="SQLlab.html" class="md-nav__link">Lab 0: An Introduction to SQL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab01.html" class="md-nav__link">Lab 1: Introduction to Plotting</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab02.html" class="md-nav__link">Lab 2: Introduction to Plotting and Sequences</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab03.html" class="md-nav__link">Lab 3: Introduction to Space Curves</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab04.html" class="md-nav__link">Lab 4: Searching in a Sorted List</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab05.html" class="md-nav__link">Lab 5: Planes, Trains and Automobiles</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab06.html" class="md-nav__link">Lab 6: Sorting and Complexity of Algorithms</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab07.html" class="md-nav__link">Lab 7: Introduction to Series</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab08.html" class="md-nav__link">Lab 8: Plotting Surfaces in 3-D</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab09.html" class="md-nav__link">Lab 9: Symbolic Python and Partial Differentiation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab10.html" class="md-nav__link">Lab 10: A Very Basic Program</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab11.html" class="md-nav__link">Lab 11: Root Finding and Newton’s Method</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab12.html" class="md-nav__link">Lab 12: One-dimensional Optimization and Gradient Descent</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab13.html" class="md-nav__link">Lab 13: Exploring Sequences and Limit Points</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab14.html" class="md-nav__link">Lab 14: Riemann Sums</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab15.html" class="md-nav__link">Lab 15: Monte Carlo Integration</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab16.html" class="md-nav__link">Lab 16: Geometry in Higher Dimensions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab17.html" class="md-nav__link">Lab 17: Rearrangements of Conditionally Convergent Series</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab18.html" class="md-nav__link">Lab 18: K-Means Clustering</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Lab 19: Plotting Vector Valued Functions </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Lab 19: Plotting Vector Valued Functions</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab19--page-root" class="md-nav__link">Lab 19: Plotting Vector Valued Functions</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1a" class="md-nav__link">Task 1a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-1b" class="md-nav__link">Task 1b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-1c" class="md-nav__link">Task 1c</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#gradient-vector-fields" class="md-nav__link">Gradient Vector Fields</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-2a" class="md-nav__link">Task 2a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2b" class="md-nav__link">Task 2b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2c" class="md-nav__link">Task 2c</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#vector-fields-in-higher-dimensions" class="md-nav__link">Vector Fields in Higher Dimensions</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-3a" class="md-nav__link">Task 3a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3b" class="md-nav__link">Task 3b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3c" class="md-nav__link">Task 3c</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3d" class="md-nav__link">Task 3d</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3e" class="md-nav__link">Task 3e</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab19.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab20.html" class="md-nav__link">Lab 20: Approximate Integration</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab21.html" class="md-nav__link">Lab 21: Iterating Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab22.html" class="md-nav__link">Lab 22: Fractals with Turtle</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab23.html" class="md-nav__link">Lab 23: Finding Areas of Arbitrary Polygons</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab24.html" class="md-nav__link">Lab 24: Basins of Attraction</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab19--page-root" class="md-nav__link">Lab 19: Plotting Vector Valued Functions</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1a" class="md-nav__link">Task 1a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-1b" class="md-nav__link">Task 1b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-1c" class="md-nav__link">Task 1c</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#gradient-vector-fields" class="md-nav__link">Gradient Vector Fields</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-2a" class="md-nav__link">Task 2a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2b" class="md-nav__link">Task 2b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2c" class="md-nav__link">Task 2c</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#vector-fields-in-higher-dimensions" class="md-nav__link">Vector Fields in Higher Dimensions</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#task-3a" class="md-nav__link">Task 3a</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3b" class="md-nav__link">Task 3b</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3c" class="md-nav__link">Task 3c</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3d" class="md-nav__link">Task 3d</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3e" class="md-nav__link">Task 3e</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab19.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="lab-19-plotting-vector-valued-functions">
+<h1 id="lab19--page-root">Lab 19: Plotting Vector Valued Functions<a class="headerlink" href="#lab19--page-root" title="Link to this heading">¶</a></h1>
+<p>In this lab you will create visualizations to help you understand vector fields. Before beginning the lab, please review how to create quiver plots in python.</p>
+<p><a class="reference external" href="http://problemsolvingwithpython.com/06-Plotting-with-Matplotlib/06.15-Quiver-and-Stream-Plots/">http://problemsolvingwithpython.com/06-Plotting-with-Matplotlib/06.15-Quiver-and-Stream-Plots/</a></p>
+<p>A quiver plot is a plot that shows vectors as arrows and is especially useful when talking about vector fields.</p>
+<p>To practice, plot the vector field <span class="math notranslate nohighlight">\(\mathbf F(x,y) = (y^2 - 2xy)\mathbf i + (3xy-6x^2)\mathbf j\)</span>. This won’t be graded.</p>
+<section id="task-1a">
+<h2 id="task-1a">Task 1a<a class="headerlink" href="#task-1a" title="Link to this heading">¶</a></h2>
+<p>Write a function, <code class="docutils literal notranslate"><span class="pre">plot_vfield_2d(F,</span> <span class="pre">xa,</span> <span class="pre">xb,</span> <span class="pre">ya,</span> <span class="pre">yb,</span> <span class="pre">dx,</span> <span class="pre">dy,</span> <span class="pre">title)</span></code>, that plots the vector field for a vector-valued function, <code class="docutils literal notranslate"><span class="pre">F</span></code>, on the domain <code class="docutils literal notranslate"><span class="pre">[xa,</span> <span class="pre">xb]</span> <span class="pre">X</span> <span class="pre">[ya,</span> <span class="pre">yb]</span></code> with step sizes <code class="docutils literal notranslate"><span class="pre">dx</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code>. Recall that the tails of your vectors are the inputs to <code class="docutils literal notranslate"><span class="pre">F</span></code> and the tips of your vectors are the outputs from <code class="docutils literal notranslate"><span class="pre">F</span></code>. Be sure to set the aspect ratio of the plot to <code class="docutils literal notranslate"><span class="pre">"equal"</span></code> and to set the display bounds to <code class="docutils literal notranslate"><span class="pre">[xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx]</span> <span class="pre">X</span> <span class="pre">[ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy]</span></code> using <code class="docutils literal notranslate"><span class="pre">plt.axis([xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx,</span> <span class="pre">ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy])</span></code> and to set the title to <code class="docutils literal notranslate"><span class="pre">title</span></code> if provided. Do NOT change any other properties of the plot.</p>
+</section>
+<section id="task-1b">
+<h2 id="task-1b">Task 1b<a class="headerlink" href="#task-1b" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <span class="math notranslate nohighlight">\(\mathbf F(x) = (r^2 - 2r)\mathbf x\)</span>, where <span class="math notranslate nohighlight">\(\mathbf x = \langle x,y \rangle\)</span> and <span class="math notranslate nohighlight">\(r = |\mathbf x|\)</span>. In NumPy, this might be written as <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.linalg.norm(x,</span> <span class="pre">axis=0)</span> <span class="pre">*</span> <span class="pre">(np.linalg.norm(x,</span> <span class="pre">axis=0)</span> <span class="pre">-</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">x</span></code>. Visualize this function on <code class="docutils literal notranslate"><span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,1]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.1</span></code> and <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p>
+</section>
+<section id="task-1c">
+<h2 id="task-1c">Task 1c<a class="headerlink" href="#task-1c" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.linalg.norm(x,</span> <span class="pre">axis=0)</span> <span class="pre">*</span> <span class="pre">(np.linalg.norm(x,</span> <span class="pre">axis=0)</span> <span class="pre">-</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">x</span></code> on <code class="docutils literal notranslate"><span class="pre">[-5,5]</span> <span class="pre">X</span> <span class="pre">[-5,5]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
+<section id="gradient-vector-fields">
+<h3 id="gradient-vector-fields">Gradient Vector Fields<a class="headerlink" href="#gradient-vector-fields" title="Link to this heading">¶</a></h3>
+<p>In the next few tasks, we will plot the gradient vector field of <span class="math notranslate nohighlight">\(f\)</span> together with a contour map of <span class="math notranslate nohighlight">\(f\)</span> for:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f(x,y) = \ln(1+x^2+2y^2)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x,y) = \cos x - 2 \sin y\)</span></p></li>
+</ul>
+</section>
+</section>
+<section id="task-2a">
+<h2 id="task-2a">Task 2a<a class="headerlink" href="#task-2a" title="Link to this heading">¶</a></h2>
+<p>Write a function, <code class="docutils literal notranslate"><span class="pre">plot_sfield_2d(f,</span> <span class="pre">Df,</span> <span class="pre">xa,</span> <span class="pre">xb,</span> <span class="pre">ya,</span> <span class="pre">yb,</span> <span class="pre">dx,</span> <span class="pre">dy,</span> <span class="pre">title)</span></code>, that plots the scalar field for a two-dimensional, scalar-valued function, <code class="docutils literal notranslate"><span class="pre">f</span></code>, using a contour plot and plots the vector field of its gradient, <code class="docutils literal notranslate"><span class="pre">Df</span></code>, on top on the domain <code class="docutils literal notranslate"><span class="pre">[xa,</span> <span class="pre">xb]</span> <span class="pre">X</span> <span class="pre">[ya,</span> <span class="pre">yb]</span></code> with step sizes <code class="docutils literal notranslate"><span class="pre">dx</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code>. Be sure to set the aspect ratio of the plot to <code class="docutils literal notranslate"><span class="pre">"equal"</span></code> and to set the display bounds to <code class="docutils literal notranslate"><span class="pre">[xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx]</span> <span class="pre">X</span> <span class="pre">[ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy]</span></code> using <code class="docutils literal notranslate"><span class="pre">plt.axis([xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx,</span> <span class="pre">ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy])</span></code> and to set the title to <code class="docutils literal notranslate"><span class="pre">title</span></code> if provided and display the colorbar (using <code class="docutils literal notranslate"><span class="pre">plt.colorbar(ax)</span></code>). Do NOT change any other properties of the plot.</p>
+</section>
+<section id="task-2b">
+<h2 id="task-2b">Task 2b<a class="headerlink" href="#task-2b" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.log(1</span> <span class="pre">+</span> <span class="pre">x[0]</span> <span class="pre">**</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">x[1]</span> <span class="pre">**</span> <span class="pre">2)</span></code> and <code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">np.array([x[0],</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">x[1]])</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x[0]</span> <span class="pre">**</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">x[1]</span> <span class="pre">**</span> <span class="pre">2)</span></code> on <code class="docutils literal notranslate"><span class="pre">[-5,5]</span> <span class="pre">X</span> <span class="pre">[-5,5]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">16</span></code> levels.</p>
+</section>
+<section id="task-2c">
+<h2 id="task-2c">Task 2c<a class="headerlink" href="#task-2c" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.cos(x[0])</span> <span class="pre">-</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">np.sin(x[1])</span></code> and <code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">-np.array([np.sin(x[0]),</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">np.cos(x[1])])</span></code> on <code class="docutils literal notranslate"><span class="pre">[-5,5]</span> <span class="pre">X</span> <span class="pre">[-5,5]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">0.5</span></code> and <code class="docutils literal notranslate"><span class="pre">16</span></code> levels.</p>
+<section id="vector-fields-in-higher-dimensions">
+<h3 id="vector-fields-in-higher-dimensions">Vector Fields in Higher Dimensions<a class="headerlink" href="#vector-fields-in-higher-dimensions" title="Link to this heading">¶</a></h3>
+<p>Of course there are also vector fields in higher dimensions. See <a class="reference external" href="http://matplotlib.org/3.1.1/gallery/mplot3d/quiver3d.html">http://matplotlib.org/3.1.1/gallery/mplot3d/quiver3d.html</a></p>
+<p>In the following tasks, we will plot these vector fields:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf F(x,y,z) = \mathbf i + 2\mathbf j + 3 \mathbf k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf F(x,y,z) = \mathbf i + 2\mathbf j + z \mathbf k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf F(x,y,z) = x\mathbf i + y\mathbf j + z \mathbf k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf F(x,y,z) = \sin y\mathbf i + (x\cos y + \cos z)\mathbf j - y \sin z \mathbf k\)</span></p></li>
+</ul>
+</section>
+</section>
+<section id="task-3a">
+<h2 id="task-3a">Task 3a<a class="headerlink" href="#task-3a" title="Link to this heading">¶</a></h2>
+<p>Write a function, <code class="docutils literal notranslate"><span class="pre">plot_vfield_3d(F,</span> <span class="pre">xa,</span> <span class="pre">xb,</span> <span class="pre">ya,</span> <span class="pre">yb,</span> <span class="pre">za,</span> <span class="pre">zb,</span> <span class="pre">dx,</span> <span class="pre">dy,</span> <span class="pre">dz,</span> <span class="pre">length,</span> <span class="pre">title)</span></code>, that plots the vector field for a vector-valued function, <code class="docutils literal notranslate"><span class="pre">F</span></code>, on the domain <code class="docutils literal notranslate"><span class="pre">[xa,</span> <span class="pre">xb]</span> <span class="pre">X</span> <span class="pre">[ya,</span> <span class="pre">yb]</span> <span class="pre">X</span> <span class="pre">[za,</span> <span class="pre">zb]</span></code> with step sizes <code class="docutils literal notranslate"><span class="pre">dx</span></code>, <code class="docutils literal notranslate"><span class="pre">dy</span></code>, and <code class="docutils literal notranslate"><span class="pre">dz</span></code> and a forced arrow length, <code class="docutils literal notranslate"><span class="pre">length</span></code> (set <code class="docutils literal notranslate"><span class="pre">normalize=True</span></code>). Recall that the tails of your vectors are the inputs to <code class="docutils literal notranslate"><span class="pre">F</span></code> and the tips of your vectors are the outputs from <code class="docutils literal notranslate"><span class="pre">F</span></code>. Be sure to set the aspect ratio of the plot to <code class="docutils literal notranslate"><span class="pre">"equal"</span></code> and to set the display bounds to <code class="docutils literal notranslate"><span class="pre">[xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx]</span> <span class="pre">X</span> <span class="pre">[ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy]</span> <span class="pre">X</span> <span class="pre">[za</span> <span class="pre">-</span> <span class="pre">dz,</span> <span class="pre">zb</span> <span class="pre">+</span> <span class="pre">dz]</span></code> using <code class="docutils literal notranslate"><span class="pre">plt.axis([xa</span> <span class="pre">-</span> <span class="pre">dx,</span> <span class="pre">xb</span> <span class="pre">+</span> <span class="pre">dx,</span> <span class="pre">ya</span> <span class="pre">-</span> <span class="pre">dy,</span> <span class="pre">yb</span> <span class="pre">+</span> <span class="pre">dy,</span> <span class="pre">za</span> <span class="pre">-</span> <span class="pre">dz,</span> <span class="pre">zb</span> <span class="pre">+</span> <span class="pre">dz])</span></code> and to set the title to <code class="docutils literal notranslate"><span class="pre">title</span></code> if provided. Use <code class="docutils literal notranslate"><span class="pre">plt.subplot(111,</span> <span class="pre">projection="3d")</span></code> to create a 3d plot in CodeBuddy. Do NOT change any other properties of the plot.</p>
+</section>
+<section id="task-3b">
+<h2 id="task-3b">Task 3b<a class="headerlink" href="#task-3b" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.array([1,</span> <span class="pre">2,</span> <span class="pre">3])</span></code> on <code class="docutils literal notranslate"><span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,</span> <span class="pre">1]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.4</span></code> and an arrow length of <code class="docutils literal notranslate"><span class="pre">0.2</span></code>.</p>
+</section>
+<section id="task-3c">
+<h2 id="task-3c">Task 3c<a class="headerlink" href="#task-3c" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.array([np.ones_like(x[0]),</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">np.ones_like(x[1]),</span> <span class="pre">x[2]])</span></code> on <code class="docutils literal notranslate"><span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,</span> <span class="pre">1]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.4</span></code> and an arrow length of <code class="docutils literal notranslate"><span class="pre">0.2</span></code>.</p>
+</section>
+<section id="task-3d">
+<h2 id="task-3d">Task 3d<a class="headerlink" href="#task-3d" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x</span></code> on <code class="docutils literal notranslate"><span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,1]</span> <span class="pre">X</span> <span class="pre">[-1,</span> <span class="pre">1]</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.4</span></code> and an arrow length of <code class="docutils literal notranslate"><span class="pre">0.2</span></code>.</p>
+</section>
+<section id="task-3e">
+<h2 id="task-3e">Task 3e<a class="headerlink" href="#task-3e" title="Link to this heading">¶</a></h2>
+<p>Use your code from the previous exercise to visualize <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">np.array([np.sin(x[1]),</span> <span class="pre">x[0]</span> <span class="pre">*</span> <span class="pre">np.cos(x[1])</span> <span class="pre">+</span> <span class="pre">np.cos(x[2]),</span> <span class="pre">-x[1]</span> <span class="pre">*</span> <span class="pre">np.sin(x[2])])</span></code> with step sizes of <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, <code class="docutils literal notranslate"><span class="pre">0.4</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.4</span></code> and an arrow length of <code class="docutils literal notranslate"><span class="pre">0.2</span></code>.</p>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="lab18.html" title="Lab 18: K-Means Clustering"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> "Previous" </span> Lab 18: K-Means Clustering </span>
+              </div>
+            </a>
+          
+          
+            <a href="lab20.html" title="Lab 20: Approximate Integration"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> "Next" </span> Lab 20: Approximate Integration </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2024, Nick Andersen.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

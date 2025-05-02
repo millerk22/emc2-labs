@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>Lab 21: Least Squares Lab &#8212; Math 495R EMC2 Python Labs</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=83e35b93" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=6fefd858"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 22: Determinants" href="lab22.html" />
+    <link rel="prev" title="Lab 20: Cracking the Vigenère Cipher" href="lab20.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=blue-grey data-md-color-accent=blue>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#lab21" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="Math 495R EMC2 Python Labs"
+           class="md-header-nav__button md-logo">
+          
+            &nbsp;
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Fall EMC2 Labs</span>
+          <span class="md-header-nav__topic"> Lab 21: Least Squares Lab </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+      
+  
+  <script src="_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = ""versions.json"",
+        target_loc = "../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">Math 495R EMC2 Python Labs</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="Math 495R EMC2 Python Labs" class="md-nav__button md-logo">
+      
+        <img src="_static/" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="index.html"
+       title="Math 495R EMC2 Python Labs">Fall EMC2 Labs</a>
+  </label>
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="lab01.html" class="md-nav__link">Lab 1: Introduction to Python, Part I</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab02.html" class="md-nav__link">Lab 2: Introduction to Python, Part II</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab03.html" class="md-nav__link">Lab 3: Introduction to Python, Part III</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab04.html" class="md-nav__link">Lab 4: Introduction to LaTeX</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab05.html" class="md-nav__link">Lab 5: Vector Arithmetic Using Python Lists</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab06.html" class="md-nav__link">Lab 6: The Caesar Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab07.html" class="md-nav__link">Lab 7: Matrix Row Reduction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab08.html" class="md-nav__link">Lab 8: The Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab09.html" class="md-nav__link">Lab 9: Solving Systems of Linear Equations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab10.html" class="md-nav__link">Lab 10: Counterexamples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab11.html" class="md-nav__link">Lab 11: Inverting matrices</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab12.html" class="md-nav__link">Lab 12: Recursion</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab13.html" class="md-nav__link">Lab 13: Basis-finding</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab14.html" class="md-nav__link">Lab 14: Applications of Eigenvectors</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab15.html" class="md-nav__link">Lab 15: The Euclidean Algorithm</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab16.html" class="md-nav__link">Lab 16: The Gram-Schmidt Process</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab17.html" class="md-nav__link">Lab 17: Recursion Reloaded</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab18.html" class="md-nav__link">Lab 18: Modular Arithmetic</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab19.html" class="md-nav__link">Lab 19: Image Compression with SVD</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab20.html" class="md-nav__link">Lab 20: Cracking the Vigenère Cipher</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Lab 21: Least Squares Lab </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Lab 21: Least Squares Lab</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab21--page-root" class="md-nav__link">Lab 21: Least Squares Lab</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#polynomial-regression" class="md-nav__link">Polynomial Regression</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#computing-linear-regression-for-diabetes-data" class="md-nav__link">Computing Linear Regression for Diabetes Data</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-5" class="md-nav__link">Task 5</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab21.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab22.html" class="md-nav__link">Lab 22: Determinants</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab23.html" class="md-nav__link">Lab 23: The Lean Theorem Prover</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="lab24.html" class="md-nav__link">Lab 24: Lucas Sequences</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#lab21--page-root" class="md-nav__link">Lab 21: Least Squares Lab</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#polynomial-regression" class="md-nav__link">Polynomial Regression</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-1" class="md-nav__link">Task 1</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-2" class="md-nav__link">Task 2</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-3" class="md-nav__link">Task 3</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#computing-linear-regression-for-diabetes-data" class="md-nav__link">Computing Linear Regression for Diabetes Data</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#task-4" class="md-nav__link">Task 4</a>
+        </li>
+        <li class="md-nav__item"><a href="#task-5" class="md-nav__link">Task 5</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/lab21.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="lab-21-least-squares-lab">
+<h1 id="lab21--page-root">Lab 21: Least Squares Lab<a class="headerlink" href="#lab21--page-root" title="Link to this heading">¶</a></h1>
+<p>In this lab you will use least squares to obtain “lines of best fit” in regression tasks.
+You will need to import the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_diabetes</span>
+</pre></div>
+</div>
+<p>In various scientific domains, experimental data is used to infer mathematical relationships between input variables and associated outputs.
+We have a set of data points <span class="math notranslate nohighlight">\(\{(x_i, y_i)\}_{i=1}^n\)</span> where <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span> are the inputs and <span class="math notranslate nohighlight">\(y_i \in \mathbb{R}\)</span> are the associated outputs.
+We desire a function that approximates the mapping from inputs (i.e., independent variables) to outputs (i.e., dependent variables).
+This task is referred to as <strong>regression</strong>; it is ubiquitous in data-driven modeling and can be solved via the method of least squares.</p>
+<section id="polynomial-regression">
+<h2 id="polynomial-regression">Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Link to this heading">¶</a></h2>
+<p>For simplicity, let’s consider the degree <span class="math notranslate nohighlight">\(p\)</span> <strong>polynomial regression</strong> in the 1D case, where <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}\)</span>.</p>
+<p>To review least squares for polynomial regression, let <span class="math notranslate nohighlight">\(y := (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n\)</span> be the vector of output coefficients and let <span class="math notranslate nohighlight">\(X\)</span> denote the polynomial data matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \begin{pmatrix}
+   x_1^p &amp; x_1^{p-1} &amp; \ldots &amp; x_1 &amp; 1 \\
+   x_2^p &amp; x_2^{p-1} &amp; \ldots &amp; x_2 &amp; 1 \\
+   \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+   x_n^p &amp; x_n^{p-1} &amp; \ldots &amp; x_n &amp; 1 \\
+\end{pmatrix} \in \mathbb{R}^{n \times (p+1)}.\end{split}\]</div>
+<p>Any degree <span class="math notranslate nohighlight">\(p\)</span> polynomial function <span class="math notranslate nohighlight">\(f_p\)</span> can be identified by a set of coefficients <span class="math notranslate nohighlight">\(c_0, c_1, \ldots, c_p \in \mathbb{R}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f_p(x) = c_0  +  c_1 x + \ldots + c_{p-1}x^{p-1} + c_p x^p = \sum_{j=0}^p c_j x^j.\]</div>
+<section id="task-1">
+<h3 id="task-1">Task 1<a class="headerlink" href="#task-1" title="Link to this heading">¶</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">compute_data_matrix(x,</span> <span class="pre">p)</span></code> that accepts an input vector <code class="docutils literal notranslate"><span class="pre">x</span></code> and a non-negative integer power <code class="docutils literal notranslate"><span class="pre">p</span></code>, and returns the corresponding polynomial data matrix as a <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> array.</p>
+</section>
+<section id="task-2">
+<h3 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Link to this heading">¶</a></h3>
+<p>Use the following plotting code to be able to visualize a dataset of inputs <code class="docutils literal notranslate"><span class="pre">x</span></code> and outputs <code class="docutils literal notranslate"><span class="pre">y</span></code>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+   <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span>
+   <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+   <span class="k">return</span>
+</pre></div>
+</div>
+<p>Now, load in the following data, visualize it, and <strong>determine a reasonable power</strong> <span class="math notranslate nohighlight">\(p \in \mathbb{N}\)</span> <strong>for this dataset</strong> by running the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"polynomial_data.npz"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'x'</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">'y'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(Here, <em>power</em> refers to the degree of the polynomial that fits the shape of the data.)</p>
+<p>We now will compute the least squares fit for the data visualized previously.</p>
+<p>We seek a set of coefficients <span class="math notranslate nohighlight">\(c_0, c_1, \ldots, c_p \in \mathbb{R}\)</span> such that the corresponding degree polynomial <strong>coefficient vector</strong> <span class="math notranslate nohighlight">\(c \in \mathbb{R}^{p+1}\)</span> minimizes the <strong>residual error</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\|Xc - y\|^2 \leq \|Xw - y\|^2 \text{ for all } w \in \mathbb{R}^{p+1}.\]</div>
+<p>As discussed in class, the <strong>normal equations</strong> that characterize the <strong>least squares solution</strong> <span class="math notranslate nohighlight">\(\hat{c}\)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[X^TX \hat{c} = X^T y,\]</div>
+<p>which is a linear system that we can use our linear algebra skills to solve. Under certain assumptions, the matrix <span class="math notranslate nohighlight">\(X^TX\)</span> is invertible,
+and so we can write the least squares solution as</p>
+<div class="math notranslate nohighlight">
+\[\hat{c} = (X^T X)^{-1} X^T y.\]</div>
+<p>The least squares fit line then is defined as the degree <span class="math notranslate nohighlight">\(p\)</span> polynomial</p>
+<div class="math notranslate nohighlight">
+\[\hat{f}_p(x) = \hat{c}_0 + \hat{c}_1 x + \ldots, \hat{c}_{p-1} x^{p-1} + \hat{c}_p x^p,\]</div>
+<p>which when applied to our set of inputs in the data matrix looks like <span class="math notranslate nohighlight">\(f = X \hat{c} \in \mathbb{R}^n\)</span>.</p>
+<p>Numpy’s numerical linear algebra library contains an optimized version of the least squares method, called <code class="docutils literal notranslate"><span class="pre">numpy.linalg.lstsq</span></code> and so we will use it.
+See <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html">the Numpy reference here</a>.</p>
+</section>
+<section id="task-3">
+<h3 id="task-3">Task 3<a class="headerlink" href="#task-3" title="Link to this heading">¶</a></h3>
+<p>Complete the following function <code class="docutils literal notranslate"><span class="pre">plot_least_squares(x,</span> <span class="pre">y,</span> <span class="pre">p)</span></code> to compute the least squares solution line and plot it against the data.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_least_squares</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+   <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span>
+   <span class="n">X</span> <span class="o">=</span> <span class="o">...</span>      <span class="c1"># Compute data matrix with inputs x and polynomial power p</span>
+   <span class="n">c_hat</span> <span class="o">=</span>  <span class="o">...</span>  <span class="c1"># Compute the least squares solution using X and y</span>
+   <span class="n">f</span> <span class="o">=</span> <span class="o">...</span>      <span class="c1"># Compute the least squares output, f = X \hat{c}</span>
+   <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'orig data'</span><span class="p">)</span>  <span class="c1"># this scatter plots the original data</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s1">'k--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'LS fit'</span><span class="p">)</span> <span class="c1"># this plots the least squares fit line</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+   <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Least Squares Polynomial fit with degree = </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+   <span class="k">return</span>
+</pre></div>
+</div>
+<p>Description of inputs:</p>
+<ul class="simple">
+<li><p>input vector <code class="docutils literal notranslate"><span class="pre">x</span></code></p></li>
+<li><p>output vector <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+<li><p>desired polynomial power <code class="docutils literal notranslate"><span class="pre">p</span></code></p></li>
+</ul>
+<p>Using the data from Task 2, run your <code class="docutils literal notranslate"><span class="pre">plot_least_squares</span></code> function, trying different values of the polynomial power, <span class="math notranslate nohighlight">\(p\)</span>.
+For example, try <span class="math notranslate nohighlight">\(p = 1, 2, 3, 5, 15\)</span>.</p>
+<ul class="simple">
+<li><p>What happens if you use a power <span class="math notranslate nohighlight">\(p&lt;P\)</span>, where <span class="math notranslate nohighlight">\(P\)</span> is the degree determined in Task 2?</p></li>
+<li><p>What happens if you use a <em>much larger</em> power than <span class="math notranslate nohighlight">\(P\)</span>?</p></li>
+</ul>
+</section>
+</section>
+<section id="computing-linear-regression-for-diabetes-data">
+<h2 id="computing-linear-regression-for-diabetes-data">Computing Linear Regression for Diabetes Data<a class="headerlink" href="#computing-linear-regression-for-diabetes-data" title="Link to this heading">¶</a></h2>
+<p>We now turn to a “real-world” regression task of predicting diabetes progression based on patient information and medical measurements.
+Let’s compute a <strong>linear regression</strong> fit to the data in order to predict the disease progression; that is, we will identify coefficients
+<span class="math notranslate nohighlight">\(\beta_0, \beta_1, \ldots, \beta_d \in \mathbb{R}\)</span> to approximate the mapping <span class="math notranslate nohighlight">\(x_i \mapsto y_i\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y_i \approx \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + \ldots + \beta_d x_{i,d} = \beta^T \begin{pmatrix} x_i \\ 1 \\ \end{pmatrix}.\end{split}\]</div>
+<p>Thus, with a set of data <span class="math notranslate nohighlight">\(\{x_i, y_i\}_{i=1}^n \subset \mathbb{R}^d \times \mathbb{R}\)</span>, we are computing the least squares fit with data matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \begin{pmatrix}
+   x_{1,1} &amp; x_{1,2} &amp; \ldots &amp; x_{1,d} &amp; 1 \\
+   x_{2,1} &amp; x_{2,2} &amp; \ldots &amp; x_{2,d} &amp; 1\\
+   \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+   x_{n,1} &amp; x_{n,2} &amp; \ldots &amp; x_{n,d} &amp; 1\\
+\end{pmatrix} \in \mathbb{R}^{n \times (d+1)}\end{split}\]</div>
+<p>and output vector <span class="math notranslate nohighlight">\(y = (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n\)</span>.</p>
+<section id="task-4">
+<h3 id="task-4">Task 4<a class="headerlink" href="#task-4" title="Link to this heading">¶</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">compute_diabetes_fit()</span></code> that computes the least squares fit coefficient vector <span class="math notranslate nohighlight">\(\hat{\beta} \in \mathbb{R}^{d+1}\)</span> that is computed by <code class="docutils literal notranslate"><span class="pre">linalg.lstsq()</span></code>.
+You may find the following code and guidelines to be useful:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">diabetes_data</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">()</span>       <span class="c1"># download the diabetes dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">diabetes_data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diabetes_data</span><span class="o">.</span><span class="n">target</span>  <span class="c1"># extract the data matrix (X) and targets (outputs) vector y</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Extend the data matrix with a column of ones to model the offset. <strong>Hint:</strong> <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.hstack.html">See the numpy function</a> <code class="docutils literal notranslate"><span class="pre">numpy.hstack</span></code>.</p></li>
+<li><p>Compute the least squares fit coefficient vector  via <code class="docutils literal notranslate"><span class="pre">numpy.linalg.lstsq</span></code> on this data.</p></li>
+</ul>
+<p>To conclude, we now analyze the linear regression coefficient result vector, <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>. The sign of an entry
+of this coefficient vector indicates the whether or not there is a <strong>positive</strong> or <strong>negative</strong> correlation between the
+corresponding input variable and the output data, conditioned on the other data. For example, if <span class="math notranslate nohighlight">\(\hat{\beta}_j &gt;0\)</span> and is <strong>large</strong>, then
+holding all else equal, a small change in the <span class="math notranslate nohighlight">\(j^{th}\)</span> feature will lead to a large, positive change in the output.</p>
+</section>
+<section id="task-5">
+<h3 id="task-5">Task 5<a class="headerlink" href="#task-5" title="Link to this heading">¶</a></h3>
+<p>Extend the capability of your previous function <code class="docutils literal notranslate"><span class="pre">compute_diabetes_fit()</span></code> to perform the following:</p>
+<ol class="arabic simple">
+<li><p>Extract the feature names of this dataset (<code class="docutils literal notranslate"><span class="pre">feature_names</span> <span class="pre">=</span> <span class="pre">diabetes_data.feature_names</span></code>)</p></li>
+<li><p>Print out the feature names of the <strong>most positive</strong> and <strong>most negative</strong> regression coefficients. Record the names and values of those coefficients in CodeBuddy.</p></li>
+</ol>
+<p><strong>NOTE: Be careful to account for indexing of the offset column in the data matrix</strong> <code class="docutils literal notranslate"><span class="pre">X</span></code>. <strong>This is not accounted for in the</strong> <code class="docutils literal notranslate"><span class="pre">feature_names</span></code> <strong>list.</strong></p>
+<p>You can check out the description of all the different features (independent variables) in this diabetes dataset by
+printing out</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="lab20.html" title="Lab 20: Cracking the Vigenère Cipher"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> "Previous" </span> Lab 20: Cracking the Vigenère Cipher </span>
+              </div>
+            </a>
+          
+          
+            <a href="lab22.html" title="Lab 22: Determinants"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> "Next" </span> Lab 22: Determinants </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2024, Nick Andersen.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
