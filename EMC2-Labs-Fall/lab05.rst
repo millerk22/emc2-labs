@@ -10,7 +10,7 @@ In this lab you will program certain basic vector operations using standard Pyth
 
 	raise Exception('Error: Vectors have different lengths.')
 
-Unless appropriately caught, an exception will immediately terminate not only the current function, but also every function above it in the stack. So for instance if function ``A`` calls function ``B`` which calls function ``C``, and ``C``  raises an exception, then all three functions will terminate without returning a value, and the exception message will be printed.
+Unless appropriately caught, an exception will immediately terminate not only the current function, but also every function that called it. So for instance if function ``A`` calls function ``B`` which calls function ``C``, and ``C``  raises an exception, then all three functions will terminate without returning a value, and the exception message will be printed.
 
 ``Exception`` is a generic exception. It can be a good idea to raise a more specific exception that is more descriptive depending on the context.
 In the above example, we might instead raise a ``ValueError`` above when the vectors have different lengths.
