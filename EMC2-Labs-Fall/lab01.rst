@@ -286,7 +286,7 @@ Type the following into a cell, and execute it.
 .. code-block:: python
 
    def reciprocal(n):
-      # A function that takes the reciprocal of the input n.
+      """A function that takes the reciprocal of the input n."""
       return 1/n
 
 Here we have defined a function called ``reciprocal``, which has a single input parameter ``n``. The
