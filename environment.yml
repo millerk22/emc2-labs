@@ -1,0 +1,9 @@
+name: emc2_dev
+channels:
+  - defaults
+  - conda-forge
+  - pypi
+dependencies:
+  - sphinx
+  - myst-parser
+  - sphinx-material
