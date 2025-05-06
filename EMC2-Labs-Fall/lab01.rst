@@ -294,9 +294,9 @@ first line of the function definition begins with ``def``, followed by the name 
 parameters it accepts in parentheses, and ends with a colon. Each line in the remainder of
 the function **must be indented** (which Colab will do for you automatically), and the function
 definition ends with a ``return`` statement that defines what the output of the function will be. It
-is customary to put a docstring directly below the def statement, which is a comment designed
+is customary to put a docstring directly below the def statement, which is a note (using ``"""`` or ``'''``) designed
 to describe the purpose of the function to the user. 
-(A comment is anything written after a ``#``; Python will ignore it.)
+(You can put additional notes throughout code with a comment. A comment is anything written after a ``#``; Python will ignore it.)
 In the case of our function ``reciprocal``, it
 accepts a single value ``n`` as its input, and it returns the value ``1/n`` as its output. To evaluate our
 function on a given input, we write it much as one might expect:
