@@ -93,13 +93,13 @@ Task 1
 ------
 
 Write a function ``jacobi_iteration(x, A, b)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
-and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outputs should be ``np.array``s.
+and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outputs should be ``np.array``\s.
 
 Task 2
 ------
 
 Write a function ``jacobi_method(x, A, b, n)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
-which performs the Jacobi method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``s.
+which performs the Jacobi method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
 
 
 Gauss-Seidel method
@@ -155,13 +155,13 @@ Task 3
 
 Write a function ``gauss_seidel_iteration(x, A, b)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
 and returns :math:`x^{k+1}` using Gauss-Seidel's method. Remember that you muse compute the first value of :math:`x^{k+1}` first, in order to use it 
-in computing the second value. All inputs and outputs should be ``np.array``s.
+in computing the second value. All inputs and outputs should be ``np.array``\s.
 
 Task 4
 ------
 
 Write a function ``gauss_seidel_method(x, A, b, n)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
-which performs the Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``s.
+which performs the Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
 
 
 Error and Convergence
