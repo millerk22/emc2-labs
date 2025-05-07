@@ -146,7 +146,7 @@ row(s) and/or column(s) in which we are interested.
  [ 1  5  2  3]]
 >>> print(my_matrix[1,2])   # row index 1, column index 2
 -7
->>> print(my_matrix[2,1:3]) # row inxex 2, column indices 1 through 3
+>>> print(my_matrix[2,1:3]) # row index 2, column indices 1 through 3
 [5 2]
 >>> print(my_matrix[:,3])   # all the rows, column index 3
 [4 -8 3]
@@ -162,7 +162,7 @@ NumPy arrays (of any dimension) have attributes that you can access to get infor
 
 - ``array1.ndim`` will tell you the dimension of the array
 - ``array1.size`` will tell you how many elements are in the array
-- ``array1.shape`` will tell give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n)``, a two dimensional array would be ``(n, m)`` and so on)
+- ``array1.shape`` will give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n)``, a two dimensional array would be ``(n, m)`` and so on)
 
 .. note::
     These are not functions and so we don't call them with ``()``.
@@ -175,7 +175,7 @@ NumPy also has built in functions to create NumPy arrays. These are important to
 - ``np.arange(start, stop, step)`` works just like ``range()``, but it creates an array with all the values
 - ``np.linspace(start, stop, num)`` creates an array from start to end (inclusive) of evenly spaced numbers (specified by ``num``)
 
-NumPy also has a set of functions that you access with ``numpy.lingalg``.
+NumPy also has a set of functions that you access with ``numpy.linalg``.
 It includes things like matrix multiplication, eigenvalues, the transpose of a matrix, and lots of other useful functions.
 Again, these are good to know about, but you don't need to know all the details yet.
 
@@ -194,24 +194,23 @@ These functions will be really useful for future labs too.
 Task 1
 ------
 
-Write a function ``row_swap(A, i, j)`` which takes as input a matrix ``A``, and two indexes ``i`` and ``j``. Your function should return the matrix obtained from ``A`` with rows ``i`` and ``j`` swapped.
+Write a function ``row_swap(A, i, j)`` which takes as input a matrix ``A``, and two indices ``i`` and ``j``. Your function should return the matrix obtained from ``A`` with rows ``i`` and ``j`` swapped.
 
 >>> row_swap( np.array( [ [ 1, -1, 1 ], [ 0, 1, 3 ], [ 2, -2, 0] ] ), 0, 2)
-array([ [ 2, -2, 0], [ 0, 1, 3 ], [ 1, -1, 1 ] ])
+np.array([ [ 2, -2, 0], [ 0, 1, 3 ], [ 1, -1, 1 ] ])
 >>> row_swap( np.array( [ [ 2, -1, 3 ], [ 1, 2, 3 ] ] ), 0, 1)
-array([ [ 1, 2, 3 ], [ 2, -1, 3 ] ])
+np.array([ [ 1, 2, 3 ], [ 2, -1, 3 ] ])
 
 Task 2
 ------
 
 Write a function ``row_mult(A, i, c)`` which takes as input a matrix ``A``, one index ``i``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` multiplied by ``c``. 
 
-```
 >>> row_mult( np.array( [ [ 1, 1 ], [ 2, 3 ] ] ), 1, 3)
-array([ [ 1, 1 ], [ 6, 9 ] ])
+np.array([ [ 1, 1 ], [ 6, 9 ] ])
 >>> row_mult( np.array( [ [ 1, 1 ], [ 6, 9 ] ] ), 0, 0)
-array([ [ 0, 0 ], [ 6, 9 ] ])
-```
+np.array([ [ 0, 0 ], [ 6, 9 ] ])
+
 
 Task 3
 ------
@@ -219,9 +218,9 @@ Task 3
 Write a function ``row_add(A, i, j, c)`` which takes as input a matrix ``A``, two indexes ``i`` and ``j``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` replaced with itself plus ``c`` times row ``j``.
 
 >>> row_add( np.array( [ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 3, 2] ] ), 2, 0, -3)
-array([ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 0, -1] ])
+np.array([ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 0, -1] ])
 >>> row_add( np.array( [ [ 2, 1 ], [ 1, -2 ] ] ), 0, 1, 0)
-array([ [ 2, 1 ], [ 1, -2 ] ])
+np.array([ [ 2, 1 ], [ 1, -2 ] ])
 
 
 Challenge
