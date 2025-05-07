@@ -169,9 +169,9 @@ NumPy arrays (of any dimension) have attributes that you can access to get infor
 
 NumPy also has built in functions to create NumPy arrays. These are important to know about, but you don't need to know all the details.
 
-- ``np.zeros(length)`` creates an array full of 0s
-- ``np.ones(length)`` creates an array full of 1s
-- ``np.empty(length)`` creates an array full of random numbers (faster than ``zeros()`` or ``ones()``)
+- ``np.zeros(shape)`` creates an array full of 0s
+- ``np.ones(shape)`` creates an array full of 1s
+- ``np.empty(shape)`` creates an array full of random numbers (faster than ``zeros()`` or ``ones()``)
 - ``np.arange(start, stop, step)`` works just like ``range()``, but it creates an array with all the values
 - ``np.linspace(start, stop, num)`` creates an array from start to end (inclusive) of evenly spaced numbers (specified by ``num``)
 
@@ -197,9 +197,12 @@ Task 1
 Write a function ``row_swap(A, i, j)`` which takes as input a matrix ``A``, and two indices ``i`` and ``j``. Your function should return the matrix obtained from ``A`` with rows ``i`` and ``j`` swapped.
 
 >>> row_swap( np.array( [ [ 1, -1, 1 ], [ 0, 1, 3 ], [ 2, -2, 0] ] ), 0, 2)
-np.array([ [ 2, -2, 0], [ 0, 1, 3 ], [ 1, -1, 1 ] ])
+array([[ 2, -2,  0],
+       [ 0,  1,  3],
+       [ 1, -1,  1]])
 >>> row_swap( np.array( [ [ 2, -1, 3 ], [ 1, 2, 3 ] ] ), 0, 1)
-np.array([ [ 1, 2, 3 ], [ 2, -1, 3 ] ])
+array([[ 1,  2,  3],
+       [ 2, -1,  3]])
 
 Task 2
 ------
@@ -207,10 +210,11 @@ Task 2
 Write a function ``row_mult(A, i, c)`` which takes as input a matrix ``A``, one index ``i``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` multiplied by ``c``. 
 
 >>> row_mult( np.array( [ [ 1, 1 ], [ 2, 3 ] ] ), 1, 3)
-np.array([ [ 1, 1 ], [ 6, 9 ] ])
+array([[ 1,  1],
+       [ 6,  9]])
 >>> row_mult( np.array( [ [ 1, 1 ], [ 6, 9 ] ] ), 0, 0)
-np.array([ [ 0, 0 ], [ 6, 9 ] ])
-
+array([[ 0,  0],
+       [ 6,  9]])
 
 Task 3
 ------
@@ -218,10 +222,12 @@ Task 3
 Write a function ``row_add(A, i, j, c)`` which takes as input a matrix ``A``, two indexes ``i`` and ``j``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` replaced with itself plus ``c`` times row ``j``.
 
 >>> row_add( np.array( [ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 3, 2] ] ), 2, 0, -3)
-np.array([ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 0, -1] ])
+array([[ 0,  1,  1],
+       [ 1, -1,  3],
+       [ 1,  0, -1]])
 >>> row_add( np.array( [ [ 2, 1 ], [ 1, -2 ] ] ), 0, 1, 0)
-np.array([ [ 2, 1 ], [ 1, -2 ] ])
-
+array([[ 2,  1],
+       [ 1, -2]])
 
 Challenge
 ---------
