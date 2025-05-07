@@ -22,7 +22,7 @@ To start using NumPy import it using:
 
 >>> import numpy as np
 
-Like we mentioned in `Lab 2 <https://emc2.byu.edu/fall-labs/lab02.html#numpy>`_, every time we use a function from NumPy, we need to prefix it with ``np``. So calling a function like cosine (``cos``) would look like
+Like we mentioned in `Lab 2 <https://emc2.byu.edu/fall-labs/lab02.html#numpy>`_, every time we use a function from NumPy, we need to prefix it with ``np``. So calling a function like ``cos`` (for cosine) would look like:
 
 >>> np.cos(0)
 1.0
@@ -56,7 +56,7 @@ array([1, 9, 7])
 >>> 3*my_vect
 array([3, 6, -3])
 
-NumPy has made it really easy to work with vectors. They even have ``dot`` which replaces our ``dot_product`` function.
+NumPy has made it really easy to work with vectors. They even have ``dot()`` which replaces our ``dot_product()`` function.
 
 >>> array1=np.array([1,2,3])
 >>> array2=np.array([4,5,6])
@@ -94,7 +94,7 @@ Elements of NumPy Arrays
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 We can access elements of a NumPy array the same way we access elements in a list, by
-specifying indices or ranges of indices. Recall that Python lists (and NumPy arrays) begin at
+specifying indices. Recall that Python lists (and NumPy arrays) begin at
 index ``0``. So if an element of a list or array has index ``3``, that really means it’s the 4th element
 in the list or array. 
 
@@ -106,7 +106,7 @@ If we want more specific indexing, we can use **slicing**. This is where we spec
 
 >>> my_array[start:stop]
 
-We can think of it like :math:`[start,stop)` in mathematics. So from the example above,
+We can think of it like :math:`[start,stop)` in mathematics. So from the array above,
 
 >>> print(v[3:7])
 [ 3 -2  1  0]
@@ -121,7 +121,7 @@ There is another optional option in slicing called ``step``.
 >>> print(v[3:7:2])
 [3 1]
 
-will start at index 3 and get every second element until it gets to 7. 
+will start at index 3 and get every second element until it gets to index 7. 
 
 Here are some more examples:
 
@@ -139,9 +139,6 @@ We can access the entries in a matrix in a similar way to accessing elements of 
 for matrices we have to list two indices (or ranges of indices), to specify the location of the
 row(s) and/or column(s) in which we are interested.
 
-.. warning::
-    Remember in python we index starting at 0!
-
 >>> my_matrix=np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
 >>> print(my_matrix)
 [[ 1  2  3  4]
@@ -156,10 +153,12 @@ row(s) and/or column(s) in which we are interested.
 >>> print(my_matrix[1])     # row index 1 (2nd row)
 [-5 -6 -7 -8]
 
+.. warning::
+    Remember in python we index starting at 0!
 
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
-NumPy arrays (of any dimension) have attributes that you can access to get information about the array. If our array is named ``array1``, then we can do:
+NumPy arrays (of any dimension) have attributes that you can access to get information about the array. If our array is named ``array1``, then
 
 - ``array1.ndim`` will tell you the dimension of the array
 - ``array1.size`` will tell you how many elements are in the array
@@ -172,12 +171,12 @@ NumPy also has built in functions to create NumPy arrays. These are important to
 
 - ``np.zeros(length)`` creates an array full of 0s
 - ``np.ones(length)`` creates an array full of 1s
-- ``np.empty(length)`` creates an array full of random numbers (faster than ``zeros`` or ``ones``)
+- ``np.empty(length)`` creates an array full of random numbers (faster than ``zeros()`` or ``ones()``)
 - ``np.arange(start, stop, step)`` works just like ``range()``, but it creates an array with all the values
-- ``np.linspace(start, stop, step)``
+- ``np.linspace(start, stop, num)`` creates an array from start to end (inclusive) of evenly spaced numbers (specified by ``num``)
 
 NumPy also has a set of functions that you access with ``numpy.lingalg``.
-It includes things like matrix multiplication, eigenvalues, transpose, and lots of other useful functions.
+It includes things like matrix multiplication, eigenvalues, the transpose of a matrix, and lots of other useful functions.
 Again, these are good to know about, but you don't need to know all the details yet.
 
 Application
