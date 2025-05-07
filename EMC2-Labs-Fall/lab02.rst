@@ -313,8 +313,6 @@ includes up to index ``6``).
 [3 -2 1 0 9]
 >>> print(v[:4])
 [4 1 -5 3]
->>> print(v[::2])
-[ 4 -5 -2  0]
 
 We can access the entries in a matrix in a similar way to accessing elements of a list, though
 for matrices we have to list two indices (or ranges of indices), to specify the location of the
