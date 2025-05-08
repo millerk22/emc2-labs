@@ -186,7 +186,7 @@ np.array([3, 4])
 Task 5
 ------
 
-Write a function called ``gauss_seidel_method(x, A, b, sol, tol)``. This function will take in 
+Write a function called ``gauss_seidel_error(x, A, b, sol, tol)``. This function will take in 
 an initial guess ``x`` (2d array), matrix ``A`` (2d), array ``b`` (2d array), solution ``sol`` (2d array), and a desired error level ``tol``.
 You will need to modify ``gauss_seidel_method`` to perform iterations until the distance between the iterate and ``sol`` is less than or equal to the tolerance, and then returns the approximate solution.
 
