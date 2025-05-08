@@ -19,10 +19,13 @@ As these matrices approach millions of rows and columns, it becomes computationa
 Hence, in these scenarios we use iterative methods to solve for :math:`x`.
 Iterative methods involve using intial values to generate a sequence of improving approximate solutions. 
 Each of these approximatations is called an iterate.
-Take some arbitrary vector :math:`x_i`. 
-When we plug this vector into an iterative method, we obtain a better estimate for :math:`x` called :math:`x_{i+1}`.
+Take some arbitrary vector :math:`x^i`. 
+When we plug this vector into an iterative method, we obtain a better estimate for :math:`x` called :math:`x^{i+1}`.
 The reason we use these iterative methods is because they are often straight forward equations that can be calculated easily. 
 You will see 2 of types of iterative methods used for solving systems of linear equations. 
+
+.. note::
+    When we use the notation :math:`x^i`, we are refering to the ith iterate, not a power. 
 
 Jacobi's method
 ---------------
