@@ -28,7 +28,7 @@ Like we mentioned in `Lab 2 <https://emc2.byu.edu/fall-labs/lab02.html#numpy>`_,
 1.0
 
 .. note::
-    ``np`` is the nickname for NumPy so we don't have to type out ``numpy`` every time. But we aren't required to call it ``np``, we could call it ``nick_andersen`` if we really wanted, but ``np`` is what is commonly understood.
+    ``np`` is the nickname for NumPy so we don't have to type out "``numpy``" every time. But we aren't required to call it ``np``, we could call it ``nick_andersen`` if we really wanted, but ``np`` is what is commonly understood.
 
 
 Vectors and Matrices
@@ -49,11 +49,11 @@ We can add vectors and multiply by scalars in a straightforward way. Think back 
 
 >>> array1=np.array([1,2,3])
 >>> array2=np.array([0,7,4])
->>> array1 + array2
+>>> array1 + array2  # adding vectors
 array([1, 9, 7])
 
 >>> my_vect=np.array([1,2,-1])
->>> 3*my_vect
+>>> 3 * my_vect      # multiplying by scalars
 array([3, 6, -3])
 
 NumPy has made it really easy to work with vectors. They even have ``dot()`` which replaces our ``dot_product()`` function.
@@ -90,8 +90,8 @@ which we think of as the first row of the matrix. The second element in our list
  [-5 -6 -7 -8]
  [ 1  5  2  3]]
 
-Elements of NumPy Arrays
-~~~~~~~~~~~~~~~~~~~~~~~~
+Accessing NumPy Arrays with Slicing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We can access elements of a NumPy array the same way we access elements in a list, by
 specifying indices. Recall that Python lists (and NumPy arrays) begin at
@@ -196,11 +196,11 @@ Task 1
 
 Write a function ``row_swap(A, i, j)`` which takes as input a matrix ``A``, and two indices ``i`` and ``j``. Your function should return the matrix obtained from ``A`` with rows ``i`` and ``j`` swapped.
 
->>> row_swap( np.array( [ [ 1, -1, 1 ], [ 0, 1, 3 ], [ 2, -2, 0] ] ), 0, 2)
+>>> row_swap(np.array([[1, -1, 1], [0, 1, 3], [2, -2, 0]]), 0, 2)
 array([[ 2, -2,  0],
        [ 0,  1,  3],
        [ 1, -1,  1]])
->>> row_swap( np.array( [ [ 2, -1, 3 ], [ 1, 2, 3 ] ] ), 0, 1)
+>>> row_swap(np.array([[2, -1, 3], [1, 2, 3]]), 0, 1)
 array([[ 1,  2,  3],
        [ 2, -1,  3]])
 
@@ -209,10 +209,10 @@ Task 2
 
 Write a function ``row_mult(A, i, c)`` which takes as input a matrix ``A``, one index ``i``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` multiplied by ``c``. 
 
->>> row_mult( np.array( [ [ 1, 1 ], [ 2, 3 ] ] ), 1, 3)
+>>> row_mult(np.array([[1, 1], [2, 3]]), 1, 3)
 array([[ 1,  1],
        [ 6,  9]])
->>> row_mult( np.array( [ [ 1, 1 ], [ 6, 9 ] ] ), 0, 0)
+>>> row_mult(np.array([[1, 1], [6, 9]]), 0, 0)
 array([[ 0,  0],
        [ 6,  9]])
 
@@ -221,11 +221,11 @@ Task 3
 
 Write a function ``row_add(A, i, j, c)`` which takes as input a matrix ``A``, two indexes ``i`` and ``j``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` replaced with itself plus ``c`` times row ``j``.
 
->>> row_add( np.array( [ [ 0, 1, 1 ], [ 1, -1, 3 ], [ 1, 3, 2] ] ), 2, 0, -3)
+>>> row_add(np.array([[0, 1, 1], [1, -1, 3], [1, 3, 2]]), 2, 0, -3)
 array([[ 0,  1,  1],
        [ 1, -1,  3],
        [ 1,  0, -1]])
->>> row_add( np.array( [ [ 2, 1 ], [ 1, -2 ] ] ), 0, 1, 0)
+>>> row_add(np.array([[2, 1], [1, -2]]), 0, 1, 0)
 array([[ 2,  1],
        [ 1, -2]])
 
