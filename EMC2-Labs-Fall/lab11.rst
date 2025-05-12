@@ -1,101 +1,85 @@
-Lab 11: Inverting matrices
-==========================
+Lab 11: Dimensional Analysis
+============================
 
+In this lab, you will use a method called dimensional analysis to estimate the energy output of an atomic bomb.
+...
 
-In this lab you will use Sympy Matrix objects to write a program that will invert a matrix. 
-Note that Sympy Matrix objects behave a little differently than Numpy matrix objects.
-You can import Sympy using the following command:
+Buckingham :math:`\pi` Theorem
+------------------------------
+The `Buckingham pi theorem<https://en.wikipedia.org/wiki/Buckingham_%CF%80_theorem>`_ states that if you have an equation in the real world that has :math:`n` variables (like velocity, distance, force, etc.), then you can rewrite it as an equation with :math:`k` physical dimensions (like distance, time, mass, etc.).
 
->>> import sympy as sp
+You don't need to worry about the details for this (although it is an interesting read). The important thing is that this essentially allows us to come up with any reasonable physical equation and if the units work out, we can use it.
 
-Rows and entries of Sympy Matrix objects can be accessed in the following ways. 
+"if the units work out"
+~~~~~~~~~~~~~~~~~~~~~~~
+When we put brackets around a variable, it means we are talking about the units of that variable. For example, velocity is measured in units of length (L) and time (T).
 
->>> M=sp.Matrix([[1,2,3],[4,5,6]])
->>> M.row(1)
-Matrix([[4, 5, 6]])
->>> M[1,0]
-4
->>> M[4]
-5
+.. math::
 
-Notice that if you only use a single bracket index you get the entry as though the matrix were a single list, not the row!
-The dimensions of the matrix can be accessed using the ``shape`` property in the same way you would for a Numpy matrix object. 
-Remember, this is not a method so do not use parentheses.
+    [v] = \frac{L}/{T}
 
->>> M.shape
-(2,3)
+In order for the units to balance in an equation, both sides must reduce down to the same units. We know that for work:
 
-You can learn more about the Sympy Matrix object by reading
-`<https://docs.sympy.org/0.7.2/modules/matrices/matrices.html>`_
-or the Acme introduction to Sympy in Chapter 10 of Python Essentials:
-`<https://foundations-of-applied-mathematics.github.io/>`_.
+.. math::
 
+    W=Fd
 
+Where 
+* :math:`W` is work
+* :math:`F` is force
+* :math:`d` is distance
 
-Task 1
-------
+Note the units of these quantities in M (mass), L (length), and T (time)
+* :math:`[W] = M * \frac{L^2}{T^2}`
+* :math:`[F] = M * \frac{L}{T^2}`
+* :math:`[d] = L`
 
+On the right side of this equation, we can simplify the units
+.. math:: 
+    L * M * \frac{L}{T^2} = M * \frac{L^2}{T^2}`
 
+Which are the units of work.
 
-Write a function ``aug_id(A)`` that takes as input an ``m x n`` matrix object ``A`` and augments the matrix by the identity matrix. 
-There is no built-in Sympy function to do this, so you will need to create a new matrix object of the appropriate size and edit its entries.
+A Simple Pendulum
+-----------------
+Here is a simple example of how this can be useful in the real world. Say we have a pendulum and we want to calculate the period (the time it takes to complete a swing). We assume that the period (:math:`t`, time) is based on the quantities :math:`l` (length), :math:`m` (mass), and :math:`a` (acceleration).
 
+.. image:: ./static/pendulum.jpg
 
->>> A=sp.Matrix([[1,2],[3,4]])
->>> aug_id(A)
-Matrix([
-[ 1,  2, 1, 0],
-[ 3,  4, 0, 1]])
->>> B=sp.Matrix([[0,2],[3,4],[5,6]])
->>> aug_id(B)
-Matrix([
-[ 0,  2, 1, 0, 0],
-[ 3,  4, 0, 1, 0],
-[ 5,  6, 0, 0, 1]])
+    :alt: pendulum.jpg
 
+We are assuming that our equation looks something like:
+.. math::
+    t = l^x * m^y * a^z
 
+The reason :math:`x`, :math:`y`, and :math:`z` are there is because we need the units to balance out. Remember
+* :math:`[t] = T`
+* :math:`[l] = L`
+* :math:`[m] = M`
+* :math:`[a] = \frac{L}{T^2}` 
 
-Task 2
-------
+So we want to find :math:`x`, :math:`y`, and :math:`z` such that we end up with one unit of time, :math:`T`. Doesn't that sound familiar?
 
+We begin by replacing our the variables in our equation with their units:
+.. math::
+    [t] = [l]^x * [m]^y * [a]^z
 
-Write a function ``mat_inv(A)`` that takes as input an ``m x n`` matrix object ``A`` and returns a potential inverse.
-Use the function from part one to augment the input matrix by the identity, then use the ``rref`` method (see below) to row reduce the augmented matrix. 
-Your function should then extract the matrix consisting of the final ``n`` columns of the row-reduced matrix. 
-If ``A`` is invertible, this will be the inverse. 
-Your function should still return a matrix even if the input matrix was not invertible.
+becomes
+.. math::
+    T = L^x * M^y * \frac{L^z}{T^{2z}}
 
-Sympy Matrix objects have a built-in method ``rref`` that returns the matrix in reduced echelon form.
+Now we combine all of the units
 
->>> A=sp.Matrix([[1,2],[3,4]])
->>> aug_id(A).rref()
-(Matrix([
- [1, 0,  -2,    1],
- [0, 1, 3/2, -1/2]]),
- (0, 1))
+.. math::
+    T = L^{x + z} * M^y * T^{-2z}
 
-The first returned value is the reduced matrix; the second is a tuple containing the indices of the columns containing leading terms.
+We now go through each of the units and solve for the exponents. We see there are no :math:`L`'s or :math:`M`'s on the left, so we write :math:`x+z = 0` and :math:`y=0` respectively. We see that there is a :math:`T` on the left side, so we write :math:`-2z = 1`
 
+Pendulum example....
+Task: solve the system
 
->>> A=sp.Matrix([[1,2],[3,4]])
->>> mat_inv(A)
-Matrix([
-[ -2,    1],
-[3/2, -1/2]])
->>> B=sp.Matrix([[1,2,3],[4,5,6]])
->>> mat_inv(B)
-Matrix([
-[-5/3,  2/3],
-[4/3,  -1/3]])
-
-
-
-
-Challenge
----------
-
-Write a function ``inv_true(A)`` which calculates the potential inverse as in part 2, and then verifies that the potential inverse is a true inverse for the input matrix.
-
-
+Walk through GI example
+Task: do this for GI.
+Task: write a function to estimate the different energies for different pictures
 
 
