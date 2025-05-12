@@ -77,17 +77,61 @@ It is important to remember that in ``edge_array``\, the first column coresponds
 If you are confused on how to set up the adjacency matrix, refer to the notes above.
 
 
-Task 2
-------
-
-.. Define function tocaluclate how many indices are pointing to each. Have it return the order of impportance  us ing array.argosrt()
-.. 
-
+.. There was a part of the orignal lab where you take 
+.. It talks abouts explaining that you could add up the amount of nodes points to a node to deterime its importance but that would be stupid
+.. So if they think that adding more of it would be useles them I'm not going to do it, unnless we feel lits needed
 
 PageRank Centrality
 -------------------
 
+For the next part of the lab we are going to explore Google and other companies actually deterime the importance of pages through PageRank Centrality.
+Consider, the net work below that we will define as network B.
 
+.. image:: _static/directed_network_gprime.png
+        :align: center
+
+The adjacency matrix for this network is defined by
+
+.. math::
+
+   B = \left[
+   \begin{array}{cccccccc}
+   0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+   0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+   1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\
+   0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+   1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+   0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+   \end{array}
+   \right]
+
+The basis of PageRank Centrality is that the importance of every node :math:`x_i` is determined by the nodes pointing towards it.
+Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node only points towards to one node. 
+So :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
+Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to 2 different nodes. 
+Hence :math:`x_7 = \frac{1}{2} x_6`. 
+If we continue this for all of the nodes in our network we get the follow set of equations.
+
+.. math::
+    
+    \begin{array}{cc}
+    x_0 = \frac{1}{2}x_4  + \frac{1}{4}x_2 + x_5 + x_7 & x_4 = \frac{1}{2} x_3 \\
+    x_1 = x_0 & x_5 =  \frac{1}{2}x_6 + \frac{1}{4}x_2 + \frac{1}{2}x_3 \\
+    x_2 = x_1 + \frac{1}{2}x_4 & x_6 = \frac{1}{4}x_2 \\
+    x_3 = \frac{1}{4}x_2 & x_7 = \frac{1}{2} x_6
+    \end{array}
+
+.. Transform this to a matrix
+.. Show what a stochastic matrix is
+.. Transform into one of those
+.. Show what ierativite method does
+
+.. Tasks
+.. Define a function to make stochasstic matrix through speical way
+.. Define function to estimate to certain level
+.. Maybe arg max to return the most important 
 
 Task 3
 ------
