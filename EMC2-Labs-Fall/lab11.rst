@@ -127,18 +127,18 @@ Around the time of the US testing the atomic bomb, a British physicist named G. 
 |first| |second|
 
 .. |first| image:: ./_static/explosion1.png
-    :width: 50%
+    :width: 49%
 
 .. |second| image:: ./_static/explosion2.png
-    :width: 50%
+    :width: 49%
 
 |third| |fourth|
 
 .. |third| image:: ./_static/explosion3.png
-    :width: 50%
+    :width: 49%
 
 .. |fourth| image:: ./_static/explosion4.png
-    :width: 50%
+    :width: 49%
 
 He used dimensional analysis (the method we used above with the pendulum) to figure out the energy yield of the atomic bomb.
 
@@ -150,20 +150,20 @@ He made a few assumptions
 He assumed the radius :math:`R` of the explosion would depend on:
 
 * :math:`E`: the energy contained in the explosion
-* :math:`t`: the time since the explosion
 * :math:`\rho`: the density of the air
+* :math:`t`: the time since the explosion
 
 Note the physical dimensions of these variables:
 
 * :math:`[R] = L`
 * :math:`[E] = \frac{ML^2}{T^2}`
-* :math:`[t] = T`
 * :math:`[\rho] = \frac{M}{L^3}`
+* :math:`[t] = T`
 
 Task 2:
 -------
 
-Using this information, and following the process we used for the pendulum, estimate the values of :math:`x`, :math:`y`, and :math:`z` for
+Using this information, and the process we used for the pendulum, estimate the values of :math:`x`, :math:`y`, and :math:`z` for
 
 .. math::
 
@@ -175,12 +175,12 @@ With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a functio
 
 .. note::
 
-    The density of air (:math:`\rho`) is :math:`1.2\frac{kg}{m^3}`
+    The density of air, :math:`\rho`, is :math:`1.2\frac{kg}{m^3}`
 
 .. code:: python
 
     def energy_yield(R: float, t: float) -> float:
-        """Returns the estimated energy yield
+        """Returns the estimated energy yield.
 
         Uses the equation R = E^x * p^y * t^z to estimate the energy yield from the atomic bomb at different moments in time.
 
@@ -192,12 +192,9 @@ With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a functio
 
         Returns:
         E : float
-            The estimate energy yield (in kgm^2/s^2 or Joules)
+            The estimate energy yield (in kg*m^2/s^2 or Joules)
         """
         # your code here
 
 
-It is interesting to note that the modern estimated value for the energy yield is around 18 to 20 kilotons of TNT (1 Joule is about 2.3901e-13 kilotons of TNT). How close were your estimates?
-
-Add a constant
-Can they figure out everything just by looking ahead?
+It is interesting to note that the modern estimated value for the energy yield is around 18 to 20 kilotons of TNT where 1 Joule = 2.3901e-13 kilotons of TNT. How close were your estimates?
