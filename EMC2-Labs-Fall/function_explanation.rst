@@ -19,6 +19,7 @@ More about functions
 Functions can get confusing sometimes, especially when you don't know what parameters tyey take in and what they return (if anything). Fortunately, Python has some conventions to help make these things more clear.
 
 .. code:: python
+    
     def functionName(parameter1: type, parameter2: type, parameter3: type) -> returnType:
         """
         This is called a docstring.
