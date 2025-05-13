@@ -42,7 +42,7 @@ Which are the units of work.
 
 A Simple Pendulum
 -----------------
-Here is a simple example of how this can be useful in the real world. Say we have a pendulum and we want to calculate the period (the time it takes to complete a swing). We assume that the period (:math:`t`, time) is based on the quantities :math:`l` (length), :math:`m` (mass), and :math:`a` (acceleration).
+Here is a simple example of how this can be useful in the real world. Say we have a pendulum and we want to calculate the period (the time it takes to complete a swing). We assume that the period (:math:`t`, time) is based on the quantities :math:`m` (mass), :math:`l` (length), and :math:`a` (acceleration due to gravity).
 
 .. image:: ./static/pendulum.jpg
 
@@ -50,36 +50,61 @@ Here is a simple example of how this can be useful in the real world. Say we hav
 
 We are assuming that our equation looks something like:
 .. math::
-    t = l^x * m^y * a^z
+    t = m * l * a
 
-The reason :math:`x`, :math:`y`, and :math:`z` are there is because we need the units to balance out. Remember
+We can do this because of the Buckingham :math:`\pi` theorem.
+
+But because we don't actually *know* if the units will work out in this equation, we need to raise each :math:`l`, :math:`m`, and :math:`a` to an unknown power.
+.. math::
+    t = m^x * l^y * a^z
+    
+So we want to find :math:`x`, :math:`y`, and :math:`z` such that we end up with one unit of time, :math:`T`. Doesn't that sound familiar? It is just a system of equations.
+
+We begin by replacing our the variables in our equation with their units. Remeber,
 * :math:`[t] = T`
-* :math:`[l] = L`
 * :math:`[m] = M`
+* :math:`[l] = L`
 * :math:`[a] = \frac{L}{T^2}` 
 
-So we want to find :math:`x`, :math:`y`, and :math:`z` such that we end up with one unit of time, :math:`T`. Doesn't that sound familiar?
-
-We begin by replacing our the variables in our equation with their units:
+So,
 .. math::
-    [t] = [l]^x * [m]^y * [a]^z
+    T = M^x * L^y * \frac{L^z}{T^{2z}}
 
-becomes
+Now we simplify:
 .. math::
-    T = L^x * M^y * \frac{L^z}{T^{2z}}
+    T = M^x * L^{y + z} *  * T^{-2z}
 
-Now we combine all of the units
+We now go through each of the units and solve for the exponents. We see there are no :math:`M`'s or :math:`L`'s on the left, so we write :math:`x=0` and :math:`y+z = 0` respectively. We see that there is a :math:`T` on the left side, so we write :math:`-2z = 1`.
+
+We end up with the matrix A, where the rows represent the physical dimension (:math:`M`, :math:`L`, and :math:`T`) and the columns represent the powers (:math:`x`, :math:`y`, and :math:`z`).
 
 .. math::
-    T = L^{x + z} * M^y * T^{-2z}
+    A = 
+    \begin{bmatrix}[ccc|c]
+    1 & 0 & 0 & 0\\
+    0 & 1 & 1 & 0\\
+    0 & 0 & -2 & 1\\
+    \end{bmatrix}
 
-We now go through each of the units and solve for the exponents. We see there are no :math:`L`'s or :math:`M`'s on the left, so we write :math:`x+z = 0` and :math:`y=0` respectively. We see that there is a :math:`T` on the left side, so we write :math:`-2z = 1`
+Task 1: Solve the system
+------------------------
+Using ``numpy.linalg.solve(A, b)``, find the solution to this augmented matrix.
 
-Pendulum example....
-Task: solve the system
+.. note::
+    ``numpy.linalg.solve`` has parameters ``A`` which is the unaugmented matrix, and ``b`` which is the augmented part of the matrix. It solves for :math:`x` in the equation :math:`Ax = b`.
+
+With your solution, plug your values for :math:`x`, :math:`y`, and :math:`z` into our original equation. What do you get?
+
+.. math::
+    t = m^x * l^y * a^z
+
+Now look up the equation for the period of a pendulum and see if you are right!
+
+
 
 Walk through GI example
 Task: do this for GI.
 Task: write a function to estimate the different energies for different pictures
 
 
+Add a constant
