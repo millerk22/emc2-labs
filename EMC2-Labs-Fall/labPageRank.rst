@@ -123,21 +123,102 @@ If we continue this for all of the nodes in our network we get the follow set of
     x_3 = \frac{1}{4}x_2 & x_7 = \frac{1}{2} x_6
     \end{array}
 
-.. Transform this to a matrix
-.. Show what a stochastic matrix is
-.. Transform into one of those
-.. Show what ierativite method does
+Now we can take these equations and put them into a system of equations to solve for the importance of each node. Doing that we get
 
-.. Tasks
-.. Define a function to make stochasstic matrix through speical way
-.. Define function to estimate to certain level
-.. Maybe arg max to return the most important 
+.. math::
+    \left[
+    \begin{array}{c}
+    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
+    \end{array}
+    \right]
+    =
+    \left[
+    \begin{array}{cccccccc}
+    0 & 0 & \frac{1}{4} & 0 & \frac{1}{2} & 1 & 0 & 1 \\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 \\
+    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 & 0 \\
+    0 & 0 & \frac{1}{4} & \frac{1}{2} & 0 & 0 & \frac{1}{2} & 0 \\
+    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & 0
+    \end{array}
+    \right]
+    \left[
+    \begin{array}{c}
+    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
+    \end{array}
+    \right]
+    .
+
+Now with we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
+As you can begin to see, we are solving for an eigen vector who's coresponding :math:`\lambda` is 1.
+
+.. note::
+    This matrix is a stochastic matrix. 
+    This is because all of the columns of the matrix add up to one. 
+    We are guerenteed with these matrices that the greatest eigen value will always be one.
+
+If you remember back to lab 9, we used iterative methods to solve for the eigen vectors of systems of equations.
+We can use iterative methods as well to solve.
+For this method you start with an vector that sums of to 1. 
+For example we could start with
+
+.. math::
+    x_0 = 
+    \left[
+    \begin{array}{c}
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8
+    \end{array}
+    \right].
+
+The rules for the method is that :math:`x_{k+1} = Px_k`. 
+Hence, :math:`x_{100} = P**100x_0`.
+Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
+
+Task 2
+------
+
+Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and return the coresponding stochastic matrix. 
+You can find the stochastic matrix by dividing each row of the matrix by the sum of the row, and then taking the transpose using ``A.T``.
 
 Task 3
 ------
 
+Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
+and returns the dominant eigen vector of ``P`` after ``k`` iterations.
+You will need to start with ``x_0 = [1/n, 1/n, ... , 1/n]`` with ``n`` entries.
+remember the equation ``x_{k+1} = Px_k``.
 
+Task 4
+------
 
+Define a function ``PageRank_cent(edge_array, k)``.
+You will need to combine all of your past functions to take ``edge_array`` and convert it to an adjacency matrix using the ``adj_matrix`` fucntion.
+The convert the adjacency to a stochastic matrix using the ``stoch_mat`` function.
+You will then need to use the ``stoch_eig`` function to return the dominant eigen vector after ``k`` iterations. 
+
+Task 5
+------
+
+Use your recently created ``PageRank_cent`` to find the index the index of the most important node.
+You can use ``np.argmax()`` to find the index of the largest element in an array. 
 
 Conclusion
 ----------
+
+Larry Page and Sergey Brin are the original devolpers of this algorithm
+They devolped this algorithm to sort pages.
+The PageRank algorithm is known to converge quite quickly. 
+In their original paper, Brin and Page reported that on a network with 322 million edges the algorithm converged to usable values within 52 iterations.
+
+Finally, as a historical note, the patent for the PageRank algorithm is owned by Stanford University (where Brin and Page were students at the time they developed it). 
+Stanford granted Google exclusive license rights to use the algorithm, in exchange for 1.8 million shares of Google which Stanford sold in 2005 for $336 million. 
+Today those shares would be worth approximately $3.8 billion. All for an algorithm which computes an eigenvector!
