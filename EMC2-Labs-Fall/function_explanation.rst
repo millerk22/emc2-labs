@@ -14,12 +14,12 @@ This will teach you about ``while`` loops.
 Now do a Google search for "python while loop" and read some of the examples that come up.
 Throughout this course, remember: Google is your friend.
 
-More about functions
+Function Docstrings
 --------------------
 Functions can get confusing sometimes, especially when you don't know what parameters tyey take in and what they return (if anything). Fortunately, Python has some conventions to help make these things more clear.
 
 .. code:: python
-    
+
     def functionName(parameter1: type, parameter2: type, parameter3: type) -> returnType:
         """
         This is called a docstring.
@@ -39,7 +39,9 @@ Functions can get confusing sometimes, especially when you don't know what param
         """
         # the actual code goes down here
 
-    # for example
+For example, 
+
+.. code:: python
 
     def multiply(a: int, b: float) -> float:
         """
@@ -67,6 +69,7 @@ Task 1
 
 Complete the following functions to review what you learned during the two introductory labs. Feel free to look up the documentation and/or examples for anything you've forgotten or haven't learned yet. (For example, it will probably help to look up the modulo operator.)
 
+Last two deleted:
 .. code:: python
 
     def last_two_deleted(num: int) -> int:
@@ -86,9 +89,12 @@ Complete the following functions to review what you learned during the two intro
         # Your code here
         # Tip: Use integer division
 
+Usage:
+
 >>> last_two_deleted(246810)
 2468
 
+Last two:
 
 .. code:: python
 
@@ -109,10 +115,14 @@ Complete the following functions to review what you learned during the two intro
         # Your code here
         # Tip: Use the modulo operator (% 100)
 
+Usage:
+
 >>> last_two(246810)
 10
 >>> last_two(123405)
 5
+
+First half:
 
 .. code:: python
 
@@ -134,17 +144,37 @@ Complete the following functions to review what you learned during the two intro
         # Tip: Use integer division to exclude the middle character
         # Tip: Use the built-in function len(word) to get the length of word
 
+Usage:
+
 >>> first_half('kevin_miller')
 'kevin_'
 >>> first_half('diophantine')
 `dioph'
 
 
+Backward:
 
+.. code:: python
 
+    def backward(word: str) -> str:
+        """Reverse the order of a word.
 
-Write a function called ``backward(word)``, which should accept a string parameter ``word`` and reverse the order of its characters using slicing, then return the reversed string.
-The ``step`` parameter in ``[start:stop:step]`` can be negative.
+        This function takes word and returns the reversed version of it.
+
+        Parameters:
+        word : str
+            The word to reverse
+
+        Returns:
+        result : str
+            The reversed word
+        """
+
+        # Your code here
+        # Tip: Use slicing
+        # Tip: The step parameter in [start:stop:step] can be negative.
+
+Usage:
 
 >>> backward('desserts')
 `stressed'
@@ -155,18 +185,33 @@ Task 2
 
 Use some of your previously written functions to help make this more complicated function.
 
+.. code:: python
 
-Write a function ``int_to_str26(m)`` that, given an integer ``m``, returns the corresponding string in the 26 character alphabet
-   ``A = 01, B = 02, C = 03, D = 04,... Z = 26``
+    def int_to_str26(message: int) -> str:
+        """Returns the corresponding set of letters in the alphabet.
 
-(for example, ``250519`` is the word ``YES``)
-or returns an empty string if the integer does not correspond to a string.
-Use a ``while`` loop to look at the last two digits of ``m`` and convert those digits to a character, then repeat with a smaller integer ``m'`` (which is ``m`` with the last two digits deleted).
+        This function takes message and returns the corresponding letter in the alphabet.
+        A = 01, B = 02, C = 03, D = 04, ... Z = 26
+        It returns an empty string ("") if the integer does not corespond to a letter.
 
-   >>> int_to_str26(30120)
-   `CAT'
-   >>> int_to_str26(2005192023151804)
-   `TESTWORD'
+        Parameters:
+        message : int
+            The number
+
+        Returns:
+        result : str
+            The corresponding letter in the alphabet
+        """
+
+        # Your code here
+        # Tip: Use a while loop to look at the last two digits of message and convert those digits to a character, then repeat with a smaller integer message (which is message with the last two digits deleted).
+
+Usage:
+
+>>> int_to_str26(30120)
+`CAT'
+>>> int_to_str26(2005192023151804)
+`TESTWORD'
 
 
 
@@ -175,15 +220,34 @@ Task 3
 
 Now do the same, but in reverse.
 
+.. code:: python
 
-Write a function ``str_to_int26(message)`` that, given a string of capital letters ``message``, returns the corresponding integer using the 26 character alphabet.
-Use a ``for`` loop.
-If you prefer, you can keep track of the integer using a string (e.g. ``'123456'``), then convert it to an integer at the end (e.g. ``int('123456')``).
+    def str_to_int26(message: str) -> int:
+        """Returns the number given a string of letters.
+
+        This function takes message and returns the corresponding number to the letter in the alphabet.
+        01 = A, 02 = B, 03 = D, 04 = D, ... 26 = Z
+        It always returns a two digit number (01, 04, 26...).
+
+        Parameters:
+        message : str
+            The string to convert
+
+        Returns:
+        result : int
+            The corresponding numbers
+        """
+
+        # Your code here
+        # Tip: Use a for loop.
+        # Tip: If you prefer, you can keep track of the integer using a string (e.g. '123456'), then convert it to an integer at the end (e.g. int('123456')).
+
+Usage:
 
 >>> str_to_int26('CAT')
-30120
+030120
 >>> str_to_int26('DOESTHISFUNCTIONWORK')
-415051920080919062114032009151423151811
+0415051920080919062114032009151423151811
 
 
 Challenge Problems
