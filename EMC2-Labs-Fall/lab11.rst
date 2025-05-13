@@ -119,6 +119,84 @@ With your solution, plug your values for :math:`x`, :math:`y`, and :math:`z` int
 
 Now look up the equation for the period of a pendulum and see if you are right!
 
+
+G. I. Taylor and the Atomic Bomb
+---------------------------------
+Around the time of the US testing the atomic bomb, a British physicist named G. I. Taylor saw pictures of the explosion in Time magazine.
+
+|first| |second|
+
+.. |first| image:: ./_static/explosion1.png
+    :width: 50%
+
+.. |second| image:: ./_static/explosion2.png
+    :width: 50%
+
+|third| |fourth|
+
+.. |third| image:: ./_static/explosion3.png
+    :width: 50%
+
+.. |fourth| image:: ./_static/explosion4.png
+    :width: 50%
+
+He used dimensional analysis (the method we used above with the pendulum) to figure out the energy yield of the atomic bomb.
+
+He made a few assumptions
+
+#. The energy was released in a small space
+#. The energy expanded in a sphere
+
+He assumed the radius :math:`R` of the explosion would depend on:
+
+* :math:`E`: the energy contained in the explosion
+* :math:`t`: the time since the explosion
+* :math:`\rho`: the density of the air
+
+Note the physical dimensions of these variables:
+
+* :math:`[R] = L`
+* :math:`[E] = \frac{ML^2}{T^2}`
+* :math:`[t] = T`
+* :math:`[\rho] = \frac{M}{L^3}`
+
+Task 2:
+-------
+
+Using this information, and following the process we used for the pendulum, estimate the values of :math:`x`, :math:`y`, and :math:`z` for
+
+.. math::
+
+    R = E^x \rho^y t^z
+
+Task 3:
+-------
+With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a function that will estimate the energy yield of the bomb at all of the different times shown in the pictures above.
+
+.. note::
+
+    The density of air (:math:`\rho`) is :math:`1.2\frac{kg}{m^3}`
+
+.. code:: python
+
+    def energy_yield(R: float, t: float) -> float:
+        """Returns the estimated energy yield
+
+        Uses the equation R = E^x * p^y * t^z to estimate the energy yield from the atomic bomb at different moments in time.
+
+        Parameters:
+        R : float
+            The estimated radius of the blast (in meters)
+        t : float
+            The time since detonation (in seconds)
+
+        Returns:
+        E : float
+            The estimate energy yield (in kgm^2/s^2 or Joules)
+        """
+        # your code here
+
+
 It is interesting to note that the modern estimated value for the energy yield is around 18 to 20 kilotons of TNT (1 Joule is about 2.3901e-13 kilotons of TNT). How close were your estimates?
 
 Add a constant
