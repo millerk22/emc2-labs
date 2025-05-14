@@ -1,7 +1,4 @@
-This would go right before task one in lab 3. Then we would convert lab 3 to the docstring format.
-
-
-Lab 3: Introduction to Python, Part III
+Lab 3 DRAFT: Introduction to Python, Part III
 =======================================
 
 One of the most important skills you can learn for any programming language is how to look up documentation and examples online.
@@ -20,7 +17,7 @@ Functions can get confusing sometimes, especially when you don't know what param
 
 .. code:: python
 
-    def functionName(parameter1: type, parameter2: type, parameter3: type) -> returnType:
+    def functionName(parameter1: type, parameter2: type, parameter3: type) -> return_type:
         """
         This is called a docstring.
         
@@ -70,6 +67,7 @@ Task 1
 Complete the following functions to review what you learned during the two introductory labs. Feel free to look up the documentation and/or examples for anything you've forgotten or haven't learned yet. (For example, it will probably help to look up the modulo operator.)
 
 Last two deleted:
+
 .. code:: python
 
     def last_two_deleted(num: int) -> int:
