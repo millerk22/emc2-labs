@@ -7,9 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Fall EMC2 Labs'
-copyright = '2024, Nick Andersen'
+copyright = '2025, Nick Andersen'
 author = 'Nick Andersen'
-release = '2024'
+release = '2025'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
