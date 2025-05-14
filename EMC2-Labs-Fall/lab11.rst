@@ -1,11 +1,11 @@
 Lab 11: Dimensional Analysis
 ============================
 
-Dimensional Analysis is a method for analyzing various physical quantities (like energy, force, velocity, distance, etc) based on their base units (like length, time, or mass). In this lab, you will use dimensional analysis to estimate the energy output of an atomic bomb.
+Dimensional Analysis is a method for analyzing various physical quantities (like energy, force, velocity, distance, etc.) based on their base units (like length, time, or mass). In this lab, you will use dimensional analysis to estimate the energy output of an atomic bomb.
 
 Rayleigh's Method and the Buckingham :math:`\pi` Theorem
 --------------------------------------------------------
-The background for dimensional analysis comes from `Rayleigh's method <"https://en.wikipedia.org/wiki/Dimensional_analysis#Rayleigh's_method">`_ and the formalization of Rayleigh's method, the `Buckingham pi theorem <https://en.wikipedia.org/wiki/Buckingham_%CF%80_theorem>`_.
+The background for dimensional analysis comes from `Rayleigh's method <"https://en.wikipedia.org/wiki/Dimensional_analysis#Rayleigh's_method">`_ and the formalization of Rayleigh's method, the `Buckingham Pi theorem <https://en.wikipedia.org/wiki/Buckingham_%CF%80_theorem>`_.
 
 The main idea is that you can create an equation relating a bunch of independent variables and one dependent variable. We can then use Rayleigh's method to ensure that the base units work out. If they do, we have a valid way of looking at our independent variable.
 
@@ -62,7 +62,7 @@ We just assumed that period is based on mass, length, and acceleration, which is
 
     t = C m^x l^y g^z
     
-Then we replace our variables witih their units.
+Then we replace our variables with their units.
 
 * :math:`[t] = T`
 * :math:`[m] = M`
@@ -113,7 +113,7 @@ Using ``numpy.linalg.solve(A, b)``, find the solution to this augmented matrix.
 
     ``numpy.linalg.solve`` has parameters ``A`` which is the unaugmented matrix, and ``b`` which is the augmented part of the matrix. It solves for :math:`\vec{x}` in the equation :math:`A\vec{x} = b`.
 
-With your solution, plug your values for :math:`x`, :math:`y`, and :math:`z` into our original equation. :math:`C` is normally found through experimentation so lets just say it is :math:`4\pi`.... What do you get?
+With your solution, plug your values for :math:`x`, :math:`y`, and :math:`z` into our original equation. :math:`C` is normally found through experimentation so let's just say it is :math:`4\pi`.... What do you get?
 
 .. math::
 
