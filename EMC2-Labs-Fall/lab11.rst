@@ -9,8 +9,7 @@ The background for dimensional analysis comes from `Rayleigh's method <"https://
 
 The main idea is that you can create an equation relating a bunch of independent variables and one dependent variable. We can then use Rayleigh's method to ensure that the base units work out. If they do, we have a valid way of looking at our independent variable.
 
-"ensure that the base units work out"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. steps of ralyleigh's method maybe put vvv at the end.
 When we put brackets around a variable, it means we are talking about the units of that variable. For example, velocity is measured in units of length (:math:`L`) and time (:math:`T`).
 
 .. math::
@@ -41,16 +40,20 @@ On the right side of this equation, we can simplify the units
 
     L M \frac{L}{T^2} = M \frac{L^2}{T^2}
 
+.. cases where they won't work out, then show steps
+.. key ideas with DA is have the units balanced -> work examples
+.. but sometimes the units don't work out. That is why we have the buckingham pi thm.
 Which are the units of work. It wouldn't make sense to have an equation where the units were not balanced. Dimensional analysis and Rayleigh's method allows us to balance the units for an equation.
 
 A Simple Pendulum
 -----------------
+.. simple example of using rayleigh's method
 Here is a simple example. Say we have a pendulum and we want to calculate the period (the time it takes to complete a swing). We assume that the period :math:`t` (in units of time) is based on the quantities :math:`m` (mass), :math:`l` (length), :math:`g` (acceleration due to gravity), and :math:`C` (some dimensionless constant).
 
 .. image:: ./_static/pendulum.png
     :width: 40%
     
-We our equation would look something like:
+So our equation would look something like:
 
 .. math::
 
