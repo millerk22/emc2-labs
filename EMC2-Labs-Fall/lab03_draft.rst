@@ -1,5 +1,5 @@
 Lab 3 DRAFT: Introduction to Python, Part III
-=======================================
+=============================================
 
 One of the most important skills you can learn for any programming language is how to look up documentation and examples online.
 For Python, there is an excellent tutorial here:

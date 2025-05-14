@@ -4,7 +4,7 @@ Lab 9: Solving Systems of Linear Equations
 
 In this lab you will learn how to construct 2 functions which implement iterative algorithms for solving systems of linear equations. 
 You will also learn how to solve these systems according to a tolerance level. 
-You will need to import Numpy using the following command:
+You will need to import NumPy using the following command:
 
 >>> import numpy as np
 
@@ -174,7 +174,7 @@ Like we stated previously iterative methods produce a sequence of numbers that a
 We say that this sequence converging to the solution if the error between the true and approximate solution is decreasing. 
 We define the error as the distance between the 2 vectors. 
 You can calculate the distance bettwen 2 vectors by subtracting them from each other and taking the norm of this new vector.
-In Numpy we can use the command ``np.linalg.norm``.
+In NumPy we can use the command ``np.linalg.norm``.
 
 >>> u = np.array([5, 4])
 >>> v = np.array([1, 1])
