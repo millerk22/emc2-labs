@@ -1,7 +1,6 @@
 
 Lab 24601: Networks and Eigenvector Centrality
-====================================
-
+==============================================
 
 In this lab you will learn how to model real world networks as mathematical networks and adjacency matrices. 
 You will need to import the following library.
@@ -24,7 +23,7 @@ In this lab we will walk you through this process of finding the importance of l
 Adjacency Matrices
 ------------------
 
-Throughout this whole lab we will be building up to work with a network with 499 nodes and 12560 directed edges. 
+Throughout this lab we will be building up to work with a network with 499 nodes and 12560 directed edges. 
 This will be our *internet*.
 You will be given the directed edges information in a vector where each row contains a directed edge with starting page on the left and ending page on the right.
 It will be a :math:`12650 \times 2` matrix appearing like,
@@ -43,7 +42,7 @@ It will be a :math:`12650 \times 2` matrix appearing like,
 For example, this small snippet shows us that page 76, has hyperlinks to page 109, 4, and 78 respectively.
 Now, we can take this vector and transform it into a much more useful form of data called an adjacency matrix.
 This matrix is :math:`n \times n` with :math:`n` nodes.
-In this matrix each row coresponnds to a starting page, and each coresponds to an ending page.
+In this matrix each row corresponnds to a starting page, and each column corresponds to an ending page.
 So every :math:`(i,j)`\th position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
 
 .. image:: _static/directed_network.PNG
@@ -64,12 +63,13 @@ Consider the directed network above. It contains 5 nodes, and can be represented
     \right]
 
 .. Definitely directly copied this below from the lab haha
+
 Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from vertex 3 to vertex 2. 
 Also, notice that there are no nonzero entries in the last row, which corresponds to the fact that vertex 4 does not have any edges which start from it.
 
 Task 1
 ------
-define a function ``adj_matrix(edge_array)``\. 
+Define a function ``adj_matrix(edge_array)``\. 
 This function will take a :math:`m \times 2`  ``np.array`` and return the respective adjacency matrix.
 Because each node will be a natural number or 0 use ``np.max()`` and add 1 to find the amount of nodes.
 Then use ``np.zeros((n, n))`` to generate a matrix of 0s of the correct size.
@@ -85,7 +85,7 @@ If you are confused on how to set up the adjacency matrix, refer to the notes ab
 PageRank Centrality
 -------------------
 
-For the next part of the lab we are going to explore Google and other companies actually determine the importance of pages through PageRank Centrality.
+For the next part of the lab we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
 Consider, the network below that we will define as network B.
 
 .. image:: _static/directed_network_gprime.png
@@ -161,7 +161,7 @@ As you can begin to see, we are solving for an eigenvector whose corresponding :
     We are guaranteed with these matrices that the greatest eigenvalue will always be one.
 
 If you remember back to lab 9, we used iterative methods to solve for the eigenvectors of systems of equations.
-We can use iterative methods as well to solve.
+We can use iterative methods here as well.
 For this method you start with an vector that sums of to 1. 
 For example we could start with
 
@@ -187,16 +187,16 @@ Like all iterative methods, as we increase the amount of iterations, the iterate
 Task 2
 ------
 
-Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and return the corresponds stochastic matrix. 
+Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and returns the corresponding stochastic matrix. 
 You can calculate the stochastic matrix by dividing each row of the matrix by the sum of the row, and then taking the transpose using ``A.T``.
 
 Task 3
 ------
 
 Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
-and returns the dominant eigen vector of ``P`` after ``k`` iterations.
+and returns the dominant eigenvector of ``P`` after ``k`` iterations.
 You will need to start with ``x_0 = [1/n, 1/n, ... , 1/n]`` with ``n`` entries.
-remember the equation ``x_{k+1} = Px_k``.
+remember the equation :math:`x_{k+1} = Px_k`.
 
 Task 4
 ------
@@ -222,4 +222,4 @@ In their original paper, Brin and Page reported that on a network with 322 milli
 
 Finally, as a historical note, the patent for the PageRank algorithm is owned by Stanford University (where Brin and Page were students at the time they developed it). 
 Stanford granted Google exclusive license rights to use the algorithm, in exchange for 1.8 million shares of Google which Stanford sold in 2005 for $336 million. 
-Today those shares would be worth approximately $3.8 billion. All for an algorithm which computes an eigenvector!
+Today those shares would be worth approximately $3.8 billion, all for an algorithm which computes an eigenvector!
