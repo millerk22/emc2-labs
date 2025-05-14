@@ -3,9 +3,6 @@ Lab 24601: Networks and Eigenvector Centrality
 ==============================================
 
 In this lab you will learn how to model real world networks as mathematical networks and adjacency matrices. 
-You will need to import the following library.
-
->>> import numpy as np
 
 A network is a collection of nodes. 
 Nodes are objects that are connected by edges. 
@@ -26,7 +23,7 @@ Adjacency Matrices
 Throughout this lab we will be building up to work with a network with 499 nodes and 12560 directed edges. 
 This will be our *internet*.
 You will be given the directed edges information in a vector where each row contains a directed edge with starting page on the left and ending page on the right.
-It will be a :math:`12650 \times 2` matrix appearing like,
+It will be a :math:`12560 \times 2` matrix appearing like,
 
 .. math::
 
@@ -64,17 +61,17 @@ Consider the directed network above. It contains 5 nodes, and can be represented
 
 .. Definitely directly copied this below from the lab haha
 
-Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from vertex 3 to vertex 2. 
-Also, notice that there are no nonzero entries in the last row, which corresponds to the fact that vertex 4 does not have any edges which start from it.
+Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from node 3 to node 2. 
+Also, notice that there are no nonzero entries in the last row, which corresponds to the fact that node 4 does not have any edges which start from it.
 
 Task 1
 ------
-Define a function ``adj_matrix(edge_array)``\. 
+Define a function ``adj_matrix(edge_matrix)``\. 
 This function will take a :math:`m \times 2`  ``np.array`` and return the respective adjacency matrix.
-Because each node will be a natural number or 0 use ``np.max()`` and add 1 to find the amount of nodes.
-Then use ``np.zeros((n, n))`` to generate a matrix of 0s of the correct size.
-Finally, iterate through each row of ``edge_array`` to correctly fill in the matrix. 
-It is important to remember that in ``edge_array``\, the rows corresponds to the node that is pointing, and the columns to the node being pointed to.
+Note that because each node will be a natural number or 0 use ``np.max()`` and add 1 to find the amount of nodes.
+.. Then use ``np.zeros((n, n))`` to generate a matrix of 0s of the correct size.
+.. Finally, iterate through each row of ``edge_matrix`` to correctly fill in the matrix. 
+.. It is important to remember that in ``edge_matrix``\, the rows corresponds to the node that is pointing, and the columns to the node being pointed to.
 If you are confused on how to set up the adjacency matrix, refer to the notes above.
 
 
@@ -109,6 +106,7 @@ The adjacency matrix for this network is defined by
    \right]
 
 The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the nodes pointing towards it.
+Basically, To measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
 Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node only points towards to one node. 
 So :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
 Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to 2 different nodes. 
@@ -160,7 +158,7 @@ As you can begin to see, we are solving for an eigenvector whose corresponding :
     This is because all of the columns of the matrix add up to one. 
     We are guaranteed with these matrices that the greatest eigenvalue will always be one.
 
-If you remember back to lab 9, we used iterative methods to solve for the eigenvectors of systems of equations.
+If you remember back to lab 9, we used iterative methods to solve for the solution of systems of equations.
 We can use iterative methods here as well.
 For this method you start with an vector that sums of to 1. 
 For example we could start with
@@ -181,7 +179,7 @@ For example we could start with
     \right].
 
 The rules for the method is that :math:`x_{k+1} = Px_k`. 
-Hence, :math:`x_{100} = P^{100}x_0`.
+Hence, :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
 
 Task 2
@@ -201,8 +199,8 @@ remember the equation :math:`x_{k+1} = Px_k`.
 Task 4
 ------
 
-Define a function ``PageRank_cent(edge_array, k)``.
-You will need to combine all of your past functions to take ``edge_array`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
+Define a function ``PageRank_cent(edge_matrix, k)``.
+You will need to combine all of your past functions to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
 Then convert the adjacency to a stochastic matrix using the ``stoch_mat`` function.
 You will then need to use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations. 
 
@@ -216,7 +214,6 @@ Conclusion
 ----------
 
 Larry Page and Sergey Brin are the original developers of this algorithm
-They developed this algorithm to sort pages by importance.
 The PageRank algorithm is known to converge quite quickly. 
 In their original paper, Brin and Page reported that on a network with 322 million edges the algorithm converged to usable values within 52 iterations.
 
