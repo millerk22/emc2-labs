@@ -2,30 +2,37 @@ Lab 9: Solving Systems of Linear Equations
 ==========================================
 
 
-In this lab you will learn how to construct 2 functions which implement iterative algorithms for solving systems of linear equations. 
+In this lab you will learn how to construct two functions which implement iterative algorithms for solving systems of linear equations. 
 You will also learn how to solve these systems according to a tolerance level. 
 You will need to import NumPy using the following command:
 
 >>> import numpy as np
 
 We often deal with systems of equations of the form :math:`Ax=b`. 
-As you know when given equations like this we solve for :math:`x`.
-Using methods such as Gaussian elimination can give us the exact the solution for :math:`x`.
-While you can easily do this for matrices that are 2x2, 3x3, etc, it becomes more and more difficult as the dimensions increase.
-This same logic follows for using computers. 
-While it may be easy for them to put small matrices in reduced row echelon form.
-As these matrices approach millions of rows and columns, it becomes computationally costly, and impossible in some cases.
+As you know when given equations like this, we solve for :math:`x`.
+Methods such as Gaussian elimination can give us the exact solution for :math:`x`.
+While this is straightforward for small matrices like :math:`2 \times 2` or :math:`3 \times 3` it becomes harder to solve as the matrices get larger. 
+This same challenge applies when using computers. 
+Furthermore, because computers store numbers with finite precision, rounding errors can often occur during calculation. 
+This effect is amplified when a matrix is ill-conditioned, that is, small changes in :math:`A, b` greatly change :math:`x`, meaning rounding errors are greatly amplified.
+This leads to incorrect solutions even when the math is solid.
+Both of these effects combined leads to us often avoiding Gaussian elimination when solving large systems. 
 
 Hence, in these scenarios we use iterative methods to solve for :math:`x`.
-Iterative methods involve using intial values to generate a sequence of improving approximate solutions. 
-Each of these approximatations is called an iterate.
+Iterative methods involve using initial values to generate a sequence of improving approximate solutions. 
+Each approximations is called an iterate.
 Take some arbitrary vector :math:`x^i`. 
 When we plug this vector into an iterative method, we obtain a better estimate for :math:`x` called :math:`x^{i+1}`.
-The reason we use these iterative methods is because they are often straight forward equations that can be calculated easily. 
-You will see 2 of types of iterative methods used for solving systems of linear equations. 
+
+As we continue to iterate, we will generate a *sequence* of iterates :math:`\{x^0, x^1, \dots, x^k\}` that is *converging* to :math:`x`.
+You will have the chance in Math 341 to learn more about *sequences* and *convergence*.
+For now just think of it as limit in the sense that :math:`\lim_{k\to \infty} x^k = x`.
+
+Once again, the reason we use these iterative methods is because they are often straight forward equations that can be calculated easily. 
+You will see two types of iterative methods used for solving systems of linear equations. 
 
 .. note::
-    When we use the notation :math:`x^i`, we are refering to the ith iterate, not a power. 
+    When we use the notation :math:`x^i`, we are referring to the ith iterate, not a power. 
 
 Jacobi's method
 ---------------
@@ -78,7 +85,7 @@ Then the formula used to get the next value of :math:`x` is
 
     x^{k+1} = D^{-1} ( \mathbf{b} - (L + U)x^{k} )
 
-If we generalize this formula to a 2x2 matrix we get the formula
+If we generalize this formula to a :math:`2 \times 2` matrix we get the formula
 
 .. math::
 
@@ -138,7 +145,7 @@ Then the formula used to get the next value of :math:`x` is
 
     x^{k+1} = L^{-1} (b - Ux^k)
 
-If we generalize this formula to a 2x2 matrix we get the formula
+If we generalize this formula to a :math:`2 \times 2` matrix we get the formula
 
 .. math:: 
 
@@ -150,30 +157,30 @@ If we generalize this formula to a 2x2 matrix we get the formula
 Notice how that the only difference between this method and Jacobi's method, is the :math:`x_1^{k+1}` used in the calculation of :math:`x_2^{k+1}`.
 Unlike Jacobi's method, Gauss-Seidel uses updated values as soon as they are computed. 
 This constitutes the biggest change between the 2 methods. 
-The benifit of Jacobi's method is that it can run in parallel. For now all you need to know is that this means it can be quickly run on a GPU.
+The benefit of Jacobi's method is that it can run in parallel. For now all you need to know is that this means it can be quickly run on a GPU.
 Gauss-Seidel's method often has a faster convergence and needs less iterations than Jacobi, and in some cases it even converges when the Jacobi cannot.
 
 Task 3
 ------
 
 Write a function ``gauss_seidel_iteration(x, A, b)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
-and returns :math:`x^{k+1}` using Gauss-Seidel's method. Remember that you muse compute the first value of :math:`x^{k+1}` first, in order to use it 
-in computing the second value. All inputs and outputs should be ``np.array``\s.
+and returns :math:`x^{k+1}` using Gauss-Seidel's method. Remember that you must compute :math:`x^{k+1}_1` first, in order to use it 
+in computing :math:`x^{k+1}_2`. All inputs and outputs should be ``np.array``\s.
 
 Task 4
 ------
 
 Write a function ``gauss_seidel_method(x, A, b, n)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
-which performs the Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
+which performs Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
 
 
 Error and Convergence
 ---------------------
 
 Like we stated previously iterative methods produce a sequence of numbers that are approaching the solution. 
-We say that this sequence converging to the solution if the error between the true and approximate solution is decreasing. 
+We say that this sequence is converging to the solution if the error between the true and approximate solution is decreasing. 
 We define the error as the distance between the 2 vectors. 
-You can calculate the distance bettwen 2 vectors by subtracting them from each other and taking the norm of this new vector.
+You can calculate the distance between 2 vectors by subtracting them from one from the other and taking the norm of this new vector.
 In NumPy we can use the command ``np.linalg.norm``.
 
 >>> u = np.array([5, 4])
@@ -193,9 +200,9 @@ You will need to modify ``gauss_seidel_method`` to perform iterations until the 
 Cases where convergence isn't reached
 -------------------------------------
 
-While these methods can be extremely effecitve, sometimes they will not converge. 
+While these methods are often very effective, sometimes they will not converge. 
 Fortunately, we are guaranteed convergence for matrices that are *strictly diagonally dominant*.
-This applies to n x n matrices where the absolute value of the diagonal element of every row is greater than the sum of the absoulte values of all the other elements in the row, or
+This applies to :math:`n \times n` matrices where the absolute value of the diagonal element of every row is greater than the sum of the absolute values of all the other elements in the row, or
 
 .. math::
 
