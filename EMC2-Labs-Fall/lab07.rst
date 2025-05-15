@@ -1,12 +1,9 @@
 Lab 7: Matrix Row Reduction
 ===========================
 
-Do you remember in lab 5 how you wrote ``scalar_mult(s, v)``, ``vector_add(v, w)``, and ``dot_product(v, w)``?
-Can you imagine having to write these functions every time you have to do these operations?
-Python makes things like this easy because people like `Travis Oliphant <https://en.wikipedia.org/wiki/Travis_Oliphant>`_ (a BYU alumnus) already wrote them!
-``scalar_mult``, ``vector_add``, ``dot_product``, and many other functions are already built in to libraries like NumPy (although they may look a little different).
+In Lab 5, we wrote ``scalar_mult(s, v)``, ``vector_add(v, w)``, and ``dot_product(v, w)``. In order to avoid having to write these functions every time, people like `Travis Oliphant <https://en.wikipedia.org/wiki/Travis_Oliphant>`_ (a BYU alumnus) created a python library we can use called NumPy. 
 
-In this lab you will write functions to perform basic matrix operations related to row-reducing a matrix. We will use NumPy to make this process a little easier. You will learn about:
+In this lab you will learn how to use NumPy to write functions that perform basic operations related to row-reducing a matrix. You will learn about:
 
 - importing NumPy
 - vectors and matrices in NumPy
@@ -22,20 +19,20 @@ To start using NumPy import it using:
 
 >>> import numpy as np
 
-Like we mentioned in `Lab 2 <https://emc2.byu.edu/fall-labs/lab02.html#numpy>`_, every time we use a function from NumPy, we need to prefix it with ``np``. So calling a function like ``cos`` (for cosine) would look like:
+As mentioned in `Lab 2 <https://emc2.byu.edu/fall-labs/lab02.html#numpy>`_, every time we use a function from NumPy, we need to prefix it with ``np``. So calling a function like ``cos`` (for cosine) would look like:
 
 >>> np.cos(0)
 1.0
 
 .. note::
-    ``np`` is the nickname for NumPy so we don't have to type out "``numpy``" every time. But we aren't required to call it ``np``, we could call it ``nick_andersen`` if we really wanted, but ``np`` is what is commonly understood.
+    ``np`` is the commonly understood nickname for NumPy so we don't have to type out "``numpy``" every time.
 
 
 Vectors and Matrices
 ~~~~~~~~~~~~~~~~~~~~
 
 In NumPy we represent matrices and vectors as a special kind of array called a NumPy array. To define
-a NumPy array, we use the function ``np.array()``. For example, if we want to create the vector
+a NumPy array, we use the function ``np.array()``. For example, to create the vector
 
 .. math::
    \left[\begin{array}1 1 \\ 2 \\ -1\end{array}\right]
@@ -56,7 +53,7 @@ array([1, 9, 7])
 >>> 3 * my_vect      # multiplying by scalars
 array([3, 6, -3])
 
-NumPy has made it really easy to work with vectors. They even have ``dot()`` which replaces our ``dot_product()`` function.
+NumPy has made working with vectors very easy. They even have ``dot()`` which replaces our ``dot_product()`` function.
 
 >>> array1=np.array([1,2,3])
 >>> array2=np.array([4,5,6])
@@ -65,10 +62,9 @@ NumPy has made it really easy to work with vectors. They even have ``dot()`` whi
 
 .. note::
        
-    Note that if you try to add vectors of different lengths or do the dot product of different sizes, NumPy will throw an error.
+    Note that if you attempt to add vectors of different lengths or perform the dot product of vectors of different sizes, NumPy will throw an error.
 
-To define matrices in NumPy, we define them as "lists of lists". Then we can plug that into the function ``np.array()``. For example, to define
-the matrix
+To define matrices in NumPy, we define them as "lists of lists". Then we can plug that into the function ``np.array()``. For example, to define the matrix
 
 .. math::
    \left[ \begin{array}4 
@@ -77,9 +73,7 @@ the matrix
    1 & 5 & 2 & 3
     \end{array} \right]
 
-we would create a list with three elements. The first element will be the list ``[1, 2, 3, 4]``,
-which we think of as the first row of the matrix. The second element in our list will be
-``[-5, -6, -7, -8]``, representing the second row, and so on.
+we would create a list with three elements. The first element will be the list ``[1, 2, 3, 4]``, which we consider the first row of the matrix. The second element in our list will be ``[-5, -6, -7, -8]``, representing the second row, and so on.
 
 .. note::
     In NumPy, both arrays *and* matrices are created using ``np.array()``.
@@ -111,17 +105,17 @@ We can think of it like :math:`[start,stop)` in mathematics. So from the array a
 >>> print(v[3:7])
 [ 3 -2  1  0]
 
-There is another optional option in slicing called ``step``.
+There is another optional parameter in slicing called ``step``.
 
 >>> my_array[start:stop:step]
 
 
-``step`` determines how many elements we step over. So 
+``step`` determines how many elements we skip over. So 
 
 >>> print(v[3:7:2])
 [3 1]
 
-will start at index 3 and get every second element until it gets to index 7. 
+will start at index 3 and select every second element until it reaches (but does not include) 7. 
 
 Here are some more examples:
 
@@ -135,8 +129,8 @@ Here are some more examples:
 >>> print(v[::2])   # [beginning,end) stepping every second element
 [ 4 -5 -2  0]
 
-We can access the entries in a matrix in a similar way to accessing elements of a list, though
-for matrices we have to list two indices (or ranges of indices), to specify the location of the
+We can access the entries in a matrix in a similar way to accessing elements of a list. However
+for matrices, we need to provide two indices (or ranges of indices), to specify the location of the
 row(s) and/or column(s) in which we are interested.
 
 >>> my_matrix=np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
@@ -154,24 +148,24 @@ row(s) and/or column(s) in which we are interested.
 [-5 -6 -7 -8]
 
 .. warning::
-    Remember in python we index starting at 0!
+    Remember in python, index starting at 0!
 
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
 NumPy arrays (of any dimension) have attributes that you can access to get information about the array. If our array is named ``array1``, then
 
-- ``array1.ndim`` will tell you the dimension of the array
+- ``array1.ndim`` will tell you the number of dimensions of the array
 - ``array1.size`` will tell you how many elements are in the array
-- ``array1.shape`` will give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n)``, a two dimensional array would be ``(n, m)`` and so on)
+- ``array1.shape`` will give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n,)``, a two dimensional array would be ``(n, m)`` and so on)
 
 .. note::
-    These are not functions and so we don't call them with ``()``.
+    These are attributes, not functions, so we access them *without* ``()``.
 
-NumPy also has built in functions to create NumPy arrays. These are important to know about, but you don't need to know all the details.
+NumPy also has built-in functions to create NumPy arrays. These are important to know about, but you don't need to know all the details right now.
 
 - ``np.zeros(shape)`` creates an array full of 0s
 - ``np.ones(shape)`` creates an array full of 1s
-- ``np.empty(shape)`` creates an array full of random numbers (faster than ``zeros()`` or ``ones()``)
+- ``np.empty(shape)`` creates an array filled with uninitialized (potentially random) numbers faster than ``zeros()`` or ``ones()``
 - ``np.arange(start, stop, step)`` works just like ``range()``, but it creates an array with all the values
 - ``np.linspace(start, stop, num)`` creates an array from start to end (inclusive) of evenly spaced numbers (specified by ``num``)
 
@@ -179,12 +173,12 @@ NumPy also has a set of functions that you access with ``numpy.linalg``.
 It includes things like matrix multiplication, eigenvalues, the transpose of a matrix, and lots of other useful functions.
 Again, these are good to know about, but you don't need to know all the details yet.
 
-Application
------------
+Application: Matrix Row Reduction
+---------------------------------
 
-Now we will write functions to perform basic matrix operations related to row-reduction.
-These aren't explicitly defined in NumPy, but we can use NumPy to make writing them easier!
-These functions will be really useful for future labs too.
+Now, we will write functions to perform basic matrix operations related to row-reduction.
+These aren't directly built into NumPy, but we can use NumPy to make writing them easier!
+These functions will be very useful for future labs as well.
 
 .. admonition:: Requirements
 
@@ -219,7 +213,7 @@ array([[ 0,  0],
 Task 3
 ------
 
-Write a function ``row_add(A, i, j, c)`` which takes as input a matrix ``A``, two indexes ``i`` and ``j``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` replaced with itself plus ``c`` times row ``j``.
+Write a function ``row_add(A, i, j, c)`` which takes as input a matrix ``A``, two indices ``i`` and ``j``, and a scalar ``c``. Your function should return the matrix obtained from ``A`` with row ``i`` replaced with itself plus ``c`` times row ``j``.
 
 >>> row_add(np.array([[0, 1, 1], [1, -1, 3], [1, 3, 2]]), 2, 0, -3)
 array([[ 0,  1,  1],
@@ -234,4 +228,4 @@ Challenge
 
 1. Write a function that determines whether or not a matrix is in echelon form. 
 
-2. Write a function that row-reduces a matrix to echelon form. The hard part of this problem is determining when to swap rows. 
+2. Write a function that row-reduces a matrix to echelon form. The difficult part of this problem is determining when to swap rows. 
