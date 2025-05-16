@@ -114,7 +114,7 @@ When we represent this system of equations in a matrix form, we get
 
 So the main idea with dimensional analysis is that you can create an equation relating several independent variables and one dependent variable. We can then use Rayleigh's method to ensure that the base units work out. If the units do balance, it provides us a vaild framework for understanding the relationship between the variables.
 
-Task 1: Solve the system
+Task 1: Solve the System
 ------------------------
 Using ``numpy.linalg.solve(A, b)``, find the solution to the matrix above.
 
@@ -181,6 +181,8 @@ Using this information and Rayleigh's method, estimate the values of :math:`x`, 
 
     R = C E^x \rho^y t^z
 
+Use ``numpy.round(a, decimals)`` to round your answers to 2 decimal places. ``a`` is the number you want to round and ``decimals`` is the number of decimal places you want to round to.
+
 .. Hint::
     A good first step is to write out this equation with the units of the variables rather than the variables themselves.
 
@@ -194,26 +196,7 @@ With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a functio
 
 Your function will take in ``R``, the radius of the explosion in meters, and ``t``, the time since the explosion in seconds. It will return the energy yield in Joules (:math:`\frac{kg \cdot m^2}{s^2}`).
 
-
-.. .. code:: python
-
-..     def energy_yield(R: float, t: float) -> float:
-..         """Returns the estimated energy yield.
-
-..         Uses the equation R = C E^x * p^y * t^z to estimate the energy yield from the atomic bomb at different moments in time where C = 1.
-
-..         Parameters:
-..         R : float
-..             The estimated radius of the blast (in meters)
-..         t : float
-..             The time since detonation (in seconds)
-
-..         Returns:
-..         E : float
-..             The estimate energy yield (in kg*m^2/s^2 or Joules)
-..         """
-
-..         # your code here
-
+.. Hint::
+    You need to solve for :math:`E` in the equation :math:`R = C E^x \rho^y t^z`, not :math:`R`.
 
 It is interesting to note that the modern estimated value for the energy yield is around 18 to 20 kilotons of TNT (1 Joule = 2.3901e-13 kilotons of TNT). How close were your estimates?
