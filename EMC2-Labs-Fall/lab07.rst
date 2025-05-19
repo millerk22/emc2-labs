@@ -166,6 +166,7 @@ NumPy also has built-in functions to create NumPy arrays. These are important to
 - ``np.zeros(shape)`` creates an array full of 0s
 - ``np.ones(shape)`` creates an array full of 1s
 - ``np.empty(shape)`` creates an array filled with uninitialized (potentially random) numbers faster than ``zeros()`` or ``ones()``
+- ``np.full(shape, fill_value)`` creates an array filled with the specified value
 - ``np.arange(start, stop, step)`` works just like ``range()``, but it creates an array with all the values
 - ``np.linspace(start, stop, num)`` creates an array from start to end (inclusive) of evenly spaced numbers (specified by ``num``)
 
