@@ -97,7 +97,10 @@ We see there are no :math:`M`'s or :math:`L`'s on the left, so we write :math:`x
 
 When we represent this system of equations in a matrix form, we get
 
+.. put the number here
+.. 
 .. math::
+    :label: eq:(1)
 
     \begin{bmatrix}
     1 & 0 & 0\\
@@ -116,7 +119,8 @@ So the main idea with dimensional analysis is that you can create an equation re
 
 Task 1: Solve the System
 ------------------------
-Using ``numpy.linalg.solve(A, b)``, find the solution to the matrix above.
+
+Using ``numpy.linalg.solve(A, b)``, find the solution to linear system :math:`(1)`.
 
 .. note::
 
