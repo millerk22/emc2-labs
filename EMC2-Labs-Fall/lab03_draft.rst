@@ -13,11 +13,11 @@ Throughout this course, remember: Google is your friend.
 
 Function Docstrings
 --------------------
-Functions can get confusing sometimes, especially when you don't know what parameters tyey take in and what they return (if anything). Fortunately, Python has some conventions to help make these things more clear.
+Functions can get confusing sometimes, especially when they are written by somebody else. Python has a convention called a docstring that allows you to write a description of what the function does, what the parameters are, and what the return value is. This is a good practice to get into, especially when you are writing functions that will be used by other people.
 
 .. code:: python
 
-    def functionName(parameter1: type, parameter2: type, parameter3: type) -> return_type:
+    def functionName(parameter1, parameter2, parameter3):
         """
         This is called a docstring.
         
@@ -34,29 +34,10 @@ Functions can get confusing sometimes, especially when you don't know what param
             The return value is ...
         ...
         """
+
         # the actual code goes down here
 
 For example, 
-
-.. code:: python
-
-    def multiply(a: int, b: float) -> float:
-        """
-        A multiply function.
-
-        This function will multiply two numbers together. It handles decimal numbers as well.
-
-        Parameters:
-        a : int
-            The first operand
-        b : float
-            The second operand
-
-        Returns:
-        result : float
-            The result of a * b
-        """
-        return a * b
 
 .. Warning::
     Python doesn't actually care if you return a ``float`` or a ``string`` or a ``numpy.ndarray``. These features are mostly for documentation and not double checking.
@@ -70,7 +51,7 @@ Last two deleted:
 
 .. code:: python
 
-    def last_two_deleted(num: int) -> int:
+    def last_two_deleted(num):
         """Deletes the last two digits.
 
         This function takes num and removes the last two digits and returns the result. If the number is only two digits long, it will return 0.
@@ -96,7 +77,7 @@ Last two:
 
 .. code:: python
 
-    def last_two(num: int) -> int:
+    def last_two(num):
         """Returns the last two digits of a number.
 
         This function takes num and returns the last two digits. If the number is only one digit long, it will not return any leading 0's (123405 will return 5, not 05).
@@ -124,7 +105,7 @@ First half:
 
 .. code:: python
 
-    def first_half(word: str) -> str:
+    def first_half(word):
         """Returns the first half of the word.
 
         This function takes the word and returns the first half. It excludes the middle character if the word has an odd number of characters.
@@ -144,8 +125,8 @@ First half:
 
 Usage:
 
->>> first_half('kevin_miller')
-'kevin_'
+>>> first_half('yourname')
+'your'
 >>> first_half('diophantine')
 `dioph'
 
@@ -154,7 +135,7 @@ Backward:
 
 .. code:: python
 
-    def backward(word: str) -> str:
+    def backward(word):
         """Reverse the order of a word.
 
         This function takes word and returns the reversed version of it.
@@ -185,7 +166,7 @@ Use some of your previously written functions to help make this more complicated
 
 .. code:: python
 
-    def int_to_str26(message: int) -> str:
+    def int_to_str26(message):
         """Returns the corresponding set of letters in the alphabet.
 
         This function takes message and returns the corresponding letter in the alphabet.
@@ -220,7 +201,7 @@ Now do the same, but in reverse.
 
 .. code:: python
 
-    def str_to_int26(message: str) -> int:
+    def str_to_int26(message):
         """Returns the number given a string of letters.
 
         This function takes message and returns the corresponding number to the letter in the alphabet.
