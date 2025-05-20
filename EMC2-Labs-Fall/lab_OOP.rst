@@ -112,8 +112,7 @@ If we could only rely on class attributes and instance attributes, working with 
 
 Task 1: Create a Class
 ----------------------
-
-.. simple example
+Create any class you want with at least two instance attributes and one method.
 
 Inheritance
 -----------
@@ -180,11 +179,11 @@ Then our ``Professor`` class would look like this:
 
 Classes are an excellent way to reduce code duplication when representing real world objects.
 
-Task?
------
-.. inheritance example
+Task 2: Squares and Rectangles
+------------------------------
+Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from a ``Rectangle`` class that has instance variables ``length``, and ``width``. Write methods called ``area`` and ``perimeter`` that computes the area of and perimeter the square or the rectangle. Write these two methods using inheritance (so you only have to write one of each).
 
-Dunder functions
+Dunder Functions
 ----------------
 When you first saw ``__init__``, it may have seemed like a weird way to write a function. That is because it is a special type of function called a Dunder function (Double UNDERscore). These are built in functions to all Python classes that have default behavior.
 
@@ -228,7 +227,7 @@ So now we can do:
 
 .. Don't worry about adding two students together.
 
-One really important Dunder function is ``__str__``. It is used in Python any time the object needs to be represented as a string. Right now, it is represented by something like
+One really important Dunder function is ``__str__``. It is used in Python any time the object needs to be represented as a string or any time ``str()`` is called. Right now, it is represented by something like
 
 >>> print(student)
 <__main__.Student object at 0x10299c790>
@@ -247,7 +246,19 @@ So instead of some weird print statement, we get
 >>> print(student)
 Student("Cosmo Cougar", ["American Heritage", "Linear Algebra"], 30)
 
-.. what if one of the examples they do is a base 16 thing... Or binary....
+Here are some other useful Dunder methods:
+- ``__eq__``: used for ``==``
+- ``__ne__``: used for ``!=``
+- ``__lt__``: used for ``<``
+- ``__gt__``: used for ``>``
+- ``__ge__``: used for ``>=``
+- ``__le__``: used for ``<=``
+- ``__str__``: used for ``str()``
+- ``__int__``: used for ``int()``
+- ``__len__``: used for ``len()``
+- ``__add__``: used for ``a + b``
+- ``__sub__``: used for ``a - b``
+- ``__mul__``: used for ``a * b``
 
 Task 3: Vector
 --------------
@@ -263,17 +274,35 @@ Fill in the code below:
             self.length = len(vector)
         
         def __add__(self, other_vector):
-            """Vector addition, prints "Error: different lengths" and returns if the vectors are of different lengths.
+            """Vector addition
             
-            returns a new Vector as the result
+            Raises a ValueError if the vectors are different lengths
+
+            Parameters:
+            self : Vector
+                The current object 
+            other_vector : Vector
+                The vector we are adding
+
+            Returns:
+            ret : Vector
+                The result of self + other_vector
             """
             # replace pass with your code
             pass
         
-        def __mul__(self, other_scalar):
+        def __mul__(self, scalar):
             """Scalar multiplication
             
-            returns a new Vector as the result
+            Parameters:
+            self : Vector
+                The current object 
+            scalar : int, float
+                The scalar we multiply by
+
+            Returns:
+            ret : Vector
+                The result of self * scalar
             """
             # replace pass with your code
             pass
@@ -300,5 +329,72 @@ Fill in the code below:
 
 Application: Binary
 -------------------
+Binary is how computers represent numbers. We are used to decimal (dec meaning ten) where there are ten symbols we use: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols we use: 0 and 1.
 
+To represent 2319 in decimal, we have :math:`2*10^3 + 3*10^2 + 1*10^1 + 9*10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1*2^11 + 0*2^10 + 0*2^9 + 1*2^8 + 0*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0`.
 
+The algorithm to convert from a decimal number :math:`n` to binary goes like this:
+#. Take the remainder of :math:`n/2`. This is the lowest digit of the binary number.
+#. Take the quotient and set it to n.
+#. Repeat this process until there are no digits left.
+
+So to convert 2319 to binary we do:
+
+.. list-table:: Algorithm
+   :widths: 50 25 25
+   :header-rows: 1
+
+   * - Operation
+     - Quotient
+     - Remainder
+   * - 2319/2
+     - 1159
+     - 1
+   * - 1159/2
+     - 579
+     - 1
+   * - 579/2
+     - 289
+     - 1
+   * - 289/2
+     - 144
+     - 1
+   * - 144/2
+     - 72
+     - 0
+   * - 72/2
+     - 36
+     - 0
+   * - 36/2
+     - 18
+     - 0
+   * - 18/2
+     - 9
+     - 0
+   * - 9/2
+     - 4
+     - 1
+   * - 4/2
+     - 2
+     - 0
+   * - 2/2
+     - 1
+     - 0
+   * - 1/2
+     - 0
+     - 1
+
+Now we write the remainders starting at the last and we get :math:`100100001111` which is what we had above.
+
+Task 4: Binary Class
+--------------------
+Write a class called ``Binary`` that takes in an integer.
+- When a ``Binary`` object is printed as a string, it should return the binary representation in 1's and 0's as a string.
+- When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
+- ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
+ ..   - You can do this by implementing the ``__ge__`` Dunder function which uses the ">=" operator, or you can compare the decimal representations of the binary numbers.
+- ``Binary`` objects can be added with one another to produce another ``Binary`` object.
+- ``Binary`` objects can be compared with one another for equality (the == operator)
+
+.. Hint::
+    It may be easiest to do all the math with the decimal representation of the number, and then just convert it to the binary representation when it needs to be printed out as a string.
