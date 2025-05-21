@@ -2,28 +2,27 @@
 Lab 24601: Networks and Eigenvector Centrality
 ==============================================
 
-In this lab you will learn how to model real world networks as mathematical networks and adjacency matrices. 
+In this lab, you will learn how to model real-world networks as mathematical networks and adjacency matrices. 
 
 A network is a collection of nodes. 
 Nodes are objects that are connected by edges. 
 You can think about it like houses (nodes) being connected to other houses by roads (edges) in a neighborhood (network).
-This can be used to model everything from friends in social media to alliances between countries.
-There are also directed networks, where each edge has a direction.
+Networks can model everything from social media friendships to international alliances.
+Some networks are directed, meaning each edge has a specific direction.
 An example of this could be a supply chain where products are always sent from one firm to another.
 
 Directed networks have become very important in modeling the internet.
 We let websites/pages be the nodes, connected by various hyperlinks acting as directed edges.
-Networks like this allow search engines such as Google and Microsoft Edge to rank pages based on importance or relevance.
+Networks like this allow search engines such as Google or Microsoft Edge to rank pages based on importance or relevance.
 In this lab we will walk you through this process of finding the importance of links.
 
 
 Adjacency Matrices
 ------------------
 
-Throughout this lab we will be building up to work with a network with 499 nodes and 12560 directed edges. 
-This will be our *internet*.
-You will be given the directed edges information in a vector where each row contains a directed edge with starting page on the left and ending page on the right.
-It will be a :math:`12560 \times 2` matrix appearing like,
+Throughout this lab we will use a directed network to represent the *internet*.
+We will start with a matrix of directed edges, where each row contains a starting page and its corresponding ending page.
+It will be a :math:`m \times 2` matrix appearing like,
 
 .. math::
 
@@ -36,19 +35,18 @@ It will be a :math:`12560 \times 2` matrix appearing like,
     \end{matrix}
     \right]
 
-For example, this small snippet shows us that page 76, has hyperlinks to page 109, 4, and 78 respectively.
+For example, this small snippet shows us that page 76 has hyperlinks to page 109, 4, and 78.
 Now, we can take this vector and transform it into a much more useful form of data called an adjacency matrix.
 This matrix is :math:`n \times n` with :math:`n` nodes.
-In this matrix each row corresponnds to a starting page, and each column corresponds to an ending page.
-So every :math:`(i,j)`\th position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
+In this matrix, each row corresponds to a starting page, and each column corresponds to an ending page.
+So every :math:`(i,j)` position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
 
 .. image:: _static/directed_network.PNG
     :align: center
 
 Consider the directed network above. It contains 5 nodes, and can be represented by the following :math:`5 \times 5` adjacency matrix,
 
-.. math::
-    A = 
+.. math:: 
     \left[
     \begin{matrix} 
     0 & 1 & 1 & 0 & 1 \\
@@ -62,16 +60,13 @@ Consider the directed network above. It contains 5 nodes, and can be represented
 .. Definitely directly copied this below from the lab haha
 
 Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from node 3 to node 2. 
-Also, notice that there are no nonzero entries in the last row, which corresponds to the fact that node 4 does not have any edges which start from it.
+Also, notice that there are no non-zero entries in the last row, which corresponds to the fact that node 4 does not have any edges which start from it.
 
 Task 1
 ------
 Define a function ``adj_matrix(edge_matrix)``\. 
-This function will take a :math:`m \times 2`  ``np.array`` and return the respective adjacency matrix.
-Note that because each node will be a natural number or 0 use ``np.max()`` and add 1 to find the amount of nodes.
-.. Then use ``np.zeros((n, n))`` to generate a matrix of 0s of the correct size.
-.. Finally, iterate through each row of ``edge_matrix`` to correctly fill in the matrix. 
-.. It is important to remember that in ``edge_matrix``\, the rows corresponds to the node that is pointing, and the columns to the node being pointed to.
+This function should take a :math:`m \times 2`  ``np.array`` and return the respective :math:`n \times n` adjacency matrix.
+Note that because each node is represented by a number between :math:`0` and :math:`n-1` use ``np.max()`` and add 1 to find the size of the adjacency matrix.
 If you are confused on how to set up the adjacency matrix, refer to the notes above.
 
 
@@ -82,8 +77,8 @@ If you are confused on how to set up the adjacency matrix, refer to the notes ab
 PageRank Centrality
 -------------------
 
-For the next part of the lab we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
-Consider, the network below that we will define as network B.
+For the next part of the lab, we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
+For the next part of the lab consider the network below.
 
 .. image:: _static/directed_network_gprime.png
         :align: center
@@ -92,7 +87,7 @@ The adjacency matrix for this network is defined by
 
 .. math::
 
-   B = \left[
+   \left[
    \begin{array}{cccccccc}
    0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
@@ -105,11 +100,11 @@ The adjacency matrix for this network is defined by
    \end{array}
    \right]
 
-The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the nodes pointing towards it.
-Basically, To measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
-Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node only points towards to one node. 
+The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the importance of the nodes pointing towards it.
+Basically, to measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
+Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node points to only one other node. 
 So :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
-Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to 2 different nodes. 
+Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to two different nodes. 
 Hence :math:`x_7 = \frac{1}{2} x_6`. 
 If we continue this for all of the nodes in our network we get the following set of equations.
 
@@ -122,7 +117,8 @@ If we continue this for all of the nodes in our network we get the following set
     x_3 = \frac{1}{4}x_2 & x_7 = \frac{1}{2} x_6
     \end{array}
 
-Now we can take these equations and put them into a system of equations to solve for the importance of each node. Doing that we get
+Now we can represent these as a system of equations to solve for the importance of each node.
+Doing that we get
 
 .. math::
     \left[
@@ -150,18 +146,28 @@ Now we can take these equations and put them into a system of equations to solve
     \right]
     .
 
-Now with we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
+Now we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
 As you can begin to see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
 
-.. note::
-    This matrix is a stochastic matrix. 
-    This is because all of the columns of the matrix add up to one. 
-    We are guaranteed with these matrices that the greatest eigenvalue will always be one.
+If you remember back to Lab 9, we used iterative methods to solve for the solution of systems of equations.
+We can use the `Power method <https://en.wikipedia.org/wiki/Power_iteration>`_ here.
+This method solves for the dominant eigenvector of a system of equations through following the equation,
 
-If you remember back to lab 9, we used iterative methods to solve for the solution of systems of equations.
-We can use iterative methods here as well.
-For this method you start with an vector that sums of to 1. 
-For example we could start with
+.. math::
+
+    x_{k+1} = \frac{Px_k}{||Px_k||}
+
+
+.. note::
+    This matrix is a `stochastic matrix <https://en.wikipedia.org/wiki/Stochastic_matrix>`_. 
+    This is because each column of the matrix sums to one.
+    By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
+    we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
+    there exists an eigenvalue of 1 and associated eigenvector. 
+    This is why we can use the Power Method here. 
+    
+
+Now consider the vector below whose column adds up to 1.
 
 .. math::
     x_0 = 
@@ -178,23 +184,37 @@ For example we could start with
     \end{array}
     \right].
 
-The rules for the method is that :math:`x_{k+1} = Px_k`. 
-Hence, :math:`x_{k} = P^{k}x_0`.
+Because of the way our system of equations is set up, as long as the columns of :math:`x_k` add up to 1, the columns of :math:`x_{k+1}` will add up to 1.
+Therefore, we can omit normalization at each iteration.
+Thus the rule for the method is :math:`x_{k+1} = Px_k`. 
+Therefore, :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
 
 Task 2
 ------
 
 Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and returns the corresponding stochastic matrix. 
-You can calculate the stochastic matrix by dividing each row of the matrix by the sum of the row, and then taking the transpose using ``A.T``.
+You can calculate the stochastic matrix by dividing each row of the matrix by the sum of the row, and then transpose the matrix using ``A.T``.
 
 Task 3
 ------
 
 Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
 and returns the dominant eigenvector of ``P`` after ``k`` iterations.
-You will need to start with ``x_0 = [1/n, 1/n, ... , 1/n]`` with ``n`` entries.
-remember the equation :math:`x_{k+1} = Px_k`.
+You will need to start with ``x_0 = np.array([1/n, 1/n, ... , 1/n]) = np.full(n, 1/n)`` with ``n`` entries.
+Remember the equation :math:`x_{k+1} = Px_k`.
+
+.. note::
+    the numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
+    and fills it in with the fill value.
+
+    >>> np.full(5, 10)
+    [10 10 10 10 10]
+
+    >>> np.full((2,3), 4)
+    [[4 4 4]
+     [4 4 4]]
+        
 
 Task 4
 ------
@@ -207,16 +227,17 @@ You will then need to use the ``stoch_eig`` function to return the dominant eige
 Task 5
 ------
 
-Use your recently created ``PageRank_cent`` to find the index of the most important node of 499 node network.
-You can use ``np.argmax()`` to find the index of the largest element in an array. 
+Use your recently created ``PageRank_cent`` to find the index of the most important node of a 499-node network.
+You can use ``np.argmax()`` to find the index of the largest element in an array. The directed edges matrix will be given in code buddy.
 
 Conclusion
 ----------
 
-Larry Page and Sergey Brin are the original developers of this algorithm
+Using the Power Method to compute the PageRank scores was the foundation of Google’s search ranking results for many years.
+Larry Page and Sergey Brin are the original developers of this algorithm.
 The PageRank algorithm is known to converge quite quickly. 
 In their original paper, Brin and Page reported that on a network with 322 million edges the algorithm converged to usable values within 52 iterations.
 
 Finally, as a historical note, the patent for the PageRank algorithm is owned by Stanford University (where Brin and Page were students at the time they developed it). 
 Stanford granted Google exclusive license rights to use the algorithm, in exchange for 1.8 million shares of Google which Stanford sold in 2005 for $336 million. 
-Today those shares would be worth approximately $3.8 billion, all for an algorithm which computes an eigenvector!
+Today those shares would be worth approximately $3.8 billion, all for an algorithm that computes an eigenvector!
