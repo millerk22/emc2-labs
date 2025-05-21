@@ -112,7 +112,7 @@ If we could only rely on class attributes and instance attributes, working with 
 
 Task 1: Create a Class
 ----------------------
-Create any class you want with at least two instance attributes and one method.
+Create a ``Rectangle`` class that has instance variables ``length``, and ``width``. Write methods called ``area`` and ``perimeter`` that compute the area and perimeter of the rectangle.
 
 Inheritance
 -----------
@@ -144,7 +144,7 @@ Notice how the attributes ``name``, ``classes``, and ``intelligence`` and the me
         def study(self, time):
             self.intelligence += time * 0.2 # time in hours
 
-Then we can change the ``Student`` and ``Professor`` classes to look like this:
+Then we can change the ``Student``class to look like this:
 
 .. code:: python
 
@@ -159,9 +159,6 @@ Then we can change the ``Student`` and ``Professor`` classes to look like this:
         def improve_grade(self, percentage):
             self.grade += percentage
             return self.grade # the new grade
-        
-        def study(self, time):
-            self.intelligence += time * 0.2 # time in hours
 
 The line ``super().__init__(name, classes, intelligence)`` takes the parameters from ``Student``'s ``__init__`` method and passes them to the superclass ``__init__`` method. The superclass for ``Student`` is ``Person`` because that is where it inherits from. After calling the superclass's init method, ``Student`` sets the instance variables that are unique to a student.
 
@@ -181,7 +178,7 @@ Classes are an excellent way to reduce code duplication when representing real w
 
 Task 2: Squares and Rectangles
 ------------------------------
-Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from a ``Rectangle`` class that has instance variables ``length``, and ``width``. Write methods called ``area`` and ``perimeter`` that computes the area of and perimeter the square or the rectangle. Write these two methods using inheritance (so you only have to write one of each).
+Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from the ``Rectangle`` class you wrote in Task 1. Make sure you can find the ``area`` and ``perimeter`` of a ``Square``!
 
 Dunder Functions
 ----------------
