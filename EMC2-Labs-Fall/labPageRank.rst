@@ -202,7 +202,7 @@ Task 3
 Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
 and returns the dominant eigenvector of ``P`` after ``k`` iterations.
 You will need to start with ``x_0 = np.array([1/n, 1/n, ... , 1/n]) = np.full(n, 1/n)`` with ``n`` entries.
-Remember the equation :math:`x_{k+1} = Px_k`.
+Remember the equation :math:`x_{k} = P^{k}x_0`.
 
 .. note::
     the numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
