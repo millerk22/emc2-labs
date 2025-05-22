@@ -7,7 +7,7 @@ In this lab you will learn about Object Oriented Programming (OOP) in Python. Yo
 - inheritance
 - modules
 
-Object Oriented Programming is simply another way to organize code. So far, we have only done functional programming, where we write functions to do things. One benefit of OOP is that it is generally better than functional programming when representing real world objects. There are advantages and disadvantages to both approaches and by the end of this lab you will be able to see some of these differences.
+Object Oriented Programming is simply another way to organize code. So far, we have only done functional programming, where we write functions to perform tasks. One benefit of OOP is that it is generally better than functional programming when representing real world objects. There are advantages and disadvantages to both approaches and by the end of this lab you will be able to see some of these differences.
 
 Classes
 -------
@@ -15,7 +15,7 @@ Classes
 .. Important::
     In OOP, a **class** is a kind of thing, while an **object** is a specific one of those things.
 
-In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of the objects have different properities like kind, color, and length.
+In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of the objects have different properities like color and length.
 
 We can represent the ``WritingUtensil`` class in python like this:
 
@@ -23,89 +23,69 @@ We can represent the ``WritingUtensil`` class in python like this:
     
     class WritingUtensil:
         def __init__(self, kind, color, length):
-            self.kind = kind
             self.color = color
             self.length = length
 
-The ``__init__`` function is called a **constructor** and it is called every time we create a new object of the class. The constructor is used to initialize the **attributes** of the object. In this case, we have three attributes: ``kind`` ``color``, and ``length``.
+The ``__init__`` function is called a **constructor** and it is called every time we create a new object of the class. The constructor is used to initialize the **attributes** of the object. In this case, we have two attributes: ``color`` and ``length``.
 
 We can create a new object of type ``WritingUtensil`` like this (using the constructor): 
 
 .. code:: python
 
-    pencil = WritingUtensil("pencil", "yellow", 5)
-    pen = WritingUtensil("pen", "blue", 4)
-    chalk = WritingUtensil("chalk", "white", 2)
+    pencil = WritingUtensil("black", 5)
+    pen = WritingUtensil("blue", 4)
 
-We can access attributes using dot notation:
+We can access or change attributes using dot notation:
 
->>> pencil.kind
-'pencil'
+>>> pencil.color
+'black'
 >>> pen.color
 'blue'
->>> chalk.length
-2
+>>> pen.color = "black"
+>>> pen.color
+'black'
 
-You may have noitced that ``self`` appears a lot in our class. Whenever we use ``self`` it refers to the current object. So ``self.kind`` sets our instance of class ``WritingUtensil`` to something like ``"pen"``.
+You may have noitced that ``self`` appears a lot in our class. Whenever we use ``self`` it refers to the current object. So ``self.color`` sets our instance of class ``WritingUtensil`` to something like ``"blue"``.
 
-Consider another example:
-
-.. code:: python
-
-    class Student:
-        def __init__(self, name, classes, grade, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.grade = grade
-            self.intelligence = intelligence
-
-We have **instance attributes** of ``name``, ``classes``, ``gpa``, and ``intelligence``. These attributes only apply to the specific instance of our object, but sometmies it is appropriate to have what is called a **class attribute**. Class attributes apply to the entire class. In our example, say that each student can turn in 3 late assignments, then
+Classes can also have **class attributes**. These are very similar to instance attributes (seen in the example above), but they apply to the entire class. They are located on the same level as the constructor.
 
 .. code:: python
 
-    class Student:
-        late_assignments_left = 3
+    class WritingUtensil:
+        brand = "bic"
+        def __init__(self, color, length):
+            self.color = color
+            self.length = length
 
-        def __init__(self, name, classes, grade, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.grade = grade
-            self.intelligence = intelligence
+So if we create a ``pencil`` and ``pen`` object just like we did above, we can access the brand on any object of type ``WritingUtensil``.
 
-Every student object will have access to their own copy of ``late_assignments``.
+>>> pencil.brand
+'bic'
+>>> pen.brand
+'bic'
 
->>> cosmo = Student("Cosmo", ["American Heritage", "Linear Algebra", "Math 290"], 98)
->>> cougar = Student("Cougar", ["Linear Algebra"], 97)
->>> cosmo.late_assignments_left
-3
->>> cosmo.late_assignments_left = 2
->>> cosmo.late_assignments_left
-2
->>> cougar.late_assignments_left
-3
+It is possible to change class attributes as well
 
-If we could only rely on class attributes and instance attributes, working with classes would be very limited. Fortunately, **methods** enhance the capability of classes. Methods are essentially functions that act on classes.
+>>> pen.brand = "uni"
+>>> pen.brand
+'uni'
+>>> pencil.brand
+'bic'
+
+If we could only rely on class attributes and instance attributes, working with classes would be very limited. Fortunately, **methods** enhance the capability of classes. Methods are essentially functions that act on objects.
 
 .. code:: python
 
-    class Student:
-        late_assignments_left = 3
-
-        def __init__(self, name, classes, grade, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.grade = grade
-            self.intelligence = intelligence
-
-        def improve_grade(self, percentage):
-            self.grade += percentage
-            return self.grade # the new grade
-        
-        def study(self, time):
-            self.intelligence += time * 0.2 # time in hours
-        
-``improve_grade`` is a method that takes in a percentage and increase the grade by that percentage. It then returns the new grade of the student.
-``study`` is a method that takes in a time (in hours) and increases the student's intelligence by a scaled version of that time.
+    class WritingUtensil:
+        brand = "bic"
+        def __init__(self, color, length):
+            self.color = color
+            self.length = length
+            
+        def write(self, message):
+            print(f"'{message}' written in {self.color}")
+            
+``write`` is a method that takes in a message and prints the message to the screen along with what color it would have been written in.
 
 .. Note::
     Whenever you create a method in a class, it needs to have ``self`` as the first argument, otherwise your method won't have access to class/instance attributes, or other methods.
@@ -117,74 +97,76 @@ Create a ``Rectangle`` class that has instance variables ``length``, and ``width
 Inheritance
 -----------
 
-Classes and objects provide a neat way of reusing code in certain cases. Imagine we want a ``Professor`` class to go with our student class.
+Classes and objects provide a neat way of reusing code in certain cases. Imagine we want a way to represent a writing utensil more specifically with a ``Pen`` and ``Pencil`` class. It is important to note that the attributes in ``Pen`` and ``Pencil`` would be the same attributes in ``WritingUtensil`` with a few attributes added on. We can use **inheritance** to make these three classes without rewriting the same thing each time.
 
 .. code:: python
 
-    class Professor:
-        def __init__(self, name, classes, experience, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.experience = experience    # in years
-            self.intelligence = intelligence
-        
-        def study(self, time):
-            self.intelligence += time * 0.2 # time in hours
+    class Pen(WritingUtensil):  # this is how we show Pen inherits from WritingUtensil
+        def __init__(self, color, length):
+            super().__init__(color, length) # call WritingUtensil's __init__ method
 
-Notice how the attributes ``name``, ``classes``, and ``intelligence`` and the method ``study`` are shared between ``Student`` and ``Professor``. We can create a class called ``Person`` that contains these attributes and methods.
+    class Pencil(WritingUtensil): # this is how we show Pencil inherits from WritingUtensil
+        def __init__(self, color, length):
+            super().__init__(color, length) # call WritingUtensil's __init__ method
 
-.. code:: python
-    
-    class Person:
-        def __init__(self, name, classes, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.intelligence = intelligence
-        
-        def study(self, time):
-            self.intelligence += time * 0.2 # time in hours
-
-Then we can change the ``Student``class to look like this:
-
-.. code:: python
-
-    class Student(Person):  # this is saying Student inherits from Person
-
-        late_assignments_left = 3
-
-        def __init__(self, name, classes, grade, intelligence):
-            super().__init__(name, classes, intelligence)   # calls the superclass init method
-            self.grade = grade
-
-        def improve_grade(self, percentage):
-            self.grade += percentage
-            return self.grade # the new grade
-
-The line ``super().__init__(name, classes, intelligence)`` takes the parameters from ``Student``'s ``__init__`` method and passes them to the superclass ``__init__`` method. The superclass for ``Student`` is ``Person`` because that is where it inherits from. After calling the superclass's init method, ``Student`` sets the instance variables that are unique to a student.
+The line ``super().__init__(color, length)`` takes the parameters from ``Pen`` or ``Pencil``'s ``__init__`` method and passes them to the superclass ``__init__`` method. We know the superclass for ``Pen`` or ``Pencil`` is ``WritingUtensil`` from where we define the class ``class Pencil(WritingUtensil):``.
 
 .. Note::
-    We don't need our ``study`` method in ``Student`` because it is contained in ``Person``. We can still call it the same way.
+    We don't need our ``write`` method in ``Pen`` or ``Pencil`` because it is contained in ``WritingUtensil``. We can still call it the same way.
 
-Then our ``Professor`` class would look like this:
+At this point, we have created classes that inherit from another class, but it isn't all that useful to us because our sub-classes are the exact same as our superclass. We can make ``Pen`` and ``Pencil`` more useful by adding methods or attributes directly to their definitions.
+
+Lets say we we want to add an attribute in pencil to represent if it was a mechanical pencil, or a normal pencil, along with an ``erase`` method.
 
 .. code:: python
 
-    class Professor(Person):
-        def __init__(self, name, classes, experience, intelligence):
-            super().__init__(name, classes, intelligence)
-            self.experience = experience    # in years
+    class Pencil(WritingUtensil):
+        def __init__(self, color, length, kind):
+            super().__init__(color, length, kind)
+            self.type = kind    # "mechanical" or "normal"
 
-Classes are an excellent way to reduce code duplication when representing real world objects.
+        def erase():
+            print("Erased last line")
+
+Lets say we wanted an attribute in pen to represent how much ink was left.
+
+.. code:: python
+
+    class Pen(WritingUtensil):
+        def __init__(self, color, length):
+            super().__init__(color, length)
+            self.percent_of_ink_left = 100  # if we assume it always starts at 100%, then we can set it without passing in a value
+
+>>> mechanical_pencil = Pencil("black", 5, "mechanical")
+>>> mechanical_pencil.write("Hello World")
+'Hello World' written in black
+>>> mechanical_pencil.erase()
+'Erased last line'
+>>> pencil = Pencil("grey", 6, "normal")
+>>> pencil.write("Hello BYU")
+'Hello BYU' written in grey
+>>> pencil.erase()
+'Erased last line'
+>>> pen = Pen("blue", 4)
+>>> pen.write("Hello EMC2")
+'Hello EMC2' written in blue
+>>> pen.percent_of_ink_left
+100
+
+This was an introduction to what classes can do and there is a lot of functionality we didn't cover. What is important to understand right now is that classes are an excellent way to reduce code duplication when representing real world objects.
 
 Task 2: Squares and Rectangles
 ------------------------------
 Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from the ``Rectangle`` class you wrote in Task 1. Make sure you can find the ``area`` and ``perimeter`` of a ``Square``!
 
-Dunder Functions
-----------------
-When you first saw ``__init__``, it may have seemed like a weird way to write a function. That is because it is a special type of function called a Dunder function (Double UNDERscore). These are built in functions to all Python classes that have default behavior.
+.. Hint::
+    You don't need to write ``area`` and ``perimeter`` again.
 
-For example, ``__add__`` is a Dunder function that has a default behavior of adding things together. This works intuitively for ``int`` and ``float``. Python has also defined ``__add__`` for ``str`` where ``a + b`` is the concatenation of ``a`` and ``b``.
+Dunder Methods
+--------------
+When you first saw ``__init__``, it may have seemed like a weird way to write a method. That is because it is a special type of method called a Dunder method (Double UNDERscore). These are built in methods to all Python classes that have default behavior.
+
+For example, ``__add__`` is a Dunder method that has a default behavior of adding things together. This works intuitively for ``int`` and ``float``. Python has also defined ``__add__`` for ``str`` where ``a + b`` is the concatenation of ``a`` and ``b``.
 
 >>> a = "Hello"
 >>> b = "World"
@@ -194,54 +176,57 @@ For example, ``__add__`` is a Dunder function that has a default behavior of add
 .. Note::
     ``int``, ``float``, and ``str`` and all other types in Python are made using classes.
 
-Lets say we wanted the ``__add__`` behavior of our ``Person`` class to add the number to ``intelligence``. We would write that like:
+Consider this class:
+
+.. code:: python
+
+    class Sandwich:
+        def __init__(self, length: int, toppings: list)
+            """Creates a Sandwich class with a length in inches and a list of toppings like ['bacon', 'lettuce', 'tomato']
+            """
+            self.toppings = toppings
+            self.length = length
+
+Lets say we wanted the ``__add__`` behavior of our ``Sandwich`` class to add a topping to our sandwich.
 
 .. code:: python
     
-    class Person:
-        def __init__(self, name, classes, intelligence):
-            self.name = name
-            self.classes = classes  # a list
-            self.intelligence = intelligence
-        
-        def study(self, time):
-            self.intelligence += time * 0.2 # time in hours
-        
-        def __add__(self, number):  # number is whatever number we are adding to Person
-            self.intelligence += number
+    class Sandwich:
+        def __init__(self, length: int, toppings: list):
+            self.toppings = toppings
+            self.length = length
 
-So now we can do:
+        def __add__(self, topping: str):
+            self.toppings.append(topping)
 
->>> student = Student("Cosmo Cougar", ["American Heritage", "Linear Algebra"], 98, 30)
->>> student.intelligence
-30
->>> student + 2
->>> student.intelligence
-32
+So now
+
+>>> blt = Sandwich(6, ['bacon', 'lettuce', 'tomato'])
+>>> blt.toppings
+['bacon', 'lettuce', 'tomato']
+>>> blt + 'mayo'
+>>> blt.toppings
+['bacon', 'lettuce', 'tomato', 'mayo']
 
 .. Note::
     Now that you know about Dunder methods, it is a lot easier to explain how NumPy adds vectors together. They simply implemented the ``__add__`` Dunder method!
 
-.. Don't worry about adding two students together.
+One really important Dunder method is ``__str__``. It is used in Python any time the object needs to be represented as a string (like when using ``print()``) or any time ``str()`` is called. Right now, our ``Sandwich`` object is represented by something like
 
-One really important Dunder function is ``__str__``. It is used in Python any time the object needs to be represented as a string or any time ``str()`` is called. Right now, it is represented by something like
-
->>> print(student)
-<__main__.Student object at 0x10299c790>
+>>> print(blt)
+<__main__.Sandwich object at 0x10299c790>
 
 If we write our own ``__str__`` method, we can make this look a lot cleaner.
-
-.. Do they know about f-strings?
 
 .. code:: python
 
     def __str__(self):
-        return f"Person({self.name}, {self.classes}, {self.intelligence})"
+        return f"{self.length} inch sandwich with toppings: {', '.join(self.toppings)}"
 
 So instead of some weird print statement, we get
 
 >>> print(student)
-Student("Cosmo Cougar", ["American Heritage", "Linear Algebra"], 30)
+6 inch sandwich with toppings: bacon, lettuce, tomato, mayo
 
 Here are some other useful Dunder methods:
 - ``__eq__``: used for ``==``
@@ -259,9 +244,7 @@ Here are some other useful Dunder methods:
 
 Task 3: Vector
 --------------
-Write a class called ``Vector`` that implements vector addition and scalar multiplication.
-
-Fill in the code below:
+Write a class called ``Vector`` that takes in a python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
 
 .. code:: python
     class Vector():
@@ -305,34 +288,24 @@ Fill in the code below:
             pass
         
         def __str__(self):
-            return f"Vector({self.vector})"
-
-.. Importing modules
-.. -----------------
-.. Another important way to reduce code duplication is to use python modules. A module is simply a collection of code in a file. So far for this class, we have been using Google Colab. Colab is nice because it is easy to learn how to use, but most programmers don't use Colab. It is much more common in Python programming to use an IDE (Integrated Development Environment, basically an app with lots of features for programming) like Visual Studio Code or Pycharm. In this demonstration, we will be using the terminal (also called the command prompt, shell, or console) to write a program.
-
-.. Step 1: Open the Terminal
-.. ~~~~~~~~~~~~~~~~~~~~~~~~~
-.. Look for the "Windows Terminal" on windows, or "Terminal" on mac and open it. You should see something like:
-
-.. .. image
-
-.. Notice how you can see your username on the left side of the terminal. Right next to that will be a symbol (``%``, ``$`` ``>``), and after that will be a flashing cursor. This is where we can type commands. 
-
-.. give an example
-
-.. Task 2: Extra Credit? Do something on your filesystem
-.. -----------------------------------------------------
+            return f"Vector of {self.vector}"
 
 Application: Binary
 -------------------
-Binary is how computers represent numbers. We are used to decimal (dec meaning ten) where there are ten symbols we use: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols we use: 0 and 1.
+Binary is how computers represent numbers. We are used to decimal ("dec" meaning ten) where there are ten symbols we use: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols we use: 0 and 1.
 
 To represent 2319 in decimal, we have :math:`2*10^3 + 3*10^2 + 1*10^1 + 9*10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1*2^11 + 0*2^10 + 0*2^9 + 1*2^8 + 0*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0`.
 
+The formula is
+.. math::
+
+    binary = n*2^d
+
+Where :math:`n` is the :math:`1` or :math:`0` and :math:`d` is the digit index (starting wher the least significant bit is 0).
+
 The algorithm to convert from a decimal number :math:`n` to binary goes like this:
 #. Take the remainder of :math:`n/2`. This is the lowest digit of the binary number.
-#. Take the quotient and set it to n.
+#. Set the quotient to n.
 #. Repeat this process until there are no digits left.
 
 So to convert 2319 to binary we do:
@@ -389,9 +362,8 @@ Write a class called ``Binary`` that takes in an integer.
 - When a ``Binary`` object is printed as a string, it should return the binary representation in 1's and 0's as a string.
 - When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
 - ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
- ..   - You can do this by implementing the ``__ge__`` Dunder function which uses the ">=" operator, or you can compare the decimal representations of the binary numbers.
 - ``Binary`` objects can be added with one another to produce another ``Binary`` object.
-- ``Binary`` objects can be compared with one another for equality (the == operator)
+- ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
 
 .. Hint::
     It may be easiest to do all the math with the decimal representation of the number, and then just convert it to the binary representation when it needs to be printed out as a string.
