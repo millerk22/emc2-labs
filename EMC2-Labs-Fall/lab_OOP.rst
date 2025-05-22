@@ -16,7 +16,7 @@ Classes
 .. Important::
     In OOP, a **class** is a kind of thing, while an **object** is a specific one of those things.
 
-In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of the objects have different properities like color and length.
+In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of these objects has different properities such as color and length.
 
 We can represent the ``WritingUtensil`` class in python like this:
 
@@ -29,7 +29,7 @@ We can represent the ``WritingUtensil`` class in python like this:
 
 The ``__init__`` function is called a **constructor** and it is called every time we create a new object of the class. The constructor is used to initialize the **attributes** of the object. In this case, we have two attributes: ``color`` and ``length``.
 
-We can create a new object of type ``WritingUtensil`` like this (using the constructor): 
+We can create new ``WritingUtensil`` objects like this (using the constructor): 
 
 .. code:: python
 
@@ -46,7 +46,7 @@ We can access or change attributes using dot notation:
 >>> pen.color
 'black'
 
-You may have noitced that ``self`` appears a lot in our class. Whenever we use ``self`` it refers to the current object. So ``self.color`` sets our instance of class ``WritingUtensil`` to something like ``"blue"``.
+You may have noitced that ``self`` appears frequently in our class. Whenever we use ``self`` it refers to the current object. So ``self.color`` sets our instance of class ``WritingUtensil`` to something like ``"blue"``.
 
 Classes can also have **class attributes**. These are very similar to instance attributes (seen in the example above), but they apply to the entire class. They are located on the same level as the constructor.
 
@@ -117,19 +117,19 @@ The line ``super().__init__(color, length)`` takes the parameters from ``Pen`` o
 
 At this point, we have created classes that inherit from another class, but it isn't all that useful to us because our sub-classes are the exact same as our superclass. We can make ``Pen`` and ``Pencil`` more useful by adding methods or attributes directly to their definitions.
 
-Lets say we we want to add an attribute in pencil to represent if it was a mechanical pencil, or a normal pencil, along with an ``erase`` method.
+Let's say we we want to add an attribute to the ``Pencil`` class to indicate whether it's a mechanical or a regural pencil, along with an ``erase`` method.
 
 .. code:: python
 
     class Pencil(WritingUtensil):
         def __init__(self, color, length, kind):
             super().__init__(color, length, kind)
-            self.type = kind    # "mechanical" or "normal"
+            self.type = kind    # "mechanical" or "regular"
 
         def erase():
             print("Erased last line")
 
-Lets say we wanted an attribute in pen to represent how much ink was left.
+Let's say we want to add an attribute to the ``Pen`` class to represent how much ink is left.
 
 .. code:: python
 
@@ -143,7 +143,7 @@ Lets say we wanted an attribute in pen to represent how much ink was left.
 'Hello World' written in black
 >>> mechanical_pencil.erase()
 Erased last line
->>> pencil = Pencil("grey", 6, "normal")
+>>> pencil = Pencil("grey", 6, "regular")
 >>> pencil.write("Hello BYU")
 'Hello BYU' written in grey
 >>> pencil.erase()
@@ -165,7 +165,7 @@ Create a ``Square`` class with an instance variable ``length``. ``Square`` inher
 
 Dunder Methods
 --------------
-When you first saw ``__init__``, it may have seemed like a weird way to write a method. That is because it is a special type of method called a Dunder method (Double UNDERscore). These are built in methods to all Python classes that have default behavior.
+When you first saw ``__init__``, it may have seemed like a weird way to write a method. That's because it is a special type of method called a **Dunder method** (short for "*d*ouble *under*score"). These are built-in methods to all Python classes that have default behavior.
 
 For example, ``__add__`` is a Dunder method that has a default behavior of adding things together. This works intuitively for ``int`` and ``float``. Python has also defined ``__add__`` for ``str`` where ``a + b`` is the concatenation of ``a`` and ``b``.
 
@@ -188,7 +188,7 @@ Consider this class:
             self.toppings = toppings
             self.length = length
 
-Lets say we wanted the ``__add__`` behavior of our ``Sandwich`` class to add a topping to our sandwich.
+Let's say we wanted the ``__add__`` behavior of our ``Sandwich`` class to add a topping to our sandwich.
 
 .. code:: python
     
@@ -200,7 +200,7 @@ Lets say we wanted the ``__add__`` behavior of our ``Sandwich`` class to add a t
         def __add__(self, topping: str):
             self.toppings.append(topping)
 
-So now
+So now, we can do the following
 
 >>> blt = Sandwich(6, ['bacon', 'lettuce', 'tomato'])
 >>> blt.toppings
@@ -224,12 +224,12 @@ If we write our own ``__str__`` method, we can make this look a lot cleaner.
     def __str__(self):
         return f"{self.length} inch sandwich with toppings: {', '.join(self.toppings)}"
 
-So instead of some weird print statement, we get
+So instead of some a confusing print statement, we get:
 
 >>> print(student)
 6 inch sandwich with toppings: bacon, lettuce, tomato, mayo
 
-Here are some other useful Dunder methods:
+Python provides many other Dunder methods that allow you to customize many other built-in operations:
 
 * ``__eq__`` used for ``==``
 * ``__ne__`` used for ``!=``
@@ -312,7 +312,7 @@ Where :math:`n` is the :math:`1` or :math:`0` and :math:`d` is the digit index (
 The algorithm to convert from a decimal number :math:`n` to binary goes like this:
 
 #. Take the remainder of :math:`n/2` using integer division. It becomes the new most significant digit of our binary number.
-#. Set n to the the quotient of :math:`n/2`
+#. Set :math:`n`` to the the quotient of :math:`n/2`
 #. Repeat this process until there are no digits left.
 
 .. Note::
@@ -365,13 +365,13 @@ So to convert 2319 to binary we do:
      - 0
      - 1
 
-Now we write the remainders starting at the last and we get :math:`100100001111` which is what we had above.
+Now we write the remainders starting from the bottom up, and we get :math:`100100001111` which is what we had above.
 
 Task 4: Binary Class
 --------------------
 Write a class called ``Binary`` that takes in an integer.
 
-* When a ``Binary`` object is printed as a string, it should return the binary representation in 1's and 0's as a string.
+* When a ``Binary`` object is printed, it should display the binary representation as a string of 1's and 0's.
 * When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
 * ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
 * ``Binary`` objects can be added with one another to produce another ``Binary`` object.
