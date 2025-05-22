@@ -58,6 +58,7 @@ Try/Except
 The try/except block is used for catching errors in code blocks without breaking the entire program.
 
 .. code:: python
+
     def divide():
         try:    # without the try/except block, we would just get a ZeroDivisionError
             1/0
@@ -90,7 +91,8 @@ There is also an ``else`` block which gets run if no errors are raised in the tr
 .. code:: python
 
     def divide_element(i, n):
-        """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10."""
+        """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10.
+        """
         my_list = [1, 2, 3]
         try:
             val = my_list[i]/n

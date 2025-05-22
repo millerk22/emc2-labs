@@ -247,6 +247,7 @@ Task 3: Vector
 Write a class called ``Vector`` that takes in a python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
 
 .. code:: python
+    
     class Vector():
         def __init__(self, vector):
             """Takes in a list called vector"""
