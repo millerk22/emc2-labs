@@ -2,10 +2,11 @@ Lab 2319: Object Oriented Programming
 =====================================
 
 In this lab you will learn about Object Oriented Programming (OOP) in Python. You will learn about:
-- classes
-- objects
-- inheritance
-- modules
+
+* Classes
+* Objects
+* Inheritance
+* Dunder methods
 
 Object Oriented Programming is simply another way to organize code. So far, we have only done functional programming, where we write functions to perform tasks. One benefit of OOP is that it is generally better than functional programming when representing real world objects. There are advantages and disadvantages to both approaches and by the end of this lab you will be able to see some of these differences.
 
@@ -90,8 +91,8 @@ If we could only rely on class attributes and instance attributes, working with 
 .. Note::
     Whenever you create a method in a class, it needs to have ``self`` as the first argument, otherwise your method won't have access to class/instance attributes, or other methods.
 
-Task 1: Create a Class
-----------------------
+Task 1: Rectangle
+-----------------
 Create a ``Rectangle`` class that has instance variables ``length``, and ``width``. Write methods called ``area`` and ``perimeter`` that compute the area and perimeter of the rectangle.
 
 Inheritance
@@ -141,12 +142,12 @@ Lets say we wanted an attribute in pen to represent how much ink was left.
 >>> mechanical_pencil.write("Hello World")
 'Hello World' written in black
 >>> mechanical_pencil.erase()
-'Erased last line'
+Erased last line
 >>> pencil = Pencil("grey", 6, "normal")
 >>> pencil.write("Hello BYU")
 'Hello BYU' written in grey
 >>> pencil.erase()
-'Erased last line'
+Erased last line
 >>> pen = Pen("blue", 4)
 >>> pen.write("Hello EMC2")
 'Hello EMC2' written in blue
@@ -155,8 +156,8 @@ Lets say we wanted an attribute in pen to represent how much ink was left.
 
 This was an introduction to what classes can do and there is a lot of functionality we didn't cover. What is important to understand right now is that classes are an excellent way to reduce code duplication when representing real world objects.
 
-Task 2: Squares and Rectangles
-------------------------------
+Task 2: Square
+--------------
 Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from the ``Rectangle`` class you wrote in Task 1. Make sure you can find the ``area`` and ``perimeter`` of a ``Square``!
 
 .. Hint::
@@ -174,7 +175,7 @@ For example, ``__add__`` is a Dunder method that has a default behavior of addin
 "HelloWorld"
 
 .. Note::
-    ``int``, ``float``, and ``str`` and all other types in Python are made using classes.
+    ``int``, ``float``, ``str`` and all other types in Python are made using classes.
 
 Consider this class:
 
@@ -229,85 +230,94 @@ So instead of some weird print statement, we get
 6 inch sandwich with toppings: bacon, lettuce, tomato, mayo
 
 Here are some other useful Dunder methods:
-- ``__eq__``: used for ``==``
-- ``__ne__``: used for ``!=``
-- ``__lt__``: used for ``<``
-- ``__gt__``: used for ``>``
-- ``__ge__``: used for ``>=``
-- ``__le__``: used for ``<=``
-- ``__str__``: used for ``str()``
-- ``__int__``: used for ``int()``
-- ``__len__``: used for ``len()``
-- ``__add__``: used for ``a + b``
-- ``__sub__``: used for ``a - b``
-- ``__mul__``: used for ``a * b``
+
+* ``__eq__`` used for ``==``
+* ``__ne__`` used for ``!=``
+* ``__lt__`` used for ``<``
+* ``__gt__`` used for ``>``
+* ``__ge__`` used for ``>=``
+* ``__le__`` used for ``<=``
+* ``__str__`` used for ``str()``
+* ``__int__`` used for ``int()``
+* ``__len__`` used for ``len()``
+* ``__add__`` used for ``a + b``
+* ``__sub__`` used for ``a - b``
+* ``__mul__`` used for ``a * b``
 
 Task 3: Vector
 --------------
 Write a class called ``Vector`` that takes in a python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
 
-.. code:: python
-    
-    class Vector():
-        def __init__(self, vector):
-            """Takes in a list called vector"""
-            self.vector = vector
-            self.length = len(vector)
+Source code will be given on CodeBuddy.
+
+.. .. code:: python
+
+..     class Vector():
+..         def __init__(self, vector):
+..             """Takes in a list called vector"""
+..             self.vector = vector
+..             self.length = len(vector)
         
-        def __add__(self, other_vector):
-            """Vector addition
+..         def __add__(self, other_vector):
+..             """Vector addition
             
-            Raises a ValueError if the vectors are different lengths
+..             Raises a ValueError if the vectors are different lengths
 
-            Parameters:
-            self : Vector
-                The current object 
-            other_vector : Vector
-                The vector we are adding
+..             Parameters:
+..             self : Vector
+..                 The current object 
+..             other_vector : Vector
+..                 The vector we are adding
 
-            Returns:
-            ret : Vector
-                The result of self + other_vector
-            """
-            # replace pass with your code
-            pass
+..             Returns:
+..             ret : Vector
+..                 The result of self + other_vector
+..             """
+..             # replace pass with your code
+..             pass
         
-        def __mul__(self, scalar):
-            """Scalar multiplication
+..         def __mul__(self, scalar):
+..             """Scalar multiplication
             
-            Parameters:
-            self : Vector
-                The current object 
-            scalar : int, float
-                The scalar we multiply by
+..             Parameters:
+..             self : Vector
+..                 The current object 
+..             scalar : int, float
+..                 The scalar we multiply by
 
-            Returns:
-            ret : Vector
-                The result of self * scalar
-            """
-            # replace pass with your code
-            pass
+..             Returns:
+..             ret : Vector
+..                 The result of self * scalar
+..             """
+..             # replace pass with your code
+..             pass
         
-        def __str__(self):
-            return f"Vector of {self.vector}"
+..         def __str__(self):
+..             return f"Vector of {self.vector}"
 
 Application: Binary
 -------------------
-Binary is how computers represent numbers. We are used to decimal ("dec" meaning ten) where there are ten symbols we use: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols we use: 0 and 1.
+Binary is how computers represent numbers. We are used to a decimal ("dec" meaning ten) representation where there are ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols: 0 and 1.
 
-To represent 2319 in decimal, we have :math:`2*10^3 + 3*10^2 + 1*10^1 + 9*10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1*2^11 + 0*2^10 + 0*2^9 + 1*2^8 + 0*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0`.
+To represent 2319 in decimal, we have :math:`2*10^3 + 3*10^2 + 1*10^1 + 9*10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1*2^{11} + 0*2^{10} + 0*2^9 + 1*2^8 + 0*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0 = 2319`.
 
 The formula is
+
 .. math::
 
     binary = n*2^d
 
-Where :math:`n` is the :math:`1` or :math:`0` and :math:`d` is the digit index (starting wher the least significant bit is 0).
+Where :math:`n` is the :math:`1` or :math:`0` and :math:`d` is the digit index (starting where the least significant bit is 0).
 
 The algorithm to convert from a decimal number :math:`n` to binary goes like this:
-#. Take the remainder of :math:`n/2`. This is the lowest digit of the binary number.
-#. Set the quotient to n.
+
+#. Take the remainder of :math:`n/2` using integer division. It becomes the new most significant digit of our binary number.
+#. Set n to the the quotient of :math:`n/2`
 #. Repeat this process until there are no digits left.
+
+.. Note::
+
+    It is helpful to use the modulo operator ``%`` to get the remainder and the floor division operator ``//`` to get the quotient.
 
 So to convert 2319 to binary we do:
 
@@ -360,11 +370,12 @@ Now we write the remainders starting at the last and we get :math:`100100001111`
 Task 4: Binary Class
 --------------------
 Write a class called ``Binary`` that takes in an integer.
-- When a ``Binary`` object is printed as a string, it should return the binary representation in 1's and 0's as a string.
-- When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
-- ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
-- ``Binary`` objects can be added with one another to produce another ``Binary`` object.
-- ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
+
+* When a ``Binary`` object is printed as a string, it should return the binary representation in 1's and 0's as a string.
+* When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
+* ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
+* ``Binary`` objects can be added with one another to produce another ``Binary`` object.
+* ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
 
 .. Hint::
     It may be easiest to do all the math with the decimal representation of the number, and then just convert it to the binary representation when it needs to be printed out as a string.

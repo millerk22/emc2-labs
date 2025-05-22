@@ -88,11 +88,11 @@ Got an Index Error
 Got a Zero Division Error
 
 There is also an ``else`` block which gets run if no errors are raised in the try block. The ``finally`` block is run at the very end.
+
 .. code:: python
 
     def divide_element(i, n):
-        """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10.
-        """
+        """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10."""
         my_list = [1, 2, 3]
         try:
             val = my_list[i]/n
