@@ -1,7 +1,7 @@
 Lab 2319: Object Oriented Programming
 =====================================
 
-In this lab you will learn about Object Oriented Programming (OOP) in Python. You will learn about:
+In this lab you will learn about Object Oriented Programming (OOP) in Python. This includes:
 
 * Classes
 * Objects
