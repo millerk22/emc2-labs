@@ -14,7 +14,7 @@ Methods such as Gaussian elimination can give us the exact solution for :math:`x
 While this is straightforward for small matrices like :math:`2 \times 2` or :math:`3 \times 3` it becomes harder to solve as the matrices get larger. 
 This same challenge applies when using computers. 
 Furthermore, because computers store numbers with finite precision, rounding errors can often occur during calculation. 
-This effect is amplified when a matrix is ill-conditioned, that is, small changes in :math:`A, b` greatly change :math:`x`, meaning rounding errors are greatly amplified.
+This effect is amplified when a matrix is ill-conditioned, that is, small changes in :math:`A, b` greatly change :math:`x`.
 This leads to incorrect solutions even when the math is solid.
 Both of these effects combined leads to us often avoiding Gaussian elimination when solving large systems. 
 
@@ -24,15 +24,15 @@ Each approximations is called an iterate.
 Take some arbitrary vector :math:`x^i`. 
 When we plug this vector into an iterative method, we obtain a better estimate for :math:`x` called :math:`x^{i+1}`.
 
+.. note::
+    When we use the notation :math:`x^i`, we are referring to the ith iterate, not a power. 
+
 As we continue to iterate, we will generate a *sequence* of iterates :math:`\{x^0, x^1, \dots, x^k\}` that is *converging* to :math:`x`.
 You will have the chance in Math 341 to learn more about *sequences* and *convergence*.
 For now just think of it as limit in the sense that :math:`\lim_{k\to \infty} x^k = x`.
 
 Once again, the reason we use these iterative methods is because they are often straight forward equations that can be calculated easily. 
 You will see two types of iterative methods used for solving systems of linear equations. 
-
-.. note::
-    When we use the notation :math:`x^i`, we are referring to the ith iterate, not a power. 
 
 Jacobi's method
 ---------------
@@ -177,10 +177,10 @@ which performs Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All 
 Error and Convergence
 ---------------------
 
-Like we stated previously iterative methods produce a sequence of numbers that are approaching the solution. 
+Like we stated previously, iterative methods produce a sequence of numbers that are approaching the solution. 
 We say that this sequence is converging to the solution if the error between the true and approximate solution is decreasing. 
 We define the error as the distance between the 2 vectors. 
-You can calculate the distance between 2 vectors by subtracting them from one from the other and taking the norm of this new vector.
+You can calculate the distance between 2 vectors by subtracting them from one another and taking the norm of this new vector.
 In NumPy we can use the command ``np.linalg.norm``.
 
 >>> u = np.array([5, 4])
