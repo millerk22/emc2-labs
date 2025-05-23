@@ -60,8 +60,6 @@ Choose a lab in the left sidebar.
    lab23
    lab24
    labPageRank
-   lab_OOP
-   lab_python_intro_2
 
 
 

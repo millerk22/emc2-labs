@@ -40,4 +40,5 @@ Choose a lab in the left sidebar.
    lab22
    lab23
    lab24
-
+   lab_OOP
+   lab_python_intro_2
