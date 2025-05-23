@@ -14,7 +14,7 @@ Classes
 -------
 
 .. Important::
-    In OOP, a **class** is a kind of thing, while an **object** is a specific one of those things.
+    In OOP, a **class** is a type of thing, while an **object** is a specific one of those things.
 
 In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of these objects has different properities such as color and length.
 
@@ -23,7 +23,7 @@ We can represent the ``WritingUtensil`` class in python like this:
 .. code:: python
     
     class WritingUtensil:
-        def __init__(self, kind, color, length):
+        def __init__(self, color, length):
             self.color = color
             self.length = length
 
@@ -299,20 +299,20 @@ Application: Binary
 -------------------
 Binary is how computers represent numbers. We are used to a decimal ("dec" meaning ten) representation where there are ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. In binary, there are only two symbols: 0 and 1.
 
-To represent 2319 in decimal, we have :math:`2*10^3 + 3*10^2 + 1*10^1 + 9*10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1*2^{11} + 0*2^{10} + 0*2^9 + 1*2^8 + 0*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0 = 2319`.
+To represent 2319 in decimal, we have :math:`2\cdot 10^3 + 3\cdot 10^2 + 1 \cdot 10^1 + 9 \cdot 10^0`. To represent 2319 in binary, we write, :math:`100100001111 = 1 \cdot 2^{11} + 0 \cdot 2^{10} + 0 \cdot 2^9 + 1\cdot 2^8 + 0 \cdot 2^7 + 0 \cdot 2^6 + 0 \cdot 2^5 + 0 \cdot 2^4 + 1 \cdot 2^3 + 1 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = 2319`.
 
 The formula is
 
 .. math::
 
-    binary = n*2^d
+    \text{binary} = n \cdot 2^d
 
 Where :math:`n` is the :math:`1` or :math:`0` and :math:`d` is the digit index (starting where the least significant bit is 0).
 
 The algorithm to convert from a decimal number :math:`n` to binary goes like this:
 
 #. Take the remainder of :math:`n/2` using integer division. It becomes the new most significant digit of our binary number.
-#. Set :math:`n`` to the the quotient of :math:`n/2`
+#. Set :math:`n` to the the quotient of :math:`n/2`
 #. Repeat this process until there are no digits left.
 
 .. Note::
@@ -372,7 +372,7 @@ Task 4: Binary Class
 Write a class called ``Binary`` that takes in an integer.
 
 * When a ``Binary`` object is printed, it should display the binary representation as a string of 1's and 0's.
-* When a ``Binary`` object is used as an integer, it should return the decimal representation as an integer.
+* When `int()` is called on a  ``Binary`` object, it should return the original number in base 10.
 * ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
 * ``Binary`` objects can be added with one another to produce another ``Binary`` object.
 * ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
