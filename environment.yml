@@ -7,3 +7,4 @@ dependencies:
   - sphinx
   - myst-parser
   - sphinx-material
+  - make
