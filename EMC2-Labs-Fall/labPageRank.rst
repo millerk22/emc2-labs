@@ -14,7 +14,7 @@ An example of this could be a supply chain where products are always sent from o
 Directed networks have become very important in modeling the internet.
 We let websites/pages be the nodes, connected by various hyperlinks acting as directed edges.
 Networks like this allow search engines such as Google or Microsoft Edge to rank pages based on importance or relevance.
-In this lab we will walk you through this process of finding the importance of links.
+In this lab we will walk you through this process of finding the importance of pages.
 
 
 Adjacency Matrices
@@ -147,9 +147,9 @@ Doing that we get
     .
 
 Now we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
-As you can begin to see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
+As you can see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
 
-If you remember back to Lab 9, we used iterative methods to solve for the solution of systems of equations.
+In `Lab 9 <https://emc2.byu.edu/fall-labs/lab09.html>`_, we used iterative methods to solve for the solution of systems of equations.
 We can use the `Power method <https://en.wikipedia.org/wiki/Power_iteration>`_ here.
 This method solves for the dominant eigenvector of a system of equations through following the equation,
 
@@ -164,7 +164,7 @@ This method solves for the dominant eigenvector of a system of equations through
     By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
     we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
     there exists an eigenvalue of 1 and associated eigenvector. 
-    This is why we can use the Power Method here. 
+    This is why we can use the Power Method. 
     
 
 Now consider the vector below whose column adds up to 1.
@@ -221,14 +221,14 @@ Task 4
 
 Define a function ``PageRank_cent(edge_matrix, k)``.
 You will need to combine all of your past functions to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
-Then convert the adjacency to a stochastic matrix using the ``stoch_mat`` function.
+Then convert the adjacency matrix to a stochastic matrix using the ``stoch_mat`` function.
 You will then need to use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations. 
 
 Task 5
 ------
 
-Use your recently created ``PageRank_cent`` to find the index of the most important node of a 499-node network.
-You can use ``np.argmax()`` to find the index of the largest element in an array. The directed edges matrix will be given in code buddy.
+Use your recently created ``PageRank_cent`` to find the index of the most important node of a 499-node network (given in codebuddy).
+You can use ``np.argmax()`` to find the index of the largest element in an array.
 
 Conclusion
 ----------
