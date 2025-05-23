@@ -8,3 +8,6 @@ dependencies:
   - myst-parser
   - sphinx-material
   - make
+  - numpy
+  - matplotlib
+  - pandas
