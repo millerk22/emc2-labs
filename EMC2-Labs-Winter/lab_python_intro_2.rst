@@ -9,6 +9,8 @@ This lab covers additional topics in Python and NumPy that can help your coding 
 Lambda Functions
 ----------------
 
+.. talk about map for the task
+
 Lambda functions are essentially one-time use functions. They look like:
 
 .. code:: python
@@ -55,6 +57,7 @@ Remember this is the same as ``var = var - 100``. This same syntax works for ``+
 
 Try/Except
 ------------------
+.. arrays of different sizes
 The try/except block is used for catching errors in code blocks without breaking the entire program.
 
 .. code:: python
@@ -150,6 +153,8 @@ Additionally, you can have default parameters for functions. This way, the user 
 f-strings
 ---------
 
+.. possibly include r-strings
+
 Python f-strings are an efficient and simple way of formatting strings. They are generally faster more readable than other methods of string fomratting (including concatenation with ``+``).
 
 An f-string is just a string with an ``f`` in front of it. ``{}`` can be used inside f-strings to get the string value of python code.
@@ -166,6 +171,9 @@ f-strings also make it possible for fancier formatting. You can learn more about
 
 Dictionaries
 ------------
+
+.. make a dictionary, print it or something like that. Find the lowest grade.
+
 A dictionary is another Python type. It is similar to a list, but it can use any datatype to retrieve another (rather than just an integer index).
 
 Dictionaries contain key-value pairs ie., given a key, we can retrieve a value (but not the other way around).
@@ -204,7 +212,7 @@ At this point, you are familiar with how to import a module in python using
 Here are a few other ways to import a module:
 
 * ``from package import function`` will import a specific function or class from a module so you can call it directly (without ``package.function``)
-* ``from package import *`` will import all of the functions or classes from a module so you can call them directly
+* ``from package import *`` will import all of the functions or classes from a module so you can call them directly. This method is not very common, though.
 * ``from package import function as func`` will import a function or class from a module with a nickname so you can call the nickname directly
 
 So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, it is free to do large computation, and it has lots of Python libraries pre-installed.
@@ -223,8 +231,13 @@ Compares shapes element wise, starts with farthest right dimension. Compatible i
 number of dimenstions (length of shape) does not have to be the same. The result will have the number of dimensions as the array with the greatest number of dimensions. Size of each dimension is the largest of the corresponding dimension.
 Missing dimensions are treated as 1
 
+.. condition masking
+
 Vectorization
 -------------
+
+.. (n,2) sin of one cos of another
+.. (n,2) one is hours, another is minutes. Calculate total time.
 
 Plotting
 --------
