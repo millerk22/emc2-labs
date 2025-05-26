@@ -222,16 +222,44 @@ When working on a large project it is better to run Python locally on your compu
 Array Broadcasting
 ------------------
 
-In Numpy, it does operations on an element by element basis.
+This section is taken from the `Broadcasting <https://numpy.org/doc/stable/user/basics.broadcasting.html>`_ NumPy documentation.
 
-vector * vector is the same as scalar * vector
+Broadcasting in NumPy is what enables us to do things like multiply element-wise in a vector and also do scalar multiplication.
 
-Compares shapes element wise, starts with farthest right dimension. Compatible if dimensions are equal or one is 1. ValueError: operands could not be broadcast together
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> a * b
+array([ 4, 10, 18, 28])
+>>> c = 3
+>>> a * c
+array([ 3,  6,  9, 12])
 
-number of dimenstions (length of shape) does not have to be the same. The result will have the number of dimensions as the array with the greatest number of dimensions. Size of each dimension is the largest of the corresponding dimension.
-Missing dimensions are treated as 1
+The main idea of array broadcasting is that operations can be performed on ``numpy.array``s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
+
+.. image:: ./_static/broadcasting_stretch.png
+
+.. Note::
+    NumPy doesn't actually create this temporary array ``c`` with shape ``(4,)``. This is just a good way to think about it.
+
+Array broadcasting does not work on any shape of array. NumPy determines compatibility by comparing the shapes of the arrays starting with the rightmost dimension. Dimensions are compatible when they are equal, or one of the dimensions is one. A ``ValueError: operands could not be broadcast together`` is raised when arrays are not compatible (`General Broadcasting Rules <https://numpy.org/doc/stable/user/basics.broadcasting.html#general-broadcasting-rules>`_).
+
+The result array of an operation will have the same number of dimensions as the array with the greatest number of dimensions in the operation. The size of each dimension in the result array will be the largest corresponding dimension in the input arrays. Any missing dimensions are treated as having dimension 1.
+
+.. real world example
+
+Say ``a`` has shape ``(3, 1)``, ``b`` has shape ``(1, 4)``, ``c`` has shape ``(4,)`` and ``d`` is a scalar. All of these arrays are broadcastible.
+
+Task: normalization
+
+
+Non 1 dimensions can't match
+
+
 
 .. condition masking
+.. np.array
+.. np.append/concatenate joins along existing axis
+.. np.stack joins along new axis
 
 Vectorization
 -------------
