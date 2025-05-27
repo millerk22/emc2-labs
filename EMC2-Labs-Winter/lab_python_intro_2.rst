@@ -9,15 +9,13 @@ This lab covers additional topics in Python and NumPy that can help your coding 
 Lambda Functions
 ----------------
 
-.. talk about map for the task
-
-Lambda functions are essentially one-time use functions. They look like:
+Lambda functions are essentially one-time use functions. The syntax is:
 
 .. code:: python
 
     lambda arguments: expression
 
-So a simple power lambda function would look like:
+So a simple lambda function that computes a power would look like:
 
 .. code:: python
 
@@ -43,6 +41,17 @@ Our lambda function ``lambda letter: lett.upper()`` just capitalizes a letter.
 
 .. Note::
     The downside to lambda functions is that they reduce readability. Only use them for very small functions where the functionality is clear.
+
+Task 1: ``filter``
+------------------
+``filter(fx, a)`` is similar to ``map``. It filters list ``a`` by a function. Filter the list ``a = np.linspace(0, 6, 13)`` so that only solutions to the equation :math:`\sin(2\pi\cdot t \cdot (1+0.5\sin(3t)) = -1)` remain.
+
+    .. t = np.linspace(0, 2*np.pi, 1000)
+    .. # A sine wave with frequency modulation
+    .. mod_sine = np.sin(2 * np.pi * t * (1 + 0.5 * np.sin(3 * t)))
+
+.. Hint::
+    The result from ``filter`` is a ``filter`` object. You can use ``list()`` to convert it to a list.
 
 More Operators
 --------------
@@ -120,6 +129,10 @@ Got an Index Error
 >>> print(divide_element(2, 0))
 Got a Zero Division Error
 0
+
+Task 2: Lists
+---------------
+.. arrays of different sizes.
 
 Type Declarations in Functions
 ------------------------------
@@ -201,6 +214,9 @@ Here are some useful functions for dictionaries:
 - ``my_dict.values()`` gets all the values from the dictionary
 - ``my_dict.items()`` gets a list of tuples containing the all the keys and values
 
+Task 3: 
+-------------
+
 Importing
 ---------
 At this point, you are familiar with how to import a module in python using
@@ -247,9 +263,21 @@ The result array of an operation will have the same number of dimensions as the 
 
 .. real world example
 
-Say ``a`` has shape ``(3, 1)``, ``b`` has shape ``(1, 4)``, ``c`` has shape ``(4,)`` and ``d`` is a scalar. All of these arrays are broadcastible.
+Say ``a`` has shape ``(3, 1)``, ``b`` has shape ``(1, 4)``, ``c`` has shape ``(4,)`` and ``d`` is a scalar. All of these arrays are broadcastible with one another.
 
-Task: normalization
+Task 4: Normalization
+---------------------
+Normalization is a basic statistical method to scale data so all of the points lie between 0 and 1. Here is the formula:
+
+.. math::
+    x_{\text{norm}} = \frac{x - x_{min}}{x_{max} - x_{min}}
+
+You are given data on recent college graduates and their median earnings based on major.
+Use array broadcasting to create a normalized set of median earnings. The data is given in CodeBuddy.
+
+.. np.random.rand(10)
+.. https://github.com/fivethirtyeight/data/blob/master/college-majors/recent-grads.csv use median for money
+
 
 
 Non 1 dimensions can't match
