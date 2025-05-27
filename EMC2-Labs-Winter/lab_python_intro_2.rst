@@ -46,9 +46,9 @@ Task 1: ``filter``
 ------------------
 ``filter(fx, a)`` is similar to ``map``. It filters list ``a`` by a function. Filter the list ``a = np.linspace(0, 6, 13)`` so that only solutions to the equation :math:`\sin(2\pi\cdot t \cdot (1+0.5\sin(3t)) = -1)` remain.
 
-    .. t = np.linspace(0, 2*np.pi, 1000)
-    .. # A sine wave with frequency modulation
-    .. mod_sine = np.sin(2 * np.pi * t * (1 + 0.5 * np.sin(3 * t)))
+.. t = np.linspace(0, 2*np.pi, 1000)
+.. # A sine wave with frequency modulation
+.. mod_sine = np.sin(2 * np.pi * t * (1 + 0.5 * np.sin(3 * t)))
 
 .. Hint::
     The result from ``filter`` is a ``filter`` object. You can use ``list()`` to convert it to a list.
@@ -132,7 +132,9 @@ Got a Zero Division Error
 
 Task 2: Lists
 ---------------
+Write a function that takes in two Python lists
 .. arrays of different sizes.
+.. correlation.
 
 Type Declarations in Functions
 ------------------------------
@@ -235,6 +237,35 @@ So far in this class we have been using Google Colab for our projects. Google Co
 
 When working on a large project it is better to run Python locally on your computer. This is commonly done with an Integrated Development Environment (IDE) like VS Code, PyCharm, or even a simple text editor and the command line. We won't get into this now, but it is important to know that Google Colab is just an intro.
 
+Array Masking
+-------------
+Array masking is a powerful tool in numpy that allows you to filter data using conditions. When you apply a condition on a NumPy array, it returns a new array of boolean values with ``True`` where the condition is met, and ``False`` otherwise. This is called a **boolean mask**. For example,
+
+>>> a = np.array([1, 2, 3, 4])
+>>> a > 2
+array([False, False,  True,  True])
+
+You can then use this mask to select the elements only where the condition is ``True``.
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = a > 2
+>>> a[b]
+array([3, 4])
+
+Task 4: Image
+-------------
+The given NumPy array conatins an image.
+.. green screen (detect green function) or distortion?
+
+.. import numpy as np
+.. from PIL import Image
+
+.. a = np.random.randint(0, 256, (100, 100, 3), dtype=np.uint8)
+
+.. # Convert `a` to a PIL Image
+.. img = Image.fromarray(a)
+.. img.show()
+
 Array Broadcasting
 ------------------
 
@@ -265,7 +296,7 @@ The result array of an operation will have the same number of dimensions as the 
 
 Say ``a`` has shape ``(3, 1)``, ``b`` has shape ``(1, 4)``, ``c`` has shape ``(4,)`` and ``d`` is a scalar. All of these arrays are broadcastible with one another.
 
-Task 4: Normalization
+Task 5: Normalization
 ---------------------
 Normalization is a basic statistical method to scale data so all of the points lie between 0 and 1. Here is the formula:
 
@@ -279,21 +310,42 @@ Use array broadcasting to create a normalized set of median earnings. The data i
 .. https://github.com/fivethirtyeight/data/blob/master/college-majors/recent-grads.csv use median for money
 
 
-
-Non 1 dimensions can't match
-
-
-
-.. condition masking
-.. np.array
 .. np.append/concatenate joins along existing axis
 .. np.stack joins along new axis
 
 Vectorization
 -------------
+NumPy has another convenient tool for working element-wise with arrays. ``np.vectorize()`` takes in a python function (which takes in a NumPy array) and makes it work element-wise on the array. For example,
 
-.. (n,2) sin of one cos of another
-.. (n,2) one is hours, another is minutes. Calculate total time.
+.. code::python
+
+    def square_add(a):
+        return a**2 + 1
+
+>>> a = np.array([1, 2, 3])
+>>> square_add_vec = np.vectorize(square_add)
+>>> square_add_vec(a)
+array([ 2,  5, 10])
+
+This use case isn't very helpful for use because we could have just done:
+
+>>> a**2 + 1
+
+to get the same result. Vectorization is particularly useful when working with strings, conditionals, objects, or anything else that numpy doesn't inherently handle. If we wanted an array with a string value describing the actual element in an array, we could do:
+
+.. code::python
+
+    def format_value(x):
+        return f"High" if x > 100 else "Low"
+
+>>> arr = np.array([50, 200, 120])
+>>> vec_format = np.vectorize(format_value)
+>>> vec_format(arr)
+array(['Low', 'High', 'High'], dtype='<U4')
+
+Task 6: Time
+------------
+You are given an array of times where the first three columns are the hours, minutes, and seconds of a start time, and the second three columns are the hours, minutes, and seconds of an end time. Using NumPy vectorization, write a function ``print_times`` that will create an array of strings where each string matches the pattern: ``Start: hh:mm:ss, End: hh:mm:ss``.
 
 Plotting
 --------
