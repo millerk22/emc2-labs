@@ -2,15 +2,15 @@
 Lab 2.71828: Pandas 
 ==============================================
 .. https://foundations-of-applied-mathematics.github.io/
-In this lab, you will learn how to use the very powerful Pandas library used for data analyzing and manupulation.
+In this lab, you will learn how to use the powerful Pandas library used for data analyzing and manipulation.
 
-Pandas is an amazing library for data manupulation.
-In 2008 the devolpment of this package began at `AQR Capital Management <https://pandas.pydata.org/about/>`_. 
-It was originally devolped to perform quantitive analysis on financial data.
-In fact, Pandas stands for Panel data, and economic term.
-Then over the years the library was open sourced, and has been devolped into the library that it is today.
+Pandas is an amazing library for data manipulation.
+In 2008 the development of this package began at `AQR Capital Management <https://pandas.pydata.org/about/>`_. 
+It was originally developed to perform quantitative analysis on financial data.
+In fact, Pandas stands for 'panel data', an economic term.
+Over the years the library was open sourced, and has been developed into the library that it is today.
 
-Dataframes
+DataFrames
 ----------
 
 .. Dataframe, read_csv, to_csv (explain keyword argument)
@@ -20,8 +20,8 @@ To import Pandas we use the following import statement
 >>> import pandas as pd
 
 The core data structure of the Pandas library is the DataFrame.
-A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheets.
-Here is an example. 
+A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
+Here's an example of how to create a ``DataFrame``\:
 
 >>> data = [
        ['Alice', 25, 'New York'],
@@ -31,11 +31,11 @@ Here is an example.
 >>> df = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 >>> df
      Name   Age        City
-0   Alice   25     New York
-1   Kevin   30  Los Angeles
-2 Charles   35      Chicago
+0   Alice    25    New York
+1   Kevin    30 Los Angeles
+2 Charles    35     Chicago
 
-Now there a plenty of ways that you can contruct these DataFrames.
+Now there are plenty of ways that you can construct these DataFrames.
 
 You can do it through a dictionary of lists.
 
@@ -58,7 +58,7 @@ You can even do it through a numpy array.
 >>> arr = np.array([['Norman', 64], ['Eli', 92]])
 >>> df4 = pd.DataFrame(arr, columns=['Name', 'Grade'])
 
-Everyone of these DataFrames will be exactly the same. producing the result below 
+Every one of these DataFrames will be exactly the same, and produces the result below 
 
 >>> df1
      Name  Grade
@@ -68,7 +68,9 @@ Everyone of these DataFrames will be exactly the same. producing the result belo
 Task 1
 ------
 
-.. Add a task where they make a table of some sort
+Make a Pandas ``Dataframe`` named ``basketball_games`` with columns ``["Team Name", "Game 1 Score", "Game 2 Score", "Game 3 Score"]``. 
+For the ``"Team Name"`` column, use this list of names ``["Florida", "Houston", "Duke", "Texas Tech", "BYU"]``. 
+For each of the scores generate a random integer between 1 and 100. 
 
 
 CSV Files
@@ -77,8 +79,8 @@ CSV Files
 .. What are csv files, and how to read and write to them
 
 
-A CSV File (Comma-Seperated Values) is a text file that stores tabular data. 
-It works like a speadsheet where each line is a row, and every value is seperated by a comma.
+A CSV File (Comma-Separated Values) is a text file that stores tabular data. 
+It works like a spreadsheet where each line is a row, and every value is separated by a comma.
 For example we could have the file ``animals.csv``.
 
 .. code-block:: csv
@@ -94,12 +96,9 @@ To load this file into a pandas DataFrame we can use ``read_csv()``\.
 
 .. code-block:: python
 
-     import pandas as pd
-
-     df = pd.read_csv("animals.csv")
-
-     print(df)
-
+     >>>import pandas as pd
+     >>>df = pd.read_csv("animals.csv")
+     >>>print(df)
           Animal  Weight     Type
      0  Elephant   12000   Mammal
      1     Eagle      15     Bird
@@ -107,14 +106,15 @@ To load this file into a pandas DataFrame we can use ``read_csv()``\.
      3  Kangaroo     150   Mammal
      4  Penguin       30     Bird
 
-If you want to save to a csv file use ``df.to_csv(filename, index=False)``\. 
+If you want to save to a CSV file use ``df.to_csv(filename, index=False)``\. 
 We use ``index=False`` to avoid saving the row numbers as another column. 
 Other file types that Pandas can easily read include; Excel, JSON, HTML, Parquet, SQL, and Pickle. 
 
 Task 2
 ------
 
-.. Have them read in the csv file
+.. Have them read the csv file
+Read the CSV file named "global_air_pollution_dataset.csv" and save it as Pandas' ``DataFrame`` titled ``pollution_df``.
 
 Accessing Data
 --------------
@@ -141,24 +141,24 @@ With these indexers, the first and second arguments refer to the rows and column
 
 .. code-block:: python
 
-     # Use loc to select the Grade of Sarah and Emily
+     # Use loc to select the Grade column for Sarah and Emily
      >>> df.loc[[0, 2], "Grade"]
      0    87
      2    93
      Name: Grade, dtype: int64
 
-     # Use iloc to select the Grade of Sarah and Emily
+     # Use iloc to also select the Grade column for Sarah and Emily
      >>> df.iloc[[0, 2], 3]
      0    87
      2    93
      Name: Grade, dtype: int64
 
-The most efficient way to access a column is use the ``[]`` brackets and the name of the column.
+The most efficient way to access a column is to use the ``[]`` brackets and the name of the column.
 
 .. code-block:: python
 
-     # Create a new column title Test Score and give everyone a random score
-     >>> df["Test Score"] = np.random.randint(0, 100, 6)
+     # Create a new column titled Test Score and give everyone a random score
+     >>> df["Test Score"] = np.random.randint(0, 100, 5)
      >>> df["Test Score"]
      Name
      Sarah     5
@@ -181,7 +181,7 @@ The most efficient way to access a column is use the ``[]`` brackets and the nam
 
 Datasets can often be very large and thus difficult to visualize. 
 Pandas has various methods to make this easier. 
-The methods head and tail will show the first or last n data points, respectively, where n defaults to 5. 
+The methods ``head()`` and ``tail()`` will show the first or last n data points, respectively, where n defaults to 5. 
 The method sample will draw n random entries of the dataset, where n defaults to 1.
 
 
@@ -195,18 +195,16 @@ The method sample will draw n random entries of the dataset, where n defaults to
      Jed      Male   20     85              92        100.0
 
      # Use sample to return a random row
-
      >>> df.sample()
                Sex  Age  Grade  Attendance (%)  Test Scores
      Name                                                
      Carter   Male   22     91              95        100.0
 
-It can also be useful to re-order the columns or rows or sort according to a column
-
+You may also want to reorder the columns or sort rows based on values.
 
 .. code-block:: python
 
-     # Re-order Columns
+     # Reorder Columns
      >>> df.reindex(columns=["Attendance (%)", "Age", "Test Scores"])
                Attendance (%)  Age  Test Scores
      Name                                        
@@ -226,7 +224,7 @@ It can also be useful to re-order the columns or rows or sort according to a col
      Jed          Male   20     85              92        100.0
      James        Male   23     78              88        100.0
 
-Here is an example of using the very useful ``unique`` and ``drop`` method.
+Here is an example of using the very useful ``unique()`` and ``drop()`` methods.
 
 .. code-block:: python
 
@@ -245,7 +243,7 @@ Here is an example of using the very useful ``unique`` and ``drop`` method.
      James    Male   23     78              88        100.0
 
 
-There are many other methods that you can use, here is a list of other methods to be familar with.
+There are many other methods that you can use, here is a list of other methods to be familiar with.
 
 - ``df.shape`` - Get the (rows, columns) of the DataFrame.
 - ``df.rename(columns={'old': 'new'})`` - Rename columns.
@@ -257,7 +255,7 @@ There are many other methods that you can use, here is a list of other methods t
 
      NaN stands for "Not a Number". 
      It represents missing or undefined values in pandas DataFrames.
-     When working with real world data it is not often to have missing values.
+     When working with real-world data it is not often to have missing values.
      It is good to know functions that can work with this type of data.
 
 
@@ -265,6 +263,11 @@ There are many other methods that you can use, here is a list of other methods t
 
 Task 3
 ------
+
+Load ``pollution_df``\.
+First, reindex the columns so the ``AQI Value``\, ``AQI Category`` are the first two columns and all other columns maintain their order.
+Next, sort the ``DataFrame`` in descending order based on their ``AQI Value``\.
+Finally, reset all values in the ``Ozone AQI Value`` column to 0.
 
 .. Have them do tasks 2-4 of the budget activity
 .. Maybe Add task about dropping Nans
@@ -276,7 +279,7 @@ Basic Data Manipulation
 Because the primary pandas data structures are based off of ndarray, most NumPy functions work
 with pandas structures. For example, basic vector operations work as would be expected:
 
-.. code-block::python
+.. code-block:: python
 
      # Sum Grade and Attendance (%) of all students
      >>> df["Grade"] + df["Attendance (%)"]
@@ -315,6 +318,59 @@ Here is a variety of other operations that work well on DataFrames.
 - ``sum()`` - The sum of the elements
 - ``var()`` - The variance of the elements
 
+Masking
+-------
+
+*Masking* in Pandas refers to selecting or updating values based on conditions, usually using boolean indexing. 
+This can be useful if you want to find and edit rows given a certain condition. 
+Here is the most simple way to do so.
+
+.. code-block:: python
+
+     # Select students with Grade > 90
+     >>> df[df["Grade"] > 90]
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     2   Emily  Female   21     93              99         100
+     3  Carter    Male   22     91              95         100
+
+     # Set Test Score to 105 for students with Attendance > 95
+     >>> df.loc[df["Attendance (%)"] > 95, "Test Score"] = 105
+     >>> df
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0   Sarah  Female   19     87              97         105
+     1     Jed    Male   20     85              92         100
+     2   Emily  Female   21     93              99         105
+     3  Carter    Male   22     91              95         100
+     4   James    Male   23     78              88         100
+
+     # Students with Grade > 85 AND Attendance > 95
+     >>> df[(df["Grade"] > 85) & (df["Attendance (%)"] > 95)]
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0   Sarah  Female   19     87              97         105
+     2   Emily  Female   21     93              99         105
+
+If you remember from before, a mask creates an array of boolean values.
+Just like for ``np.ndarray``\s you can save these masks to use later.
+
+.. code-block:: python
+
+          # Save condition and use it
+     >>> high_attendance = df["Attendance (%)"] > 95
+     >>> df[high_attendance]
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0   Sarah  Female   19     87              97         105
+     2   Emily  Female   21     93              99         105
+
+
+
+Task 4
+------
+
+Load ``pollution_df``\.
+Create a new column ``Combined AQI Value`` which is the sum of the ``AQI Value``\, ``CO AQI Value``\, ``Ozone AQI Value``\, ``NO2 AQI Value``\, and ``PM2.5 AQI Value`` columns.
+Change the ``AQI Category`` to "terrible" where ``AQI Value`` and ``PM2.5 AQI Value`` are both greater than 100.
+
+
 Basic Statistical Functions
 ---------------------------
 
@@ -322,7 +378,7 @@ The pandas library allows us to easily calculate basic summary statistics of our
 useful when we want a quick description of the data. The ``describe()`` function outputs several
 such summary statistics for each column in a DataFrame:
 
-.. code-block::python
+.. code-block:: python
 
      >>>df
             Math 290  Math 213  Math 495R
@@ -344,7 +400,7 @@ such summary statistics for each column in a DataFrame:
      75%    87.000000   94.000000   94.000000
      max    89.000000   98.000000   97.000000
 
-Functions for other basic statics are also include
+Other basic statistical functions are also include:
 
 .. code-block::python
 
@@ -357,11 +413,11 @@ Functions for other basic statics are also include
      Megan    74.000000
      dtype: float64
 
-The method ``rank()`` can be used to rank the values in a data set, either within each entry or with
+Use ``rank()`` to rank the values in a data set, either within each entry or with
 each column. This function defaults ranking in ascending order: the least will be ranked 1 and the
 greatest will be ranked the highest number.
 
-.. code-block::python
+.. code-block:: python
      # Rank each student's performance in their classes in descending order
      # (best to worst)
      # The method keyword specifies what rank to use when ties occur.
@@ -373,21 +429,26 @@ greatest will be ranked the highest number.
      Bryce         3.0       2.0       1.0
      Megan         1.0       3.0       2.0
 
-Here are some other useful statiscal functions.
+Here are some other useful statistical functions.
 
 - ``std()`` - The standard deviation of the elements  
 - ``nunique()`` - Number of distinct elements  
 - ``pct_change()`` - Percentage change between elements  
 - ``skew()`` - Sample skewness of each column  
 
-Task $
+Task 5
 ------
 
 .. Have Them do problem 2
+Using the ``pollution_df``\, find the country with the highest average for ``AQI Category`` and print that country.
+
 
 Purpose 
 -------
 
 .. Purpose: a basic intro to pandas so that simple coding interview thing isn't crazy (edited) 
 
+The purpose of this lab is to get you familiar with the Pandas library.
+This is a widely used tool across industry and having experience with it can set you apart for getting internships and jobs.
+While it is not necessary to have perfectly memorized this library, making sure you are familiar with it will help you in your future. 
 
