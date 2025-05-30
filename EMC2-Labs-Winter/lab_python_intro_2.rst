@@ -1,8 +1,5 @@
 Lab 8675309: Introduction to Python, Revisited
 ==============================================
-.. topics to cover lambda functions, array broadcasting, vectorization, plotting, try except, type declarations/docstrings in functions, f-strings (and .join, and \ with ""), dictionaries, modules
-.. possibly move List comprehension here, but probably not....
-.. map, filter, or sorted?
 
 This lab covers additional topics in Python and NumPy that can help your coding to be more efficient.
 
@@ -15,35 +12,73 @@ Lambda functions are essentially one-time use functions. The syntax is:
 
     lambda arguments: expression
 
-So a simple lambda function that computes a power would look like:
+A simple lambda function that computes a power would look like:
 
 .. code:: python
 
     lambda a, n: a ** n
 
-Lambda functions are frequently used as parameters in other functions. For example, the ``map(func, a)`` function in Python exectues ``func`` on every element in ``a``. ``a`` can be anything you can iterate over (like a list or a string).
+This is the same as writing:
 
-This will capitalize every word in a list
+.. code:: python
 
->>> x = map(lambda letter: letter.upper(), ["hello", "world"])
->>> x = x.list()    # convert it to a list for readability
->>> print(x)
-['HELLO', 'WORLD']
-
-This will capitalize every letter and return a list
-
->>> x = map(lambda letter: letter.upper(), "helloworld])
->>> x = x.list()    # convert it to a list for readability
->>> print(x)
-['H', 'E', 'L', 'L', 'O', 'W', 'O', 'R', 'L', 'D']
-
-Our lambda function ``lambda letter: lett.upper()`` just capitalizes a letter.
+    def power(a, n):
+        return a**n
 
 .. Note::
     The downside to lambda functions is that they reduce readability. Only use them for very small functions where the functionality is clear.
 
-Task 1: ``filter``
-------------------
+A slightly more complicated lambda function would look like:
+
+.. code:: python
+
+    # checks if a number is even
+    lambda x: x % 2 == 0
+
+This is the same as:
+
+.. code:: python
+    
+    def is_even(x):
+        return x % 2 == 0
+
+Sometimes, it is necessary to use a lambda function in multiple places. In this case, we can assign it to a variable.
+
+>>> is_even = lambda x: x % 2 == 0
+
+We can treat the variable as if it were a normal function defined with ``def``.
+
+>>> is_even(14)
+True
+>>> is_even(27)
+False
+
+.. Note::
+    Lambda functions are frequently used as parameters in other functions. For example, the ``map(func, a)`` function in Python exectues ``func`` on every element in ``a``. ``a`` can be anything you can iterate over (like a list or a string).
+
+    This will capitalize every word in a list
+
+    >>> x = map(lambda letter: letter.upper(), ["hello", "world"])
+    >>> x = x.list()    # convert it to a list for readability
+    >>> print(x)
+    ['HELLO', 'WORLD']
+
+Task 1: Basic Functions
+-----------------------
+Write each function as a lambda function. Assign each to the variables ``mean``, ``sigmoid``, and ``prime_count_approx``.
+.. math::
+
+    :label: eq:(3)
+    \mu = \frac{\sum_{i=1}^{n}x_i}{n}
+
+    :label: eq:(1)
+    \sigma(\text{x}) = \frac{1}{1 + e^{-x}}
+
+    :label: eq:(2)
+    f(x) = \frac{x}{\log(x)}
+
+Task 2: Sort
+------------
 ``filter(fx, a)`` is similar to ``map``. It filters list ``a`` by a function. Filter the list ``a = np.linspace(0, 6, 13)`` so that only solutions to the equation :math:`\sin(2\pi\cdot t \cdot (1+0.5\sin(3t)) = -1)` remain.
 
 .. t = np.linspace(0, 2*np.pi, 1000)
@@ -66,7 +101,9 @@ Remember this is the same as ``var = var - 100``. This same syntax works for ``+
 
 Try/Except
 ------------------
+
 .. arrays of different sizes
+
 The try/except block is used for catching errors in code blocks without breaking the entire program.
 
 .. code:: python
@@ -170,7 +207,7 @@ f-strings
 
 .. possibly include r-strings
 
-Python f-strings are an efficient and simple way of formatting strings. They are generally faster more readable than other methods of string fomratting (including concatenation with ``+``).
+Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including concatenation with ``+``).
 
 An f-string is just a string with an ``f`` in front of it. ``{}`` can be used inside f-strings to get the string value of python code.
 
@@ -224,6 +261,7 @@ Importing
 At this point, you are familiar with how to import a module in python using
 
 .. code:: python
+
     import package
     import package as pk
 
