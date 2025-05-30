@@ -205,7 +205,7 @@ You will need to start with ``x_0 = np.array([1/n, 1/n, ... , 1/n]) = np.full(n,
 Remember the equation :math:`x_{k} = P^{k}x_0`.
 
 .. note::
-    the numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
+    The numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
     and fills it in with the fill value.
 
     >>> np.full(5, 10)
