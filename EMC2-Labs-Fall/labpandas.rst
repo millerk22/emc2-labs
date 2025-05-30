@@ -1,14 +1,15 @@
-
 Lab 2.71828: Pandas 
 ==============================================
+
 .. https://foundations-of-applied-mathematics.github.io/
-In this lab, you will learn how to use the powerful Pandas library used for data analyzing and manipulation.
+
+In this lab, you will learn how to use the powerful Pandas library used for data analysis and manipulation.
 
 Pandas is an amazing library for data manipulation.
 In 2008 the development of this package began at `AQR Capital Management <https://pandas.pydata.org/about/>`_. 
 It was originally developed to perform quantitative analysis on financial data.
 In fact, Pandas stands for 'panel data', an economic term.
-Over the years the library was open sourced, and has been developed into the library that it is today.
+Over the years the library has been open-sourced and been developed into the library that it is today.
 
 DataFrames
 ----------
@@ -19,7 +20,7 @@ To import Pandas we use the following import statement
 
 >>> import pandas as pd
 
-The core data structure of the Pandas library is the DataFrame.
+The core data structure of the Pandas library is the ``DataFrame``.
 A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
 Here's an example of how to create a ``DataFrame``\:
 
@@ -27,7 +28,7 @@ Here's an example of how to create a ``DataFrame``\:
        ['Alice', 25, 'New York'],
        ['Kevin', 30, 'Los Angeles'],
        ['Charles', 35, 'Chicago']
-     ]
+       ]
 >>> df = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 >>> df
      Name   Age        City
@@ -35,27 +36,27 @@ Here's an example of how to create a ``DataFrame``\:
 1   Kevin    30 Los Angeles
 2 Charles    35     Chicago
 
-Now there are plenty of ways that you can construct these DataFrames.
+There are plenty of ways that you can construct these DataFrames.
 
 You can do it through a dictionary of lists.
 
->>> data = {'Name': ['Norman', 'Eli'], 'Grade': [64, 92]}
+>>> data = {'Name': ['Norman', 'Eli'], 'Grade': [64, 72]}
 >>> df1 = pd.DataFrame(data)
 
 You can do it from a list of dictionaries.
 
->>> data = [{'Name': 'Norman', 'Grade': 64}, {'Name': 'Eli', 'Grade': 92}]
+>>> data = [{'Name': 'Norman', 'Grade': 64}, {'Name': 'Eli', 'Grade': 72}]
 >>> df2 = pd.DataFrame(data)
 
 You can do it from a list of lists using column names.
 
->>> data = [['Norman', 64], ['Eli', 92]]
+>>> data = [['Norman', 64], ['Eli', 72]]
 >>> df3 = pd.DataFrame(data, columns=['Name', 'Grade'])
 
 You can even do it through a numpy array.
 
 >>> import numpy as np
->>> arr = np.array([['Norman', 64], ['Eli', 92]])
+>>> arr = np.array([['Norman', 64], ['Eli', 72]])
 >>> df4 = pd.DataFrame(arr, columns=['Name', 'Grade'])
 
 Every one of these DataFrames will be exactly the same, and produces the result below 
@@ -63,7 +64,7 @@ Every one of these DataFrames will be exactly the same, and produces the result 
 >>> df1
      Name  Grade
 0  Norman     64
-1     Eli     92
+1     Eli     72
 
 Task 1
 ------
@@ -92,29 +93,29 @@ For example we could have the file ``animals.csv``.
      Kangaroo,150,Mammal
      Penguin,30,Bird
 
-To load this file into a pandas DataFrame we can use ``read_csv()``\.
+To load this file into a pandas DataFrame we can use ``pd.read_csv()``\.
 
-.. code-block:: python
 
-     >>>import pandas as pd
-     >>>df = pd.read_csv("animals.csv")
-     >>>print(df)
-          Animal  Weight     Type
-     0  Elephant   12000   Mammal
-     1     Eagle      15     Bird
-     2 Crocodile    1000  Reptile
-     3  Kangaroo     150   Mammal
-     4  Penguin       30     Bird
+>>> import pandas as pd
+>>> df = pd.read_csv("animals.csv")
+>>> print(df)
+     Animal  Weight     Type
+0  Elephant   12000   Mammal
+1     Eagle      15     Bird
+2 Crocodile    1000  Reptile
+3  Kangaroo     150   Mammal
+4  Penguin       30     Bird
 
 If you want to save to a CSV file use ``df.to_csv(filename, index=False)``\. 
 We use ``index=False`` to avoid saving the row numbers as another column. 
-Other file types that Pandas can easily read include; Excel, JSON, HTML, Parquet, SQL, and Pickle. 
+Other file types that Pandas can easily read include Excel, JSON, HTML, Parquet, SQL, and Pickle. 
 
 Task 2
 ------
 
 .. Have them read the csv file
-Read the CSV file named "global_air_pollution_dataset.csv" and save it as Pandas' ``DataFrame`` titled ``pollution_df``.
+
+Read the CSV file named "global_air_pollution_dataset.csv" and save it as a Pandas ``DataFrame`` titled ``pollution_df``.
 
 Accessing Data
 --------------
@@ -123,7 +124,7 @@ Accessing Data
 .. Problem 1: budget.csv problem (not all of the parts)
 .. Basic Data Manipulation + Basic Stat Functions + Masks(?)
 
-So now that we have our DataFrame we can move onto accessing the data within.
+Now that we have our DataFrame we can move onto accessing the data within.
 We will go through these functions using the DataFrame defined below.
 
 >>> df
@@ -136,7 +137,7 @@ We will go through these functions using the DataFrame defined below.
 
 In general the best way to access data is through ``loc`` and ``iloc``\. 
 The ``loc`` index selects rows and columns based on their labels, while ``iloc`` selects them based on their integer position.
-With these indexers, the first and second arguments refer to the rows and columns, respectively, just as array slicing.
+For both of these methods, the first and second arguments refer to the rows and columns, respectively, just as in array slicing.
 
 
 .. code-block:: python
@@ -182,7 +183,7 @@ The most efficient way to access a column is to use the ``[]`` brackets and the 
 Datasets can often be very large and thus difficult to visualize. 
 Pandas has various methods to make this easier. 
 The methods ``head()`` and ``tail()`` will show the first or last n data points, respectively, where n defaults to 5. 
-The method sample will draw n random entries of the dataset, where n defaults to 1.
+The method ``sample()`` will draw n random entries of the dataset, where n defaults to 1.
 
 
 .. code-block:: python
@@ -232,7 +233,7 @@ Here is an example of using the very useful ``unique()`` and ``drop()`` methods.
      >>> df["Sex"].unique()
      array(['Female', 'Male'], dtype=object)
 
-     # Use drop() to get rid of row
+     # Use drop() to get rid of a row
      >>> df.drop("Jed", inplace=True)
      >>> df
                Sex  Age  Grade  Attendance (%)  Test Scores
@@ -243,7 +244,7 @@ Here is an example of using the very useful ``unique()`` and ``drop()`` methods.
      James    Male   23     78              88        100.0
 
 
-There are many other methods that you can use, here is a list of other methods to be familiar with.
+Here is a list of other methods to be familiar with.
 
 - ``df.shape`` - Get the (rows, columns) of the DataFrame.
 - ``df.rename(columns={'old': 'new'})`` - Rename columns.
@@ -265,7 +266,7 @@ Task 3
 ------
 
 Load ``pollution_df``\.
-First, reindex the columns so the ``AQI Value``\, ``AQI Category`` are the first two columns and all other columns maintain their order.
+First, reindex the columns so that ``AQI Value`` and ``AQI Category`` are the first two columns and all other columns maintain their order.
 Next, sort the ``DataFrame`` in descending order based on their ``AQI Value``\.
 Finally, reset all values in the ``Ozone AQI Value`` column to 0.
 
@@ -276,7 +277,7 @@ Finally, reset all values in the ``Ozone AQI Value`` column to 0.
 Basic Data Manipulation
 -----------------------
 
-Because the primary pandas data structures are based off of ndarray, most NumPy functions work
+Because the primary pandas data structures are based off of ``np.ndarray``\s, most NumPy functions work
 with pandas structures. For example, basic vector operations work as would be expected:
 
 .. code-block:: python
@@ -323,7 +324,7 @@ Masking
 
 *Masking* in Pandas refers to selecting or updating values based on conditions, usually using boolean indexing. 
 This can be useful if you want to find and edit rows given a certain condition. 
-Here is the most simple way to do so.
+Here is a simple example.
 
 .. code-block:: python
 
@@ -354,7 +355,7 @@ Just like for ``np.ndarray``\s you can save these masks to use later.
 
 .. code-block:: python
 
-          # Save condition and use it
+     # Save condition and use it
      >>> high_attendance = df["Attendance (%)"] > 95
      >>> df[high_attendance]
           Name     Sex  Age  Grade  Attendance (%)  Test Score
@@ -374,7 +375,7 @@ Change the ``AQI Category`` to "terrible" where ``AQI Value`` and ``PM2.5 AQI Va
 Basic Statistical Functions
 ---------------------------
 
-The pandas library allows us to easily calculate basic summary statistics of our data, which can be
+The Pandas library allows us to easily calculate basic summary statistics of our data, which can be
 useful when we want a quick description of the data. The ``describe()`` function outputs several
 such summary statistics for each column in a DataFrame:
 
@@ -400,7 +401,7 @@ such summary statistics for each column in a DataFrame:
      75%    87.000000   94.000000   94.000000
      max    89.000000   98.000000   97.000000
 
-Other basic statistical functions are also include:
+Other basic statistical functions also include:
 
 .. code-block::python
 
@@ -418,6 +419,7 @@ each column. This function defaults ranking in ascending order: the least will b
 greatest will be ranked the highest number.
 
 .. code-block:: python
+
      # Rank each student's performance in their classes in descending order
      # (best to worst)
      # The method keyword specifies what rank to use when ties occur.
@@ -440,6 +442,7 @@ Task 5
 ------
 
 .. Have Them do problem 2
+
 Using the ``pollution_df``\, find the country with the highest average for ``AQI Category`` and print that country.
 
 
