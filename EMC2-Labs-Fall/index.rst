@@ -60,6 +60,7 @@ Choose a lab in the left sidebar.
    lab23
    lab24
    labPageRank
+   labpandas
 
 
 
