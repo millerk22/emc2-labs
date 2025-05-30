@@ -118,7 +118,6 @@ If we continue this for all of the nodes in our network we get the following set
     \end{array}
 
 Now we can represent these as a system of equations to solve for the importance of each node.
-Doing that we get
 
 .. math::
     \left[
@@ -149,22 +148,19 @@ Doing that we get
 Now we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
 As you can see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
 
+.. note::
+    This matrix is a `stochastic matrix <https://en.wikipedia.org/wiki/Stochastic_matrix>`_, because each column of the matrix sums to one.
+    By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
+    we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
+    there exists an eigenvalue of 1 and associated eigenvector. 
+
 In `Lab 9 <https://emc2.byu.edu/fall-labs/lab09.html>`_, we used iterative methods to solve for the solution of systems of equations.
-We can use the `Power method <https://en.wikipedia.org/wiki/Power_iteration>`_ here.
-This method solves for the dominant eigenvector of a system of equations through following the equation,
+One of these methods is `Power method <https://en.wikipedia.org/wiki/Power_iteration>`_ which solves for the dominant eigenvector of a system of equations.
+It is defined by the equation below:
 
 .. math::
 
     x_{k+1} = \frac{Px_k}{||Px_k||}
-
-
-.. note::
-    This matrix is a `stochastic matrix <https://en.wikipedia.org/wiki/Stochastic_matrix>`_. 
-    This is because each column of the matrix sums to one.
-    By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
-    we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
-    there exists an eigenvalue of 1 and associated eigenvector. 
-    This is why we can use the Power Method. 
     
 
 Now consider the vector below whose column adds up to 1.
@@ -184,10 +180,10 @@ Now consider the vector below whose column adds up to 1.
     \end{array}
     \right].
 
-Because of the way our system of equations is set up, as long as the columns of :math:`x_k` add up to 1, the columns of :math:`x_{k+1}` will add up to 1.
+Because of the way the system of equations is set up, as long as the columns of :math:`x_k` add up to 1, the columns of :math:`x_{k+1}` will add up to 1.
 Therefore, we can omit normalization at each iteration.
-Thus the rule for the method is :math:`x_{k+1} = Px_k`. 
-Therefore, :math:`x_{k} = P^{k}x_0`.
+Thus the power method becomes :math:`x_{k+1} = Px_k`. 
+Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
 
 Task 2
