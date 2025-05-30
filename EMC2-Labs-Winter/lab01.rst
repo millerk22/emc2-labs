@@ -1,6 +1,23 @@
 Lab 1: Introduction to Plotting
 ===============================
 
+.. Find a place to put this information about array masking. 
+..
+.. Array Masking
+.. -------------
+.. Array masking is a powerful tool in numpy that allows you to filter data using conditions. When you apply a condition on a NumPy array, it returns a new array of boolean values with ``True`` where the condition is met, and ``False`` otherwise. This is called a **boolean mask**. For example,
+
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> a > 2
+.. array([False, False,  True,  True])
+
+.. You can then use this mask to select the elements only where the condition is ``True``.
+
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> b = a > 2
+.. >>> a[b]
+.. array([3, 4])
+
 This material is adapted from the ACME lab on MatPlotLib.
 
 Raw numerical data is rarely helpful unless it can be visualized. 

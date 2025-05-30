@@ -79,30 +79,53 @@ Write each function as a lambda function. Assign each to the variables ``mean``,
 
 Task 2: Sort
 ------------
-``filter(fx, a)`` is similar to ``map``. It filters list ``a`` by a function. Filter the list ``a = np.linspace(0, 6, 13)`` so that only solutions to the equation :math:`\sin(2\pi\cdot t \cdot (1+0.5\sin(3t)) = -1)` remain.
+``sorted(a, key)`` is a built-in python function that sorts an iterable (something you can iterate over like a list, string, etc.). ``a`` is the iterable, and ``key`` is a function that specifies how the iterable should be sorted.
 
-.. t = np.linspace(0, 2*np.pi, 1000)
-.. # A sine wave with frequency modulation
-.. mod_sine = np.sin(2 * np.pi * t * (1 + 0.5 * np.sin(3 * t)))
+Here is an example of sorting a list of tuples by the second element.
+>>> pairs = [(1, 3), (2, 2), (4, 1)]
+>>> sorted_pairs = sorted(pairs, key=lambda pair: pair[1])
+>>> print(sorted_pairs)
+[(4, 1), (2, 2), (1, 3)]
 
-.. Hint::
-    The result from ``filter`` is a ``filter`` object. You can use ``list()`` to convert it to a list.
+.. note::
+    ``sorted()`` only works with 1d ``numpy.ndarrays`` which is why we are using Python lists in this task.
+
+Write a function ``sort_list(a)`` that takes in ``a`` which is a ``(n,m)`` Python ``list`` of ``list``s and returns the list sorted by the mean of each row. Make sure to assign your ``lambda`` function to the ``key`` paramater!
+
+.. hint::
+    It may be easiest to convert each row to a ``numpy.ndarray`` so you can use the built in ``.mean()`` method. 
+
+
+.. def sort_list(a):
+..     return sorted(a, key=lambda row: np.array(row).mean())
 
 More Operators
 --------------
 You are familiar with simple operators like ``+``, ``-``, and ``*``. It is common to take a variable and set it to itself added, subtracted, or multiplied with another number. Python has a syntax for this:
 
 >>> var = 120
->>> var -= 100
+>>> var += 32
 >>> var
-20
+152
 
-Remember this is the same as ``var = var - 100``. This same syntax works for ``+``, ``*``, ``/``, ``**``, ``%``, and others as well.
+Remember this is the same as ``var = var + 32``. This same syntax works for ``-``, ``*``, ``/``, ``%``, ``**``, and others as well. Here are some more examples
+
+>>> var = 20
+>>> var *= 2
+>>> var
+40
+>>> var -= 30
+>>> var
+10
+>>> var /= 2
+>>> var
+5.0
+>>> var %= 2
+>>> var
+1.0
 
 Try/Except
 ------------------
-
-.. arrays of different sizes
 
 The try/except block is used for catching errors in code blocks without breaking the entire program.
 
@@ -117,61 +140,45 @@ The try/except block is used for catching errors in code blocks without breaking
 >>> divide()
 An error occurred
 
-You can also catch specific errors and chain them together
+.. note:: Bonus: more error catching
 
-.. code:: python
+    ``try`` and ``except`` are the basics of error catching in python. Other elements like ``else`` and ``finally`` along with error-specific catching can be very useful when working with large programs. Here is an example with all of them together.
 
-    def divide_element(i):
-        """Gets the the element at index i from my_list and divides it by 0."""
-        my_list = [1, 2, 3]
-        try:
-            my_list[i]/0
-        except IndexError:
-            print("Got an Index Error")
-        except ZeroDivisionError:
-            print("Got a Zero Division Error")
+    .. code:: python
 
->>> divide_element(10)
-Got an Index Error
->>> divide_element(1)
-Got a Zero Division Error
+        def divide_element(i, n):
+            """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10."""
+            my_list = [1, 2, 3]
+            try:
+                val = my_list[i]/n
+            except IndexError:  # catches only IndexErrors
+                print("Got an Index Error")
+                val = 0
+            except ZeroDivisionError:   # catches only ZeroDivisionErrors
+                print("Got a Zero Division Error")
+                val = 0
+            else:   # if it didn't catch any errors
+                print("Successful")
+                val += 10
+            finally:    # always run this no matter what happens
+                return val
+            
+    >>> print(divide_element(2, 1))
+    Successful
+    13.0
+    >>> print(divide_element(10, 1))
+    Got an Index Error
+    0
+    >>> print(divide_element(2, 0))
+    Got a Zero Division Error
+    0
 
-There is also an ``else`` block which gets run if no errors are raised in the try block. The ``finally`` block is run at the very end.
+Task 3: Matrix Multiplication
+-----------------------------
+Write a function ``matmul(a, b)`` that takes in two ``numpy.ndarray``s ``a`` and ``b`` and performs matrix multiplication on them. ``matmul`` should print ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
 
-.. code:: python
-
-    def divide_element(i, n):
-        """Gets the the element at index i from my_list and divides it by n. If there is an error, it returns 0, if not, it returns the the quotient + 10."""
-        my_list = [1, 2, 3]
-        try:
-            val = my_list[i]/n
-        except IndexError:
-            print("Got an Index Error")
-            val = 0
-        except ZeroDivisionError:
-            print("Got a Zero Division Error")
-            val = 0
-        else:
-            print("Successful")
-            val += 10
-        finally:
-            return val
-        
->>> print(divide_element(2, 1))
-Successful
-13.0
->>> print(divide_element(10, 1))
-Got an Index Error
-0
->>> print(divide_element(2, 0))
-Got a Zero Division Error
-0
-
-Task 2: Lists
----------------
-Write a function that takes in two Python lists
-.. arrays of different sizes.
-.. correlation.
+.. hint::
+    Use ``np.matmul()`` to do the calculation and use ``try`` and ``except`` to handle any errors that may occur from ``np.matmul()``.
 
 Type Declarations in Functions
 ------------------------------
@@ -205,30 +212,29 @@ Additionally, you can have default parameters for functions. This way, the user 
 f-strings
 ---------
 
-.. possibly include r-strings
+Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including string concatenation with ``+``).
 
-Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including concatenation with ``+``).
-
-An f-string is just a string with an ``f`` in front of it. ``{}`` can be used inside f-strings to get the string value of python code.
+An f-string is declared by placing an ``f`` in front of the string. ``{}`` can be used inside f-strings to get the ``str`` value of python code.
 
 >>> a = 10
 >>> b = 37
 >>> print(f"The value of a is: '{a}'")
->>> print(f"The value of a * b is: '{a * b}'")
+The value of a is: '10'
+>>> print(f'The value of a * b is: {a * b}')
+The value of a * b is: 370
 
 .. Note::
-    In the example above we used single quotes ``''`` inside double quotes ``""``. This is ok because they are different types of quotes.
+    In the example above we used single quotes ``''`` inside double quotes ``""``. This is necessary if we want to include single quotes in our string. If you want to have both single and double quotes inside the f-string, just create the f-string ``"""`` or ``'''``.
+    >>> print(f"""'This' is too many "quotes".""")
 
-f-strings also make it possible for fancier formatting. You can learn more about that on the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_.
+f-strings also make it possible for fancier formatting. You can learn more about that from the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_.
 
 Dictionaries
 ------------
 
-.. make a dictionary, print it or something like that. Find the lowest grade.
+A dictionary is another Python type. It is similar to a list, but while a list uses an integer index to retrieve another type, a dictionary can use any type to retrieve another type. This is called "mapping".
 
-A dictionary is another Python type. It is similar to a list, but it can use any datatype to retrieve another (rather than just an integer index).
-
-Dictionaries contain key-value pairs ie., given a key, we can retrieve a value (but not the other way around).
+Dictionaries contain key-value pairs i.e., given a key, we can retrieve a value (but not the other way around).
 We access dictionaries using the ``[]`` notation.
 
 >>> my_dict = {"apple": "red", "orange": 12, "blueberry": True}
@@ -247,14 +253,29 @@ To insert or change a value in a dictionary, we use the same notation
 >>> my_dict
 {"apple": "green", "orange": 12, "blueberry": True}
 
-Here are some useful functions for dictionaries:
+It is often helpful to iterate over the entries in a dictionary. We can do this with the ``.items()`` method which returns a tuple of each key and value in the dictionary.
+
+>>> for key, value in my_dict.items():
+>>>     print(f"my_dict key: {key}, my_dict value: {value}")
+my_dict key: apple, my_dict value: green
+my_dict key: orange, my_dict value: 12
+my_dict key: blueberry, my_dict value: True
+
+Here are some other useful functions and methods for dictionaries:
 - ``len(my_dict)`` the length of the dictionary
 - ``my_dict.keys()`` gets all the keys in the dictionary
 - ``my_dict.values()`` gets all the values from the dictionary
-- ``my_dict.items()`` gets a list of tuples containing the all the keys and values
+- ``my_dict.items()`` gets a list of tuples containing the all the keys and values (used in the example above)
 
-Task 3: 
--------------
+Task 4: Sorting a Dictionary
+----------------------------
+Write a function ``sort_dict(d)`` that takes in ``d`` which is a dictionary that maps from a students name (``str``) to their percentage the class (``float``). ``sort_dict(d)`` should sort the student's scores from highest to lowest and return a list of tuples where each tuple represents a student and the first entry in the tuple is the student's name and the second entry is the student's grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
+
+.. hint::
+    Use ``sorted(a, key)`` from Task 2.
+
+.. def sort_dict(d):
+..     return sorted(d.items(), key=lambda item: item[1])
 
 Importing
 ---------
@@ -267,42 +288,19 @@ At this point, you are familiar with how to import a module in python using
 
 Here are a few other ways to import a module:
 
-* ``from package import function`` will import a specific function or class from a module so you can call it directly (without ``package.function``)
-* ``from package import *`` will import all of the functions or classes from a module so you can call them directly. This method is not very common, though.
-* ``from package import function as func`` will import a function or class from a module with a nickname so you can call the nickname directly
+.. code:: python
 
-So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, it is free to do large computation, and it has lots of Python libraries pre-installed.
+    from package import function    # import a specific function or class from a module to call it directly (without package.function)
+    from package import *   # import all of the functions or classes from a module so you can call them directly. This method is not very common.
+    from package import function as func    # import a function or class from a module with a nickname so you can call the nickname directly
+
+So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, it is free, and it has lots of Python libraries pre-installed.
 
 When working on a large project it is better to run Python locally on your computer. This is commonly done with an Integrated Development Environment (IDE) like VS Code, PyCharm, or even a simple text editor and the command line. We won't get into this now, but it is important to know that Google Colab is just an intro.
 
-Array Masking
--------------
-Array masking is a powerful tool in numpy that allows you to filter data using conditions. When you apply a condition on a NumPy array, it returns a new array of boolean values with ``True`` where the condition is met, and ``False`` otherwise. This is called a **boolean mask**. For example,
+NumPy Stacking
+--------------
 
->>> a = np.array([1, 2, 3, 4])
->>> a > 2
-array([False, False,  True,  True])
-
-You can then use this mask to select the elements only where the condition is ``True``.
-
->>> a = np.array([1, 2, 3, 4])
->>> b = a > 2
->>> a[b]
-array([3, 4])
-
-Task 4: Image
--------------
-The given NumPy array conatins an image.
-.. green screen (detect green function) or distortion?
-
-.. import numpy as np
-.. from PIL import Image
-
-.. a = np.random.randint(0, 256, (100, 100, 3), dtype=np.uint8)
-
-.. # Convert `a` to a PIL Image
-.. img = Image.fromarray(a)
-.. img.show()
 
 Array Broadcasting
 ------------------
@@ -350,40 +348,3 @@ Use array broadcasting to create a normalized set of median earnings. The data i
 
 .. np.append/concatenate joins along existing axis
 .. np.stack joins along new axis
-
-Vectorization
--------------
-NumPy has another convenient tool for working element-wise with arrays. ``np.vectorize()`` takes in a python function (which takes in a NumPy array) and makes it work element-wise on the array. For example,
-
-.. code::python
-
-    def square_add(a):
-        return a**2 + 1
-
->>> a = np.array([1, 2, 3])
->>> square_add_vec = np.vectorize(square_add)
->>> square_add_vec(a)
-array([ 2,  5, 10])
-
-This use case isn't very helpful for use because we could have just done:
-
->>> a**2 + 1
-
-to get the same result. Vectorization is particularly useful when working with strings, conditionals, objects, or anything else that numpy doesn't inherently handle. If we wanted an array with a string value describing the actual element in an array, we could do:
-
-.. code::python
-
-    def format_value(x):
-        return f"High" if x > 100 else "Low"
-
->>> arr = np.array([50, 200, 120])
->>> vec_format = np.vectorize(format_value)
->>> vec_format(arr)
-array(['Low', 'High', 'High'], dtype='<U4')
-
-Task 6: Time
-------------
-You are given an array of times where the first three columns are the hours, minutes, and seconds of a start time, and the second three columns are the hours, minutes, and seconds of an end time. Using NumPy vectorization, write a function ``print_times`` that will create an array of strings where each string matches the pattern: ``Start: hh:mm:ss, End: hh:mm:ss``.
-
-Plotting
---------
