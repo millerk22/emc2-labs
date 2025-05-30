@@ -10,7 +10,7 @@ In these labs we will be using Python, which is a powerful, general-purpose prog
 It has many libraries and packages available to add on that make it a powerful tool for scientific computing and applied mathematics.
 Even better, it is a great first language to learn for beginners to computer programming!
 There are several ways to write programs in Python. 
-In these labs we will be using Google’s Colaboratory notebooks to write our code and create the files we will submit for grading. 
+In these labs we will be using Google's Colaboratory notebooks to write our code and create the files we will submit for grading. 
 This allows us to write and run Python programs in an internet browser without the hassle of downloading and installing any software on our computers. 
 This will be described in more detail below.
 
@@ -51,7 +51,7 @@ and make sure both options are unchecked.
 Running Code in Cells
 ---------------------
 
-Once you’ve created a new notebook you’ll notice a little box to enter your code underneath the various menus. 
+Once you've created a new notebook you'll notice a little box to enter your code underneath the various menus. 
 This is called a ``cell``, and it is the basic building block of a Colab notebook.
 Any code that you want to execute in a notebook must be placed in a cell.
 
@@ -59,7 +59,8 @@ In your notebook type the following into the cell:
 
 >>> print("Hello World!")
 
-(These three arrows ``>>>`` indicate that the code that follows is something you type into a cell.)
+.. note::
+   ``>>>`` indicates that the code that follows should be typed into a cell!
 
 As you might expect, this is a command which tells the notebook to display the phrase ``Hello world!`` below the cell. 
 In order to tell Python to actually perform this command, we must execute the cell, by holding down the Shift button and pressing Return or Enter.
@@ -69,9 +70,10 @@ Execute this cell. You should see the following:
 >>> print("Hello World!")
 Hello World!
 
-(Code written here without the three arrows is the expected output.)
+.. note::
+   Code written without ``>>>`` is Python's output.
 
-Congratulations, you’ve just run your first Python program. 
+Congratulations, you've just run your first Python program. 
 After running your "Hello World!" command, you should notice that a new cell appears beneath the output of your last cell. 
 You can enter new commands into this cell, and execute them the same way you did in the above cell. 
 You can enter as many commands in a cell as you want, by putting each of them on a separate line. 
@@ -88,7 +90,7 @@ Each time you execute a cell, a new cell should be created at the bottom of the 
 If at any time you want to create an additional new cell, you can push the ``+Code`` button at the top of the notebook. 
 You can also move any cell up or down in the notebook, by selecting that cell and pushing the ↑ and ↓ buttons that appear in the top right corner of the cell. 
 Likewise, you can delete any cell by selecting it first, and then clicking on the 🗑 [trash can] icon that appears in the top right corner of the cell. 
-At any time you can go back to a previous cell and edit it, and re-execute it as many times as you’d like. 
+At any time you can go back to a previous cell and edit it, and re-execute it as many times as you'd like. 
 It is this ability to execute your code in small bite-sized chunks, and to go back and forth editing different parts, that makes Colab notebooks an easy way to quickly test out different ideas and pieces of code.
 
 
@@ -147,7 +149,7 @@ the result of the final command is included in the output displayed underneath t
 >>> 15 // 3
 5
 
-If we’d like to see the output of multiple commands we can use the ``print`` command to make
+If we'd like to see the output of multiple commands we can use the ``print`` command to make
 sure that those commands are included in the output display.
 
    Practice: Enter the following commands in a cell, and execute them. What output do you see?
@@ -268,7 +270,7 @@ Enter the expression
 
 and store it as a variable called ``my_first_var``.
 Remember to use parentheses to ensure that the order of operations is correct.
-Don’t just save the numerical value of this expression,
+Don't just save the numerical value of this expression,
 which is ``20``. Save the actual expression with the addition, multiplication, division, subtraction, and parentheses as the variable.
 
 
@@ -317,8 +319,8 @@ function on a given input, we write it much as one might expect:
    You should have received an ugly error message when you tried to evaluate ``reciprocal(0)``,
    as a result of trying to divide by zero. Python will produce an error message anytime you try to
    execute code that violates one of its rules. Learning to interpret error messages is an important
-   part of becoming a good programmer. Be warned though, just because you don’t
-   get an error message when you execute your code doesn’t mean that your code is doing what
+   part of becoming a good programmer. Be warned though, just because you don't
+   get an error message when you execute your code doesn't mean that your code is doing what
    you want it to be doing. This is why we will always test our code with various input values.
 
 
@@ -498,7 +500,7 @@ beginning of the list, or stopping at the end.
    >>> print(list_a)
    >>> print(list_b)
 
-   You might expect that what we’ve done above is to create two separate lists, ``list_a`` and ``list_b``,
+   You might expect that what we've done above is to create two separate lists, ``list_a`` and ``list_b``,
    both of which happen to have the same values. However, we have actually only created a single
    list, but given it two different names ``list_a`` and ``list_b`` to reference it by! For example, if we
    change one of the entries in ``list_b``, we will also be changing the list ``list_a``.
@@ -599,7 +601,7 @@ In our case, because 1 is indeed less than 7, Python will execute the line after
 
 Note that ``if`` statements do not need to be followed by ``else`` statements. If an ``if`` statement
 is not followed by an ``else`` statement, and the condition contained in the ``if`` statement is ``False``,
-then the code won’t do anything:
+then the code won't do anything:
 
 .. code-block:: python
 
