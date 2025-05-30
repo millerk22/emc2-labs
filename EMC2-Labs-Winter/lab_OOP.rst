@@ -165,7 +165,8 @@ Create a ``Square`` class with an instance variable ``length``. ``Square`` inher
 
 Dunder Methods
 --------------
-When you first saw ``__init__``, it may have seemed like a weird way to write a method. That's because it is a special type of method called a **Dunder method** (short for "*d*ouble *under*score"). These are built-in methods to all Python classes that have default behavior.
+
+When you first saw ``__init__``, it may have seemed like a weird way to write a method. That's because it is a special type of method called a **Dunder method** (short for "double underscore"). These are built-in methods to all Python classes that have default behavior.
 
 For example, ``__add__`` is a Dunder method that has a default behavior of adding things together. This works intuitively for ``int`` and ``float``. Python has also defined ``__add__`` for ``str`` where ``a + b`` is the concatenation of ``a`` and ``b``.
 
