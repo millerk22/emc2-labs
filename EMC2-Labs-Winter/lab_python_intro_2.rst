@@ -6,7 +6,7 @@ This lab covers additional topics in Python and NumPy that will expand your codi
 Lambda Functions
 ----------------
 
-Lambda functions are essentially one-time use functions. The syntax is:
+Lambda functions are a shorthand way of defining functions. They are excellent for creating simple functions. The syntax is:
 
 .. code:: python
 
@@ -184,7 +184,7 @@ An error occurred
 
 Task 3: Matrix Multiplication
 -----------------------------
-Write a function ``matmul(a, b)`` that takes in ``numpy.ndarray`` ``a`` and ``b`` and performs matrix multiplication on them. ``matmul`` should print ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
+Write a function ``matmul(a, b)`` that takes in ``numpy.ndarray``\s ``a`` and ``b`` and performs matrix multiplication on them. ``matmul`` should print ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
 
 .. hint::
     Use ``np.matmul()`` to do the calculation and use ``try`` and ``except`` to handle any errors that may occur from ``np.matmul()``.
@@ -268,6 +268,8 @@ To insert or change a value in a dictionary, we use the same notation
 
 It is often helpful to iterate over the entries in a dictionary. We can do this with the ``.items()`` method which returns a tuple of each key and value in the dictionary.
 
+>>> my_dict.items()
+dict_items([('apple', 'red'), ('orange', 12), ('blueberry', True), ('strawberry', 'red')])
 >>> for key, value in my_dict.items():
 >>>     print(f"my_dict key: {key}, my_dict value: {value}")
 my_dict key: apple, my_dict value: green
@@ -276,14 +278,14 @@ my_dict key: blueberry, my_dict value: True
 
 Here are some other useful functions and methods for dictionaries:
 
-- ``len(my_dict)`` the length of the dictionary
+- ``len(my_dict)`` the length of the dictionary (how many entries there are)
 - ``my_dict.keys()`` gets all the keys in the dictionary
 - ``my_dict.values()`` gets all the values from the dictionary
 - ``my_dict.items()`` gets a list of tuples containing the all the keys and values (used in the example above)
 
 Task 4: Sorting a Dictionary
 ----------------------------
-Write a function ``sort_dict(d)`` that takes in ``d`` which is a dictionary that maps from a students name (``str``) to their percentage the class (``float``). ``sort_dict(d)`` should sort the student's scores from highest to lowest and return a list of tuples where each tuple represents a student and the first entry in the tuple is the student's name and the second entry is the student's grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
+Write a function ``sort_dict(d)`` that takes in ``d`` which is a dictionary that maps from a students name (``str``) to their percentage in the class (``float``). ``sort_dict(d)`` should sort the student's scores from highest to lowest and return a list of tuples of the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
 
 .. hint::
     Use ``sorted(a, key)`` from Task 2.
@@ -293,7 +295,7 @@ Write a function ``sort_dict(d)`` that takes in ``d`` which is a dictionary that
 
 Importing
 ---------
-At this point, you are familiar with how to import a module in python using
+At this point, you are familiar with how to import a module or package in python using
 
 .. code:: python
 
@@ -325,6 +327,128 @@ When working on a large project it is better to run Python locally on your compu
 NumPy Stacking
 --------------
 
+NumPy has different functions to merge and concatenate NumPy arrays. It is important to know that these functions exist, but you don't need to know all the details.
+
+``numpy.column_stack`` 
+~~~~~~~~~~~~~~~~~~~~~~
+Takes 1d arrays and stacks them as the columns of a 2d array.
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.column_stack((a, b))
+
+``numpy.vstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them vertically (along the first axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.vstack((a, b))
+array([[1, 2, 3, 4],
+       [4, 5, 6, 7]])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.vstack((c, d))
+array([[ 1,  2],
+       [ 3,  4],
+       [ 5,  6],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11]])
+       
+``numpy.hstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them horizontally (along the second axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.hstack((a, b))
+array([1, 2, 3, 4, 4, 5, 6, 7])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.hstack((c, d))
+array([[ 1,  2,  6,  7],
+       [ 3,  4,  8,  9],
+       [ 5,  6, 10, 11]])
+
+``numpy.dstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them according to 'depth' (along the third axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.dstack((a, b))
+array([[[1, 4],
+        [2, 5],
+        [3, 6],
+        [4, 7]]])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.dstack((c, d))
+array([[[ 1,  6],
+        [ 2,  7]],
+
+       [[ 3,  8],
+        [ 4,  9]],
+
+       [[ 5, 10],
+        [ 6, 11]]])
+
+>>> e = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+>>> f = np.array([[[2, 3], [4, 5]], [[6, 7], [8, 9]]])
+>>> np.dstack((e, f))
+array([[[1, 2, 2, 3],
+        [3, 4, 4, 5]],
+
+       [[5, 6, 6, 7],
+        [7, 8, 8, 9]]])
+
+``numpy.stack``
+~~~~~~~~~~~~~~~
+Joins a set of arrays along a *new* axis. When ``axis=-1``, it will join along the last axis
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.stack((a, b), axis=0)
+array([[1, 2, 3, 4],
+       [4, 5, 6, 7]])
+>>> np.stack((a, b), axis=1)
+array([[1, 4],
+       [2, 5],
+       [3, 6],
+       [4, 7]])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.stack((c, d), axis=0)
+array([[[ 1,  2],
+        [ 3,  4],
+        [ 5,  6]],
+
+       [[ 6,  7],
+        [ 8,  9],
+        [10, 11]]])
+>>> np.stack((c, d), axis=1)
+array([[[ 1,  2],
+        [ 6,  7]],
+
+       [[ 3,  4],
+        [ 8,  9]],
+
+       [[ 5,  6],
+        [10, 11]]])
+>>> np.stack((c, d), axis=2)
+array([[[ 1,  6],
+        [ 2,  7]],
+
+       [[ 3,  8],
+        [ 4,  9]],
+
+       [[ 5, 10],
+        [ 6, 11]]])
 
 Array Broadcasting
 ------------------
@@ -341,7 +465,7 @@ array([ 4, 10, 18, 28])
 >>> a * c
 array([ 3,  6,  9, 12])
 
-The main idea of array broadcasting is that operations can be performed on ``numpy.array``s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
+The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
 
 .. image:: ./_static/broadcasting_stretch.png
 
@@ -398,10 +522,3 @@ Normalization is a basic statistical method to scale data so all of the points l
 
 You are given data on recent college graduates and their median earnings based on major.
 Use array broadcasting to create a normalized set of median earnings. The data is given in CodeBuddy.
-
-.. np.random.rand(10)
-.. https://github.com/fivethirtyeight/data/blob/master/college-majors/recent-grads.csv use median for money
-
-
-.. np.append/concatenate joins along existing axis
-.. np.stack joins along new axis
