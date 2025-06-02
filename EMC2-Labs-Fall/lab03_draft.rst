@@ -13,7 +13,7 @@ Throughout this course, remember: Google is your friend.
 
 Function Docstrings
 --------------------
-Functions can get confusing sometimes, especially when they are written by somebody else. Python has a convention called a docstring that allows you to write a description of what the function does, what the parameters are, and what the return value is. This is a good practice to get into, especially when you are writing functions that will be used by other people.
+Functions can get confusing sometimes, especially when written by someone else. Python has a convention called a docstring that allows you to write a description of what a function does, what the parameters are, and what the return value is. Writing docstrings is a good practice to get into, especially when you are writing functions that will be used by other people.
 
 .. code:: python
 
@@ -37,17 +37,13 @@ Functions can get confusing sometimes, especially when they are written by someb
 
         # the actual code goes down here
 
-For example, 
-
-.. Warning::
-    Python doesn't actually care if you return a ``float`` or a ``string`` or a ``numpy.ndarray``. These features are mostly for documentation and not double checking.
-
 Task 1
 ------
 
-Complete the following functions to review what you learned during the two introductory labs. Feel free to look up the documentation and/or examples for anything you've forgotten or haven't learned yet. (For example, it will probably help to look up the modulo operator.)
+Complete all of the following functions according to the instructions in their docstrings. This will be a review of the past two Python labs. Feel free to look up the documentation and/or examples for anything you've forgotten or haven't learned yet. (For example, it will probably help to look up the modulo operator.)
 
-Last two deleted:
+Function: ``last_two_deleted``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -68,12 +64,11 @@ Last two deleted:
         # Your code here
         # Tip: Use integer division
 
-Usage:
-
 >>> last_two_deleted(246810)
 2468
 
-Last two:
+Function: ``last_two``
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -94,21 +89,21 @@ Last two:
         # Your code here
         # Tip: Use the modulo operator (% 100)
 
-Usage:
-
 >>> last_two(246810)
 10
 >>> last_two(123405)
 5
 
-First half:
+Function: ``first_half``
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
     def first_half(word):
         """Returns the first half of the word.
 
-        This function takes the word and returns the first half. It excludes the middle character if the word has an odd number of characters.
+        This function takes the word and returns the first half.
+        It excludes the middle character if the word has an odd number of characters.
 
         Parameters:
         word : str
@@ -123,15 +118,13 @@ First half:
         # Tip: Use integer division to exclude the middle character
         # Tip: Use the built-in function len(word) to get the length of word
 
-Usage:
-
 >>> first_half('yourname')
 'your'
 >>> first_half('diophantine')
 `dioph'
 
-
-Backward:
+Function: ``backward``
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -152,8 +145,6 @@ Backward:
         # Your code here
         # Tip: Use slicing
         # Tip: The step parameter in [start:stop:step] can be negative.
-
-Usage:
 
 >>> backward('desserts')
 `stressed'
@@ -183,16 +174,13 @@ Use some of your previously written functions to help make this more complicated
         """
 
         # Your code here
-        # Tip: Use a while loop to look at the last two digits of message and convert those digits to a character, then repeat with a smaller integer message (which is message with the last two digits deleted).
-
-Usage:
+        # Tip: Use a while loop to look at the last two digits of message and convert those digits to a character
+        # Repeat this process with a smaller integer message (which is message with the last two digits deleted).
 
 >>> int_to_str26(30120)
 `CAT'
 >>> int_to_str26(2005192023151804)
 `TESTWORD'
-
-
 
 Task 3
 ------
@@ -219,9 +207,8 @@ Now do the same, but in reverse.
 
         # Your code here
         # Tip: Use a for loop.
-        # Tip: If you prefer, you can keep track of the integer using a string (e.g. '123456'), then convert it to an integer at the end (e.g. int('123456')).
-
-Usage:
+        # Tip: If you prefer, you can keep track of the integer using a string (e.g. '123456')
+        # Then convert it to an integer at the end (e.g. int('123456')).
 
 >>> str_to_int26('CAT')
 030120
@@ -242,4 +229,3 @@ If there is still time remaining, try to solve the following challenge problems,
 3. Project Euler \#6
 
 4. Project Euler \#9
-
