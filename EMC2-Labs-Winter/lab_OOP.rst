@@ -14,11 +14,11 @@ Classes
 -------
 
 .. Important::
-    In OOP, a **class** is a type of thing, while an **object** is a specific one of those things.
+    In OOP, a **class** is a type of thing, while an **object** is a specific instance of those things.
 
 In the real world, we talk about classes and objects all the time. For example, a writing utensil (the class) could be a pencil, pen, marker, chalk, etc. (which are objects of that class). Each of these objects has different properities such as color and length.
 
-We can represent the ``WritingUtensil`` class in python like this:
+We can represent the ``WritingUtensil`` class in Python like this:
 
 .. code:: python
     
@@ -42,11 +42,11 @@ We can access or change attributes using dot notation:
 'black'
 >>> pen.color
 'blue'
->>> pen.color = "black"
+>>> pen.color = "green"
 >>> pen.color
-'black'
+'green'
 
-You may have noitced that ``self`` appears frequently in our class. Whenever we use ``self`` it refers to the current object. So ``self.color`` sets our instance of class ``WritingUtensil`` to something like ``"blue"``.
+You may have noticed that ``self`` appears frequently in our class. Whenever we use ``self`` it refers to the current object. Therefore ``self.color`` sets our instance (``pen`` or ``pencil``) of class ``WritingUtensil`` to something like ``"green"``.
 
 Classes can also have **class attributes**. These are very similar to instance attributes (seen in the example above), but they apply to the entire class. They are located on the same level as the constructor.
 
@@ -58,7 +58,7 @@ Classes can also have **class attributes**. These are very similar to instance a
             self.color = color
             self.length = length
 
-So if we create a ``pencil`` and ``pen`` object just like we did above, we can access the brand on any object of type ``WritingUtensil``.
+If we create a ``pencil`` and ``pen`` object just like we did above, we can access the brand on any object of type ``WritingUtensil``.
 
 >>> pencil.brand
 'bic'
@@ -90,6 +90,11 @@ If we could only rely on class attributes and instance attributes, working with 
 
 .. Note::
     Whenever you create a method in a class, it needs to have ``self`` as the first argument, otherwise your method won't have access to class/instance attributes, or other methods.
+
+>>> pencil.write("Hello World!")
+'Hello World!' written in black
+>>> pen.write("Hello Pencil!")
+'Hello Pencil!' written in green
 
 Task 1: Rectangle
 -----------------
@@ -183,7 +188,7 @@ Consider this class:
 .. code:: python
 
     class Sandwich:
-        def __init__(self, length: int, toppings: list)
+        def __init__(self, length, toppings)
             """Creates a Sandwich class with a length in inches and a list of toppings like ['bacon', 'lettuce', 'tomato']
             """
             self.toppings = toppings
@@ -194,14 +199,16 @@ Let's say we wanted the ``__add__`` behavior of our ``Sandwich`` class to add a 
 .. code:: python
     
     class Sandwich:
-        def __init__(self, length: int, toppings: list):
+        """Creates a Sandwich class with a length in inches and a list of toppings like ['bacon', 'lettuce', 'tomato']
+        """
+        def __init__(self, length, toppings):
             self.toppings = toppings
             self.length = length
 
-        def __add__(self, topping: str):
+        def __add__(self, topping):
             self.toppings.append(topping)
 
-So now, we can do the following
+Now, we can do the following
 
 >>> blt = Sandwich(6, ['bacon', 'lettuce', 'tomato'])
 >>> blt.toppings
@@ -225,7 +232,7 @@ If we write our own ``__str__`` method, we can make this look a lot cleaner.
     def __str__(self):
         return f"{self.length} inch sandwich with toppings: {', '.join(self.toppings)}"
 
-So instead of some a confusing print statement, we get:
+Now, instead of some a confusing print statement, we get:
 
 >>> print(student)
 6 inch sandwich with toppings: bacon, lettuce, tomato, mayo
@@ -247,7 +254,7 @@ Python provides many other Dunder methods that allow you to customize many other
 
 Task 3: Vector
 --------------
-Write a class called ``Vector`` that takes in a python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
+Write a class called ``Vector`` that takes in a Python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
 
 Source code will be given on CodeBuddy.
 
@@ -320,7 +327,7 @@ The algorithm to convert from a decimal number :math:`n` to binary goes like thi
 
     It is helpful to use the modulo operator ``%`` to get the remainder and the floor division operator ``//`` to get the quotient.
 
-So to convert 2319 to binary we do:
+As an example, to convert 2319 to binary we do:
 
 .. list-table:: Algorithm
    :widths: 50 25 25
@@ -366,7 +373,7 @@ So to convert 2319 to binary we do:
      - 0
      - 1
 
-Now we write the remainders starting from the bottom up, and we get :math:`100100001111` which is what we had above.
+Now we write the remainders starting from the bottom. :math:`100100001111` is the result which is what we had above.
 
 Task 4: Binary Class
 --------------------
@@ -374,7 +381,7 @@ Write a class called ``Binary`` that takes in an integer.
 
 * When a ``Binary`` object is printed, it should display the binary representation as a string of 1's and 0's.
 * When `int()` is called on a  ``Binary`` object, it should return the original number in base 10.
-* ``Binary`` objects can be subtracted with one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative.
+* ``Binary`` objects can be subtracted from one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative (negative numbers are a little more complicated in binary, look at `this <https://en.wikipedia.org/wiki/Two%27s_complement>`_  if you are curious).
 * ``Binary`` objects can be added with one another to produce another ``Binary`` object.
 * ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
 
