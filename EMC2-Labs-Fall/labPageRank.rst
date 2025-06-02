@@ -39,7 +39,7 @@ For example, this small snippet shows us that page 76 has hyperlinks to page 109
 Now, we can take this vector and transform it into a much more useful form of data called an adjacency matrix.
 This matrix is :math:`n \times n` with :math:`n` nodes.
 In this matrix, each row corresponds to a starting page, and each column corresponds to an ending page.
-So every :math:`(i,j)` position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
+Therefore every :math:`(i,j)` position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
 
 .. image:: _static/directed_network.PNG
     :align: center
@@ -103,7 +103,7 @@ The adjacency matrix for this network is defined by
 The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the importance of the nodes pointing towards it.
 Basically, to measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
 Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node points to only one other node. 
-So :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
+Hence :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
 Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to two different nodes. 
 Hence :math:`x_7 = \frac{1}{2} x_6`. 
 If we continue this for all of the nodes in our network we get the following set of equations.

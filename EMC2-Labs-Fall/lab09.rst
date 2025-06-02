@@ -38,7 +38,7 @@ Jacobi's method
 ---------------
 
 The first method we will learn about is Jacobi's method. We let :math:`Ax=b` be a system of :math:`n` linear equations. 
-So we let
+Thus we let
 
 .. math::
 
