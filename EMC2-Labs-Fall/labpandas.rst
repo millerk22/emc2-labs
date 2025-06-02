@@ -11,6 +11,10 @@ It was originally developed to perform quantitative analysis on financial data.
 In fact, Pandas stands for 'panel data', an economic term.
 Over the years the library has been open-sourced and been developed into the library that it is today.
 
+The purpose of this lab is to get you familiar with the Pandas library.
+This is a widely used tool across industry and having experience with it can set you apart for getting internships and jobs.
+While it is not necessary to have perfectly memorized this library, making sure you are familiar with it will help you in your future. 
+
 DataFrames
 ----------
 
@@ -22,6 +26,7 @@ To import Pandas we use the following import statement
 
 The core data structure of the Pandas library is the ``DataFrame``.
 A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
+The rows are labeled with integers starting at 0, and the columns are chosen by the user.
 Here's an example of how to create a ``DataFrame``\:
 
 >>> data = [
@@ -82,9 +87,7 @@ CSV Files
 
 A CSV File (Comma-Separated Values) is a text file that stores tabular data. 
 It works like a spreadsheet where each line is a row, and every value is separated by a comma.
-For example we could have the file ``animals.csv``.
-
-.. code-block:: csv
+For example we could have the file ``animals.csv``.::
 
      Animal,Weight,Type
      Elephant,12000,Mammal
@@ -190,42 +193,40 @@ The method ``sample()`` will draw n random entries of the dataset, where n defau
 
      # Use head to see the first n rows
      >>> df.head(n=2)
-               Sex  Age  Grade  Attendance (%)  Test Scores
-     Name                                                
-     Sarah  Female   19     87              97        100.0
-     Jed      Male   20     85              92        100.0
+         Name     Sex  Age  Grade  Attendance (%)  Test Scores
+     0  Sarah  Female   19     87              97        100.0
+     1    Jed    Male   20     85              92        100.0
 
      # Use sample to return a random row
      >>> df.sample()
-               Sex  Age  Grade  Attendance (%)  Test Scores
-     Name                                                
-     Carter   Male   22     91              95        100.0
+          Name   Sex  Age  Grade  Attendance (%)  Test Score
+     3  Carter  Male   22     91              95         100
 
 You may also want to reorder the columns or sort rows based on values.
 
 .. code-block:: python
 
      # Reorder Columns
-     >>> df.reindex(columns=["Attendance (%)", "Age", "Test Scores"])
-               Attendance (%)  Age  Test Scores
-     Name                                        
-     Sarah                   97   19        100.0
-     Jed                     92   20        100.0
-     Emily                   99   21        100.0
-     Carter                  95   22        100.0
-     James                   88   23        100.0
+     >>> df.reindex(columns=["Name", "Attendance (%)", "Age", "Test Scores"])
+          Name  Attendance (%)  Age  Test Scores
+     0   Sarah              97   19        100.0
+     1     Jed              92   20        100.0
+     2   Emily              99   21        100.0
+     3  Carter              95   22        100.0
+     4   James              88   23         100.0
 
      # Sort descending according to Attendance (%)
      >>> df.sort_values("Attendance (%)", ascending=False)
-                    Sex  Age  Grade  Attendance (%)  Test Scores
-     Name                                                    
-     Emily      Female   21     93              99        100.0
-     Sarah      Female   19     87              97        100.0
-     Carter       Male   22     91              95        100.0
-     Jed          Male   20     85              92        100.0
-     James        Male   23     78              88        100.0
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     2   Emily  Female   21     93              99         100
+     0   Sarah  Female   19     87              97         100
+     3  Carter    Male   22     91              95         100
+     1     Jed    Male   20     85              92         100
+     4   James    Male   23     78              88         100
 
-Here is an example of using the very useful ``unique()`` and ``drop()`` methods.
+Now we will go over the ``unique()`` and ``drop()`` methods.
+``unique()`` alows us to find all the unique entries in a column, and there data type.
+``drop()`` makes it possible to easily remove rows.
 
 .. code-block:: python
 
@@ -381,7 +382,7 @@ such summary statistics for each column in a DataFrame:
 
 .. code-block:: python
 
-     >>>df
+     >>> df
             Math 290  Math 213  Math 495R
      Ben          84        87         84
      Kate         87        94         97
@@ -401,21 +402,9 @@ such summary statistics for each column in a DataFrame:
      75%    87.000000   94.000000   94.000000
      max    89.000000   98.000000   97.000000
 
-Other basic statistical functions also include:
-
-.. code-block::python
-
-     # Find the average grade per student 
-     >>> df.mean(axis=1)
-     Ben      85.000000
-     Kate     92.666667
-     Trent    77.666667
-     Bryce    78.666667
-     Megan    74.000000
-     dtype: float64
-
-Use ``rank()`` to rank the values in a data set, either within each entry or with
-each column. This function defaults ranking in ascending order: the least will be ranked 1 and the
+Use ``rank()`` to rank the values in a data set, either within each entry or with each column. 
+It assigns each element a numeric rank based on the passed in arguments. 
+This function defaults ranking in ascending order: the least will be ranked 1 and the
 greatest will be ranked the highest number.
 
 .. code-block:: python
@@ -446,12 +435,5 @@ Task 5
 Using the ``pollution_df``\, find the country with the highest average for ``AQI Category`` and print that country.
 
 
-Purpose 
--------
 
-.. Purpose: a basic intro to pandas so that simple coding interview thing isn't crazy (edited) 
-
-The purpose of this lab is to get you familiar with the Pandas library.
-This is a widely used tool across industry and having experience with it can set you apart for getting internships and jobs.
-While it is not necessary to have perfectly memorized this library, making sure you are familiar with it will help you in your future. 
 
