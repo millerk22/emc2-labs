@@ -96,10 +96,9 @@ Here is an example of sorting a list of tuples by the second element.
 .. note::
     ``sorted()`` only works with 1d ``numpy.ndarrays`` which is why we are using Python lists in this task.
 
-Write a function ``sort_list(a)`` that takes in ``a`` which is a ``(n,m)`` Python ``list`` of lists and returns the list sorted by the mean of each row. Make sure to assign your ``lambda`` function to the ``key`` paramater!
+Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of tuples and returns the list sorted by the mean of each tuple. 
+Make sure to assign your ``lambda`` function to the ``key`` paramater!
 
-.. hint::
-    It may be easiest to convert each row to a ``numpy.ndarray`` so you can use the built in ``.mean()`` method. 
 
 .. def sort_list(a):
 ..     return sorted(a, key=lambda row: np.array(row).mean())
@@ -238,13 +237,14 @@ The value of a * b is: 370
     In the example above we used single quotes ``''`` inside double quotes ``""``. This is necessary if we want to include single quotes in our string. If you want to have both single and double quotes inside the f-string, just create the f-string ``"""`` or ``'''``.
 
     >>> print(f"""'This' is too many "quotes".""")
+    'This' is too many "quotes".
 
 f-strings also make it possible for fancier formatting. Check out the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_ to learn more.
 
 Dictionaries
 ------------
 
-A dictionary is another Python type. It is similar to a list, but while a list uses an integer index to retrieve another type, a dictionary can use any type to retrieve another type. This is called "mapping".
+A dictionary is another Python data type. It is similar to a list, but while a list uses an integer index to retrieve another data type, a dictionary can use any data type to retrieve another data type. This is called "mapping".
 
 Dictionaries contain key-value pairs i.e., given a key, we can retrieve a value (but not the other way around).
 We access dictionaries using the ``[]`` notation.
@@ -264,7 +264,7 @@ To insert or change a value in a dictionary, we use the same notation
 {"apple": "red", "orange": 12, "blueberry": True, "strawberry": "red"}
 >>> my_dict["apple"] = "green"
 >>> my_dict
-{"apple": "green", "orange": 12, "blueberry": True}
+{"apple": "green", "orange": 12, "blueberry": True, "strawberry": "red"}
 
 It is often helpful to iterate over the entries in a dictionary. We can do this with the ``.items()`` method which returns a tuple of each key and value in the dictionary.
 
@@ -285,7 +285,9 @@ Here are some other useful functions and methods for dictionaries:
 
 Task 4: Sorting a Dictionary
 ----------------------------
-Write a function ``sort_dict(d)`` that takes in ``d`` which is a dictionary that maps from a students name (``str``) to their percentage in the class (``float``). ``sort_dict(d)`` should sort the student's scores from highest to lowest and return a list of tuples of the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
+Write a function ``sort_dict(d)`` which sorts a dictionary of student's scores from highest to lowest.
+``d`` is a dictionary that maps from a student's name (``str``) to their percentage in the class (``float``). 
+``sort_dict(d)`` should return a list of tuples of the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
 
 .. hint::
     Use ``sorted(a, key)`` from Task 2.
@@ -320,7 +322,21 @@ Here are a few other ways to import a module:
     # import a function or class from a module with an alias so you can call the function directly
     from package import function as func    
 
-So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, it is free, and it has lots of Python libraries pre-installed.
+.. note:: 
+
+    Many packages contain subpackages. You can use subpackage functions in two ways.
+
+    >>> import numpy as np
+    >>> v = [3, 4]
+    >>> np.linalg.norm(v)
+    5.0
+    >>> import numpy.linalg as la
+    >>> la.norm(v)
+    5.0
+
+    The first option will import all of NumPy, while the second will only import the ``linalg`` subpackage.
+
+So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, and it has lots of Python libraries pre-installed.
 
 When working on a large project it is better to run Python locally on your computer. This is commonly done with an Integrated Development Environment (IDE) like VS Code, PyCharm, or even a simple text editor and the command line. We won't get into this now, but it is important to know that Google Colab is just an intro.
 
@@ -329,13 +345,17 @@ NumPy Stacking
 
 NumPy has different functions to merge and concatenate NumPy arrays. It is important to know that these functions exist, but you don't need to know all the details.
 
-``numpy.column_stack`` 
-~~~~~~~~~~~~~~~~~~~~~~
-Takes 1d arrays and stacks them as the columns of a 2d array.
+.. ``numpy.column_stack`` 
+.. ~~~~~~~~~~~~~~~~~~~~~~
+.. Takes 1d arrays and stacks them as the columns of a 2d array.
 
->>> a = np.array([1, 2, 3, 4])
->>> b = np.array([4, 5, 6, 7])
->>> np.column_stack((a, b))
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> b = np.array([4, 5, 6, 7])
+.. >>> np.column_stack((a, b))
+.. array([[1, 4],
+..        [2, 5],
+..        [3, 6],
+..        [4, 7]])
 
 ``numpy.vstack``
 ~~~~~~~~~~~~~~~~
@@ -385,26 +405,30 @@ array([[[1, 4],
         [3, 6],
         [4, 7]]])
 
->>> c = np.array([[1, 2], [3, 4], [5, 6]])
->>> d = np.array([[6, 7], [8, 9], [10, 11]])
->>> np.dstack((c, d))
-array([[[ 1,  6],
-        [ 2,  7]],
+.. code-block:: python
 
-       [[ 3,  8],
-        [ 4,  9]],
+    >>> c = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> d = np.array([[6, 7], [8, 9], [10, 11]])
+    >>> np.dstack((c, d))
+    array([[[ 1,  6],
+            [ 2,  7]],
 
-       [[ 5, 10],
-        [ 6, 11]]])
+        [[ 3,  8],
+            [ 4,  9]],
 
->>> e = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
->>> f = np.array([[[2, 3], [4, 5]], [[6, 7], [8, 9]]])
->>> np.dstack((e, f))
-array([[[1, 2, 2, 3],
-        [3, 4, 4, 5]],
+        [[ 5, 10],
+            [ 6, 11]]])
 
-       [[5, 6, 6, 7],
-        [7, 8, 8, 9]]])
+.. code-block:: python
+
+    >>> e = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+    >>> f = np.array([[[2, 3], [4, 5]], [[6, 7], [8, 9]]])
+    >>> np.dstack((e, f))
+    array([[[1, 2, 2, 3],
+            [3, 4, 4, 5]],
+
+        [[5, 6, 6, 7],
+            [7, 8, 8, 9]]])
 
 ``numpy.stack``
 ~~~~~~~~~~~~~~~
@@ -421,34 +445,36 @@ array([[1, 4],
        [3, 6],
        [4, 7]])
 
->>> c = np.array([[1, 2], [3, 4], [5, 6]])
->>> d = np.array([[6, 7], [8, 9], [10, 11]])
->>> np.stack((c, d), axis=0)
-array([[[ 1,  2],
-        [ 3,  4],
-        [ 5,  6]],
+.. code-block:: python
 
-       [[ 6,  7],
-        [ 8,  9],
-        [10, 11]]])
->>> np.stack((c, d), axis=1)
-array([[[ 1,  2],
-        [ 6,  7]],
+    >>> c = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> d = np.array([[6, 7], [8, 9], [10, 11]])
+    >>> np.stack((c, d), axis=0)
+    array([[[ 1,  2],
+            [ 3,  4],
+            [ 5,  6]],
 
-       [[ 3,  4],
-        [ 8,  9]],
+        [[ 6,  7],
+            [ 8,  9],
+            [10, 11]]])
+    >>> np.stack((c, d), axis=1)
+    array([[[ 1,  2],
+            [ 6,  7]],
 
-       [[ 5,  6],
-        [10, 11]]])
->>> np.stack((c, d), axis=2)
-array([[[ 1,  6],
-        [ 2,  7]],
+        [[ 3,  4],
+            [ 8,  9]],
 
-       [[ 3,  8],
-        [ 4,  9]],
+        [[ 5,  6],
+            [10, 11]]])
+    >>> np.stack((c, d), axis=2)
+    array([[[ 1,  6],
+            [ 2,  7]],
 
-       [[ 5, 10],
-        [ 6, 11]]])
+        [[ 3,  8],
+            [ 4,  9]],
+
+        [[ 5, 10],
+            [ 6, 11]]])
 
 Array Broadcasting
 ------------------
@@ -468,6 +494,7 @@ array([ 3,  6,  9, 12])
 The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
 
 .. image:: ./_static/broadcasting_stretch.png
+    :align: center
 
 .. Note::
     NumPy doesn't actually create this temporary array ``c`` with shape ``(4,)``. This is just a good way to think about it.
@@ -486,11 +513,13 @@ Consider the following arrays
 All of these arrays are broadcastable with one another because all can be expanded into a ``numpy.ndarray`` of shape ``(3, 4)``.
 
 .. image:: ./_static/broadcasting_abcd_pt2.png
+    :align: center
     :alt: a, b, c, and d expanded into arrays of shape (3,4)
 
 On the other hand, array ``e`` with shape ``(5, 2)`` could not be broadcast into shape ``(3, 4)`` because none of the corresponding dimensions are the same and none of them are 1.
 
 .. image:: ./_static/broadcasting_e.png
+    :align: center
     :height: 300
 
 But, array ``f`` with shape ``(5, 1, 1)`` is compatible with arrays ``a``, ``b``, ``c``, and ``d`` because the dimensions corresponding to ``a``, ``b``, ``c``, and ``d`` are all 1. In this case, each ``a``, ``b``, ``c``, and ``d`` would be stretched to match dimension ``5`` in ``f``.
@@ -503,6 +532,7 @@ Consider this example. You are given a list of prices of products in USD and you
 We could loop over each of these and find the converted prices that way, or we can use array broadcasting. Right now, ``usd_prices`` has a shape of ``(4,)`` and ``exchange_rates`` has shape ``(3,)``. If we redefine ``exchange_rates`` to have shape ``(3,1)`` then we can use array broadcasting to get an array where each row represents the currency, and each column represents the price.
 
 .. image:: ./_static/broadcasting_currency.png
+    :align: center
     :alt: usd_prices and exchange_rates broadcasted and multiplied together
     :height: 400
 
