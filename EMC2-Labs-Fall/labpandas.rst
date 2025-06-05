@@ -36,12 +36,11 @@ First we will examine a ``DataFrame`` and then we will learn a few ways to creat
 2     Eli    35     Chicago
 
 In the ``DataFrame`` above, ``"Name", "Age", "City"`` are all columns of the DataFrame.
-The numbers on the left are the index.
-The index always starts at 0. 
+The numbers on the left are the index (which always starts at 0).
 There are plenty of ways that you can construct these DataFrames.
 
 One way you can do it is through a dictionary of lists. 
-Here the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
+Here, the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
 
 >>> data = {'Name': ['Norman', 'Kevin', 'Eli'], 
             'Age': [25, 30, 35], 
@@ -49,8 +48,8 @@ Here the keys of the dictionary represent the columns of the ``DataFrame`` and t
 >>> df1 = pd.DataFrame(data)
 
 You can do it from a list of dictionaries.
-In this type each dictionary represents a row of the ``DataFrame``\.
-The different keys in each dictionary represent a row, while the value is the actual data
+In this case each dictionary represents a row of the ``DataFrame``\.
+The different keys in each dictionary represent a row, while the value is the actual data.
 
 >>> data = [{'Name': 'Norman', 'Age': 25, 'City': 'New York'},
             {'Name': 'Kevin', 'Age': 30, 'City': 'Los Angeles'},
@@ -58,7 +57,7 @@ The different keys in each dictionary represent a row, while the value is the ac
 >>> df2 = pd.DataFrame(data)
 
 Next, you can do it from a list of lists using column names.
-In this way, every list is a row, however you have to manually set the columns yourself when you initialize the ``DataFrame``\.
+In this way every list is a row, however you have to manually set the columns yourself when you initialize the ``DataFrame``\.
 
 >>> data = [['Norman', 25, 'New York'],
             ['Kevin', 30, 'Los Angeles'],
@@ -76,7 +75,7 @@ This one functions the same as a list of lists where every row is a row in the `
 
 .. note::
 
-     While each of the ``DataFrame``\s are constructed in different ways, they will all produce the exact same result.
+     While each of the ``DataFrame``\s are constructed in different ways, they all produce the exact same result.
      This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
 
 Task 1
@@ -353,7 +352,7 @@ This can be useful if you want to find and edit rows given a certain condition.
      2   Emily  Female   21     93              99         100
      3  Carter    Male   22     91              95         100
 
-A mask can also be used with ``loc`` as well to modify data given certain conditions. 
+A mask can also be used with ``loc`` to modify data given certain conditions. 
 You have to make sure that you pass in the arguments correctly as ``df.loc[mask, column_to_edit]``\.
 
 .. code-block:: python
@@ -368,10 +367,10 @@ You have to make sure that you pass in the arguments correctly as ``df.loc[mask,
      3  Carter    Male   22     91              95         100
      4   James    Male   23     78              88         100
 
-Finally, there are a few slight differences with Pandas boolean masking syntax. 
+Finally, there are a few syntax differences with Pandas boolean masking. 
 For logical "and" they use ``&`` and for logical "or" they use ``|``. 
-It is also to not that "not" is ``~``\, but "not equal" is still ``!=``\.
-For these arguments make sure to surround the mask in ``()``\.
+It is also important to note that "not" is ``~``\, but "not equal" is ``!=``\.
+Whenever you use these arguments make sure to surround the mask in ``()``\.
 
 .. code-block:: python
 
