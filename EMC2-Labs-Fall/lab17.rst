@@ -120,8 +120,8 @@ Unsurprisingly, this prints "I'm calling the base case" every time the base case
 Now run ``fib(10)`` and watch the flood of output. 
 In theory, computing the ``10`` -th Fibonacci number "by hand" should only call the base case once or twice.
 
-Task 3: Fast Fibonacci
-----------------------
+Task 3
+------
 
 In order to speed up our Fibonacci function, we'll use a programming technique called "memoization". 
 (The name is awkward, but the technique is great.) 
