@@ -275,6 +275,7 @@ dict_items([('apple', 'red'), ('orange', 12), ('blueberry', True), ('strawberry'
 my_dict key: apple, my_dict value: green
 my_dict key: orange, my_dict value: 12
 my_dict key: blueberry, my_dict value: True
+my_dict key: strawberry, my_dict value: red
 
 Here are some other useful functions and methods for dictionaries:
 
@@ -336,7 +337,7 @@ Here are a few other ways to import a module:
 
     The first option will import all of NumPy, while the second will only import the ``linalg`` subpackage.
 
-So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser, and it has lots of Python libraries pre-installed.
+So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser and it has lots of Python libraries pre-installed.
 
 When working on a large project it is better to run Python locally on your computer. This is commonly done with an Integrated Development Environment (IDE) like VS Code, PyCharm, or even a simple text editor and the command line. We won't get into this now, but it is important to know that Google Colab is just an intro.
 
