@@ -38,6 +38,8 @@ First we will examine a ``DataFrame`` and then we will learn a few ways to creat
 In the ``DataFrame`` above, ``"Name", "Age", "City"`` are all columns of the DataFrame.
 The numbers on the left are the index (which always starts at 0).
 There are plenty of ways that you can construct these DataFrames.
+While each of the ``DataFrame``\s will be constructed in different ways, they will all produce the exact same result.
+This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
 
 One way you can do it is through a dictionary of lists. 
 Here, the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
@@ -72,11 +74,6 @@ This one functions the same as a list of lists where every row is a row in the `
                     ['Kevin', 30, 'Los Angeles'],
                     ['Eli', 35, 'Chicago']])
 >>> df4 = pd.DataFrame(arr, columns=['Name', 'Age', 'City'])
-
-.. note::
-
-     While each of the ``DataFrame``\s are constructed in different ways, they all produce the exact same result.
-     This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
 
 Task 1
 ------
@@ -457,7 +454,7 @@ Task 5
 
 .. Have Them do problem 2
 
-Using the ``pollution_df``\, find the country with the highest average for ``AQI Category`` and print that country.
+Using the ``pollution_df``\, find the country with the highest average for ``AQI Value`` and print that country and average.
 
 
 
