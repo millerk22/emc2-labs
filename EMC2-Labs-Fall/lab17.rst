@@ -35,7 +35,7 @@ Notice that ``M`` is antisymmetric, meaning that ``transpose(M) = -M``.
 
 
 Task 1
-~~~~~~
+------
 
 Write a function ``random_system(n)`` that takes as input a positive integer ``n`` and returns a random system of one-way roads through ``n`` cities as an ``n x n`` matrix as described above.
 If you need help generating random integers, read about the function ``randint`` online. You will need to import ``random``:
@@ -73,7 +73,7 @@ Now we (recursively) find a valid path through the red cities and a valid path t
    [\text{path through blue cities}] \rightarrow X \rightarrow [\text{path through red cities}].
 
 Task 2
-~~~~~~
+------
 
 Write a function ``valid_path(M,L)`` that takes as input an ``n x n`` matrix ``M`` and a list ``L`` of length ``n``, and returns a valid path through the cities as a list of length ``n``. The list ``L`` contains the names of the cities.
 For example, the function should return ``[B, E, D, A, C]`` as the path for the example above.
