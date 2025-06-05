@@ -3,17 +3,17 @@ Lab 2.71828: Pandas
 
 .. https://foundations-of-applied-mathematics.github.io/
 
-In this lab, you will learn how to use the powerful Pandas library used for data analysis and manipulation.
+In this lab, you will learn how to use the powerful `Pandas <https://pandas.pydata.org/>`_ library used for data analysis and manipulation.
 
-Pandas is an amazing library for data manipulation.
+Pandas is a useful library for data manipulation.
 In 2008 the development of this package began at `AQR Capital Management <https://pandas.pydata.org/about/>`_. 
 It was originally developed to perform quantitative analysis on financial data.
 In fact, Pandas stands for 'panel data', an economic term.
-Over the years the library has been open-sourced and been developed into the library that it is today.
+Over the years the library has been open-sourced and developed into the library that it is today.
 
-The purpose of this lab is to get you familiar with the Pandas library.
-This is a widely used tool across industry and having experience with it can set you apart for getting internships and jobs.
-While it is not necessary to have perfectly memorized this library, making sure you are familiar with it will help you in your future. 
+The purpose of this lab is to familiarize you with the Pandas library.
+This is a widely used tool across industry and having experience with it can set you apart when getting internships and jobs.
+While it is not necessary to memorize perfectly this library, a general understanding will be helpful for your future in coding and math.
 
 DataFrames
 ----------
@@ -27,54 +27,62 @@ To import Pandas we use the following import statement
 The core data structure of the Pandas library is the ``DataFrame``.
 A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
 The rows are labeled with integers starting at 0, and the columns are chosen by the user.
-Here's an example of how to create a ``DataFrame``\:
+First we will examine a ``DataFrame`` and then we will learn a few ways to create them:
 
->>> data = [
-       ['Alice', 25, 'New York'],
-       ['Kevin', 30, 'Los Angeles'],
-       ['Charles', 35, 'Chicago']
-       ]
->>> df = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 >>> df
      Name   Age        City
-0   Alice    25    New York
+0  Norman    25    New York
 1   Kevin    30 Los Angeles
-2 Charles    35     Chicago
+2     Eli    35     Chicago
 
+In the ``DataFrame`` above, ``"Name", "Age", "City"`` are all columns of the DataFrame.
+The numbers on the left are the index.
+The index always starts at 0. 
 There are plenty of ways that you can construct these DataFrames.
 
-You can do it through a dictionary of lists.
+One way you can do it is through a dictionary of lists. 
+Here the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
 
->>> data = {'Name': ['Norman', 'Eli'], 'Grade': [64, 72]}
+>>> data = {'Name': ['Norman', 'Kevin', 'Eli'], 
+            'Age': [25, 30, 35], 
+            'City': ['New York', 'Los Angeles', 'Chicago']}
 >>> df1 = pd.DataFrame(data)
 
 You can do it from a list of dictionaries.
+In this type each dictionary represents a row of the ``DataFrame``\.
+The different keys in each dictionary represent a row, while the value is the actual data
 
->>> data = [{'Name': 'Norman', 'Grade': 64}, {'Name': 'Eli', 'Grade': 72}]
+>>> data = [{'Name': 'Norman', 'Age': 25, 'City': 'New York'},
+            {'Name': 'Kevin', 'Age': 30, 'City': 'Los Angeles'},
+            {'Name': 'Eli', 'Age': 35, 'City': 'Chicago'}]
 >>> df2 = pd.DataFrame(data)
 
-You can do it from a list of lists using column names.
+Next, you can do it from a list of lists using column names.
+In this way, every list is a row, however you have to manually set the columns yourself when you initialize the ``DataFrame``\.
 
->>> data = [['Norman', 64], ['Eli', 72]]
->>> df3 = pd.DataFrame(data, columns=['Name', 'Grade'])
+>>> data = [['Norman', 25, 'New York'],
+            ['Kevin', 30, 'Los Angeles'],
+            ['Eli', 35, 'Chicago']]
+>>> df3 = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 
-You can even do it through a numpy array.
+Finally, you can do it through a numpy array.
+This one functions the same as a list of lists where every row is a row in the ``DataFrame`` and you must manually set the columns. 
 
 >>> import numpy as np
->>> arr = np.array([['Norman', 64], ['Eli', 72]])
->>> df4 = pd.DataFrame(arr, columns=['Name', 'Grade'])
+>>> arr = np.array([['Norman', 25, 'New York'],
+                    ['Kevin', 30, 'Los Angeles'],
+                    ['Eli', 35, 'Chicago']])
+>>> df4 = pd.DataFrame(arr, columns=['Name', 'Age', 'City'])
 
-Every one of these DataFrames will be exactly the same, and produces the result below 
+.. note::
 
->>> df1
-     Name  Grade
-0  Norman     64
-1     Eli     72
+     While each of the ``DataFrame``\s are constructed in different ways, they will all produce the exact same result.
+     This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
 
 Task 1
 ------
 
-Make a Pandas ``Dataframe`` named ``basketball_games`` with columns ``["Team Name", "Game 1 Score", "Game 2 Score", "Game 3 Score"]``. 
+Make a Pandas ``DataFrame`` named ``basketball_games`` with columns ``["Team Name", "Game 1 Score", "Game 2 Score", "Game 3 Score"]``. 
 For the ``"Team Name"`` column, use this list of names ``["Florida", "Houston", "Duke", "Texas Tech", "BYU"]``. 
 For each of the scores generate a random integer between 1 and 100. 
 
@@ -85,9 +93,9 @@ CSV Files
 .. What are csv files, and how to read and write to them
 
 
-A CSV File (Comma-Separated Values) is a text file that stores tabular data. 
+A CSV file (Comma-Separated Values) is a text file that stores tabular data. 
 It works like a spreadsheet where each line is a row, and every value is separated by a comma.
-For example we could have the file ``animals.csv``.::
+For example, we could have the file ``animals.csv`` ::
 
      Animal,Weight,Type
      Elephant,12000,Mammal
@@ -118,7 +126,8 @@ Task 2
 
 .. Have them read the csv file
 
-Read the CSV file named "global_air_pollution_dataset.csv" and save it as a Pandas ``DataFrame`` titled ``pollution_df``.
+Read the CSV file named "global_air_pollution_dataset.csv" and save it as a Pandas ``DataFrame`` titled ``pollution_df``. 
+.. Add a hint not to save the row numbers
 
 Accessing Data
 --------------
@@ -127,7 +136,7 @@ Accessing Data
 .. Problem 1: budget.csv problem (not all of the parts)
 .. Basic Data Manipulation + Basic Stat Functions + Masks(?)
 
-Now that we have our DataFrame we can move onto accessing the data within.
+Now that we have our DataFrame we can move on to accessing the data within.
 We will go through these functions using the DataFrame defined below.
 
 >>> df
@@ -193,9 +202,9 @@ The method ``sample()`` will draw n random entries of the dataset, where n defau
 
      # Use head to see the first n rows
      >>> df.head(n=2)
-         Name     Sex  Age  Grade  Attendance (%)  Test Scores
-     0  Sarah  Female   19     87              97        100.0
-     1    Jed    Male   20     85              92        100.0
+         Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0  Sarah  Female   19     87              97         100
+     1    Jed    Male   20     85              92         100
 
      # Use sample to return a random row
      >>> df.sample()
@@ -207,13 +216,13 @@ You may also want to reorder the columns or sort rows based on values.
 .. code-block:: python
 
      # Reorder Columns
-     >>> df.reindex(columns=["Name", "Attendance (%)", "Age", "Test Scores"])
-          Name  Attendance (%)  Age  Test Scores
-     0   Sarah              97   19        100.0
-     1     Jed              92   20        100.0
-     2   Emily              99   21        100.0
-     3  Carter              95   22        100.0
-     4   James              88   23         100.0
+     >>> df.reindex(columns=["Name", "Attendance (%)", "Age", "Test Score"])
+          Name  Attendance (%)  Age  Test Score 
+     0   Sarah              97   19         100
+     1     Jed              92   20         100
+     2   Emily              99   21         100
+     3  Carter              95   22         100
+     4   James              88   23         100
 
      # Sort descending according to Attendance (%)
      >>> df.sort_values("Attendance (%)", ascending=False)
@@ -225,7 +234,7 @@ You may also want to reorder the columns or sort rows based on values.
      4   James    Male   23     78              88         100
 
 Now we will go over the ``unique()`` and ``drop()`` methods.
-``unique()`` alows us to find all the unique entries in a column, and there data type.
+``unique()`` allows us to find all the unique entries in a column, and their data type.
 ``drop()`` makes it possible to easily remove rows.
 
 .. code-block:: python
@@ -237,15 +246,15 @@ Now we will go over the ``unique()`` and ``drop()`` methods.
      # Use drop() to get rid of a row
      >>> df.drop("Jed", inplace=True)
      >>> df
-               Sex  Age  Grade  Attendance (%)  Test Scores
+               Sex  Age  Grade  Attendance (%)  Test Score
      Name                                                
-     Sarah  Female   19     87              97        100.0
-     Emily  Female   21     93              99        100.0
-     Carter   Male   22     91              95        100.0
-     James    Male   23     78              88        100.0
+     Sarah  Female   19     87              97         100
+     Emily  Female   21     93              99         100
+     Carter   Male   22     91              95         100
+     James    Male   23     78              88         100
 
 
-Here is a list of other methods to be familiar with.
+Here is a list of other methods that are useful to be familiar with.
 
 - ``df.shape`` - Get the (rows, columns) of the DataFrame.
 - ``df.rename(columns={'old': 'new'})`` - Rename columns.
@@ -324,16 +333,30 @@ Masking
 -------
 
 *Masking* in Pandas refers to selecting or updating values based on conditions, usually using boolean indexing. 
+For a quick recap, a mask is an array of truth values.
 This can be useful if you want to find and edit rows given a certain condition. 
-Here is a simple example.
 
 .. code-block:: python
-
+     
      # Select students with Grade > 90
-     >>> df[df["Grade"] > 90]
+     >>> mask = df["Grade"] > 90
+     >>> print(mask)
+     0 False
+     1 False
+     2  True
+     3  True
+     4 False
+
+     # We can use the mask in the dataframe, df[mask], to see students with a grade > 90
+     >>> df[mask] # same as df[df["Grade"] > 90]
           Name     Sex  Age  Grade  Attendance (%)  Test Score
      2   Emily  Female   21     93              99         100
      3  Carter    Male   22     91              95         100
+
+A mask can also be used with ``loc`` as well to modify data given certain conditions. 
+You have to make sure that you pass in the arguments correctly as ``df.loc[mask, column_to_edit]``\.
+
+.. code-block:: python
 
      # Set Test Score to 105 for students with Attendance > 95
      >>> df.loc[df["Attendance (%)"] > 95, "Test Score"] = 105
@@ -345,23 +368,26 @@ Here is a simple example.
      3  Carter    Male   22     91              95         100
      4   James    Male   23     78              88         100
 
-     # Students with Grade > 85 AND Attendance > 95
-     >>> df[(df["Grade"] > 85) & (df["Attendance (%)"] > 95)]
-          Name     Sex  Age  Grade  Attendance (%)  Test Score
-     0   Sarah  Female   19     87              97         105
-     2   Emily  Female   21     93              99         105
-
-If you remember from before, a mask creates an array of boolean values.
-Just like for ``np.ndarray``\s you can save these masks to use later.
+Finally, there are a few slight differences with Pandas boolean masking syntax. 
+For logical "and" they use ``&`` and for logical "or" they use ``|``. 
+It is also to not that "not" is ``~``\, but "not equal" is still ``!=``\.
+For these arguments make sure to surround the mask in ``()``\.
 
 .. code-block:: python
 
-     # Save condition and use it
-     >>> high_attendance = df["Attendance (%)"] > 95
-     >>> df[high_attendance]
-          Name     Sex  Age  Grade  Attendance (%)  Test Score
-     0   Sarah  Female   19     87              97         105
-     2   Emily  Female   21     93              99         105
+     # Access rows where 'Sex' is 'Female' and 'Test Score' is 105
+     >>> df[(df['Sex'] == 'Female') & (df['Test Score'] == 105)]
+         Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0  Sarah  Female   19     87              97         105
+     2  Emily  Female   21     93              99         105
+
+     # Access rows where 'Sex' is 'Male' or their 'Grade' is not 87
+     >>> df[(df['Sex'] == 'Male') | ~(df['Grade'] == 87)]
+          Name    Sex  Age  Grade  Attendance (%)  Test Score
+     1     Jed   Male   20     85              92         100
+     2   Emily Female   21     93              99         105
+     3  Carter   Male   22     91              95         100
+     4   James   Male   23     78              88         100
 
 
 
@@ -402,7 +428,7 @@ such summary statistics for each column in a DataFrame:
      75%    87.000000   94.000000   94.000000
      max    89.000000   98.000000   97.000000
 
-Use ``rank()`` to rank the values in a data set, either within each entry or with each column. 
+Use ``rank()`` to rank the values in a data set, either within each entry or within each column. 
 It assigns each element a numeric rank based on the passed in arguments. 
 This function defaults ranking in ascending order: the least will be ranked 1 and the
 greatest will be ranked the highest number.
