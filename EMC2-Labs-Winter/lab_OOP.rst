@@ -164,9 +164,7 @@ This was an introduction to what classes can do and there is a lot of functional
 Task 2: Square
 --------------
 Create a ``Square`` class with an instance variable ``length``. ``Square`` inherits from the ``Rectangle`` class you wrote in Task 1. Make sure you can find the ``area`` and ``perimeter`` of a ``Square``!
-
-.. Hint::
-    You don't need to write ``area`` and ``perimeter`` again.
+    
 
 Dunder Methods
 --------------
@@ -239,22 +237,43 @@ Now, instead of some a confusing print statement, we get:
 
 Python provides many other Dunder methods that allow you to customize many other built-in operations:
 
-* ``__eq__`` used for ``==``
-* ``__ne__`` used for ``!=``
-* ``__lt__`` used for ``<``
-* ``__gt__`` used for ``>``
-* ``__ge__`` used for ``>=``
-* ``__le__`` used for ``<=``
-* ``__str__`` used for ``str()``
-* ``__int__`` used for ``int()``
-* ``__len__`` used for ``len()``
+* ``__eq__`` used for ``a == b``
+* ``__ne__`` used for ``a != b``
+* ``__lt__`` used for ``a < b``
+* ``__gt__`` used for ``a > b``
+* ``__ge__`` used for ``a >= b``
+* ``__le__`` used for ``a <= b``
+* ``__str__`` used for ``str(a)``
+* ``__int__`` used for ``int(a)``
+* ``__len__`` used for ``len(a)``
 * ``__add__`` used for ``a + b``
 * ``__sub__`` used for ``a - b``
 * ``__mul__`` used for ``a * b``
 
+.. note::
+
+    In our sandwich example, we used ``__add__`` to append a ``topping`` to our ``Sandwich``. The ``topping`` was a ``str``. 
+
+    .. code:: python
+
+        def __add__(self, topping):
+            self.toppings.append(topping)
+
+    Python used ``Sandwich``\'s ``__add__`` method for this operation and not ``str``\'s ``__add__`` method because (we are assuming) the sandwich comes first.
+
+    >>> blt + 'pepper'
+
+    If we wanted to switch the order so we could write ``'pepper' + blt`` to get the same result, we would need to implement the ``__radd__`` (reverse add) Dunder method.
+    
+    .. code:: python
+        def __radd__(self, topping):
+            self.toppings.append(topping)
+
+    As soon as this is implemented, addition is commutative for ``Sandwich``\es.
+
 Task 3: Vector
 --------------
-Write a class called ``Vector`` that takes in a Python list. ``Vector`` will implement vector addition and scalar multiplication using ``__add__`` and ``__mul__`` which should return a new ``Vector`` as the result.
+Write a class called ``Vector`` that takes in a Python list. ``Vector`` will implement vector addition and scalar multiplication using Dunder methods ``__add__`` and ``__mul__``. These operations should return a new ``Vector`` as the result. Also have a ``__str__`` method that prints the array as a string.
 
 Source code will be given on CodeBuddy.
 
