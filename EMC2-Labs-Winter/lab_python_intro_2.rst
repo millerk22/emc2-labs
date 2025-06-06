@@ -82,6 +82,8 @@ Write each function as a lambda function. Assign each to the variables ``mean``,
 
     f(x) = \frac{x}{\log(x)}
 
+.. hint about using array sum for part 1 of this
+
 Task 2: Sort
 ------------
 ``sorted(a, key)`` is a built-in python function that sorts an iterable (something you can iterate over like a list, string, etc.). ``a`` is the iterable, and ``key`` is a function that specifies how the iterable should be sorted.
@@ -99,9 +101,7 @@ Here is an example of sorting a list of tuples by the second element.
 Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of tuples and returns the list sorted by the mean of each tuple. 
 Make sure to assign your ``lambda`` function to the ``key`` paramater!
 
-
-.. def sort_list(a):
-..     return sorted(a, key=lambda row: np.array(row).mean())
+.. hint about using np.mean()
 
 More Operators
 --------------
