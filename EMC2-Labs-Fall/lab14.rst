@@ -9,44 +9,34 @@ the following libraries:
 >>> import numpy as np
 >>> import numpy.linalg as la
 
-Population dynamics is the study of how a population of individuals (e.g., organisms or animals) changes over time, including the numbers and ages of the organisms that comprise the population. 
-It is common to model these population dynamics by a **matrix population model** that categorizes population members into 
-various groups. We define categories of *infants*, *juveniles*, and *adults*. 
+Population dynamics is the study of how a population of individuals (like organisms or animals) changes over time. This includes studying the ages of the organisms, the number of organizms, and other metrics.
 
-Before we dive into the details of computing population dynamics with eigenvalues and eigenvectors, navigate in another tab
-to this `Black Bear Population Demo`_. It takes a bit to load, and so we'll let that load while we proceed.
+It is common to model population dynamics with **matrix population models**. These matrices model populations of organisms and can be used to learn about metrics described above.
 
-.. _Black Bear Population Demo: https://jhtullis.github.io/test_eigenbears/
+.. Before we dive into the details of computing population dynamics with eigenvalues and eigenvectors, navigate in another tab to this `Black Bear Population Demo`_. It takes a bit to load, and so we'll let that load while we proceed.
 
+.. .. _Black Bear Population Demo: https://jhtullis.github.io/test_eigenbears/
 
 =====================================================
 Modeling Population Dynamics with a Transition Matrix 
 =====================================================
 
-
-Population members begin in one stage (class) and transition through to other stages or possibly die off.
-Our simplified setting models transitions from stage to stage on a yearly basis, meaning that we consider an individual to be in a single class for the entirety of a year, possibly changing to another class the next year.  
-More specifically, we will consider **stasis**, **maturation**, **fertility** transition values:
-
-* **stasis**, :math:`s_i`: Probability that an individual in state :math:`i` remains in state :math:`i`
-* **maturation**, :math:`m_i`: Probability that an individual in state :math:`i` transitions to state :math:`i+1` (if such next state is possible)
-* **fertility**, :math:`f_i`: Probability that an individual in state :math:`i` produces an offspring in state :math:`1`
-
-**NOTE:** Although our model really has four states - cub, juvenile, adult, and dead - we can model the "dead state" implicitly as an "absorbing" state (that is, no dead bear can become a living cub, juvenile, or adult). 
-Note that the probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
-
-The following diagram shows an example population dynamics model for a population of black bears. In the case of this
-specific population, :math:`s_1, f_1, f_2, m_3 = 0` because of biological characteristics of the species. For example, 
-:math:`s_1 = 0` because cubs only remain in the cub stage for at most one year, and so no stasis is possible for that class.
+We will be looking at a Black Bear Population. This diagram shows the four different groups in the population, *cubs*, *juveniles*, *adults*, and *dead*.
 
 .. image:: ./_static/black_bear_state.png 
    :width: 800
 
+Population members begin in one stage and transition to other stages or even die off. The diagram above models transitions from stage to stage on a yearly basis, meaning that we consider an individual to be in a single class for the entirety of a year and possibly changing to another class the next year.
 
-We can translate a state diagram that describes the transitions between different states as a **transition matrix**, :math:`A`, for 
-the three states **cub**, **juvenile**, and **adult**, where the entry
-:math:`A_{ij}` corresponds to the average number of individuals that enter into state :math:`i` from a single individual in 
-state :math:`j`:
+The transition values, **stasis**, **maturation**, and **fertility** represent how much of the population moves from one state to another.
+* **stasis**, :math:`s_i`: Probability that an individual in state :math:`i` remains in state :math:`i`
+* **maturation**, :math:`m_i`: Probability that an individual in state :math:`i` transitions to state :math:`i+1` (if such next state is possible)
+* **fertility**, :math:`f_i`: Probability that an individual in state :math:`i` produces an offspring in state :math:`1`
+
+.. Note::
+   The dead state acts as an absorbing state where no bear can transition out of it. The probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
+
+We can translate the state diagram shown above to a **transition matrix** which shows the rates of transition between different states. Each entry :math:`A_{ij}` corresponds to the average number of individuals that enter into state :math:`i` from a single individual in state :math:`j`:
 
 .. math::
    A = \begin{pmatrix}
@@ -55,11 +45,24 @@ state :math:`j`:
       0 & m_2 & s_3 \\
    \end{pmatrix}.
 
-The eigenvectors and eigenvalues of this transition matrix identify important long-term behavior of the corresponding 
-population; namely, both (i) the growth/death of the population and (ii) the long-term population ratio can be inferred 
-from the dominant eigenvalue and corresponding eigenvector of :math:`A`. 
+The :math:`0` in row 2 says that there is no a way for a bear to go from state 3 to state 2 (an adult cannot become a juvenile). The :math:`0` in row 3 says that there is no way for a bear to go from state 1 to state 3 (a cub cannot go straight to an adult).
 
-Since :math:`A` has non-negative entries and is irreducible, then by the Perron-Frobenius Theorem
+It is important to note that the stasis value for cubs :math:`s_1` will be 0 because cubs cannot remain in the same state for more than a year. The fertility value for juveniles :math:`f_2` will also be 0. So our new matrix is
+
+.. math::
+   A = \begin{pmatrix}
+      0 & 0 & f_3 \\
+      m_1 & s_2 & 0 \\
+      0 & m_2 & s_3 \\
+   \end{pmatrix}.
+
+The principal eigenvalue and eigenvector of this transition matrix identify important long-term behavior of the population. The eigenvalue corresponds to the growth/death of the population and the eigenvector corresponds to the the long-term population ratio of the different states.
+
+The `Perron-Frobenius Theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ states that a real, non-negative, square matrix has a unique largest eigenvalue that is real. The corresponding eigenvector can have all positive entries as well.
+
+.. made it here
+
+Since :math:`A` has non-negative real entries and is irreducible, then by the Perron-Frobenius Theorem
 
 1. There exists a unique dominant, **positive** eigenvalue :math:`\lambda_1 > 0`, with :math:`\lambda_1 > |\lambda_i|` for all :math:`i = 2, \ldots, n`. 
 2. The eigenvector :math:`v_1` associated with :math:`\lambda_1` can be scaled to have all positive entries. 
