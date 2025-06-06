@@ -1,7 +1,7 @@
 Lab 2319: Object Oriented Programming
 =====================================
 
-In this lab you will learn about Object Oriented Programming (OOP) in Python. This includes:
+In this lab you will learn about Object Oriented Programming (OOP) in Python. This includes learning about:
 
 * Classes
 * Objects
@@ -89,7 +89,7 @@ If we could only rely on class attributes and instance attributes, working with 
 ``write`` is a method that takes in a message and prints the message to the screen along with what color it would have been written in.
 
 .. Note::
-    Whenever you create a method in a class, it needs to have ``self`` as the first argument, otherwise your method won't have access to class/instance attributes, or other methods.
+    Whenever you create a method in a class, it needs to have ``self`` as the first argument. Otherwise your method won't have access to class/instance attributes, or other methods.
 
 >>> pencil.write("Hello World!")
 'Hello World!' written in black
@@ -276,51 +276,6 @@ Task 3: Vector
 Write a class called ``Vector`` that takes in a Python list. ``Vector`` will implement vector addition and scalar multiplication using Dunder methods ``__add__`` and ``__mul__``. These operations should return a new ``Vector`` as the result. Also have a ``__str__`` method that prints the array as a string.
 
 Source code will be given on CodeBuddy.
-
-.. .. code:: python
-
-..     class Vector():
-..         def __init__(self, vector):
-..             """Takes in a list called vector"""
-..             self.vector = vector
-..             self.length = len(vector)
-        
-..         def __add__(self, other_vector):
-..             """Vector addition
-            
-..             Raises a ValueError if the vectors are different lengths
-
-..             Parameters:
-..             self : Vector
-..                 The current object 
-..             other_vector : Vector
-..                 The vector we are adding
-
-..             Returns:
-..             ret : Vector
-..                 The result of self + other_vector
-..             """
-..             # replace pass with your code
-..             pass
-        
-..         def __mul__(self, scalar):
-..             """Scalar multiplication
-            
-..             Parameters:
-..             self : Vector
-..                 The current object 
-..             scalar : int, float
-..                 The scalar we multiply by
-
-..             Returns:
-..             ret : Vector
-..                 The result of self * scalar
-..             """
-..             # replace pass with your code
-..             pass
-        
-..         def __str__(self):
-..             return f"Vector of {self.vector}"
 
 Application: Binary
 -------------------
