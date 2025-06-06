@@ -394,8 +394,8 @@ As an example, to convert 2319 to binary we do:
 
 Now we write the remainders starting from the bottom. :math:`100100001111` is the result which is what we had above.
 
-Task 4: Binary Class
---------------------
+Task 4: Binary
+--------------
 Write a class called ``Binary`` that takes in an integer.
 
 * When a ``Binary`` object is printed, it should display the binary representation as a string of 1's and 0's.
@@ -403,6 +403,3 @@ Write a class called ``Binary`` that takes in an integer.
 * ``Binary`` objects can be subtracted from one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative (negative numbers are a little more complicated in binary, look at `this <https://en.wikipedia.org/wiki/Two%27s_complement>`_  if you are curious).
 * ``Binary`` objects can be added with one another to produce another ``Binary`` object.
 * ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
-
-.. Hint::
-    It may be easiest to do all the math with the decimal representation of the number, and then just convert it to the binary representation when it needs to be printed out as a string.
