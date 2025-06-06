@@ -399,7 +399,7 @@ Task 4: Binary
 Write a class called ``Binary`` that takes in an integer.
 
 * When a ``Binary`` object is printed, it should display the binary representation as a string of 1's and 0's.
-* When `int()` is called on a  ``Binary`` object, it should return the original number in base 10.
+* When ``int()`` is called on a  ``Binary`` object, it should return the original number in base 10.
 * ``Binary`` objects can be subtracted from one another to produce another ``Binary`` object. It should raise a ``ValueError`` if the result would be negative (negative numbers are a little more complicated in binary, look at `this <https://en.wikipedia.org/wiki/Two%27s_complement>`_  if you are curious).
 * ``Binary`` objects can be added with one another to produce another ``Binary`` object.
 * ``Binary`` objects can be compared with one another for equality (the ``==`` operator)
