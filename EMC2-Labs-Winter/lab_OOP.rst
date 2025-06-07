@@ -266,6 +266,7 @@ Python provides many other Dunder methods that allow you to customize many other
     If we wanted to switch the order so we could write ``'pepper' + blt`` to get the same result, we would need to implement the ``__radd__`` (reverse add) Dunder method.
     
     .. code:: python
+        
         def __radd__(self, topping):
             self.toppings.append(topping)
 
