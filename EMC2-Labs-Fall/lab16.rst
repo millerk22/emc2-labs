@@ -8,10 +8,10 @@ In this lab you will use the python ``numpy`` module to perform the Gram-Schmidt
 
 Use the numpy array constructor for vectors:
 
->>> A=np.array([1,2,3])
+>>> u=np.array([1,2,3])
 
 This will allow you to use the built-in method to compute dot products. 
-To compute the dot product of two vectors ``A`` and ``B``, use the syntax ``A.dot(B)``  or ``B.dot(A)``.
+To compute the dot product of two vectors ``u`` and ``v``, use the syntax ``u.dot(v)``  or ``v.dot(u)``.
 
 
 
@@ -20,10 +20,10 @@ Task 1
 
 
 
-Write a function ``projection(A,B)`` that takes as input two vectors  ``A`` and ``B`` of the same length ``n`` and computes the projection of  ``B`` onto the subspace of :math:`\mathbb R^n` spanned by  ``A``. Recall the formula for this projection is
+Write a function ``projection(u,v)`` that takes as input two vectors  ``u`` and ``v`` of the same length ``n`` and computes the projection of  ``v`` onto the subspace of :math:`\mathbb R^n` spanned by  ``u``. Recall the formula for this projection is
 
 .. math::
-   \text{Proj}_{A}(B)=\frac{A\cdot B}{A\cdot A} A,
+   \text{Proj}_{u}(v)=\frac{u\cdot v}{u\cdot u} u,
 
 where ``·`` is the usual dot product.
 
