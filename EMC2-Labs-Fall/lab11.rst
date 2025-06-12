@@ -57,6 +57,7 @@ As simple example of Rayleigh's method, lets consider how long a pendulum takes 
 
 .. image:: ./_static/pendulum.png
     :width: 40%
+    :align: center
     
 So our equation would look something like:
 
@@ -196,7 +197,7 @@ With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a functio
 
 .. note::
 
-    A reasonable value for the density of air is :math:`1.2\frac{kg}{m^3}`
+    A reasonable value for the density of air is :math:`1.2\frac{kg}{m^3}`.
 
 Your function will take in ``R``, the radius of the explosion in meters, and ``t``, the time since the explosion in seconds. It will return the energy yield in Joules (:math:`\frac{kg \cdot m^2}{s^2}`).
 

@@ -37,7 +37,6 @@ Choose a lab in the left sidebar.
    lab01
    lab02
    lab03
-   lab03_draft
    lab04
    lab05
    lab06
