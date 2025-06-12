@@ -464,7 +464,7 @@ Task 5
 
 .. Have Them do problem 2
 
-Using the ``pollution_df``\, find the country with the highest average for ``AQI Value`` and print that country and average.
+Using the ``pollution_df``, find the country with the highest average for the ``AQI Value`` column and set the corresponding variable to that country and average.
 
 
 
