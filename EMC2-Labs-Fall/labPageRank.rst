@@ -17,6 +17,14 @@ Networks like this allow search engines such as Google or Microsoft Edge to rank
 In this lab we will walk you through this process of finding the importance of pages.
 
 
+.. note::
+
+    If you pursue a future in math you will learn about graph theory, which is the study of abstract structures.
+    It gives you mathematical tools to solve problems involving connections.
+    Networks are a type of graph.
+    Nodes are synonymous to vertices and edges are the same as links.
+
+
 Adjacency Matrices
 ------------------
 
@@ -155,7 +163,7 @@ As you can see, we are solving for an eigenvector whose corresponding :math:`\la
     there exists an eigenvalue of 1 and associated eigenvector. 
 
 In `Lab 9 <https://emc2.byu.edu/fall-labs/lab09.html>`_, we used iterative methods to solve for the solution of systems of equations.
-One of these methods is `Power method <https://en.wikipedia.org/wiki/Power_iteration>`_ which solves for the dominant eigenvector of a system of equations.
+One of these methods is the `Power Method <https://en.wikipedia.org/wiki/Power_iteration>`_ which is an iterative method that solves for the dominant eigenvector of a system of equations.
 It is defined by the equation below:
 
 .. math::
@@ -180,9 +188,8 @@ Now consider the vector below whose column adds up to 1.
     \end{array}
     \right].
 
-Because of the way the system of equations is set up, as long as the columns of :math:`x_k` add up to 1, the columns of :math:`x_{k+1}` will add up to 1.
-Therefore, we can omit normalization at each iteration.
-Thus the power method becomes :math:`x_{k+1} = Px_k`. 
+Because :math:`P` is a column stochatic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
+and the Power Method becomes :math:`x_{k+1} = Px_k`. 
 Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
 
