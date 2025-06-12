@@ -13,20 +13,21 @@ It is common to model population dynamics with **matrix population models**. The
 
 Transition Matrices
 -------------------
-We will be looking at a black bear population. This diagram shows the four different groups in the population, *cubs*, *juveniles*, *adults*, and *dead*.
+We will be looking at a black bear population. This diagram shows the four different groups in the population, *cubs*, *juveniles*, *adults*, and *deceased*.
 
 .. image:: ./_static/black_bear_state.png 
    :width: 800
 
 Population members begin in one stage and transition to other stages. The diagram above models transitions from stage to stage on a yearly basis, meaning that we consider an individual to be in a single class for the entirety of a year and possibly changing to another class the next year.
 
-The transition values—**stasis**, **maturation**, and **fertility**-represent how much of the population moves from one state to another.
+The transition values—**stasis**, **maturation**, and **fertility**—represent how much of the population moves from one state to another.
+
 * **stasis**, :math:`s_i`: Probability that an individual in state :math:`i` remains in state :math:`i`
 * **maturation**, :math:`m_i`: Probability that an individual in state :math:`i` transitions to state :math:`i+1` (if such next state is possible)
 * **fertility**, :math:`f_i`: Probability that an individual in state :math:`i` produces an offspring in state :math:`1`
 
 .. Note::
-   The dead state acts as an absorbing state where no bear can transition out of it. The probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
+   The deceased state acts as an absorbing state where no bear can transition out of it. The probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
 
 We can translate the state diagram shown above to a **transition matrix** which shows the rates of transition between different states. Each entry :math:`A_{ij}` corresponds to the average number of individuals that enter into state :math:`i` from a single individual in state :math:`j`:
 
@@ -91,7 +92,8 @@ Task 3
 Write a function ``simulate(A, p, t)`` that simulates ``t`` steps of the population dynamics model represented by the ``NumPy`` array ``A``, with initial population value vector ``p`` given as a list.
 Return a list containing the ``t+1`` population vectors. 
 
-* **NOTE:** If ``p`` has negative entries, raise a ``ValueError``.
+.. Note::
+   If ``p`` has negative entries, raise a ``ValueError``.
 
 Black Bear Population Demo
 --------------------------
