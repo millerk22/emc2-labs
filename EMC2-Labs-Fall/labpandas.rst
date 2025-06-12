@@ -13,7 +13,7 @@ Over the years the library has been open-sourced and developed into the library 
 
 The purpose of this lab is to familiarize you with the Pandas library.
 This is a widely used tool across industry and having experience with it can set you apart when getting internships and jobs.
-While it is not necessary to memorize perfectly this library, a general understanding will be helpful for your future in coding and math.
+While it is not necessary to master this library, a general understanding will be helpful for your future in coding and math.
 
 DataFrames
 ----------
@@ -26,8 +26,8 @@ To import Pandas we use the following import statement
 
 The core data structure of the Pandas library is the ``DataFrame``.
 A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
-The rows are labeled with integers starting at 0, and the columns are chosen by the user.
-First we will examine a ``DataFrame`` and then we will learn a few ways to create them:
+The rows are indexed using integers, and the columns are chosen by the user.
+First we will examine a ``DataFrame`` and then we will learn a few ways to create it:
 
 >>> df
      Name   Age        City
@@ -66,7 +66,7 @@ In this way every list is a row, however you have to manually set the columns yo
             ['Eli', 35, 'Chicago']]
 >>> df3 = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 
-Finally, you can do it through a numpy array.
+Finally, you can do it through a NumPy array.
 This one functions the same as a list of lists where every row is a row in the ``DataFrame`` and you must manually set the columns. 
 
 >>> import numpy as np
@@ -123,7 +123,6 @@ Task 2
 .. Have them read the csv file
 
 Read the CSV file named "global_air_pollution_dataset.csv" and save it as a Pandas ``DataFrame`` titled ``pollution_df``. 
-.. Add a hint not to save the row numbers
 
 Accessing Data
 --------------
@@ -132,7 +131,7 @@ Accessing Data
 .. Problem 1: budget.csv problem (not all of the parts)
 .. Basic Data Manipulation + Basic Stat Functions + Masks(?)
 
-Now that we have our DataFrame we can move on to accessing the data within.
+Now that we have our DataFrame we can start accessing the data within.
 We will go through these functions using the DataFrame defined below.
 
 >>> df
@@ -143,7 +142,7 @@ We will go through these functions using the DataFrame defined below.
 3  Carter    Male   22     91              95
 4   James    Male   23     78              88
 
-In general the best way to access data is through ``loc`` and ``iloc``\. 
+In general, the best way to access data is through ``loc`` and ``iloc``\. 
 The ``loc`` index selects rows and columns based on their labels, while ``iloc`` selects them based on their integer position.
 For both of these methods, the first and second arguments refer to the rows and columns, respectively, just as in array slicing.
 
@@ -159,6 +158,13 @@ For both of these methods, the first and second arguments refer to the rows and 
      # Use iloc to also select the Grade column for Sarah and Emily
      >>> df.iloc[[0, 2], 3]
      0    87
+     2    93
+     Name: Grade, dtype: int64
+
+     # Use ":" to select a range of rows or columns (stop is inclusive)
+     >>> df.iloc[0:2, 3]
+     0    87
+     1    85
      2    93
      Name: Grade, dtype: int64
 
@@ -250,20 +256,23 @@ Now we will go over the ``unique()`` and ``drop()`` methods.
      James    Male   23     78              88         100
 
 
-Here is a list of other methods that are useful to be familiar with.
+Here is a list of other methods to be familiar with.
 
 - ``df.shape`` - Get the (rows, columns) of the DataFrame.
 - ``df.rename(columns={'old': 'new'})`` - Rename columns.
 - ``df.fillna(value)`` - Replace NaNs with a specified value.
 - ``df.dropna()`` - Remove rows with missing values.
 - ``df.astype({'col': type})`` - Convert column data types.
+- ``df.columns`` - Get a lsit of column names and data types
 
 .. note::
 
      NaN stands for "Not a Number". 
-     It represents missing or undefined values in pandas DataFrames.
-     When working with real-world data it is not often to have missing values.
-     It is good to know functions that can work with this type of data.
+     It represents missing or undefined values.
+     When working with real-world data it is **very common** to have missing values. 
+     It is important to know functions that work with this type of data. 
+     While it is not the focus of this lab, an important step in the data science process involves peapearing data (e.g., dealing with NaNs) for use downstream data science tasks.
+
 
 
 
@@ -310,20 +319,21 @@ with pandas structures. For example, basic vector operations work as would be ex
 
 Here is a variety of other operations that work well on DataFrames.
 
-- ``abs()`` - Object with absolute values taken (of numerical data)
-- ``idxmax()`` - The index label of the maximum value
-- ``idxmin()`` - The index label of the minimum value
-- ``count()`` - The number of non-null entries
-- ``cumprod()`` - The cumulative product over an axis
-- ``cumsum()`` - The cumulative sum over an axis
-- ``max()`` - The maximum of the entries
-- ``mean()`` - The average of the entries
-- ``median()`` - The median of the entries
-- ``min()`` - The minimum of the entries
-- ``mode()`` - The most common element(s)
-- ``prod()`` - The product of the elements
-- ``sum()`` - The sum of the elements
-- ``var()`` - The variance of the elements
+- ``df.abs()`` - Object with absolute values taken (of numerical data)  
+- ``df[column_name].idxmax()`` - The index label of the maximum value  
+- ``df[column_name].idxmin()`` - The index label of the minimum value  
+- ``df.count()`` - The number of non-null entries  
+- ``df.cumprod()`` - The cumulative product over an axis  
+- ``df.cumsum()`` - The cumulative sum over an axis  
+- ``df.max()`` - The maximum of the entries  
+- ``df.mean()`` - The average of the entries  
+- ``df.median()`` - The median of the entries  
+- ``df.min()`` - The minimum of the entries  
+- ``df.mode()`` - The most common element(s)  
+- ``df.prod()`` - The product of the elements  
+- ``df.sum()`` - The sum of the elements  
+- ``df.var()`` - The variance of the elements  
+
 
 Masking
 -------
@@ -444,10 +454,10 @@ greatest will be ranked the highest number.
 
 Here are some other useful statistical functions.
 
-- ``std()`` - The standard deviation of the elements  
-- ``nunique()`` - Number of distinct elements  
-- ``pct_change()`` - Percentage change between elements  
-- ``skew()`` - Sample skewness of each column  
+- ``df.std()`` - The standard deviation of the elements  
+- ``df.nunique()`` - Number of distinct elements  
+- ``df.pct_change()`` - Percentage change between elements  
+- ``df.skew()`` - Sample skewness of each column  
 
 Task 5
 ------
