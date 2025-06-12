@@ -97,15 +97,20 @@ Black Bear Population Demo
 --------------------------
 
 Open the `Black Bear Population Demo <https://jhtullis.github.io/test_eigenbears/>`_. This web app computes each of the things that you have written in this lab. On the left hand side of the page you can vary the stasis, maturation, and fertility parameters. 
+
 * The principal eigenvector is displayed as a pie chart reflecting the proportion of the population that each class (or state) makes up.
 * The principal eigenvalue is displayed as the title of the plot of the population count. 
 
-Bonus Questions
-===============
+Task 4
+------
 
-1. Play around with setting different model parameters :math:`s_2, s_3, m_1, m_2, f_3`. **What happens to the population count when** :math:`\lambda_1 < 1` **? How about when** :math:`\lambda_1 > 1` **?**
-2. Set the parameters to the following setting: :math:`s_2 = 0.5, s_3 = 0.93, m_1 = 0.65, m_2 = 0.25, f_3 =0.2`. Now, for each parameter, see how the principal eigenvalue :math:`\lambda_1` changes as a result of changing the parameter by :math:`\pm 0.05`. **Which parameter has the greatest effect on the value of** :math:`\lambda_1` **?**
-3. Given the following matrix (taken from the diagram shown above), use ``simulate`` with :math:`t = 50` iterations for a few different initial vectors ``p`` (e.g., ``p = np.array([500, 400, 1000])``), then normalize the final population vector. **How does this compare to the principal eigenvector of the transition matrix?**
+Play around with setting different model parameters :math:`s_2, s_3, m_1, m_2, f_3`. **What happens to the population count when** :math:`\lambda_1 < 1` **? How about when** :math:`\lambda_1 > 1` **?**
+
+Set the parameters to the following: :math:`s_2 = 0.5, s_3 = 0.93, m_1 = 0.65, m_2 = 0.25, f_3 = 0.2`. Now, for each parameter, see how the principal eigenvalue :math:`\lambda_1` changes as a result of changing the parameter by :math:`\pm 0.05`. **Which parameter has the greatest effect on the value of** :math:`\lambda_1` **?**
+
+Task 5
+------
+Given the following matrix (taken from the diagram shown above), use ``simulate`` with :math:`t = 50` iterations for a few different initial vectors ``p`` (e.g., ``p = np.array([500, 400, 1000])``), then normalize the final population vector. **How does this compare to the principal eigenvector of the transition matrix?**
 
 .. math::
    A = \begin{pmatrix}
@@ -113,3 +118,8 @@ Bonus Questions
       0.65 & 0.5 & 0 \\
       0 & 0.25 & 0.93 \\
    \end{pmatrix}.
+
+.. note::
+   This process is an example of the `Power Method <https://en.wikipedia.org/wiki/Power_iteration>`_, an iterative technique that finds the principal eigenvector of a matrix. For our transition matrix, this means the population distribution (principal eigenvector) will approach a steady state over time. Thus, we can determine the long-term proportions of each group after repeatedly applying the transition matrix.
+
+   You can learn more about this with `Markov Chains <https://en.wikipedia.org/wiki/Markov_chain>`_.
