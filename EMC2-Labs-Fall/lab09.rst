@@ -102,13 +102,45 @@ If we generalize this formula to a :math:`2 \times 2` matrix we get the formula
 Task 1
 ------
 
-Write a function ``jacobi_iteration(x, A, b)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
+Write a function ``jacobi_iteration(x, A, b)`` which takes in an initial vector guess ``x``\, matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), and vector ``b`` , 
 and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outputs should be ``np.array``\s.
+
+.. note::
+
+    It is important to note that when dealing when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are both column vectors and not simply vectors.
+    We pass them in as vectors for simplicitie's sake, however it is important to know the different ways to create vectors, column vectors, and row vectors in ``numpy``\.
+
+    .. code-block:: python
+        
+        # How to write a vector
+        >>> a = np.array([1, 2, 3])
+        >>> a.shape
+        (3,)
+        >>> a
+        array([1, 2, 3])
+
+        # How to write a row vector
+        >>> b = np.array([[1, 2, 3]])
+        >>> b.shape
+        (1, 3)
+        >>> b
+        array([[1, 2, 3]])
+
+        # How to write a column vector
+        >>> c = np.array([[1], [2], [3]])
+        >>> c.shape
+        (3, 1)
+        >>> c
+        array([[1],
+               [2],
+               [3]])
+
+
 
 Task 2
 ------
 
-Write a function ``jacobi_method(x, A, b, n)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
+Write a function ``jacobi_method(A, b, x, n)`` which takes in a matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), vector ``b`` , and an initial vector guess ``x`` ,
 which performs the Jacobi method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
 
 
@@ -163,14 +195,14 @@ Gauss-Seidel's method often has a faster convergence and needs less iterations t
 Task 3
 ------
 
-Write a function ``gauss_seidel_iteration(x, A, b)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
+Write a function ``gauss_seidel_iteration(x, A, b)`` which takes in an initial vector guess ``x``\, matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), and vector ``b`` , 
 and returns :math:`x^{k+1}` using Gauss-Seidel's method. Remember that you must compute :math:`x^{k+1}_1` first, in order to use it 
 in computing :math:`x^{k+1}_2`. All inputs and outputs should be ``np.array``\s.
 
 Task 4
 ------
 
-Write a function ``gauss_seidel_method(x, A, b, n)`` which takes in an initial guess ``x`` (2d array), matrix ``A`` (2d), and array ``b`` (2d array), 
+Write a function ``gauss_seidel_method(A, b, x, n)`` which takes in a matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), vector ``b`` , and an initial vector guess ``x`` ,
 which performs Gauss-Seidel's method ``n`` times returning :math:`x^{n+1}`. All inputs and outputs should be ``np.array``\s.
 
 
@@ -193,8 +225,8 @@ np.array([3, 4])
 Task 5
 ------
 
-Write a function called ``gauss_seidel_error(x, A, b, sol, tol)``. This function will take in 
-an initial guess ``x`` (2d array), matrix ``A`` (2d), array ``b`` (2d array), solution ``sol`` (2d array), and a desired error level ``tol``.
+Write a function called ``gauss_seidel_error(A, b, x, sol, tol)``. This function will take in 
+a matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), vector ``b``, initial vector guess ``x``\, solution vector ``sol``\, and a desired error level ``tol``.
 You will need to modify ``gauss_seidel_method`` to perform iterations until the distance between the iterate and ``sol`` is less than or equal to the tolerance, and then returns the approximate solution.
 
 Cases where convergence isn't reached
