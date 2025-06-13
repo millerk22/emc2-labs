@@ -85,10 +85,58 @@ The algorithm can be summarized as follows.
 	
 	An example of the K-Means algorithm picking/updating centers and assigning points to clusters.
 
-
 Those students planning on enrolling in the ACME program or who are completing a degree in computer science will likely have the opportunity to code up the k-means algorithm as part of the program. 
 
-.. For this lab we will use the built in version of k-means clustering that comes with the ``sklearn`` package.
+``sklearn.cluster.KMeans``
+--------------------------
+
+The package scikit-learn (``sklearn``) is a popular python package for machine learning applications. It has a KMeans implementation. 
+
+.. code:: python
+
+	from sklearn.cluster import KMeans
+
+We also need access to the Iris dataset, which sklearn also has.
+
+.. code:: python
+
+	import sklearn.datasets as ds
+
+	iris = ds.load_iris(as_frame=True)	# load the dataset with the data represented in pandas DataFrames
+    df = iris["data"]					# get the actual data
+
+.. code-block:: python
+	
+	>>> df
+		sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
+	0                  5.1               3.5                1.4               0.2
+	1                  4.9               3.0                1.4               0.2
+	2                  4.7               3.2                1.3               0.2
+	3                  4.6               3.1                1.5               0.2
+	4                  5.0               3.6                1.4               0.2
+	..                 ...               ...                ...               ...
+	145                6.7               3.0                5.2               2.3
+	146                6.3               2.5                5.0               1.9
+	147                6.5               3.0                5.2               2.0
+	148                6.2               3.4                5.4               2.3
+	149                5.9               3.0                5.1               1.8
+
+	[150 rows x 4 columns]
+
+Say we want to compare sepal length and petal width.
+
+To create a ``KMeans`` object, we just have to tell it how many clusters we are looking for.
+
+.. code:: python
+
+	kmeans = KMeans(n_clusters=3)
+
+In ``sklearn`` and most other ML libraries, models are trained by calling ``.fit(X)`` on the model. Calling this method causes the object to perform all the calculations, and in our case, find the clusters. Calling ``.predict(X)`` on a model will get predictions for the data passed in. In our case, this would be the cluster each data point in ``X`` belongs in.
+
+.. code:: python
+	
+	kmeans.fit(df[])
+	predictions = kmeans.fit(df[[x, y]])
 
 .. go through an example of the code and how it works What does fit and predict mean?
 
