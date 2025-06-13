@@ -64,7 +64,8 @@ Note also that it is possible to have very slow convergence.
 Thus, when implementing the algorithm, it is a good idea to terminate after some specified maximum number of iterations. 
 
 .. figure:: _static/figures/kmeans-iris.png
-	:width: 95 %
+	:width: 95%
+	:align: center
 
 	Two different K-Means clusterings for the iris dataset. Notice that the clustering on the left predicts the flower species to a high degree of accuracy, while the clustering on the right is less effective.
 
@@ -90,7 +91,7 @@ Those students planning on enrolling in the ACME program or who are completing a
 ``sklearn.cluster.KMeans``
 --------------------------
 
-The package scikit-learn (``sklearn``) is a popular python package for machine learning applications. It has a KMeans implementation. 
+The package scikit-learn (``sklearn``) is a popular python package for machine learning applications. It has a KMeans implementation which we will use as an example.
 
 .. code:: python
 
@@ -102,8 +103,10 @@ We also need access to the Iris dataset, which sklearn also has.
 
 	import sklearn.datasets as ds
 
-	iris = ds.load_iris(as_frame=True)	# load the dataset with the data represented in pandas DataFrames
-    df = iris["data"]					# get the actual data
+	iris = ds.load_iris(as_frame=True)		# load the dataset with the data represented in pandas DataFrames
+    df = iris["data"]						# get the actual data
+	targets = iris["target"]				# the labeled data where each flower species is assigned a number 0, 1, or 2
+	target_names = iris["target_names"]		# the names associated with the number contained in targets
 
 .. code-block:: python
 	
@@ -123,7 +126,12 @@ We also need access to the Iris dataset, which sklearn also has.
 
 	[150 rows x 4 columns]
 
-Say we want to compare sepal length and petal width.
+.. note::
+	A target in machine learning is the variable we are trying to model or predict. We loaded in ``targets`` which is the labeled data of the Iris dataset (which species it is). We are using this for visualization purposes, and not to train the unsupervised model (which doesn't use labels).
+
+Say we want to use our KMeans algorithm to cluster sepal length and petal width.
+
+.. image of just sepal length and petal width shown
 
 To create a ``KMeans`` object, we just have to tell it how many clusters we are looking for.
 
@@ -131,19 +139,88 @@ To create a ``KMeans`` object, we just have to tell it how many clusters we are 
 
 	kmeans = KMeans(n_clusters=3)
 
-In ``sklearn`` and most other ML libraries, models are trained by calling ``.fit(X)`` on the model. Calling this method causes the object to perform all the calculations, and in our case, find the clusters. Calling ``.predict(X)`` on a model will get predictions for the data passed in. In our case, this would be the cluster each data point in ``X`` belongs in.
+In ``sklearn`` and most other ML libraries, models are trained by calling ``fit(X)`` on the model. Calling this method causes the object to perform all the calculations, and in our case, find the clusters. Calling ``predict(X)`` on a model will get predictions for the data passed in. In our case, this would be the cluster each data point in ``X`` belongs in.
+
+.. code:: python
+
+	test_data = df[["sepal length (cm)", "petal width (cm)"]]	# get the two columns
+	kmeans.fit(test_data)										# train kmeans on the data
+	cluster_predictions = kmeans.predict(test_data)				# get the cluster predictions using predict
+
+Now we can plot these predictions by color:
 
 .. code:: python
 	
-	kmeans.fit(df[])
-	predictions = kmeans.fit(df[[x, y]])
+	import matplotlib.pyplot as plt
+	import numpy as np
 
-.. go through an example of the code and how it works What does fit and predict mean?
+	np.random.seed(42)									# makes it so we get the same result each time even with randomness
+
+    colors = ['tab:blue', 'tab:orange', 'tab:green']
+
+	# zip iterates through each of the predictions, colors, and target names
+    for prediction, color in zip(np.unique(cluster_predictions), colors):
+        mask = cluster_predictions == prediction        # create a mask that will mask out everything that isn't the given target
+        plt.scatter(df.loc[mask, "sepal length (cm)"],  # get all the sepal lengths that were classified as the given target
+                    df.loc[mask, "petal width (cm)"],
+                    color=color,                        # color each point with the associated color
+                    label=f"cluster {prediction}",      # label each point with the associated target name
+                    s=20)                               # point size parameter
+        
+    # add the cluster centers with a "+" marker
+    centers = kmeans.cluster_centers_
+    plt.scatter(centers[:, 0], centers[:, 1] , marker="+", color="black", s=40)
+
+    plt.xlabel("sepal length (cm)")
+    plt.ylabel("petal width (cm)")
+	plt.legend()
+	
+    plt.show()
+
+.. image:: _static/figures/clustered_petal_sepal.png
+	:align: center
+
+We can see our results look fairly reasonable. We can check by using the labels in ``targets``.
+
+.. code:: python
+
+    for target, marker, in zip(np.unique(targets), markers):							# for the actual labels (marker type)
+        for prediction, color in zip(np.unique(cluster_predictions), marker_colors):	# for the predictions (color)
+            mask = (target == targets) & (prediction == cluster_predictions)
+            plt.scatter(df.loc[mask, "sepal length (cm)"],
+                        df.loc[mask, "petal width (cm)"],
+                        marker=marker,
+                        color=color,
+                        label=f"{target_names[target]}",
+                        s=15)
+
+    plt.xlabel("sepal length (cm)")
+    plt.ylabel("petal width (cm)")
+
+    # this is just getting the legend right
+    handles = [lines.Line2D([0], [0], marker=marker, color="black", linestyle='None', label=f"{label} actual") for marker, label, in zip(markers, target_names)]
+    handles.extend([lines.Line2D([0], [0], marker='.', color=color, linestyle='None', label=f"{label} predicted") for color, label, in zip(marker_colors, target_names)])
+    plt.legend(handles, ["setosa actual", "versicolor actual", "virginica actual", "setosa predicted", "versicolor predicted", "virginica predicted"])
+
+    # add the cluster centers with a "+" marker
+    centers = kmeans.cluster_centers_
+    plt.scatter(centers[:, 0], centers[:, 1], marker="+", color="black", s=40)
+
+    plt.show()
+
+.. image:: _static/figures/clustered_oetal_sepal_labeled.png
+	:align: center
+
+As you can see, our clustering algorithm did fairly well.
 
 Task 1
 ------
 
-The K-means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
+In the example above, we used ``sepal length`` and ``petal width`` for our clustering. Follow the same process with two different measurements of your choosing.
+
+.. in codebuddy, set x and y to the string measurements, then we can write code that will replicate it for those measurements. As long as they use the similar plotting code, it should be fine
+
+.. The K-means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
 
 
 Detecting Active Earthquake Regions
@@ -156,6 +233,7 @@ We could make a map of all earthquakes over a given period of time and examine i
 
 .. figure:: _static/figures/earthquakes.png
 	:width: 95 %
+	:align: center
 
 	Earthquake epicenters over a 6 month period.
 
