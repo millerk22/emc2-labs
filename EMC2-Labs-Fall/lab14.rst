@@ -7,7 +7,7 @@ the following libraries:
 >>> import numpy as np
 >>> import numpy.linalg as la
 
-Population dynamics is the study of how a population of individuals (like organisms or animals) changes over time. This includes studying the ages of the organisms, the number of organisms, and other metrics.
+Population dynamics is the study of how a population of individuals (like organisms or animals) changes over time. This includes studying growth, decline, and distribution of the population.
 
 It is common to model population dynamics with **matrix population models**. These matrices model populations of organisms and can be used to learn about the different metrics described above.
 
@@ -18,16 +18,16 @@ We will be looking at a black bear population. This diagram shows the four diffe
 .. image:: ./_static/black_bear_state.png 
    :width: 800
 
-Population members begin in one stage and transition to other stages. The diagram above models transitions from stage to stage on a yearly basis, meaning that we consider an individual to be in a single class for the entirety of a year and possibly changing to another class the next year.
+Population members begin in one stage and transition to other stages. The diagram above models annual transitions from one stage to another. An individual stays in a single class for the entirety of a year but may move to a different class in subsequent years.
 
 The transition values—**stasis**, **maturation**, and **fertility**—represent how much of the population moves from one state to another.
 
-* **stasis**, :math:`s_i`: Probability that an individual in state :math:`i` remains in state :math:`i`
-* **maturation**, :math:`m_i`: Probability that an individual in state :math:`i` transitions to state :math:`i+1` (if such next state is possible)
-* **fertility**, :math:`f_i`: Probability that an individual in state :math:`i` produces an offspring in state :math:`1`
+* :math:`s_i`, **stasis**: Probability that an individual in state :math:`i` remains in state :math:`i`
+* :math:`m_i`, **maturation**: Probability that an individual in state :math:`i` transitions to state :math:`i+1` (if such next state is possible)
+* :math:`f_i`, **fertility**: Probability that an individual in state :math:`i` produces an offspring in state :math:`1`
 
 .. Note::
-   The deceased state acts as an absorbing state where no bear can transition out of it. The probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
+   No bear can transition out of the deceased state because it acts as an absorbing state. The probability of death can be inferred by the other parameters as :math:`d_i = 1 - s_i - m_i`. 
 
 We can translate the state diagram shown above to a **transition matrix** which shows the rates of transition between different states. Each entry :math:`A_{ij}` corresponds to the average number of individuals that enter into state :math:`i` from a single individual in state :math:`j`:
 
@@ -75,11 +75,11 @@ Since :math:`A` has non-negative real entries, then by the Perron-Frobenius Theo
 Task 2
 ------
 
-Write a function ``compute_principal_eig(A)`` that accepts a transition matrix and returns the principal eigenvalue and its corresponding eigenvector as a list. `See the NumPy function`_ ``numpy.linalg.eig``.
+Write a function ``compute_principal_eig(A)`` that accepts a transition matrix as a NumPy array and returns the principal eigenvalue and its corresponding eigenvector as a list. `See the NumPy function`_ ``numpy.linalg.eig``.
 
 .. _See the NumPy function: https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html
 
-The ``NumPy`` function ``eig`` will sometimes return numbers of the form ``a+b*j``, where ``j`` is the square root of ``-1``. As this may return complex values of the form ``a+0*j``, use ``np.real`` to convert these values into (real) floats. You may need to use the command ``float()`` to convert the results of this function from ``np.float64`` to the usual ``float`` data type.
+The NumPy function ``eig`` will sometimes return numbers of the form ``a+b*j``, where ``j`` is the square root of ``-1``. As this may return complex values of the form ``a+0*j``, use ``np.real`` to convert these values into (real) floats. You may need to use the command ``float()`` to convert the results of this function from ``np.float64`` to the usual ``float`` data type.
 
 Simulating Populations
 ----------------------
@@ -89,7 +89,7 @@ A transition matrix can be combined with a **population value vector** to simula
 Task 3
 ------
 
-Write a function ``simulate(A, p, t)`` that simulates ``t`` steps of the population dynamics model represented by the ``NumPy`` array ``A``, with initial population value vector ``p`` given as a list.
+Write a function ``simulate(A, p, t)`` that simulates ``t`` steps of the population dynamics model represented by the NumPy array ``A``, with initial population value vector ``p`` given as a list.
 Return a list containing the ``t+1`` population vectors. 
 
 .. Note::
