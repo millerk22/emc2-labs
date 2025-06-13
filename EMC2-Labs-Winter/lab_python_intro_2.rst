@@ -1,12 +1,12 @@
 Lab 8675309: Introduction to Python, Revisited
 ==============================================
 
-This lab covers additional topics in Python and NumPy that will expand your coding knowledge.
+This lab covers additional topics in Python and NumPy that will expand your programming knowledge.
 
 Lambda Functions
 ----------------
 
-Lambda functions are a shorthand way of defining functions. They are excellent for creating simple functions. The syntax is:
+Lambda functions are a shorthand way of defining functions. They are excellent for creating simple, one-time use functions. The syntax for creating a lambda function looks like:
 
 .. code:: python
 
@@ -98,8 +98,8 @@ Here is an example of sorting a list of tuples by the second element.
 .. note::
     ``sorted()`` only works with 1d ``numpy.ndarrays`` which is why we are using Python lists in this task.
 
-Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of tuples and returns the list sorted by the mean of each tuple. 
-Make sure to assign your ``lambda`` function to the ``key`` paramater!
+Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of ``tuples`` and returns the list sorted by the mean of each tuple. 
+Make sure to assign your ``lambda`` function to the ``key`` parameter of ``sorted()``!
 
 .. hint about using np.mean()
 
@@ -183,10 +183,7 @@ An error occurred
 
 Task 3: Matrix Multiplication
 -----------------------------
-Write a function ``matmul(a, b)`` that takes in ``numpy.ndarray``\s ``a`` and ``b`` and performs matrix multiplication on them. ``matmul`` should print ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
-
-.. hint::
-    Use ``np.matmul()`` to do the calculation and use ``try`` and ``except`` to handle any errors that may occur from ``np.matmul()``.
+Write a function ``mat_mul(a, b)`` that takes in ``numpy.ndarray``\s ``a`` and ``b`` and performs matrix multiplication on them. ``mat_mul`` should return the string ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
 
 Type Declarations in Functions
 ------------------------------
@@ -288,13 +285,7 @@ Task 4: Sorting a Dictionary
 ----------------------------
 Write a function ``sort_dict(d)`` which sorts a dictionary of student's scores from highest to lowest.
 ``d`` is a dictionary that maps from a student's name (``str``) to their percentage in the class (``float``). 
-``sort_dict(d)`` should return a list of tuples of the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
-
-.. hint::
-    Use ``sorted(a, key)`` from Task 2.
-
-.. def sort_dict(d):
-..     return sorted(d.items(), key=lambda item: item[1])
+``sort_dict(d)`` should return a list of tuples containing the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
 
 Importing
 ---------
@@ -433,7 +424,7 @@ array([[[1, 4],
 
 ``numpy.stack``
 ~~~~~~~~~~~~~~~
-Joins a set of arrays along a *new* axis. When ``axis=-1``, it will join along the last axis
+Joins a set of arrays along a *new* axis. When ``axis=-1``, it will join along the last axis.
 
 >>> a = np.array([1, 2, 3, 4])
 >>> b = np.array([4, 5, 6, 7])
@@ -441,6 +432,11 @@ Joins a set of arrays along a *new* axis. When ``axis=-1``, it will join along t
 array([[1, 2, 3, 4],
        [4, 5, 6, 7]])
 >>> np.stack((a, b), axis=1)
+array([[1, 4],
+       [2, 5],
+       [3, 6],
+       [4, 7]])
+>>> np.stack((a,b), axis=-1)
 array([[1, 4],
        [2, 5],
        [3, 6],
@@ -476,6 +472,15 @@ array([[1, 4],
 
         [[ 5, 10],
             [ 6, 11]]])
+
+Task 5: Images
+--------------
+
+Write three functions (listed below). Each should take in three NumPy arrays of shape ``(n, m)`` and return an array of the specified shape
+
+* ``rgb_image_one(r, g, b)`` returns an array of shape ``(n, m, 3)``
+* ``rgb_image_two(r, g, b)`` returns an array of shape ``(n, 3, m)``
+* ``rgb_image_three(r, g, b)`` returns an array of shape ``(3, n, m)``
 
 Array Broadcasting
 ------------------
@@ -544,12 +549,12 @@ array([[   8.71,    9.05,    5.94,    2.72],
        [1428.57, 1483.4 ,  974.03,  445.89],
        [   7.33,    7.61,    5.  ,    2.29]])
 
-Task 5: Normalization
+Task 6: Normalization
 ---------------------
 Normalization is a basic statistical method to scale data so all of the points lie between 0 and 1. Here is the formula:
 
 .. math::
     x_{\text{norm}} = \frac{x - x_{min}}{x_{max} - x_{min}}
 
-You are given data on recent college graduates and their median earnings based on major.
+You are given data on recent college graduates and their median earnings based on their major.
 Use array broadcasting to create a normalized set of median earnings. The data is given in CodeBuddy.
