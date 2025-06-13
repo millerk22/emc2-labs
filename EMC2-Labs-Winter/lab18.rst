@@ -1,11 +1,25 @@
 Lab 18: K-Means Clustering
 ==========================
 
-One of the current areas of high interest is data science and machine learning. Machine learning can roughly be divided into three main types, supervised learning, unsupervised learning, and reinforcement learning. Unsupervised learning, or pattern recognition involves identifying useful patterns or structure from data that is unlabeled. One example of this is clustering, where the goal is to determine points that should be clustered together. The goal of this lab is to introduce the k-means algorithm, a simple and popular clustering method.
+A current area of high interest is data science and machine learning. Machine learning can be roughly divided into three  categories, supervised learning, unsupervised learning, and reinforcement learning.
 
-The objective of clustering is to find a partition of the data such that points in the same subset will be “close” according to some way of measuring. There are many different ways of measuring how close two points are but we will use the Euclidean distance introduced in your text.
+* **Supervised learning**: Uses input data with the labels (ie, cat pictures). Learns how to map from the input data to the label.
+* **Unsupervised learning**: Uses algorithms to find patterns or anomalies in existing data.
+* **Reinforcement learning**: A type of simulation where an agent learns by interacting with an environment. The agent gets feedback through rewards or penalties.
 
-More formally, suppose we have a collection of :math:`\mathbb R^K`-valued observations :math:`X = \{x_1,x_2,\ldots,x_n\}`. 
+This lab covers one form of unsupervised learning called clustering. There are many different clustering algorithms, but we will be focusing on one called K-Means.
+
+For this lab, we will be using the iris dataset, which is a classic machine learning dataset made in the 1930s. It contains 50 samples each of three different species of Iris, Setosa, Virginica, and Versicolor. Each flower has length and width measurements for petals and sepals.
+
+.. figure:: _static/figures/iris.png
+	:align: center
+
+The objective of clustering is to find a partition of the data such that points in the same subset will be “close” enough. There are many different ways of measuring how close two points are, but we will be using Euclidean distance. Let :math:`p` and :math:`q` be points in :math:`K` dimensional space with the coordinates :math:`p=(p_1, p_2, \ldots, p_K)` and :math:`q=(q_1, q_2, \ldots, q_K)`. The Euclidean distance for :math:`p` and :math:`q` is:
+
+.. math::
+	d(p, q) = \lVert p - q \lVert_2 = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \cdots + (p_K - q_K)^2}.
+
+To determine how we define a cluster, suppose we have a collection of :math:`\mathbb R^K`-valued observations :math:`X = \{x_1,x_2,\ldots,x_n\}`. 
 Let :math:`N\in \mathbb N` and let :math:`\mathcal S` be the set of all :math:`N`-partitions of :math:`X`, where an :math:`N`-partition is a partition with exactly :math:`N` nonempty elements.
 We can represent a typical partition in :math:`\mathcal S` as :math:`S = \{S_1, S_2, \ldots, S_N\}`, where
 
@@ -27,19 +41,20 @@ where :math:`\mu_i` is the mean of the elements in :math:`S_i`, i.e.
 .. math::
 	\mu_i = \frac{1}{|S_i|} \sum_{x_j \in S_i} x_j.
 
+The mean, in this case, represents the center of the cluster.
 
 The K-Means Algorithm
 ---------------------
 
-Finding the global minimizing partition :math:`S^*` is generally intractable since the set of partitions can be very large indeed, but the *k-means* algorithm is a heuristic approach that can often provide reasonably accurate results.
+Finding the global minimizing partition :math:`S^*` is difficult since the set of partitions can be very large, but the *k-means* algorithm is a heuristic approach that can often provide reasonably accurate results.
 
-We begin by specifying an initial cluster mean :math:`\mu_i^{(1)}` for each :math:`i=1,\ldots,N` (this can be done by random initialization, or according to some heuristic). For each iteration, we adopt the following procedure. Given a current set of cluster means :math:`\mu^{(t)}`, we find a partition :math:`S^{(t)}` of the observations such that
+We begin by specifying an initial cluster mean :math:`\mu_i^{(1)}` for each :math:`i=1,\ldots,N` (this can be done by random initialization, or according to some heuristic). For each iteration, we adopt the following procedure. Given a current set of cluster means :math:`\mu^{(t)}`, we find a partition :math:`S^{(t)}` of the observations such that each point, :math:`x_j`, is in its closest cluster:
 
 .. math::
 	S_i^{(t)} = \{ x_j : \lVert x_j - \mu_i^{(t)} \rVert_2^2 \leq \lVert x_j - \mu_\ell^{(t)} \rVert_2^2, \ell = 1, \ldots, N \}.
 
-We then update our cluster means by computing for each :math:`i=1,\ldots,N`.
-We continue to iterate in this manner until the partition ceases to change.
+We then update our cluster means for each :math:`i=1,\ldots,N`.
+We continue to iterate in this manner until the partition ceases to change or we have reached the accuracy we want.
 
 The figure below shows two different clusterings of the iris data produced by the *k-means* algorithm.
 Note that the quality of the clustering can depend heavily on the initial cluster means. 
@@ -65,8 +80,17 @@ The algorithm can be summarized as follows.
 
    c) If the old cluster centers and the new cluster centers are sufficiently close, terminate early.
 
+.. figure:: _static/figures/kmeans.gif
+	:align: center
+	
+	An example of the K-Means algorithm picking/updating centers and assigning points to clusters.
+
+
 Those students planning on enrolling in the ACME program or who are completing a degree in computer science will likely have the opportunity to code up the k-means algorithm as part of the program. 
-For this lab we will use the built in version of k-means clustering that comes with the ``sklearn`` package.
+
+.. For this lab we will use the built in version of k-means clustering that comes with the ``sklearn`` package.
+
+.. go through an example of the code and how it works What does fit and predict mean?
 
 Task 1
 ------
@@ -96,7 +120,7 @@ Instead, latitude and longitude should be viewed in spherical coordinates in :ma
 
 
 A simple way to accomplish this transformation is to first transform the latitude and longitude values to spherical coordinates, and then to Euclidean coordinates. 
-Recall that a spherical coordinate in :math:`\mathbb R^3` is a triple :math:`(r,\theta,\varphi)`, where :math:`r` is the distance from the origin, :math:`\theta` is the radial angle in the :math:`xy`-plane from the :math:`x`-axis, and :math:`\varphi` is the angle from the :math:`z`-axis. 
+Recall that a spherical coordinate in :math:`\mathbb R^3` has three coordinates :math:`(r,\theta,\varphi)`, where :math:`r` is the distance from the origin, :math:`\theta` is the radial angle in the :math:`xy`-plane from the :math:`x`-axis, and :math:`\varphi` is the angle from the :math:`z`-axis. 
 In our earthquake data, once the longitude is converted to radians it is an appropriate :math:`\theta` value; the latitude needs to be offset by :math:`90` degrees, then converted to radians to obtain :math:`\varphi`.
 For simplicity we can take :math:`r=1`, since the Earth is roughly a sphere.
 We can then transform to Euclidean coordinates using the following relationships.
