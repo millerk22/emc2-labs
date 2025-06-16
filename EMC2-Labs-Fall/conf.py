@@ -39,3 +39,6 @@ html_theme_options = {
 
 suppress_warnings = ["config.cache"]
 
+# allows for centering of figures, if things get messed up, this would be a good place to check
+def setup(app):
+    app.add_css_file("custom.css")

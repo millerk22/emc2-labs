@@ -1,0 +1,5 @@
+/* this allows us to center figures in general */
+figure.align-center {
+    text-align: center;
+    margin: 0 auto;
+}
