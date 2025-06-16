@@ -9,9 +9,9 @@ A current area of high interest is data science and machine learning. Machine le
 
 This lab covers one form of unsupervised learning called clustering. There are many different clustering algorithms, but we will be focusing on one called K-Means.
 
-For this lab, we will be using the iris dataset, which is a classic machine learning dataset made in the 1930s. It contains 50 samples each of three different species of Iris, Setosa, Virginica, and Versicolor. Each flower has length and width measurements for petals and sepals.
+For this lab, we will be using the Iris dataset, which is a classic machine learning dataset made in the 1930s. It contains 50 samples each of three different species of the Iris flower: Setosa, Virginica, and Versicolor. Each flower has length and width measurements for petals and sepals.
 
-.. figure:: _static/figures/iris.png
+.. image:: _static/figures/iris.png
 	:align: center
 
 The objective of clustering is to find a partition of the data such that points in the same subset will be “close” enough. There are many different ways of measuring how close two points are, but we will be using Euclidean distance. Let :math:`p` and :math:`q` be points in :math:`K` dimensional space with the coordinates :math:`p=(p_1, p_2, \ldots, p_K)` and :math:`q=(q_1, q_2, \ldots, q_K)`. The Euclidean distance for :math:`p` and :math:`q` is:
@@ -46,7 +46,7 @@ The mean, in this case, represents the center of the cluster.
 The K-Means Algorithm
 ---------------------
 
-Finding the global minimizing partition :math:`S^*` is difficult since the set of partitions can be very large, but the *k-means* algorithm is a heuristic approach that can often provide reasonably accurate results.
+Finding the global minimizing partition :math:`S^*` is difficult since the set of partitions can be very large, but the *K-Means* algorithm is a heuristic approach that can often provide reasonably accurate results.
 
 We begin by specifying an initial cluster mean :math:`\mu_i^{(1)}` for each :math:`i=1,\ldots,N` (this can be done by random initialization, or according to some heuristic). For each iteration, we adopt the following procedure. Given a current set of cluster means :math:`\mu^{(t)}`, we find a partition :math:`S^{(t)}` of the observations such that each point, :math:`x_j`, is in its closest cluster:
 
@@ -56,15 +56,16 @@ We begin by specifying an initial cluster mean :math:`\mu_i^{(1)}` for each :mat
 We then update our cluster means for each :math:`i=1,\ldots,N`.
 We continue to iterate in this manner until the partition ceases to change or we have reached the accuracy we want.
 
-The figure below shows two different clusterings of the iris data produced by the *k-means* algorithm.
-Note that the quality of the clustering can depend heavily on the initial cluster means. 
-We can use the within-cluster sum of squares as a measure of the quality of a clustering (a lower sum of squares is better). 
+The figure below shows two different clusterings of the iris data produced by the *K-Means* algorithm.
+Note that the quality of the clustering can depend heavily on the initial cluster centers. 
+We can use the within-cluster sum of squares (a measure of variability) as a measure of the quality of a clustering. A lower sum of squares implies a tighter cluster.
 Where possible, it is advisable to run the clustering algorithm several times, each with a different initialization of the means, and keep the best clustering. 
-Note also that it is possible to have very slow convergence. 
-Thus, when implementing the algorithm, it is a good idea to terminate after some specified maximum number of iterations. 
+
+.. note::
+    The K-Means clustering algorithm is an iterative method, and will occasionally converge very slowly. 
+    Thus, when implementing the algorithm, it is a good idea to terminate after some specified maximum number of iterations. 
 
 .. figure:: _static/figures/kmeans-iris.png
-	:width: 95%
 	:align: center
 
 	Two different K-Means clusterings for the iris dataset. Notice that the clustering on the left predicts the flower species to a high degree of accuracy, while the clustering on the right is less effective.
@@ -83,30 +84,31 @@ The algorithm can be summarized as follows.
 
 .. figure:: _static/figures/kmeans.gif
 	:align: center
+	:width: 80%
 	
 	An example of the K-Means algorithm picking/updating centers and assigning points to clusters.
 
-Those students planning on enrolling in the ACME program or who are completing a degree in computer science will likely have the opportunity to code up the k-means algorithm as part of the program. 
+Those students planning on enrolling in the ACME program or who are completing a degree in computer science will likely have the opportunity to code up the K-Means algorithm. 
 
 ``sklearn.cluster.KMeans``
 --------------------------
 
-The package scikit-learn (``sklearn``) is a popular python package for machine learning applications. It has a KMeans implementation which we will use as an example.
+The package scikit-learn (``sklearn``) is a popular python package for machine learning applications. It has a K-Means implementation which we will use as an example.
 
 .. code:: python
 
 	from sklearn.cluster import KMeans
 
-We also need access to the Iris dataset, which sklearn also has.
+We also need access to the Iris dataset, which sklearn has built in.
 
 .. code:: python
 
-	import sklearn.datasets as ds
+    import sklearn.datasets as ds
 
-	iris = ds.load_iris(as_frame=True)		# load the dataset with the data represented in pandas DataFrames
-    df = iris["data"]						# get the actual data
-	targets = iris["target"]				# the labeled data where each flower species is assigned a number 0, 1, or 2
-	target_names = iris["target_names"]		# the names associated with the number contained in targets
+    iris = ds.load_iris(as_frame=True)      # load the dataset with the data represented in pandas DataFrames
+    df = iris["data"]                       # The actual flower measurements
+    targets = iris["target"]                # The labeled data: each flower species is assigned a number 0, 1, or 2
+    target_names = iris["target_names"]	    # The names associated with the number contained in targets
 
 .. code-block:: python
 	
@@ -125,40 +127,59 @@ We also need access to the Iris dataset, which sklearn also has.
 	149                5.9               3.0                5.1               1.8
 
 	[150 rows x 4 columns]
+    >>> targets
+    0      0
+    1      0
+    2      0
+    3      0
+    4      0
+        ..
+    145    2
+    146    2
+    147    2
+    148    2
+    149    2
+    Name: target, Length: 150, dtype: int64
+    >>> target_names
+    ['setosa' 'versicolor' 'virginica']
 
 .. note::
 	A target in machine learning is the variable we are trying to model or predict. We loaded in ``targets`` which is the labeled data of the Iris dataset (which species it is). We are using this for visualization purposes, and not to train the unsupervised model (which doesn't use labels).
 
-Say we want to use our KMeans algorithm to cluster sepal length and petal width.
+Say we want to use our K-Means algorithm to cluster the flowers' sepal length and petal width.
 
-.. image of just sepal length and petal width shown
+.. code:: python
+    plt.scatter(df["sepal length (cm)"], df["petal width (cm)"])
+    plt.xlabel("sepal length (cm)")
+    plt.ylabel("petal width (cm)")
+    plt.show()
 
-To create a ``KMeans`` object, we just have to tell it how many clusters we are looking for.
+.. image:: /_static/figures/petal_sepal.png
+
+One species of Iris flower is clearly seen in the bottom left, but the other two are not as distinct. To cluster them, we create a ``KMeans`` object. We set the number of clusters, and a random state so the output is deterministic (for testing purposes).
 
 .. code:: python
 
-	kmeans = KMeans(n_clusters=3)
+	kmeans = KMeans(n_clusters=3, random_state=42)
 
-In ``sklearn`` and most other ML libraries, models are trained by calling ``fit(X)`` on the model. Calling this method causes the object to perform all the calculations, and in our case, find the clusters. Calling ``predict(X)`` on a model will get predictions for the data passed in. In our case, this would be the cluster each data point in ``X`` belongs in.
+In ``sklearn`` and most other ML libraries, models are trained by calling ``fit(X)`` on the model. Calling this method causes the object to perform all the calculations and in our case, find the clusters for ``X``. Calling ``predict(X)`` on a model will get predictions for the data passed in. In our case, this would be the cluster each data point in ``X`` belongs in.
 
 .. code:: python
 
-	test_data = df[["sepal length (cm)", "petal width (cm)"]]	# get the two columns
-	kmeans.fit(test_data)										# train kmeans on the data
-	cluster_predictions = kmeans.predict(test_data)				# get the cluster predictions using predict
+    X = df[["sepal length (cm)", "petal width (cm)"]]	# get the two columns
+    kmeans.fit(X)										# train the kmeans object on X
+    cluster_predictions = kmeans.predict(X)				# get the cluster predictions using predict
 
 Now we can plot these predictions by color:
 
 .. code:: python
 	
-	import matplotlib.pyplot as plt
-	import numpy as np
-
-	np.random.seed(42)									# makes it so we get the same result each time even with randomness
+    import matplotlib.pyplot as plt
+    import numpy as np
 
     colors = ['tab:blue', 'tab:orange', 'tab:green']
 
-	# zip iterates through each of the predictions, colors, and target names
+    # zip iterates through each of the predictions and colors at the same time
     for prediction, color in zip(np.unique(cluster_predictions), colors):
         mask = cluster_predictions == prediction        # create a mask that will mask out everything that isn't the given target
         plt.scatter(df.loc[mask, "sepal length (cm)"],  # get all the sepal lengths that were classified as the given target
@@ -180,12 +201,14 @@ Now we can plot these predictions by color:
 .. image:: _static/figures/clustered_petal_sepal.png
 	:align: center
 
-We can see our results look fairly reasonable. We can check by using the labels in ``targets``.
+We can see our results look fairly reasonable. We can check by using the actual labels contained in  ``targets``.
 
 .. code:: python
 
-    for target, marker, in zip(np.unique(targets), markers):							# for the actual labels (marker type)
-        for prediction, color in zip(np.unique(cluster_predictions), marker_colors):	# for the predictions (color)
+    # for each actual labels (use a different marker type like circles, squares, or triangles)
+    for target, marker, in zip(np.unique(targets), markers):                        
+        # for each prediction (color)    
+        for prediction, color in zip(np.unique(cluster_predictions), marker_colors):
             mask = (target == targets) & (prediction == cluster_predictions)
             plt.scatter(df.loc[mask, "sepal length (cm)"],
                         df.loc[mask, "petal width (cm)"],
@@ -202,13 +225,13 @@ We can see our results look fairly reasonable. We can check by using the labels 
     handles.extend([lines.Line2D([0], [0], marker='.', color=color, linestyle='None', label=f"{label} predicted") for color, label, in zip(marker_colors, target_names)])
     plt.legend(handles, ["setosa actual", "versicolor actual", "virginica actual", "setosa predicted", "versicolor predicted", "virginica predicted"])
 
-    # add the cluster centers with a "+" marker
+    # show the cluster centers with a "+" marker
     centers = kmeans.cluster_centers_
     plt.scatter(centers[:, 0], centers[:, 1], marker="+", color="black", s=40)
 
     plt.show()
 
-.. image:: _static/figures/clustered_oetal_sepal_labeled.png
+.. image:: _static/figures/clustered_petal_sepal_labeled.png
 	:align: center
 
 As you can see, our clustering algorithm did fairly well.
@@ -216,30 +239,45 @@ As you can see, our clustering algorithm did fairly well.
 Task 1
 ------
 
-In the example above, we used ``sepal length`` and ``petal width`` for our clustering. Follow the same process with two different measurements of your choosing.
+In the example above, we used ``sepal length (cm)`` and ``petal width (cm)`` for our clustering. Follow the same process with two different measurements of your choosing.
 
-.. in codebuddy, set x and y to the string measurements, then we can write code that will replicate it for those measurements. As long as they use the similar plotting code, it should be fine
+>>> df.columns
+Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'], dtype='object')
 
-.. The K-means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
+.. in codebuddy, write a function that will do the entrie process based on a given x and y feature. As long as they use the similar plotting code, it should be fine
 
+.. The K-Means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-Means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
 
-Detecting Active Earthquake Regions
------------------------------------
+Application: Detecting Active Earthquake Regions
+------------------------------------------------
 
 Suppose we are interested in learning about which regions are prone to experience frequent earthquake activity. 
-We could make a map of all earthquakes over a given period of time and examine it ourselves, but this, as an unsupervised learning problem, can be solved using our k-means clustering tool.
-
-
+We could make a map of all earthquakes over a given period of time and examine it ourselves, but this, as an unsupervised learning problem, can be solved using K-Means clustering.
 
 .. figure:: _static/figures/earthquakes.png
-	:width: 95 %
+	:width: 70%
 	:align: center
 
 	Earthquake epicenters over a 6 month period.
 
+.. Thought: What if we had them cluster in 2d as an easy mode, and then we can be like, wait, but the earth actually isn't flat. So we should cluster in 3d instead. Then have them do that and see how it is different.
+
 The file ``earthquake_coordinates.npy`` contains earthquake data throughout the world from January 2010 through June 2010. 
 Each row represents a different earthquake; the columns are scaled longitude and latitude measurements. 
-We want to cluster this data into active earthquake regions. 
+We want to cluster this data into active earthquake regions.
+
+Task 2
+------
+
+Write a function ``cluster_ll(file, k)`` that takes in a filename and number of clusters and performs K-Means clustering on the data for ``k`` clusters and returns the cluster predictions and cluster centers. Then, plot the data for k=5, 10, and 15 clusters. A plotting function will be given to you in codebuddy.
+
+.. just check cluster_ll on codebuddy
+
+More Accurate Clustering
+------------------------
+
+
+
 For this task, we might think that we can regard any epicenter as a point in :math:`\mathbb R^2` with coordinates being their latitude and longitude. 
 This, however, would be incorrect, because the earth is not flat. 
 Instead, latitude and longitude should be viewed in spherical coordinates in :math:`\mathbb R^3`, which could then be clustered.
@@ -263,7 +301,7 @@ We can then transform to Euclidean coordinates using the following relationships
 There is one last issue to solve before clustering. 
 Each earthquake data point has norm :math:`1` in Euclidean coordinates, since it lies on the surface of a sphere of radius :math:`1`. 
 Therefore, the cluster centers should also have norm :math:`1`. 
-Otherwise, the means can’t be interpreted as locations on the surface of the earth, and the k-means algorithm will struggle to find good clusters. 
+Otherwise, the means can’t be interpreted as locations on the surface of the earth, and the K-Means algorithm will struggle to find good clusters. 
 A solution to this problem is to normalize the mean vectors at each iteration, so that they are always unit vectors.
 
 
@@ -287,7 +325,7 @@ A solution to this problem is to normalize the mean vectors at each iteration, s
 
 .. With 15 clusters, your plot should resemble this figure.
 
-.. .. figure:: _static/figures/earthquake-color.png
+.. .. image:: _static/figures/earthquake-color.png
 .. 	:width: 95 %
 
 
@@ -295,7 +333,7 @@ A solution to this problem is to normalize the mean vectors at each iteration, s
 Task 2
 ------
 
-We will be using the K-means algorithm to classify earthquake data; however, this data is recorded in latitudinal and longitudinal coordinates. This is problematic as applying the 2-norm (Euclidean distance) to this coordinate system fails to yield the measures we expect to see because of distortion. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates before running the K-means algorithm.
+We will be using the K-Means algorithm to classify earthquake data; however, this data is recorded in latitudinal and longitudinal coordinates. This is problematic as applying the 2-norm (Euclidean distance) to this coordinate system fails to yield the measures we expect to see because of distortion. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates before running the K-Means algorithm.
 
 Write a function, ``ll_to_euc(X)``, that takes an array of longitudinal and latitudinal (in that order) coordinates, ``X``, and converts them to 3-dimensional Euclidean coordinates. Do this by writing and using two functions: a function, ``ll_to_sph(X)``, that takes an array of longitudinal and latitudinal (in that order) coordinates, ``X``, and converts them into spherical coordinates and a function, ``sph_to_euc(X)``, that takes an array of spherical coordinates, ``X``, and converts them into 3-dimensional Euclidean coordinates.
 
@@ -311,11 +349,11 @@ Write a function, ``euc_to_ll(X)``, that takes an array of 3-dimensional Euclide
 Task 4
 ------
 
-Use your code from the previous tasks alongside the provided K-means code to write a function, ``classify_geo(X, k, seed)``, that takes an array of geographical data, ``X``, and does the following:
+Use your code from the previous tasks alongside the provided K-Means code to write a function, ``classify_geo(X, k, seed)``, that takes an array of geographical data, ``X``, and does the following:
 
 1. Convert the geographical data, ``X``, to 3-dimensional Euclidean coordinates
 
-2. Fit a K-means classifier on the Euclidean data with the given ``k`` and ``seed``
+2. Fit a K-Means classifier on the Euclidean data with the given ``k`` and ``seed``
 
 3. Predict the clusters for the Euclidean data with the fitted classifier
 
@@ -323,27 +361,28 @@ Use your code from the previous tasks alongside the provided K-means code to wri
 
 5. Plot the original data, ``X``, colored by its classification labels. 
 
-Make sure to set ``normalize=True`` for your K-means classifier and to use ``seed=42``. Use ``np.load`` to read ``.npy`` files and ``np.loadtxt`` to read ``.txt`` files into a ``np.ndarray``.
+Make sure to set ``normalize=True`` for your K-Means classifier and to use ``seed=42``. Use ``np.load`` to read ``.npy`` files and ``np.loadtxt`` to read ``.txt`` files into a ``np.ndarray``.
 
 
+.. Make this a bonus activity. Really really hand-holdy. I think it is a really neat activity (especially visually), but for those who aren't inerested in this kind of thing, it seems like it would just be too intense with the other things.
 
 Color Quantization
 ------------------
 
-The k-means algorithm uses the euclidean metric, so it is natural to cluster geographic data. 
+The K-Means algorithm uses the euclidean metric, so it is natural to cluster geographic data. 
 However, clustering can be done in any abstract vector space. The following application is one example.
 
 Images are usually represented on computers as 3-dimensional arrays. 
 Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`. 
-Clustering the pixels in RGB space leads a one kind of image segmentation that facilitate memory reduction. 
-(If you would like to read more – go to `<https://en.wikipedia.org/wiki/Color_quantization>`_)
+Clustering the pixels in RGB space leads a one kind of image segmentation that facilitates memory reduction. 
+(If you would like to read more, go to `<https://en.wikipedia.org/wiki/Color_quantization>`_)
 
 .. Task 2
 .. ------
 
 .. Write a function that accepts an image array (of shape ``(m, n, 3)``), an integer number of clusters ``k``, and an integer number of samples ``S``. 
 .. Reshape the image so that each row represents a single pixel. 
-.. Choose ``S`` pixels to train a k-means model on with ``k`` clusters. 
+.. Choose ``S`` pixels to train a K-Means model on with ``k`` clusters. 
 .. Make a copy of the original picture where each pixel has the same color as its cluster center. 
 .. Return the new image. 
 .. You may use ``sklearn.cluster.KMeans`` instead of your implementation from the previous problem.
@@ -361,7 +400,7 @@ Write a function, ``quantize_image(X, n_clusters, n_samples, seed)``, that takes
 
 3. Randomly sample ``n_samples`` pixels (shape ``(n_samples, 3)``) from the flattened image uniformly (use ``np.random.randint``)
 
-4. Fit a K-means classifier of ``n_clusters`` clusters to the random sample
+4. Fit a K-Means classifier of ``n_clusters`` clusters to the random sample
 
 5. Predict the clusters for the entire flattened image using the fitted classifier
 
@@ -371,7 +410,7 @@ Write a function, ``quantize_image(X, n_clusters, n_samples, seed)``, that takes
 
 8. Return the recolored image
 
-Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). Also, you will not need to specify the ``seed`` for your K-means classifier since you will set it manually. Your code will be tested using the file given in CodeBuddy.
+Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). Also, you will not need to specify the ``seed`` for your K-Means classifier since you will set it manually. Your code will be tested using the file given in CodeBuddy.
 
 
 
