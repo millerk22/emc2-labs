@@ -3,26 +3,19 @@ Lab 24601: Networks and Eigenvector Centrality
 ==============================================
 
 In this lab, you will learn how to model real-world networks as mathematical networks and adjacency matrices. 
+You will also learn how to compute the importance of nodes in a network using PageRank Centrality, which is the basis of Google's search algorithm.
 
-A network is a collection of nodes. 
-Nodes are objects that are connected by edges. 
-You can think about it like houses (nodes) being connected to other houses by roads (edges) in a neighborhood (network).
-Networks can model everything from social media friendships to international alliances.
-Some networks are directed, meaning each edge has a specific direction.
-An example of this could be a supply chain where products are always sent from one firm to another.
+Graph Theory Background
+------------------------
 
-Directed networks have become very important in modeling the internet.
-We let websites/pages be the nodes, connected by various hyperlinks acting as directed edges.
-Networks like this allow search engines such as Google or Microsoft Edge to rank pages based on importance or relevance.
+Graph theory is the study of mathematical structures called graph (networks), which consist of nodes (vertices) connected by edges. 
+These graphs can represent relationships between objects—-like friendships between people, roads between cities, or links between web pages. 
+At its core, graph theory explores how these connections form patterns and what those patterns tell us about the underlying structure.
+
+
+We can apply networks for studying the internet: we model websites as nodes in the graph which are connected by various hyperlinks acting as edges.
+Networks like this allow have traditionally allowed search engines such as Google to rank pages based on importance or relevance.
 In this lab we will walk you through this process of finding the importance of pages.
-
-
-.. note::
-
-    If you pursue a future in math you will learn about graph theory, which is the study of abstract structures.
-    It gives you mathematical tools to solve problems involving connections.
-    Networks are a type of graph.
-    Nodes are synonymous to vertices and edges are the same as links.
 
 
 Adjacency Matrices
