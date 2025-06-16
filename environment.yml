@@ -11,3 +11,5 @@ dependencies:
   - numpy
   - matplotlib
   - pandas
+  - scikit-image
+  - imageio
