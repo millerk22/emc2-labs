@@ -13,3 +13,4 @@ dependencies:
   - pandas
   - scikit-image
   - imageio
+  - scikit-learn
