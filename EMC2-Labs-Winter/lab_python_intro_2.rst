@@ -3,6 +3,28 @@ Lab 8675309: Introduction to Python, Revisited
 
 This lab covers additional topics in Python and NumPy that will expand your programming knowledge.
 
+f-strings
+---------
+
+Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including string concatenation with ``+``).
+
+An f-string is declared by placing an ``f`` in front of the string. ``{}`` can be used inside f-strings to get the ``str`` value of python code.
+
+>>> a = 10
+>>> b = 37
+>>> print(f"The value of a is: '{a}'")
+The value of a is: '10'
+>>> print(f'The value of a * b is: {a * b}')
+The value of a * b is: 370
+
+.. Note::
+    In the example above we used single quotes ``''`` inside double quotes ``""``. This is necessary if we want to include single quotes in our string. If you want to have both single and double quotes inside the f-string, just create the f-string ``"""`` or ``'''``.
+
+    >>> print(f"""'This' is too many "quotes".""")
+    'This' is too many "quotes".
+
+f-strings also make it possible for fancier formatting. Check out the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_ to learn more.
+
 Lambda Functions
 ----------------
 
@@ -96,7 +118,7 @@ Here is an example of sorting a list of tuples by the second element.
 [(4, 1), (2, 2), (1, 3)]
 
 .. note::
-    ``sorted()`` only works with 1d ``numpy.ndarrays`` which is why we are using Python lists in this task.
+    The ``sorted()`` function works great for lists, but has limitations when it comes to NumPy arrays which is why we are using Python lists in this task.
 
 Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of ``tuples`` and returns the list sorted by the mean of each tuple. 
 Make sure to assign your ``lambda`` function to the ``key`` parameter of ``sorted()``!
@@ -215,28 +237,6 @@ Additionally, you can have default parameters for functions. This way, the user 
 98.0
 >>> calculate_force(10, acceleration=3.73)  # mars
 70
-
-f-strings
----------
-
-Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including string concatenation with ``+``).
-
-An f-string is declared by placing an ``f`` in front of the string. ``{}`` can be used inside f-strings to get the ``str`` value of python code.
-
->>> a = 10
->>> b = 37
->>> print(f"The value of a is: '{a}'")
-The value of a is: '10'
->>> print(f'The value of a * b is: {a * b}')
-The value of a * b is: 370
-
-.. Note::
-    In the example above we used single quotes ``''`` inside double quotes ``""``. This is necessary if we want to include single quotes in our string. If you want to have both single and double quotes inside the f-string, just create the f-string ``"""`` or ``'''``.
-
-    >>> print(f"""'This' is too many "quotes".""")
-    'This' is too many "quotes".
-
-f-strings also make it possible for fancier formatting. Check out the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_ to learn more.
 
 Dictionaries
 ------------
