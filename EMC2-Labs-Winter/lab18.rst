@@ -239,7 +239,7 @@ As you can see, our clustering algorithm did fairly well.
 Task 1
 ------
 
-In the example above, we used ``sepal length (cm)`` and ``petal width (cm)`` for our clustering. Follow the same process with two different measurements of your choosing.
+In the example above, we used K-Means on  ``sepal length (cm)`` and ``petal width (cm)``. Follow the same process with two different measurements of your choosing.
 
 >>> df.columns
 Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'], dtype='object')
@@ -248,10 +248,61 @@ Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal widt
 
 .. The K-Means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-Means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
 
+
+Application: Color Quantization
+-------------------------------
+
+.. The K-Means algorithm uses the euclidean metric, so it is natural to cluster geographic data. 
+.. However, clustering can be done in any abstract vector space. The following application is one example.
+
+Another application of the K-Means algorighm is color quantization, a process that reduces the size of images by reducing the number of unique colors in the image. It does this by taking colors that are close to each other (based on the specified distance algorithm, for us this is Euclidean distance), and merging them into one color.
+
+.. figure:: _static/figures/cosmo_quantization.png
+    :align: center
+
+Images are usually represented on computers as 3-dimensional arrays. 
+Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`.
+
+.. Task 2
+.. ------
+
+.. Write a function that accepts an image array (of shape ``(m, n, 3)``), an integer number of clusters ``k``, and an integer number of samples ``S``. 
+.. Reshape the image so that each row represents a single pixel. 
+.. Choose ``S`` pixels to train a K-Means model on with ``k`` clusters. 
+.. Make a copy of the original picture where each pixel has the same color as its cluster center. 
+.. Return the new image. 
+.. You may use ``sklearn.cluster.KMeans`` instead of your implementation from the previous problem.
+
+.. Test your code with different values of ``k`` and ``S`` on some of the images from `<https://www.nasa.gov/multimedia/imagegallery/index.html>`_. Include one of your color-quantized pictures in your submitted lab.
+
+Task 2a
+-------
+
+Write a function, ``quantize_image(X, n_clusters)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), a number of clusters, ``n_clusters`` and does the following:
+
+#. Flatten the image such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape``.
+
+#. Fit a K-Means classifier of ``n_clusters`` clusters to the random sample
+
+#. Predict the clusters for the entire flattened image using the fitted classifier
+
+#. Recolor the pixels in the flattened image to the coloration of their corresponding cluster centers
+
+#. Unflatten the recolored image (shape ``(m, n, 3)``)
+
+#. Return the recolored image
+
+Make sure to set ``random_state=42`` when you create your ``KMeans`` object! Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). You can test your code with the file given in CodeBuddy.
+
+Task 2b
+-------
+
+Use your code from the previous exercise to perform color quantization on one of the images in CodeBuddy until you generate an image you are satisfied with.
+
 Application: Detecting Active Earthquake Regions
 ------------------------------------------------
 
-Suppose we are interested in learning about which regions are prone to experience frequent earthquake activity. 
+Suppose we are interested in learning about which regions are prone to frequent earthquake activity. 
 We could make a map of all earthquakes over a given period of time and examine it ourselves, but this, as an unsupervised learning problem, can be solved using K-Means clustering.
 
 .. figure:: _static/figures/earthquakes.png
@@ -262,6 +313,14 @@ We could make a map of all earthquakes over a given period of time and examine i
 
 .. Thought: What if we had them cluster in 2d as an easy mode, and then we can be like, wait, but the earth actually isn't flat. So we should cluster in 3d instead. Then have them do that and see how it is different.
 
+There is one last issue to solve before clustering. 
+Each earthquake data point has norm :math:`1` in Euclidean coordinates, since it lies on the surface of a sphere of radius :math:`1`. 
+Therefore, the cluster centers should also have norm :math:`1`. 
+Otherwise, the means can't be interpreted as locations on the surface of the earth, and the K-Means algorithm will struggle to find good clusters. 
+A solution to this problem is to normalize the mean vectors at each iteration, so that they are always unit vectors.
+
+
+
 The file ``earthquake_coordinates.npy`` contains earthquake data throughout the world from January 2010 through June 2010. 
 Each row represents a different earthquake; the columns are scaled longitude and latitude measurements. 
 We want to cluster this data into active earthquake regions.
@@ -269,41 +328,30 @@ We want to cluster this data into active earthquake regions.
 Task 2
 ------
 
-Write a function ``cluster_ll(file, k)`` that takes in a filename and number of clusters and performs K-Means clustering on the data for ``k`` clusters and returns the cluster predictions and cluster centers. Then, plot the data for k=5, 10, and 15 clusters. A plotting function will be given to you in codebuddy.
+Write a function ``cluster_ll(X, k)`` that takes in a filename and number of clusters and performs K-Means clustering on the data for ``k`` clusters and returns the cluster predictions and cluster centers. Then, plot the data for k=5, 10, and 15 clusters. A plotting function will be given to you in codebuddy.
 
 .. just check cluster_ll on codebuddy
 
-More Accurate Clustering
-------------------------
-
-
-
-For this task, we might think that we can regard any epicenter as a point in :math:`\mathbb R^2` with coordinates being their latitude and longitude. 
-This, however, would be incorrect, because the earth is not flat. 
-Instead, latitude and longitude should be viewed in spherical coordinates in :math:`\mathbb R^3`, which could then be clustered.
-
+Task 3
+------
 
 A simple way to accomplish this transformation is to first transform the latitude and longitude values to spherical coordinates, and then to Euclidean coordinates. 
 Recall that a spherical coordinate in :math:`\mathbb R^3` has three coordinates :math:`(r,\theta,\varphi)`, where :math:`r` is the distance from the origin, :math:`\theta` is the radial angle in the :math:`xy`-plane from the :math:`x`-axis, and :math:`\varphi` is the angle from the :math:`z`-axis. 
-In our earthquake data, once the longitude is converted to radians it is an appropriate :math:`\theta` value; the latitude needs to be offset by :math:`90` degrees, then converted to radians to obtain :math:`\varphi`.
-For simplicity we can take :math:`r=1`, since the Earth is roughly a sphere.
-We can then transform to Euclidean coordinates using the following relationships.
+For simplicity we will represent the Earth as a perfect sphere with :math:`r=1`.
+
+Use the following relationships to write ``ll_to_sph(X)`` that transforms a list of longitudinal and latitudinal coordinates, :math:`(\text{longitude}, \text{latitude})`, to spherical coordinates :math:`(r,\theta,\varphi)`.
 
 .. math::
 	\theta = \frac{\pi}{180} \times \text{longitude} \qquad \varphi = \frac{\pi}{180}\times (90-\text{latitude})
 
+Then, use the following relationships to write ``sph_to_euc(X)`` that transforms a list of spherical coordinates :math:`(r,\theta,\varphi)` to euclidean coordinates :math:`(x, y, z)`.
+
 .. math::
-	r &= \sqrt{x^2+y^2+z^2} \qquad &x=r\sin\varphi\cos\theta \\
-	\varphi &= \arccos \frac{z}{r} &y= r\sin\varphi\sin\theta \\
-	\theta &= \arctan \frac yx  &z=r\cos\varphi
+    x=r\sin\varphi\cos\theta \\
+    y=r\sin\varphi\sin\theta \\
+    z=r\cos\varphi
 
-
-There is one last issue to solve before clustering. 
-Each earthquake data point has norm :math:`1` in Euclidean coordinates, since it lies on the surface of a sphere of radius :math:`1`. 
-Therefore, the cluster centers should also have norm :math:`1`. 
-Otherwise, the means can’t be interpreted as locations on the surface of the earth, and the K-Means algorithm will struggle to find good clusters. 
-A solution to this problem is to normalize the mean vectors at each iteration, so that they are always unit vectors.
-
+Then, combine these functions to create ``ll_to_euc(X)``.
 
 .. Task 1
 .. ------
@@ -329,7 +377,6 @@ A solution to this problem is to normalize the mean vectors at each iteration, s
 .. 	:width: 95 %
 
 
-
 Task 2
 ------
 
@@ -340,6 +387,14 @@ Write a function, ``ll_to_euc(X)``, that takes an array of longitudinal and lati
 
 Task 3
 ------
+
+Once we are able to get the euclidean coordinates and run them through our K-Means clustering algorighm, we want to be able to plot the results. To do this, we need to convert back from euclidean coordinates to longitude and latitude.
+
+.. math:: 
+
+	r &= \sqrt{x^2+y^2+z^2} \qquad
+	\varphi &= \arccos \frac{z}{r}
+	\theta &= \arctan \frac yx
 
 We would still like to plot our data in longitudinal and latitudinal coordinates. As such, we need to be able to convert from 3-dimensional coordinates back to longitudinal and latitudinal coordinates.
 
@@ -362,63 +417,3 @@ Use your code from the previous tasks alongside the provided K-Means code to wri
 5. Plot the original data, ``X``, colored by its classification labels. 
 
 Make sure to set ``normalize=True`` for your K-Means classifier and to use ``seed=42``. Use ``np.load`` to read ``.npy`` files and ``np.loadtxt`` to read ``.txt`` files into a ``np.ndarray``.
-
-
-.. Make this a bonus activity. Really really hand-holdy. I think it is a really neat activity (especially visually), but for those who aren't inerested in this kind of thing, it seems like it would just be too intense with the other things.
-
-Color Quantization
-------------------
-
-The K-Means algorithm uses the euclidean metric, so it is natural to cluster geographic data. 
-However, clustering can be done in any abstract vector space. The following application is one example.
-
-Images are usually represented on computers as 3-dimensional arrays. 
-Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`. 
-Clustering the pixels in RGB space leads a one kind of image segmentation that facilitates memory reduction. 
-(If you would like to read more, go to `<https://en.wikipedia.org/wiki/Color_quantization>`_)
-
-.. Task 2
-.. ------
-
-.. Write a function that accepts an image array (of shape ``(m, n, 3)``), an integer number of clusters ``k``, and an integer number of samples ``S``. 
-.. Reshape the image so that each row represents a single pixel. 
-.. Choose ``S`` pixels to train a K-Means model on with ``k`` clusters. 
-.. Make a copy of the original picture where each pixel has the same color as its cluster center. 
-.. Return the new image. 
-.. You may use ``sklearn.cluster.KMeans`` instead of your implementation from the previous problem.
-
-.. Test your code with different values of ``k`` and ``S`` on some of the images from `<https://www.nasa.gov/multimedia/imagegallery/index.html>`_. Include one of your color-quantized pictures in your submitted lab.
-
-Task 5a
--------
-
-Write a function, ``quantize_image(X, n_clusters, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), a number of clusters, ``n_clusters``, and a number of samples, ``n_samples``, and an optional seed for random number generation, ``seed``, and does the following:
-
-1. Flatten the image such that each row represents a single pixel (shape ``(m * n, 3)``)
-
-2. Set the seed for random number generation if given (use ``np.random.seed(seed)``)
-
-3. Randomly sample ``n_samples`` pixels (shape ``(n_samples, 3)``) from the flattened image uniformly (use ``np.random.randint``)
-
-4. Fit a K-Means classifier of ``n_clusters`` clusters to the random sample
-
-5. Predict the clusters for the entire flattened image using the fitted classifier
-
-6. Recolor the pixels in the flattened image to the coloration of their corresponding cluster centers
-
-7. Unflatten the recolored image (shape ``(m, n, 3)``)
-
-8. Return the recolored image
-
-Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). Also, you will not need to specify the ``seed`` for your K-Means classifier since you will set it manually. Your code will be tested using the file given in CodeBuddy.
-
-
-
-Task 5b
--------
-
-Use your code from the previous exercise to perform color quantization on one of the images in CodeBuddy until you generate an image you are satisfied with.
-
-
-
-
