@@ -96,6 +96,9 @@ If we could only rely on class attributes and instance attributes, working with 
 >>> pen.write("Hello Pencil!")
 'Hello Pencil!' written in green
 
+.. Note::
+    Methods, like functions, are called with ``()``, while attributes, like variables, are not called with ``()``.
+
 Task 1: Rectangle
 -----------------
 Create a ``Rectangle`` class that has instance variables ``length``, and ``width``. Write methods called ``area`` and ``perimeter`` that compute the area and perimeter of the rectangle.
