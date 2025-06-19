@@ -62,8 +62,8 @@ In your notebook type the following into the cell:
 .. note::
    ``>>>`` indicates that the code that follows should be typed into a cell!
 
-As you might expect, this is a command which tells the notebook to display the phrase ``Hello world!`` below the cell. 
-In order to tell Python to actually perform this command, we must execute the cell, by holding down the Shift button and pressing Return or Enter.
+As you might expect, this is a command which tells the notebook to display the phrase ``Hello World!`` below the cell. 
+In order to tell Python to actually perform this command, we must execute the cell by holding down the Shift button and pressing Return/Enter or by clicking the run button in the upper left of the cell.
 
 Execute this cell. You should see the following:
 
@@ -108,23 +108,22 @@ For example, to compute :math:`15 × 3 − 81 ÷ 9`, we would enter
 36.0
 
 .. note:: 
-   The output is ``36.0``, not ``36``, because we used division.
-   Python now treats the output like a decimal number instead of an integer.
-   In Python, the decimal number data type is called ``float``, which stands for floating point number.
-   The integer data type is called ``int``.
+   You may have noticed that the output is ``36.0``, not ``36``. This is because of differnt Python data types.
+   A data type is simply how Python represents different groups of data.
+   You have already seen ``int`` data types which are just integer numbers (``15``, ``3``, ``81``, ``9``), but division requires a ``float`` data type (``float`` stands for floating point number) to represent decimal numbers.
+   This is why we get ``36.0`` from our expression, and not ``36``.
 
-   If we want to force the output to be an ``int`` instead, we can use integer division: ``//``:
+   If we want to force the output to be an ``int`` we can use integer division (``//``) instead:
 
    >>> 15 * 3 - 81 // 9
    36
 
-   This works as expected. 
-   Be careful, though: if you use integer division and the result is not an integer, Python will round down:
+   ``//`` is also called floor division because it "floors" any number by removing the decimal. This means we need to be careful when using floor division.
 
-   >>> 7 // 2
-   3
    >>> 7 / 2
    3.5
+   >>> 7 // 2
+   3
 
 We can compute exponentiation using the ``**`` operator. 
 For example, we can compute :math:`2^5`  by typing the following.
@@ -135,6 +134,8 @@ For example, we can compute :math:`2^5`  by typing the following.
    Practice: Compute the values of :math:`(13 − 17) × 6` and :math:`2^3 + 21` in your practice notebook. 
    You should get ``-24`` and ``29`` respectively as your answers.
 
+.. note::
+   In Python, ``**`` is used for exponentiation. A common mistake is to use ``^``, which is used in other applications (such as LaTeX, which you will learn a little bit about later) to represent exponentiation.
 
 Output and print statements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,7 +169,14 @@ following code:
 
 >>> a = 2
 
-After executing this cell, the variable ``a`` can be used in other cells within this notebook, and
+To see the value of ``a``, we have a few options:
+
+>>> a
+2
+>>> print(a)
+2
+
+Now, the variable ``a`` can be used in other cells within this notebook, and
 when executing these statements Python will replace the variable ``a`` with the value currently
 stored there.
 
@@ -197,7 +205,7 @@ The following does *not* work. (Try it out!)
 >>> y = x
 >>> print(x,y)
 
-To swap variables, we can introduce a
+To swap variables, we have to introduce a
 "placeholder" variable as follows:
 
 >>> x = 2
@@ -233,7 +241,7 @@ True
 
 Notice that the commands ``a=5`` and ``a==5`` have different meanings in the above code. In the
 first case we are assigning the value of ``5`` to the variable ``a``, while in the second case we are
-checking the value of ``a`` and testing if it equals the number ``5``.
+checking the value of ``a`` and testing if it equals the number ``5``. This is a very important difference in Python syntax.
 
    Practice: What will the output of the following cell be?
 
@@ -248,9 +256,13 @@ For example, variables can represent strings (``str``), which are sequences of c
 which are variables that are either ``True`` or ``False``.
 
 >>> c = "my string"
+>>> print(c)
+my string
 >>> b = 7 > -2
->>> print(b, c)
-True my string
+>>> print(b)
+True
+
+Each data type we have used so far (``int``, ``float``, ``str``, and ``bool``) operate differently from the others. We will get into more of these details later. For right now, you just need to know they exist.
 
 .. admonition:: Lab Instructions
 
@@ -278,10 +290,9 @@ which is ``20``. Save the actual expression with the addition, multiplication, d
 Functions, Part 1
 -----------------
 
-In computer programming, like in mathematics, a function is an object which accepts as
-input values from some set, and produces output which depends both on the input values and
-some given rules. In Python we illustrate how to define simple functions with the following
-example.
+In computer programming, like in mathematics, a function is something that accepts
+input values (called parameters) and produces an output. Functions are one of the core building blocks of programming.
+In Python we illustrate how to define simple functions with the following example.
 
 Type the following into a cell, and execute it.
 
@@ -295,16 +306,21 @@ Here we have defined a function called ``reciprocal``, which has a single input 
 first line of the function definition begins with ``def``, followed by the name of the function, the
 parameters it accepts in parentheses, and ends with a colon. Each line in the remainder of
 the function **must be indented** (which Colab will do for you automatically), and the function
-definition ends with a ``return`` statement that defines what the output of the function will be. It
-is customary to put a docstring directly below the def statement, which is a note (using ``"""`` or ``'''``) designed
-to describe the purpose of the function to the user. 
-(You can put additional notes throughout code with a comment. A comment is anything written after a ``#``; Python will ignore it.)
-In the case of our function ``reciprocal``, it
-accepts a single value ``n`` as its input, and it returns the value ``1/n`` as its output. To evaluate our
-function on a given input, we write it much as one might expect:
+definition ends with a ``return`` statement that defines what the output of the function will be.
+Any Python function will follow this same format.
+
+It is customary to include a note about what the function does directly below the ``def`` statement, this is called a docstring.
+Additionally, any text written on the same line after a ``#`` will be ignored by Python.
+This is called a comment, and is useful for documenting specifics of how a segment of code works.
+
+To use a function, we use ``()`` to "call" it. Inside the parenthesis, we put our input parameters.
+In the case of our function ``reciprocal``, we can give it a single value ``n`` as its input.
+We should expect the return value to be ``1/n``.
 
 >>> reciprocal(13)
 0.07692307692307693
+
+You can even pass variables into functions.
 
 >>> a = 2
 >>> reciprocal(a)
@@ -384,6 +400,20 @@ access it will result in an error message, indicating that we did something wron
 >>> k
 NameError: name 'k' is not defined
 
+**Global** variables act as a companion to local variables. These variables are accessible anywhere in the program. For example,
+
+>>> a = 10
+
+.. code-block:: python
+
+   def add(n):
+      return a + n
+
+>>> add(4)
+14
+>>> a
+10
+
 We can define functions that accept multiple values as inputs, functions that output
 multiple return values, and functions that call other functions when they are being evaluated.
 
@@ -439,17 +469,14 @@ enclosing them in square brackets ``[]``.
 
 >>> my_list=["Hello",91.7,"world",15,100,-10.2]
 
-Here the list ``my_list`` contains two strings, two floats (decimal values), and two integers. We
-can access any of the elements in a given list, or any subset of the elements by indexing and
-slicing. The elements in a list are all labeled from left to right with an integer index, starting
-at zero. For example, the first element in ``my_list`` is ``"Hello"`` which has index ``0``, the second
-element is ``91.7`` and has index ``1``, and so on. To access any of the individual objects in the list,
-we use a pair of square brackets ``[]`` as in the following example.
+Here the list ``my_list`` contains two strings, two floats (decimal values), and two integers. The benefit of lists is that we can store lots of data and access it easily because each entry in a list is labeled with an index starting at 0. We can access any element in a list "indexing" with ``[]``.
 
 >>> my_list[0]
 Hello
 >>> my_list[4]
 100
+>>> my_list[5]
+-10.2
 
 .. warning::
 
@@ -464,8 +491,7 @@ We can also access elements from the end of a list by using negative numbers.
 >>> my_list[-3]
 15
 
-If we would like to access a range of characters in a list, we can slice the list ``L`` using the
-notation ``L[start:stop]``, where ``start`` and ``stop`` are both integer index values. Using
+If we would like to access a range of characters in a list, we can use "slicing". If we have list ``L``, then we can slice it  using the notation ``L[start:stop]``, where ``start`` and ``stop`` are both integer index values. Using
 this command will return all of the objects in ``L`` that are between the positions ``start`` and ``stop``.
 It will **include** ``start`` and **exclude** ``stop``.
 
@@ -491,8 +517,8 @@ beginning of the list, or stopping at the end.
 .. warning::
    
    There is something you will need to be careful about when using lists in Python, and in
-   particular when you are trying to copy a list. Suppose I create a list, called ``list_a`` with the
-   values ``[1,2,3]``. Suppose I then create a second list ``list_b``, and assign it the value of ``list_a``.
+   particular when you are trying to copy a list. Suppose we create a list, called ``list_a`` with the
+   values ``[1,2,3]``. Then, we create a second list ``list_b``, and assign it the value of ``list_a``.
    As expected, when we print the values of ``list_b`` Python returns the list ``[1,2,3]``.
 
    >>> list_a=[1,2,3]
@@ -733,14 +759,3 @@ returns ``0`` otherwise.
             return the first number
          else:
             return the second number
-
-
-
-
-
-
-
-
-
-
-
