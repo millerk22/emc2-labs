@@ -22,11 +22,11 @@ following simple example of a ``for`` loop.
    3
    4
 
-We’ll first describe what the ``range(5)`` command does. We can think of it as creating a
-list of integers ``[0,1,2,3,4]``, which we will call ``L``, which starts with ``0`` and ends at ``4`` (strictly
-speaking, ``range(5)`` is not a list in Python, it’s a function, but we can think of it as behaving
-like one, and we will refer to it as a "list" anyway). Notice that the second line of code above
-is indented. We think of this as being code that is inside the ``for`` loop. It’s possible to have
+First, the ``range(5)`` function essentally creates a
+list of integers ``[0,1,2,3,4]``, which we will call ``L``, which starts with ``0`` and ends at ``4``.
+``range`` doesn't actually return a list like this, but we can think of it as behaving
+like one, so we will refer to it as a "list" anyway. Notice that the second line of code above
+is indented. We think of this as being code that is inside the ``for`` loop. It's possible to have
 multiple lines of indented code following a ``for`` statement like the one above.
 
 .. admonition:: Range
@@ -43,24 +43,24 @@ multiple lines of indented code following a ``for`` statement like the one above
 
 When Python encounters the statement ``for j in range(5):``, it starts by assigning ``j`` the
 first value in the list ``L``, namely ``0``, and then it proceeds to execute the commands which are
-indented inside the ``for`` loop. In this case, ``print(j)`` is the only command there, and since we
+indented inside the ``for`` loop. In this case, ``print(j)`` is the only command, and since we
 have assigned ``j`` to be ``0``, this prints ``0`` in the output.
 
 
 Once Python has finished executing all of the code inside the ``for`` loop, it then returns to
-the top of the ``for`` loop and passes through it all again. This time, however, it assigns ``j`` to
+the top of the ``for`` loop and continues the same process. This time, however, it assigns ``j`` to
 be the second entry in the list ``L``, which is ``1``. Python again executes the code inside the ``for``
 loop, which again consists only of ``print(j)``. This time, however, ``j = 1``, and hence we see a ``1``
 printed in the output following the ``0``.
 
 After executing the code in the for loop with ``j = 1``, Python then returns again to the top
-of the ``for`` loop at the beginning of the cell. At this point ``j`` takes on the next highest value
+of the ``for`` loop at the beginning of the cell. At this point ``j`` takes on the next value
 in the list ``L``, namely ``2``, and proceeds again to execute the code inside the ``for`` loop. This
 continues until ``j`` has cycled through every value in the list ``L=[0,1,2,3,4]``, and executed the
 code inside the ``for`` loop for each value of ``j``.
 
-We don’t have to use the ``range`` function with ``for`` loops. We can replace ``range`` with
-any ``list`` we’d like. Try the following code out in your ``Sandbox`` notebook.
+We don't have to use the ``range`` function with ``for`` loops. We can replace ``range`` with
+any ``list`` we'd like. Try the following code out in your ``Sandbox`` notebook.
 
 .. code-block:: python
 
@@ -69,7 +69,7 @@ any ``list`` we’d like. Try the following code out in your ``Sandbox`` noteboo
    for item in A:
       print(item)
 
-Now let’s try something slightly more complicated. Consider the following function.
+Now let's try something slightly more complicated. Consider the following function.
 
 .. code-block:: python
 
@@ -82,7 +82,7 @@ Now let’s try something slightly more complicated. Consider the following func
 The function ``summation`` takes as input an integer ``n``, and then adds up all of the integers
 between 0 and ``n``. The function first creates a variable ``sum``, which will keep track of the running
 total of our summation as we add everything up. We will think of our function as adding one
-number at a time, so we initially define the variable ``sum`` so that it has value ``0`` since we haven’t
+number at a time, so we initially define the variable ``sum`` so that it has value ``0`` since we haven't
 added any of the numbers to it yet.
 
 The variable ``i`` in the ``for`` loop then runs through the integers ``0,1,...,n``, and at each step
@@ -139,7 +139,7 @@ Although there are a number of useful functions which are already defined in Pyt
 ``range`` and ``len``, there are many common mathematical functions like ``sin(x)`` and ``log(x)`` which
 are not defined. In order to use these functions (and others), we need to import the NumPy
 package. A package is a collection of functions that have been written in Python, and are
-available to use in our programs so that we don’t have to define these functions ourselves.
+available to use in our programs so that we don't have to define these functions ourselves.
 NumPy is a particularly helpful package that contains many functions which are important for
 doing linear algebra and mathematics in general.
 
@@ -152,9 +152,9 @@ Here we are telling Python to import NumPy. We are also telling Python that we w
 referring to the NumPy package in our code by the shortened ``np``, instead of its full name. You
 will need to do this for every notebook you create that uses NumPy. Furthermore, if you close a
 notebook which has imported NumPy, and then open it again, you will need to re-execute the
-cell containing the command ``import numpy as np`` in order to use any of NumPy’s functions.
+cell containing the command ``import numpy as np`` in order to use any of NumPy's functions.
 
-To use NumPy’s functions in our code, we simply have to include ``np.`` at the beginning of
+To use NumPy's functions in our code, we simply have to include ``np.`` at the beginning of
 the function name.
 
 >>> np.sin(0.5)
@@ -192,7 +192,7 @@ Vectors and Matrices
 
 Another useful feature of the NumPy package is that it also contains functions for dealing
 with vectors and matrices. In NumPy we represent matrices and vectors as arrays. To define
-a NumPy array, we use the function ``np.array``. For example, if we want to create the vector
+a NumPy array, we use the function ``np.array()``. For example, if we want to create the vector
 
 .. math::
    \left[\begin{array}1 1 \\ 2 \\ -1\end{array}\right]
@@ -215,7 +215,7 @@ Alternatively, one could create my_vect simply by writing
 
 To define matrices in NumPy, we define them as "lists of lists". In other words, a matrix
 can be defined by creating a list, whose elements are all lists of the same size that represent the
-rows of the matrix, and then plugging it into the function ``np.array``. For example, to define
+rows of the matrix, and then plugging it into the function ``np.array()``. For example, to define
 the matrix
 
 .. math::
@@ -299,9 +299,9 @@ Elements of NumPy Arrays
 
 We can access elements of a NumPy array the same way we access elements in a list, by
 specifying indices or ranges of indices. Recall that Python lists (and NumPy arrays) begin at
-index ``0``. So if an element of a list or array has index ``3``, that really means it’s the 4th element
+index ``0``. So if an element of a list or array has index ``3``, that really means it's the 4th element
 in the list or array. Furthermore, when we specify a range of indices, say ``my_array[3:7]``,
-the object with index ``3`` is included, but the object with index ``7`` is not included (Python only
+the element with index ``3`` is included, but the element with index ``7`` is not included (Python only
 includes up to index ``6``).
 
 >>> v=np.array([4,1,-5,3,-2,1,0,9])
@@ -315,21 +315,21 @@ includes up to index ``6``).
 [4 1 -5 3]
 
 We can access the entries in a matrix in a similar way to accessing elements of a list, though
-for matrices we have to list two indices (or ranges of indices), to specify the location of the
-row(s) and/or column(s) in which we are interested.
+for matrices we have to list two indices (or ranges of indices). The syntax is ``matrix[row, column]``
+which will return the element at ``row`` and ``column``.
 
 >>> my_matrix=np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
 >>> print(my_matrix)
 [[ 1  2  3  4]
  [-5 -6 -7 -8]
  [ 1  5  2  3]]
->>> print(my_matrix[1,2])
+>>> print(my_matrix[1,2])     # row 1, column 2
 -7
->>> print(my_matrix[2,1:3]) 
+>>> print(my_matrix[2,1:3])   # row 2, columns 1 (inclusive) to 3 (exclusive)
 [5 2]
->>> print(my_matrix[:,3])
+>>> print(my_matrix[:,3])     # all rows, column 3
 [4 -8 3]
->>> print(my_matrix[1])
+>>> print(my_matrix[1])       # row 1
 [-5 -6 -7 -8]
 
 Task 5
@@ -337,7 +337,7 @@ Task 5
 
 Define a function ``first_rpt(M)`` which takes as input a NumPy matrix ``M``,
 and outputs a matrix in which every row of ``M`` has been replaced with the first row.
-Use the ``.copy()`` method to make a copy of ``M`` and only modify the copy.
+Use the ``.copy()`` method to make a copy of ``M`` and only modify the copy, ie ``M_copy = M.copy()``.
 
 >>> my_matrix=np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
 >>> first_rpt(my_matrix)
@@ -366,10 +366,10 @@ executing the code inside this loop. Executing the code inside the ``i`` loop in
 another ``for`` loop though, this time with variable ``j``. The inner ``j`` loop is thus executed, and we
 cycle through all of the ``j`` values, while the ``i`` value stays fixed at ``0``.
 
-Once we’ve finished cycling through all of the ``j`` values, we then exit the inside ``j`` loop, and
+Once we've finished cycling through all of the ``j`` values, we then exit the inside ``j`` loop, and
 return to the top of the outside ``i`` loop. It is at this time that the variable ``i`` is assigned the
 value ``1``, before the inner ``j`` loop is called again, and we cycle through all of the ``j`` values once
-again. This continues until we’ve run through all of the ``i`` values and the ``j`` values. The output
+again. This continues until we've run through all of the ``i`` values and the ``j`` values. The output
 of this code is shown below.
 
 .. code-block:: console
@@ -399,9 +399,12 @@ entries are left alone).
       for i in range(n_rows):    # i represents the row position.
          for j in range(n_cols): # j represents the column position.
             if M[i,j]<0:         # If M[i,j] is negative, we make it positive.
-               M[i,j]=-M[i,j]
+               M[i,j]=-M[i,j]    # Set the new value
       return M
 
+.. Note::
+   ``M.shape`` is **not** a function. It is called an attribute (which we will talk about later).
+   For now, all you need to know is that you don't need to use ``()`` to call it.
 
 In the above function, we first create two variables, ``n_rows`` and ``n_cols`` which store the
 number of rows and columns in ``M`` respectively. After defining these two variables there are two
@@ -411,7 +414,7 @@ as being a row of ``M``), we run through another for loop, this time cycling thr
 indices in ``range(n_cols)``. For each combination of ``i`` and ``j``, we test whether the entry ``M[i,j]``
 in the ``i, j`` location is negative, and if it is we replace it with its absolute value.
 
-We can test that the code does what we think it should using the following.
+Now, we can see if the function actually does what we think it should:
 
 >>> mat=np.array([[1,-1,2,-3,1,1],[-2,-2,0,1,1,-5],[1,1,1,1,-2,-1]])
 >>> print(mat)
@@ -423,7 +426,6 @@ We can test that the code does what we think it should using the following.
 [[1 1 2 3 1 1]
  [2 2 0 1 1 5]
  [1 1 1 1 2 1]]
-
 
 Task 6
 ------
@@ -443,7 +445,7 @@ List Comprehension
 One handy way to define lists (and NumPy arrays) is by using a list comprehension. To
 illustrate how this is done, consider the following.
 
->>> a=[3*i for i in range(10)] 
+>>> a = [3*i for i in range(10)] 
 >>> a
 [0, 3, 6, 9, 12, 15, 18, 21, 24, 27]
 
@@ -458,6 +460,16 @@ to create a list and fill it with numbers of the form ``3*i``, for some values o
 of the list comprehension, the command ``for i in range(10)``, tells Python what values of ``i``
 to use. In other words, we are creating a list with the elements ``3*i``, where ``i`` ranges between
 ``0`` and ``9``.
+
+Here are a few more examples.
+
+>>> b = [np.sqrt(num) for num in [4, 1, 9, 81]]
+>>> b
+[np.float64(2.0), np.float64(1.0), np.float64(3.0), np.float64(9.0)]
+
+>>> c = [len(ele) for ele in ["hello", "EMC2", "lab"]]
+>>> c
+[5, 4, 3]
 
 
 Task 7
@@ -505,7 +517,7 @@ and save it as a variable called ``very_long_list``.
 
 .. hint::
    
-   By looking at the above example try to figure out the order in which the list comprehensions need to be stated. If you don’t obtain the correct answer, try swapping the order
+   By looking at the above example try to figure out the order in which the list comprehensions need to be stated. If you don't obtain the correct answer, try swapping the order
    of the list comprehensions.
 
 
