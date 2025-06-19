@@ -320,10 +320,17 @@ We should expect the return value to be ``1/n``.
 >>> reciprocal(13)
 0.07692307692307693
 
-You can even pass variables into functions.
+You can even pass variables into functions
 
 >>> a = 2
 >>> reciprocal(a)
+0.5
+
+Additionally, you can create a variable from the return value of a function:
+
+>>> a = 2
+>>> b = reciprocal(a)
+>>> b
 0.5
 
 .. warning::
@@ -442,6 +449,16 @@ multiple return values, and functions that call other functions when they are be
 >>> mult_add(3,7)
 24
 
+When we have nested functions like this, Python will step into each function as it encounters it. It will only exit the function when there are no more lines to complete in the function, or it runs into a ``return``. So in this case, Python starts executing our cell, then jumps into ``mult_add``, and then into ``multiply`` before returning from each function in reverse order.
+
+.. code-block::
+
+   Colab Cell
+   ├── mult_add()
+   │   ├── multiply()
+   │   │   └── return
+   │   └── return
+   └── Cell Complete
 
 Task 3
 ------
