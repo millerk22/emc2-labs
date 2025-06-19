@@ -326,12 +326,16 @@ You can even pass variables into functions
 >>> reciprocal(a)
 0.5
 
-Additionally, you can create a variable from the return value of a function:
+A unique feature with ``return`` is that it allows you to do things with the output of a function.
+For example, we can create a variable from the return value of a function:
 
 >>> a = 2
 >>> b = reciprocal(a)
 >>> b
 0.5
+
+A key difference between returning a value from a function and just printing it is that when we return we
+can use the value (as shown above), while when we print, the value is discarded after it printed.
 
 .. warning::
 
@@ -531,6 +535,14 @@ beginning of the list, or stopping at the end.
 >>> L[-2:]
 [5,6]
 
+Finally, list elements can be changed by accessing an element from an array and reassigning it.
+This uses a similar notation to indexing:
+
+>>> my_list=[1,2,3,4]
+>>> my_list[2] = -15
+>>> print(my_list)
+[1,2,-15,4]
+
 .. warning::
    
    There is something you will need to be careful about when using lists in Python, and in
@@ -569,14 +581,6 @@ beginning of the list, or stopping at the end.
    [1,2,3]
    >>> print(list_b)
    [100,2,3]
-
-Finally, we can change lists in a number of ways. One way is to use the index of a list element
-to access that element and to redefine it directly.
-
->>> my_list=[1,2,3,4]
->>> my_list[2] = -15
->>> print(my_list)
-[1,2,-15,4]
 
 
 Task 4
