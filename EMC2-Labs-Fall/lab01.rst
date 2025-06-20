@@ -299,8 +299,7 @@ Type the following into a cell, and execute it.
 .. code-block:: python
 
    def reciprocal(n):
-      """A function that takes the reciprocal of the input n."""
-      return 1/n
+      return 1/n  # calculate the reciprocal
 
 Here we have defined a function called ``reciprocal``, which has a single input parameter ``n``. The
 first line of the function definition begins with ``def``, followed by the name of the function, the
@@ -309,9 +308,7 @@ the function **must be indented** (which Colab will do for you automatically), a
 definition ends with a ``return`` statement that defines what the output of the function will be.
 Any Python function will follow this same format.
 
-It is customary to include a note about what the function does directly below the ``def`` statement, this is called a docstring.
-Additionally, any text written on the same line after a ``#`` will be ignored by Python.
-This is called a comment, and is useful for documenting specifics of how a segment of code works.
+Any text written on the same line after a ``#`` is called a comment. It will be ignored by Python and is useful for documenting specifics of how a segment of code works.
 
 To use a function, we use ``()`` to "call" it. Inside the parenthesis, we put our input parameters.
 In the case of our function ``reciprocal``, we can give it a single value ``n`` as its input.
