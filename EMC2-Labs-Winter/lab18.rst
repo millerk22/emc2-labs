@@ -112,28 +112,28 @@ We also need access to the Iris dataset, which sklearn has built in.
 
 .. code-block:: python
 	
-	>>> df
-		sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
-	0                  5.1               3.5                1.4               0.2
-	1                  4.9               3.0                1.4               0.2
-	2                  4.7               3.2                1.3               0.2
-	3                  4.6               3.1                1.5               0.2
-	4                  5.0               3.6                1.4               0.2
-	..                 ...               ...                ...               ...
-	145                6.7               3.0                5.2               2.3
-	146                6.3               2.5                5.0               1.9
-	147                6.5               3.0                5.2               2.0
-	148                6.2               3.4                5.4               2.3
-	149                5.9               3.0                5.1               1.8
+    >>> df
+        sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
+    0                  5.1               3.5                1.4               0.2
+    1                  4.9               3.0                1.4               0.2
+    2                  4.7               3.2                1.3               0.2
+    3                  4.6               3.1                1.5               0.2
+    4                  5.0               3.6                1.4               0.2
+    ..                 ...               ...                ...               ...
+    145                6.7               3.0                5.2               2.3
+    146                6.3               2.5                5.0               1.9
+    147                6.5               3.0                5.2               2.0
+    148                6.2               3.4                5.4               2.3
+    149                5.9               3.0                5.1               1.8
 
-	[150 rows x 4 columns]
+    [150 rows x 4 columns]
     >>> targets
     0      0
     1      0
     2      0
     3      0
     4      0
-        ..
+          ..
     145    2
     146    2
     147    2
@@ -141,7 +141,7 @@ We also need access to the Iris dataset, which sklearn has built in.
     149    2
     Name: target, Length: 150, dtype: int64
     >>> target_names
-    ['setosa' 'versicolor' 'virginica']
+    array(['setosa', 'versicolor', 'virginica'], dtype='<U10')
 
 .. note::
 	A target in machine learning is the variable we are trying to model or predict. We loaded in ``targets`` which is the labeled data of the Iris dataset (which species it is). We are using this for visualization purposes, and not to train the unsupervised model (which doesn't use labels).
@@ -149,12 +149,15 @@ We also need access to the Iris dataset, which sklearn has built in.
 Say we want to use our K-Means algorithm to cluster the flowers' sepal length and petal width.
 
 .. code:: python
+
+    import matplotlib.pyplot as plt
     plt.scatter(df["sepal length (cm)"], df["petal width (cm)"])
     plt.xlabel("sepal length (cm)")
     plt.ylabel("petal width (cm)")
     plt.show()
 
 .. image:: /_static/figures/petal_sepal.png
+    :align: center
 
 One species of Iris flower is clearly seen in the bottom left, but the other two are not as distinct. To cluster them, we create a ``KMeans`` object. We set the number of clusters, and a random state so the output is deterministic (for testing purposes).
 
@@ -166,9 +169,9 @@ In ``sklearn`` and most other ML libraries, models are trained by calling ``fit(
 
 .. code:: python
 
-    X = df[["sepal length (cm)", "petal width (cm)"]]	# get the two columns
-    kmeans.fit(X)										# train the kmeans object on X
-    cluster_predictions = kmeans.predict(X)				# get the cluster predictions using predict
+    X = df[["sepal length (cm)", "petal width (cm)"]]   # get the two columns
+    kmeans.fit(X)                                       # train the kmeans object on X
+    cluster_predictions = kmeans.predict(X)             # get the cluster predictions using predict
 
 Now we can plot these predictions by color:
 
@@ -177,14 +180,14 @@ Now we can plot these predictions by color:
     import matplotlib.pyplot as plt
     import numpy as np
 
-    colors = ['tab:blue', 'tab:orange', 'tab:green']
+    marker_colors = ['tab:blue', 'tab:orange', 'tab:green']
 
     # zip iterates through each of the predictions and colors at the same time
-    for prediction, color in zip(np.unique(cluster_predictions), colors):
-        mask = cluster_predictions == prediction        # create a mask that will mask out everything that isn't the given target
+    for prediction, color in zip(np.unique(cluster_predictions), marker_colors):
+        mask = cluster_predictions == prediction        # keep only the given target label
         plt.scatter(df.loc[mask, "sepal length (cm)"],  # get all the sepal lengths that were classified as the given target
                     df.loc[mask, "petal width (cm)"],
-                    color=color,                        # color each point with the associated color
+                    color=color,                # color each point with the associated color
                     label=f"cluster {prediction}",      # label each point with the associated target name
                     s=20)                               # point size parameter
         
@@ -194,7 +197,7 @@ Now we can plot these predictions by color:
 
     plt.xlabel("sepal length (cm)")
     plt.ylabel("petal width (cm)")
-	plt.legend()
+    plt.legend()
 	
     plt.show()
 
@@ -205,9 +208,12 @@ We can see our results look fairly reasonable. We can check by using the actual 
 
 .. code:: python
 
-    # for each actual labels (use a different marker type like circles, squares, or triangles)
+    import matplotlib.lines as lines
+    markers = ['o', 's', '^']
+
+    # for each actual target label (use a different marker type, circles, squares, or triangles for different labels)
     for target, marker, in zip(np.unique(targets), markers):                        
-        # for each prediction (color)    
+        # for each prediction label (use a different color for different labels)
         for prediction, color in zip(np.unique(cluster_predictions), marker_colors):
             mask = (target == targets) & (prediction == cluster_predictions)
             plt.scatter(df.loc[mask, "sepal length (cm)"],
@@ -221,8 +227,8 @@ We can see our results look fairly reasonable. We can check by using the actual 
     plt.ylabel("petal width (cm)")
 
     # this is just getting the legend right
-    handles = [lines.Line2D([0], [0], marker=marker, color="black", linestyle='None', label=f"{label} actual") for marker, label, in zip(markers, target_names)]
-    handles.extend([lines.Line2D([0], [0], marker='.', color=color, linestyle='None', label=f"{label} predicted") for color, label, in zip(marker_colors, target_names)])
+    handles = [lines.Line2D([0], [0], marker=marker, color="black", linestyle='None', label=f"{label} actual") for marker, label, in zip(markers, target_names)]    # black legend marker for the target values
+    handles.extend([lines.Line2D([0], [0], marker='.', color=color, linestyle='None', label=f"{label} predicted") for color, label, in zip(marker_colors, target_names)])   # colored dot for the predicted values
     plt.legend(handles, ["setosa actual", "versicolor actual", "virginica actual", "setosa predicted", "versicolor predicted", "virginica predicted"])
 
     # show the cluster centers with a "+" marker
@@ -256,6 +262,7 @@ Another application of the K-Means algorighm is color quantization, a process th
 
 .. figure:: _static/figures/cosmo_quantization.png
     :align: center
+    :width: 100%
 
 Images are usually represented on computers as 3-dimensional arrays. 
 Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`.
