@@ -166,7 +166,7 @@ The try/except block is used for catching errors in code blocks without breaking
 >>> divide(0)
 An error occurred
 
-.. note:: Bonus: more error catching
+.. admonition:: Bonus: more error catching
 
     ``try`` and ``except`` are the basics of error catching in python. Other elements like ``else`` and ``finally`` along with error-specific catching can be very useful when working with large programs. Here is an example with all of them together.
 
