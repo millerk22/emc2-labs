@@ -13,7 +13,7 @@ Throughout this course, remember: Google is your friend.
 
 Function Docstrings
 --------------------
-Functions can get confusing sometimes, especially when written by someone else. Python has a convention called a docstring that allows you to write a description of what a function does, what the parameters are, and what the return value is. Writing docstrings is a good practice to get into, especially when you are writing functions that will be used by other people.
+Functions can get confusing sometimes, especially when written by someone else. Python has a convention called a docstring which allows you to write a description of what a function does, what the parameters are, and what the return value is. Writing docstrings is a good practice to get into, especially when you are writing functions that will be used by other people.
 
 .. code:: python
 
@@ -35,7 +35,8 @@ Functions can get confusing sometimes, especially when written by someone else. 
         ...
         """
 
-        # the actual code goes down here
+        # the actual code replaces "pass"
+        pass    # pass makes it so no error's occur when an empty function is run
 
 Task 1
 ------
@@ -160,7 +161,7 @@ Use some of your previously written functions to help make this more complicated
     def int_to_str26(message):
         """Returns the corresponding set of letters in the alphabet.
 
-        This function takes message and returns the corresponding letter in the alphabet.
+        This function takes a number "message" and returns the corresponding letters in the alphabet, i.e.,
         A = 01, B = 02, C = 03, D = 04, ... Z = 26
         It returns an empty string ("") if the integer does not corespond to a letter.
 
@@ -192,7 +193,7 @@ Now do the same, but in reverse.
     def str_to_int26(message):
         """Returns the number given a string of letters.
 
-        This function takes message and returns the corresponding number to the letter in the alphabet.
+        This function takes string "message" and returns the corresponding number, i.e.,
         01 = A, 02 = B, 03 = D, 04 = D, ... 26 = Z
         It always returns a two digit number (01, 04, 26...).
 
