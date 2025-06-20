@@ -152,14 +152,21 @@ row(s) and/or column(s) in which we are interested.
 
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
-NumPy arrays (of any dimension) have attributes that you can access to get information about the array. If our array is named ``array1``, then
+When you make a NumPy array, it isn't an ``int``, ``str``, ``float``, or ``bool``, it is something called an object of type ``numpy.ndarray`` (which stands for n-dimensional array). Objects in python are just one more way to represent data. When an object is made, it has "attributes" that contain different information about the object. We get attributes with the ``.`` notation. We will learn more about objects later, but for now you just need to know how to use object attributes. As an example, if our array is named ``array1``, then:
 
 - ``array1.ndim`` will tell you the number of dimensions of the array
 - ``array1.size`` will tell you how many elements are in the array
 - ``array1.shape`` will give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n,)``, a two dimensional array would be ``(n, m)`` and so on)
 
-.. note::
-    These are attributes, not functions, so we access them *without* ``()``.
+NumPy arrays also have functions associated with them, but they are called methods because they are attached to a ``numpy.ndarray``. Here are some useful ones:
+
+- ``array1.sum()`` returns the sum of all the elements in the array
+- ``array1.mean()`` returns the mean of all the elements in the array
+- ``array1.max()`` returns the maximum value of the array
+- ``array1.min()`` returns the minimum value of the array
+
+.. warning::
+       Attributes are not functions so we don't call them with ``()``.
 
 NumPy also has built-in functions to create NumPy arrays. These are important to know about, but you don't need to know all the details right now.
 
