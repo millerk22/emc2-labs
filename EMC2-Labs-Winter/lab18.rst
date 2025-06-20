@@ -252,9 +252,6 @@ Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal widt
 Application: Color Quantization
 -------------------------------
 
-.. The K-Means algorithm uses the euclidean metric, so it is natural to cluster geographic data. 
-.. However, clustering can be done in any abstract vector space. The following application is one example.
-
 Another application of the K-Means algorighm is color quantization, a process that reduces the size of images by reducing the number of unique colors in the image. It does this by taking colors that are close to each other (based on the specified distance algorithm, for us this is Euclidean distance), and merging them into one color.
 
 .. figure:: _static/figures/cosmo_quantization.png
@@ -262,18 +259,6 @@ Another application of the K-Means algorighm is color quantization, a process th
 
 Images are usually represented on computers as 3-dimensional arrays. 
 Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`.
-
-.. Task 2
-.. ------
-
-.. Write a function that accepts an image array (of shape ``(m, n, 3)``), an integer number of clusters ``k``, and an integer number of samples ``S``. 
-.. Reshape the image so that each row represents a single pixel. 
-.. Choose ``S`` pixels to train a K-Means model on with ``k`` clusters. 
-.. Make a copy of the original picture where each pixel has the same color as its cluster center. 
-.. Return the new image. 
-.. You may use ``sklearn.cluster.KMeans`` instead of your implementation from the previous problem.
-
-.. Test your code with different values of ``k`` and ``S`` on some of the images from `<https://www.nasa.gov/multimedia/imagegallery/index.html>`_. Include one of your color-quantized pictures in your submitted lab.
 
 Task 2a
 -------
@@ -302,7 +287,7 @@ Use your code from the previous exercise to perform color quantization on one of
 Application: Detecting Active Earthquake Regions
 ------------------------------------------------
 
-Suppose we are interested in learning about which regions are prone to frequent earthquake activity. 
+Suppose we are interested in learning about which locations are prone to frequent earthquake activity. 
 We could make a map of all earthquakes over a given period of time and examine it ourselves, but this, as an unsupervised learning problem, can be solved using K-Means clustering.
 
 .. figure:: _static/figures/earthquakes.png
