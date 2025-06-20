@@ -337,7 +337,7 @@ Task 5
 
 Define a function ``first_rpt(M)`` which takes as input a NumPy matrix ``M``,
 and outputs a matrix in which every row of ``M`` has been replaced with the first row.
-Use the ``.copy()`` method to make a copy of ``M`` and only modify the copy, ie ``M_copy = M.copy()``.
+Use the ``.copy()`` method to make a copy of ``M`` and only modify the copy, i.e., ``M_copy = M.copy()``.
 
 >>> my_matrix=np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
 >>> first_rpt(my_matrix)
