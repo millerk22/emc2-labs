@@ -240,7 +240,10 @@ We can see our results look fairly reasonable. We can check by using the actual 
 .. image:: _static/figures/clustered_petal_sepal_labeled.png
 	:align: center
 
-As you can see, our clustering algorithm did fairly well.
+Our clustering algorithm predicted the correct classification of a species 83% (125/150) of the time.
+
+.. note::
+    Unsupervised learning is primarily used for pattern recognition. This means that most times we do not have the targets (or labels) for the data, making determining accuracy ambiguous.
 
 Task 1
 ------
@@ -272,7 +275,7 @@ Task 2a
 
 Write a function, ``quantize_image(X, k, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, and a random seed and does the following:
 
-#. Reshape the image such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``.
+#. Reshape the image such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``
 
 #. Fit a K-Means classifier of ``k`` clusters to the random sample
 
@@ -306,7 +309,7 @@ Task 2b
 
 So far, we have been training (or fitting) our K-Means clustering algorithm on the entire set of data we are given. This is not a common practice because of how large some datasets are. Instead, we can take a random sample set of X :math:`x \subset X` to get a representative sample of the data.
 
-Write a function, ``quantize_image_sampled(X, k, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, the number of samples, ``n_samples``, and a random seed. Your function should follow the same process as the function in the last task, but should train (``fit()``) the model on a subset of ``X``. Use ``np.random.randint(0, X.shape[0], n_samples)`` to get random integer indices for your random subset. Once you fit the model, get predictions for the entire set of points ``X``.
+Write a function, ``quantize_image_sampled(X, k, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, the number of samples, ``n_samples``, and a random seed. Your function should follow the same process as the function in the last task, but should train (or ``fit()``) the model on a subset of ``X``. Use ``np.random.randint(0, X.shape[0], n_samples)`` to get random integer indices for your random subset. Once you fit the model, get predictions for the entire set of points ``X``, recolor the image and return it.
 
 .. def quantize_image_sklearn(X, k, n_samples, seed):
 ..     m, n, _ = X.shape
@@ -328,7 +331,7 @@ Application: Detecting Active Earthquake Regions
 ------------------------------------------------
 
 Suppose we are interested in learning about which locations are prone to frequent earthquake activity. 
-We could make a map of all earthquakes over a given period of time and examine it ourselves, but this, as an unsupervised learning problem, can be solved using K-Means clustering.
+We could make a map of all earthquakes over a given period of time and examine it ourselves, but this problem can also be solved using K-Means clustering.
 
 .. figure:: _static/figures/earthquakes.png
 	:width: 70%
@@ -372,11 +375,11 @@ Then, combine these functions to create ``ll_to_euc(X)``.
 .. note::
     One issue to clustering the data with euclidean coordinates is that because all of the data points represent locations on the surface of the earth, clustering in three dimensions will result in cluster centroids that are inside the surface of the earth. To solve this problem, we have a few options:
 
-    #. If we assume that the earth has a radius of 1, then each data point has a norm of 1. We want the cluster centroids to also have a norm of 1 so they lie on the surface of the earth. We can do this by normalizing the centroid vectors after each iteration of the K-Means algorithm. The difficulty of this is that ``sklearn`` doesn't have an option to normalize in between iterations, so we would have to create our own algorithm.
+    #. If we assume that the earth has a radius of 1, then each data point has a norm of 1. Assuming we want the cluster centroids to also lie on the surface of the earth, we can normalize the centroid vectors after each iteration of the K-Means algorithm so they have a norm of 1. The difficulty of this is that ``sklearn`` doesn't have an option to normalize in between iterations, so we would have to create our own algorithm.
 
-    #. We can plot the clustered data in three dimensions so we can see the points on the surface of the earth, and also the centroids inside the earth. 
+    #. We can plot the clustered data in three dimensions so we can see the data on the surface of the earth, and also the centroids inside the earth. 
 
-    For this lab we will use option two, but know that there are multiple ways to solve this problem.
+    For this lab we will use option two, but it is good to know that there are multiple ways to solve this problem.
 
 .. Task 1
 .. ------
@@ -415,7 +418,7 @@ Use your code from the previous tasks to write a function, ``classify_geo(X, k, 
 #. Return the predictions and the centroids
 
 .. hint::
-    To load in ``earthquake_coordinates.txt``, use ``np.loadtxt()``.
+    To load in ``earthquake_coordinates.txt`` as a ``np.array``, use ``np.loadtxt()``.
 
 
 .. def classify_geo(X, k, seed):
@@ -456,6 +459,9 @@ Write a function ``plot_earthquake_3D(X_euclidean, predictions, centroids)`` tha
 ..     ax.set_ylabel('Y-axis')
 ..     ax.set_zlabel('Z-axis')
 
-..     ax.scatter3D(centroids[:, 0], centroids[:, 1], centroids[:, 2], color="red", marker="+", s=40)
+..     ax.scatter3D(centroids[:, 0], centroids[:, 1], centroids[:, 2], color="black", marker="+", s=40)
 
 ..     plt.show()
+
+.. admonition:: VSCode
+    If you want to have more functionality in your coding (like being able to see an interactive 3d plot for task 5), consider using VSCode, a free, lightweight code-editor. You can find an introductory tutorial `here <https://code.visualstudio.com/docs/getstarted/getting-started>`_.
