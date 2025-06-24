@@ -76,7 +76,7 @@ To define matrices in NumPy, we define them as "lists of lists". Then we can plu
 we would create a list with three elements. The first element will be the list ``[1, 2, 3, 4]``, which we consider the first row of the matrix. The second element in our list will be ``[-5, -6, -7, -8]``, representing the second row, and so on.
 
 .. note::
-    In NumPy, both arrays *and* matrices are created using ``np.array()``.
+    In NumPy, both arrays *and* matrices are created using ``np.array()``. ``np.array()`` returns a special object called a ``np.ndarray`` which will be explained more later.
 
 >>> my_matrix = np.array([[1, 2, 3, 4],[-5, -6, -7, -8],[1, 5, 2, 3]])
 >>> print(my_matrix)
@@ -152,13 +152,14 @@ row(s) and/or column(s) in which we are interested.
 
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
-When you make a NumPy array, it isn't an ``int``, ``str``, ``float``, or ``bool``, it is something called an object of type ``numpy.ndarray`` (which stands for n-dimensional array). Objects in python are just one more way to represent data. When an object is made, it has "attributes" that contain different information about the object. We get attributes with the ``.`` notation. We will learn more about objects later, but for now you just need to know how to use object attributes. As an example, if our array is named ``array1``, then:
+What is the funcitonal difference bet
+When you make a NumPy array, it isn't an ``int``, ``str``, ``float``, or ``bool``, it is something called an object of type ``numpy.ndarray`` (which stands for n-dimensional array). Objects in python are just one more way to represent data. When an object is made, it has **attributes** that contain different information about the object. We get attributes with the ``.`` notation. We will learn more about objects later, but for now you just need to know how to use object attributes. As an example, if our array is named ``array1``, then:
 
 - ``array1.ndim`` will tell you the number of dimensions of the array
 - ``array1.size`` will tell you how many elements are in the array
 - ``array1.shape`` will give you a tuple with each element represents the number of elements in each dimension of the array (a one dimensional array would be ``(n,)``, a two dimensional array would be ``(n, m)`` and so on)
 
-NumPy arrays also have functions associated with them, but they are called methods because they are attached to a ``numpy.ndarray``. Here are some useful ones:
+NumPy arrays also have functions associated with them. These functions have a special name because they only work on ``np.ndarrays``. These special functions are called **methods**. We call them in the exact same way we would a normal function. Here are some of the most useful ones:
 
 - ``array1.sum()`` returns the sum of all the elements in the array
 - ``array1.mean()`` returns the mean of all the elements in the array
@@ -167,6 +168,8 @@ NumPy arrays also have functions associated with them, but they are called metho
 
 .. warning::
        Attributes are not functions so we don't call them with ``()``.
+
+The main difference between methods and attributes is that methods are calculated on the fly, while attributes are stored with the object.
 
 NumPy also has built-in functions to create NumPy arrays. These are important to know about, but you don't need to know all the details right now.
 
