@@ -1,6 +1,8 @@
 Lab 18: K-Means Clustering
 ==========================
 
+.. This is the link to the old implementation with some bugs https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing
+
 A current area of high interest is data science and machine learning. Machine learning can be roughly divided into three  categories, supervised learning, unsupervised learning, and reinforcement learning.
 
 * **Supervised learning**: Uses input data with the labels (ie, cat pictures). Learns how to map from the input data to the label.
@@ -210,6 +212,7 @@ We can see our results look fairly reasonable. We can check by using the actual 
 
     import matplotlib.lines as lines
     markers = ['o', 's', '^']
+    marker_colors = ['tab:blue', 'tab:orange', 'tab:green']
 
     # for each actual target label (use a different marker type, circles, squares, or triangles for different labels)
     for target, marker, in zip(np.unique(targets), markers):                        
@@ -248,14 +251,12 @@ Our clustering algorithm predicted the correct classification of a species 83% (
 Task 1
 ------
 
-In the example above, we used K-Means on  ``sepal length (cm)`` and ``petal width (cm)``. Follow the same process with two different measurements of your choosing.
+In the example above, we used K-Means on  ``sepal length (cm)`` and ``petal width (cm)``. Write a function ``generate_predictions(X, n_clusters, random_state)`` that takes in ``X``, the data to cluster, ``n_clusters``, the number of clusters to use, and ``random_state``, the random state. ``generate_predictions`` should return the predictions and also the cluster centers. Use this function to generate predictions and cluster centers for ``petal length (cm)`` and ``petal width (cm)``.
 
 >>> df.columns
 Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'], dtype='object')
 
 .. in codebuddy, write a function that will do the entrie process based on a given x and y feature. As long as they use the similar plotting code, it should be fine
-
-.. The K-Means clustering algorithm is an unsupervised classification model. `You will find an implementation of this algorithm here <https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing>`_. Read through this implementation and the usage example to understand how to use this implementation of the K-Means clustering algorithm. Be sure to submit the unmodified starter code for this task to receive credit.
 
 
 Application: Color Quantization
@@ -277,7 +278,7 @@ Write a function, ``quantize_image(X, k, seed)``, that takes a color image array
 
 #. Reshape the image such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``
 
-#. Fit a K-Means classifier of ``k`` clusters to the random sample
+#. Fit a K-Means classifier to the reshaped data
 
 #. Predict the clusters for the entire flattened image using the fitted classifier
 
@@ -463,5 +464,6 @@ Write a function ``plot_earthquake_3D(X_euclidean, predictions, centroids)`` tha
 
 ..     plt.show()
 
-.. admonition:: VSCode
+.. admonition:: Visual Studio Code
+
     If you want to have more functionality in your coding (like being able to see an interactive 3d plot for task 5), consider using VSCode, a free, lightweight code-editor. You can find an introductory tutorial `here <https://code.visualstudio.com/docs/getstarted/getting-started>`_.
