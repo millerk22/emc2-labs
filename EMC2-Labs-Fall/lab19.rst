@@ -16,7 +16,7 @@ You will need to import the following:
 >>> from skimage import data, color
 
 
-Consider an arbitray matrix of size :math:`m \times n` called :math:`F`.
+Consider an arbitrary matrix of size :math:`m \times n` called :math:`F`.
 Recall that the singular value decomposition writes :math:`F` in the form
 
 .. math::
@@ -30,14 +30,14 @@ We can use the NumPy function ``la.svd()`` to get these matrices in python.
 
 Python represents this as ``S``, a list (numpy array) of the singular values of ``F``. 
 The ``np.diag`` function will turn a list into a diagonal matrix. 
-Remember that one of the most useful concepts about SVD decomposition is that when we use the first ``s`` ranks of ``S``, we can obtain a relativly accurate approximation of the matrix :math:`F`\.
+Remember that one of the most useful concepts about SVD decomposition is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`F`\.
 
 >>> Fapprox = U[:,:s].dot(np.diag(S[:s])).dot(VT[:s])
 
 This becomes very useful in the context of images.
 Most images are stored in matrices of the size ``(height, width, 3)`` where the 3 depths refer to red, blue, green colors represented by a number between 0 and 255.
 Because space to store data is finite, performing SVD on every depth, and keeping the first ``s`` ranks of the decomposition can greatly reduce the data taken up.
-For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2d matrices with values inbetween 0 and 255.
+For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2d matrices with values between 0 and 255.
 For this lab we will use a grayscale image of a cat named Chelsea from the ``skimage.data`` module, which can be accessed by
 
 >>> F = color.rgb2gray(data.chelsea())
@@ -57,7 +57,7 @@ Task 1
 ------
 
 Write a function ``svd_decomp(F, s)`` which takes in a 2d grayscale matrix ``F``\, and rank ``s``, and returns an SVD approximation of ``F`` up to rank ``s``.
-If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and say ``"s cannot be larger than legnth of S"``.
+If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and say ``"s cannot be larger than length of S"``.
 
 
 Task 2
