@@ -258,7 +258,7 @@ Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal widt
 Application: Color Quantization
 -------------------------------
 
-Another application of the K-Means algorighm is color quantization, a process that reduces the size of images by reducing the number of unique colors in the image. It does this by taking colors that are close to each other (based on the specified distance algorithm, for us this is Euclidean distance), and merging them into one color.
+Another application of the K-Means algorithm is color quantization, a process that reduces the size of images by reducing the number of unique colors in the image. It does this by taking colors that are close to each other (based on the specified distance algorithm, for us this is Euclidean distance), and merging them into one color.
 
 .. figure:: _static/figures/cosmo_quantization.png
     :align: center
@@ -431,7 +431,7 @@ Use your code from the previous tasks to write a function, ``classify_geo(X, k, 
 Task 5
 ------
 
-Once we are able to get the euclidean coordinates and run them through our K-Means clustering algorighm, we want to be able to plot the results. We will plot our euclidean coordinates in three dimensions.
+Once we are able to get the euclidean coordinates and run them through our K-Means clustering algorithm, we want to be able to plot the results. We will plot our euclidean coordinates in three dimensions.
 
 Write a function ``plot_earthquake_3D(X_euclidean, predictions, centroids)`` that creates a 3d plot of each point colored according to its cluster. Use the following plotting parameters:
 
