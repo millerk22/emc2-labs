@@ -271,20 +271,22 @@ Another application of the K-Means algorithm is color quantization, a process th
 Images are usually represented on computers as 3-dimensional arrays. 
 Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`.
 
+To quantize an image, the KMeans algorithm (or another similar algorithm) first finds clusters which represent groups of pixels are closest in color. It also finds cluster centers which represent the mean color of the cluster. It then takes every pixel in a cluster and recolors it to the cluster center.
+
 Task 2a
 -------
 
 Write a function, ``quantize_image(X, k, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, and a random seed and does the following:
 
-#. Reshape the image such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``
+#. Reshape the image array such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``. You can find documentation on how to use ``np.reshape()`` `here <https://numpy.org/doc/stable/reference/generated/numpy.reshape.html>`_.
 
 #. Fit a K-Means classifier to the reshaped data
 
-#. Predict the clusters for the entire flattened image using the fitted classifier
+#. Predict the clusters for the entire flattened image array using the fitted classifier
 
-#. Recolor the pixels in the flattened image to the coloration of their corresponding cluster centers
+#. Recolor the pixels in the flattened image array to the color of their corresponding cluster centers
 
-#. Unflatten the recolored image (shape ``(m, n, 3)``)
+#. Reshape the recolored image to its original shape ``(m, n, 3)``.
 
 #. Return the recolored image
 
@@ -347,7 +349,7 @@ We want to cluster this data into active earthquake regions.
 Task 3
 ------
 
-We will be using the K-Means algorithm to cluster earthquake data; however, this data is recorded in latitudinal and longitudinal coordinates. This is problematic as applying the 2-norm (Euclidean distance) to this coordinate system fails to yield the measures we expect to see because of distortion that comes from how latitude and longitude are measured. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates before running the K-Means algorithm.
+We will be using the K-Means algorithm to cluster earthquake data; however, this data is recorded in latitudinal and longitudinal coordinates. This is problematic because data points at the longitudinal edges (180˚ and -180˚) are actually right next to each other. This means that the euclidean distance (or other distance algorithm we can use) will be incorrect. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates to preserve the sperical nature of the data before running the K-Means algorithm.
 
 A simple way to accomplish this transformation is to first transform the latitude and longitude values to spherical coordinates, and then to Euclidean coordinates. 
 Recall that a spherical coordinate in :math:`\mathbb R^3` has three coordinates :math:`(r,\theta,\varphi)`, where :math:`r` is the distance from the origin, :math:`\theta` is the radial angle in the :math:`xy`-plane from the :math:`x`-axis, and :math:`\varphi` is the angle from the :math:`z`-axis. 
