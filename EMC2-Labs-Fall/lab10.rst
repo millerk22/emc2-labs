@@ -19,6 +19,12 @@ Write a function ``fermat_prime(k)`` that takes an integer ``k`` and outputs ``T
 
 >>> from sympy import isprime, factorint
 
+.. note::
+
+   `SymPy <https://www.sympy.org/en/index.html>`_ is a library created to do symbolic mathematics. 
+   You can write math expressions to use in code in the way that you do on paper.
+   It also provides very nice functions to do algerbra, calculus, linear algerbra, and equation solving. 
+
 "Proposition" 2: Mersenne Primes
 --------------------------------
 
@@ -95,7 +101,8 @@ Then for each factor you can do something like
 >>> Poly(fac).coeffs()
 [1, -1, 1, -1, 1]
 
-to get a list of the coefficients.
+to get a list of the coefficients. 
+If you can get all of the coefficients into one list, turn this list into a set, and then back into a list to remove duplicates.
 
 
 
