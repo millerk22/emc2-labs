@@ -63,7 +63,7 @@ Use list comprehension, then string join:
 >>> shift_encrypt(-23, 'CAT')
 'FDW'
 >>> shift_encrypt(7, 'CAT IN THE HAT')
-'FDW LQ WKH KDW'
+'JHA PU AOL OHA'
 	
 
 Task 3
