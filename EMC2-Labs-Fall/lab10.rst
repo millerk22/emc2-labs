@@ -15,7 +15,7 @@ For each "proposition" listed below, determine the smallest counterexample.
 Write a function ``fermat_prime(k)`` that takes an integer ``k`` and outputs ``True`` or ``False`` depending on whether or not ``2^(2^k)+1`` is prime.
 
 
-*Hint*: The SymPy package has some useful functions for primality testing and factoring:
+The SymPy package has some useful functions for primality testing and factoring:
 
 >>> from sympy import isprime, factorint
 
@@ -33,7 +33,8 @@ Write a function ``fermat_prime(k)`` that takes an integer ``k`` and outputs ``T
 Write a function ``mersenne_prime(p)`` that takes a prime number ``p`` and outputs ``True`` or ``False`` depending on whether or not ``2^p-1`` is prime.
 
 
-*Hint*: You can get the ``n``-th prime using ``prime(n)`` after you import ``prime`` from ``sympy``.
+.. hint::
+   You can get the ``n``-th prime using ``prime(n)`` after you import ``prime`` from ``sympy``.
 
 
 "Proposition" 3: Prime Number Races
@@ -76,7 +77,7 @@ The polynomials :math:`x-1`, :math:`x+1`, :math:`x^2+1`, :math:`x^2+x+1`, ..., a
 Write a function ``factor_coefficients(poly)`` that takes as input a polynomial ``poly`` in the variable ``x`` and outputs a list containing the coefficients of every irreducible factor of ``poly``. Do not include repeats.
 
 
-*Hint*: For this problem, you should start by running the following code:
+For this problem, you should start by running the following code:
 
 >>> from sympy import factor_list, symbols, Poly
 >>> x = symbols('x')
