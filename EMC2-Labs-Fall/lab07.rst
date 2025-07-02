@@ -150,6 +150,9 @@ row(s) and/or column(s) in which we are interested.
 .. warning::
     Remember in python, index starting at 0!
 
+.. note::
+       ``my_matrix[1,2]`` will do the same thing as  ``my_matrix[1][2]`` for ``np.ndarray``s. For two dimensional python lists, only ``my_matrix[1][2]`` is valid.
+
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
 What is the funcitonal difference bet
