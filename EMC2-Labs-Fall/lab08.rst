@@ -1,26 +1,27 @@
 Lab 8: The Vigenère Cipher
 ============================
 
-
 The Vigenère cipher is a variant of the Caesar cipher.  
-Its key is a list of integers between 0 and 25; often, the entries correspond to the letters of some key word, e.g.
+Its key is a list of integers between 0 and 25; often, the entries correspond to the letters of a word, e.g.
 
-``KEY = 10 4 24``
+``K E Y = 10 4 24``
 
-To encrypt a message using the key ``KEY``, we shift the first letter of the message by 10, the second letter of the message by 4, the third letter by 24, the fourth letter by 10, the fifth by 4, and so on, starting again at the beginning of the key after reaching the end.
-These shifts can be represented by addition modulo 26 after converting the message to a string of numbers between 0 and 25.
+To encrypt a message using the key ``KEY``, we shift the first letter of the message by 10, the second letter of the message by 4, the third letter by 24. Then we repeat by shifting the fourth letter by 10, the fifth by 4, and so on.
+We can think about this like adding the numbers (corresponding to letters) together mod 26. That number represents our new letter.
 For example:
 
 .. code-block:: console
+   
+    T  H  I  S  I  S  A  M  E  S  S  A  G  E
+   19  7  8 18  8 18  0 12  4 18 18  0  6  4
+    +  +  +  +  +  +  +  +  +  +  +  +  +  +    (addition mod 26)
+    K  E  Y  K  E  Y  K  E  Y  K  E  Y  K  E
+   10  4 24 10  4 24 10  4 24 10  4 24 10  4
+    =  =  =  =  =  =  =  =  =  =  =  =  =  =
+    D  L  G  C  M  Q  K  Q  C  C  W  Y  Q  I   
+    3 11  6  2 12 16 10 16  2  2 22 24 16  8 
 
-   T H I S I S A M E S S A G E
-   + + + + + + + + + + + + + +   
-   K E Y K E Y K E Y K E Y K E   
-   = = = = = = = = = = = = = =   
-   D L G C M Q K Q C C W Y Q I   
-
-
-One way to encrypt this message is loop from ``j=0`` to ``j=13``, and shift the ``j``-th letter of the message by the ``(j % 3)``-th letter of the key.
+One way to encrypt this message is loop from ``j=0`` to ``j=13`` (over the whole the message), and shift the ``j``-th letter of the message by the ``(j % 3)``-th letter of the key.
 Your function ``shift_encrypt_letter`` from the Caesar Cipher lab can do this already.
 
 
