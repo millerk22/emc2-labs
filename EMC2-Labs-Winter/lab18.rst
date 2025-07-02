@@ -256,9 +256,6 @@ In the example above, we used K-Means on  ``sepal length (cm)`` and ``petal widt
 >>> df.columns
 Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'], dtype='object')
 
-.. in codebuddy, write a function that will do the entrie process based on a given x and y feature. As long as they use the similar plotting code, it should be fine
-
-
 Application: Color Quantization
 -------------------------------
 
@@ -271,7 +268,7 @@ Another application of the K-Means algorithm is color quantization, a process th
 Images are usually represented on computers as 3-dimensional arrays. 
 Each 2-dimensional layer represents the red, green, and blue color values, so each pixel on the image is really a vector in :math:`\mathbb R^3`.
 
-To quantize an image, the KMeans algorithm (or another similar algorithm) first finds clusters which represent groups of pixels are closest in color. It also finds cluster centers which represent the mean color of the cluster. It then takes every pixel in a cluster and recolors it to the cluster center.
+To quantize an image, the K-Means algorithm (or another similar algorithm) first finds clusters which represent groups of pixels are closest in color. It also finds cluster centers which represent the mean color of the cluster. It then takes every pixel in a cluster and recolors it to the cluster center.
 
 Task 2a
 -------
@@ -292,43 +289,12 @@ Write a function, ``quantize_image(X, k, seed)``, that takes a color image array
 
 Make sure to set ``random_state=42`` when you create your ``KMeans`` object! Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). You can test your code with the file given in CodeBuddy.
 
-.. def quantize_image_sklearn(X, k, seed):
-..     m, n, _ = X.shape
-..     X = X.flatten().reshape(-1, 3)
-..     kmeans = sklearn_KMeans(k, random_state=seed)
-..     kmeans.fit(X)
-..     clusters = kmeans.predict(X)
-..     centers = kmeans.cluster_centers_
-    
-..     # set the new image pixels
-..     new_X = []
-..     for i in range(X.shape[0]):
-..         cluster = clusters[i]
-..         new_X.append(centers[cluster])
-..     return np.array(new_X, dtype=np.uint8).reshape(m, n, 3)
-
 Task 2b
 -------
 
 So far, we have been training (or fitting) our K-Means clustering algorithm on the entire set of data we are given. This is not a common practice because of how large some datasets are. Instead, we can take a random sample set of X :math:`x \subset X` to get a representative sample of the data.
 
 Write a function, ``quantize_image_sampled(X, k, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, the number of samples, ``n_samples``, and a random seed. Your function should follow the same process as the function in the last task, but should train (or ``fit()``) the model on a subset of ``X``. Use ``np.random.randint(0, X.shape[0], n_samples)`` to get random integer indices for your random subset. Once you fit the model, get predictions for the entire set of points ``X``, recolor the image and return it.
-
-.. def quantize_image_sklearn(X, k, n_samples, seed):
-..     m, n, _ = X.shape
-..     X = X.flatten().reshape(-1, 3)
-..     samples = X[np.random.randint(0, X.shape[0], n_samples)]
-..     kmeans = sklearn_KMeans(k, random_state=seed)
-..     kmeans.fit(samples)
-..     clusters = kmeans.predict(X)
-..     centers = kmeans.cluster_centers_
-    
-..     # set the new image pixels
-..     new_X = []
-..     for i in range(X.shape[0]):
-..         cluster = clusters[i]
-..         new_X.append(centers[cluster])
-..     return np.array(new_X, dtype=np.uint8).reshape(m, n, 3)
 
 Application: Detecting Active Earthquake Regions
 ------------------------------------------------
@@ -349,7 +315,7 @@ We want to cluster this data into active earthquake regions.
 Task 3
 ------
 
-We will be using the K-Means algorithm to cluster earthquake data; however, this data is recorded in latitudinal and longitudinal coordinates. This is problematic because data points at the longitudinal edges (180˚ and -180˚) are actually right next to each other. This means that the euclidean distance (or other distance algorithm we can use) will be incorrect. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates to preserve the sperical nature of the data before running the K-Means algorithm.
+We will be using the K-Means algorithm to cluster earthquake data, but, this data is recorded in latitudinal and longitudinal coordinates. This is problematic because data points at the longitudinal edges (180˚ and -180˚) are actually right next to each other. This means that the euclidean distance (or other distance algorithm we can use) will be incorrect. As such, we must convert these coordinates to 3-dimensional Euclidean coordinates to preserve the sperical nature of the data before running the K-Means algorithm.
 
 A simple way to accomplish this transformation is to first transform the latitude and longitude values to spherical coordinates, and then to Euclidean coordinates. 
 Recall that a spherical coordinate in :math:`\mathbb R^3` has three coordinates :math:`(r,\theta,\varphi)`, where :math:`r` is the distance from the origin, :math:`\theta` is the radial angle in the :math:`xy`-plane from the :math:`x`-axis, and :math:`\varphi` is the angle from the :math:`z`-axis. 
@@ -367,12 +333,6 @@ Then, use the following relationships to write ``sph_to_euc(X)`` that transforms
     y=r\sin\varphi\sin\theta \\
     z=r\cos\varphi
 
-.. the other direction
-..  math
-.. 	r &= \sqrt{x^2+y^2+z^2} \qquad
-.. 	\varphi &= \arccos \frac{z}{r}
-.. 	\theta &= \arctan \frac yx
-
 Then, combine these functions to create ``ll_to_euc(X)``.
 
 .. note::
@@ -383,29 +343,6 @@ Then, combine these functions to create ``ll_to_euc(X)``.
     #. We can plot the clustered data in three dimensions so we can see the data on the surface of the earth, and also the centroids inside the earth. 
 
     For this lab we will use option two, but it is good to know that there are multiple ways to solve this problem.
-
-.. Task 1
-.. ------
-
-.. Add a keyword argument ``normalize=False`` to your ``KMeans`` constructor.
-.. Modify ``fit()`` so that if ``normalize`` is ``True``, the cluster centers are normalized at each iteration.
-
-.. Cluster the earthquake data in three dimensions by converting the data from raw data to spherical coordinates to euclidean coordinates on the sphere.
-
-.. 1) Convert longitude and latitude to radians, then to spherical coordinates. (Hint: ``np.deg2rad()`` may be helpful.)
-
-.. 2) Convert the spherical coordinates to euclidean coordinates in :math:`\mathbb R^3`.
-
-.. 3) Use your ``KMeans`` class with normalization to cluster the Euclidean coordinates.
-
-.. 4) Translate the cluster center coordinates back to spherical coordinates, then to degrees. Transform the cluster means back to latitude and longitude coordinates. (Hint: use ``numpy.arctan2()`` for arctan, so that that correct quadrant is chosen).
-
-.. 5) Plot the data, coloring by cluster. Also mark the cluster centers.
-
-.. With 15 clusters, your plot should resemble this figure.
-
-.. .. image:: _static/figures/earthquake-color.png
-.. 	:width: 95 %
 
 Task 4
 ------
@@ -423,17 +360,6 @@ Use your code from the previous tasks to write a function, ``classify_geo(X, k, 
 .. hint::
     To load in ``earthquake_coordinates.txt`` as a ``np.array``, use ``np.loadtxt()``.
 
-
-.. def classify_geo(X, k, seed):
-..     X = ll_to_euc(np.loadtxt(f"{THIS_DIR}/earthquake_coordinates.txt"))
-..     kmeans = KMeans(n_clusters=k, random_state=seed)
-
-..     kmeans.fit(X)
-..     predictions = kmeans.predict(X)
-..     centroids = kmeans.cluster_centers_
-
-..     return predictions, centroids
-
 Task 5
 ------
 
@@ -446,25 +372,6 @@ Write a function ``plot_earthquake_3D(X_euclidean, predictions, centroids)`` tha
 * Use black "+" markers (``color="black"``, ``marker='+'``) for cluster centroids
 * Label the axes ``X-axis``, ``Y-axis``, and ``Z-axis`` respectively
 * When using ``scatter3D()``, set ``c`` to your predictions, and ``cmap`` to ``'jet'``. This will create a color scheme and assign one color to each different prediction label.
-
-
-.. def plot_earthquake_3D(X_euclidean, predictions, centroids):
-..     fig = plt.figure()
-..     ax = fig.add_subplot(projection='3d')
-
-..     x = X_euclidean[:, 0]
-..     y = X_euclidean[:, 1]
-..     z = X_euclidean[:, 2]
-..     ax.scatter3D(x, y, z, c=predictions, cmap='jet', s=2)
-
-..     # Add labels
-..     ax.set_xlabel('X-axis')
-..     ax.set_ylabel('Y-axis')
-..     ax.set_zlabel('Z-axis')
-
-..     ax.scatter3D(centroids[:, 0], centroids[:, 1], centroids[:, 2], color="black", marker="+", s=40)
-
-..     plt.show()
 
 .. admonition:: Visual Studio Code
 
