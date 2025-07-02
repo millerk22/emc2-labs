@@ -82,7 +82,7 @@ For this problem, you should start by running the following code:
 >>> from sympy import factor_list, symbols, Poly
 >>> x = symbols('x')
 
-Then you can get a list of factors of a polynomial by running code like
+Then you can get a list of factors of a polynomial by running:
 
 >>> factor_list(x**10-1)[1]
 [(x - 1, 1),
@@ -90,7 +90,7 @@ Then you can get a list of factors of a polynomial by running code like
 (x**4 - x**3 + x**2 - x + 1, 1),
 (x**4 + x**3 + x**2 + x + 1, 1)]
 
-This will output a list of ordered pairs, with the first element of each pair being a polynomial, and the second element being the exponent of that factor:
+This will output a list of ordered pairs, with the first element of each pair being a polynomial factor, and the second element being the exponent of that factor:
 
 .. math::
    x^{10} - 1 = (x-1)^1(x+1)^1(x^4-x^3+x^2-x+1)^1(x^4+x^3+x^2+x+1)^1
