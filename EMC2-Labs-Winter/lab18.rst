@@ -5,7 +5,7 @@ Lab 18: K-Means Clustering
 
 A current area of high interest is data science and machine learning. Machine learning can be roughly divided into three  categories, supervised learning, unsupervised learning, and reinforcement learning.
 
-* **Supervised learning**: Uses input data with the labels (ie, cat pictures). Learns how to map from the input data to the label.
+* **Supervised learning**: Uses input data with the labels (think of cat pictures, the data is the picture, and the label is "cat"). Learns how to map from the input data to the label.
 * **Unsupervised learning**: Uses algorithms to find patterns or anomalies in existing data.
 * **Reinforcement learning**: A type of simulation where an agent learns by interacting with an environment. The agent gets feedback through rewards or penalties.
 
@@ -16,12 +16,12 @@ For this lab, we will be using the Iris dataset, which is a classic machine lear
 .. image:: _static/figures/iris.png
 	:align: center
 
-The objective of clustering is to find a partition of the data such that points in the same subset will be “close” enough. There are many different ways of measuring how close two points are, but we will be using Euclidean distance. Let :math:`p` and :math:`q` be points in :math:`K` dimensional space with the coordinates :math:`p=(p_1, p_2, \ldots, p_K)` and :math:`q=(q_1, q_2, \ldots, q_K)`. The Euclidean distance for :math:`p` and :math:`q` is:
+The objective of clustering is to find a partition of the data such that points in the same subset will be “close” enough. There are many different ways of measuring how close two points are, but we will be using Euclidean distance. Let :math:`p` and :math:`q` be points in a :math:`k` dimensional space with the coordinates :math:`p=(p_1, p_2, \ldots, p_k)` and :math:`q=(q_1, q_2, \ldots, q_k)`. The Euclidean distance for :math:`p` and :math:`q` is:
 
 .. math::
-	d(p, q) = \lVert p - q \lVert_2 = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \cdots + (p_K - q_K)^2}.
+	d(p, q) = \lVert p - q \lVert_2 = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \cdots + (p_k - q_k)^2}.
 
-To determine how we define a cluster, suppose we have a collection of :math:`\mathbb R^K`-valued observations :math:`X = \{x_1,x_2,\ldots,x_n\}`. 
+To determine how we define a cluster, suppose we have a collection of :math:`\mathbb R^k`-valued observations :math:`X = \{x_1,x_2,\ldots,x_n\}`. 
 Let :math:`N\in \mathbb N` and let :math:`\mathcal S` be the set of all :math:`N`-partitions of :math:`X`, where an :math:`N`-partition is a partition with exactly :math:`N` nonempty elements.
 We can represent a typical partition in :math:`\mathcal S` as :math:`S = \{S_1, S_2, \ldots, S_N\}`, where
 
