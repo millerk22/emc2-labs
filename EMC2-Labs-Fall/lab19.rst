@@ -8,6 +8,7 @@ Image compression
 -----------------
 
 For this part of the lab you will perform image compression using singular value decomposition. 
+Image compression is the process of reducing the amount of data required to represent an image by removing redundant or less important information.
 You will need to import the following:
 
 >>> import numpy as np
@@ -45,6 +46,9 @@ this
 To display the image, use the command
 
 >>> plt.imshow(F, cmap='gray')
+
+.. image:: _static/cat1.png
+        :align: center
 
 The command ``F.shape`` shows that the image is stored as a NumPy array of dimensions ``m x n``. 
 These dimensions represent the coordinates of a pixel in the image with ``(0,0)`` in the top left corner. 

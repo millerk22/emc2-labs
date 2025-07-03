@@ -105,5 +105,11 @@ Then for each factor you can do something like
 to get a list of the coefficients. 
 If you can get all of the coefficients into one list, turn this list into a set, and then back into a list to remove duplicates.
 
+.. note::
+
+   A set is another data type in Python. 
+   It is similar to a mathematical set because it does not allow for duplicates. 
+   This can be useful in python because turning a list into a set and back into a list will remove all duplicates.
+   
 
 
