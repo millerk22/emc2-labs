@@ -46,6 +46,7 @@ At which point, ``line_count`` would see that the position of ``James`` is ``1``
 You may have noticed that we could also have used a ``for`` loop to solve this problem. In theory, every problem that can be done with recursion can be done with iteration. The pseudoceode for an iterative ``line_count`` would look like this:
 
 .. code-block:: python
+
    def line_count_iter(person):
       count = 0
       while person_ahead is not None:   # while there is a next person
@@ -93,25 +94,24 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
 "If all you have is a hammer, everything looks like a nail." - Abraham Maslow
 -----------------------------------------------------------------------------
 
-Recursion is perfectly suited for certain cases, but be careful to not overuse it for all cases.
+Recursion is perfectly suited for certain cases, but be careful to not overuse it. This table has some of the benefits and downsides of recursion and iteration.
 
 .. list-table::
-
-   :widths: 50 50
+   :widths: 33 34 33
    :header-rows: 1
 
    * - Feature
-      - Recursion
-      - Iteration (for or while loops)
+     - Recursion
+     - Iteration (for or while loops)
    * - **Code Attributes**
-      - Tends to have shorter and simpler code
-      - Sometimes easier to write
+     - Tends to have shorter and simpler code
+     - Sometimes easier to write
    * - **Efficiency**
-      - Less efficient
-      - Frequently more efficient
+     - Less efficient
+     - Frequently more efficient
    * - **Use Cases**
-      - Good for when you don't know how big something is (think the restaurant example)
-      - Good for simple, repetitive tasks
+     - Good for when you don't know how big something is (think the restaurant example)
+     - Good for simple, repetitive tasks
 
 Recursion is a very difficult topic to understand when first starting out, so don't worry if you have trouble grasping it.
 
