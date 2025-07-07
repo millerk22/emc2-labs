@@ -9,7 +9,7 @@ A current area of high interest is data science and machine learning. Machine le
 * **Unsupervised learning**: Uses algorithms to find patterns or anomalies in existing data.
 * **Reinforcement learning**: A type of simulation where an agent learns by interacting with an environment. The agent gets feedback through rewards or penalties.
 
-This lab covers one form of unsupervised learning called clustering. There are many different clustering algorithms, but we will be focusing on one called K-Means.
+This lab covers one form of unsupervised learning called clustering. There are many different clustering algorithms, but we will be focusing on one called K-Means. If you are planning on going into ACME or Computer Science, you will likely have the opportunity to learn more about K-Means and other similar algorithms.
 
 For this lab, we will be using the Iris dataset, which is a classic machine learning dataset made in the 1930s. It contains 50 samples each of three different species of the Iris flower: Setosa, Virginica, and Versicolor. Each flower has length and width measurements for petals and sepals.
 
@@ -89,8 +89,6 @@ The algorithm can be summarized as follows.
 	:width: 80%
 	
 	An example of the K-Means algorithm picking/updating centers and assigning points to clusters.
-
-Those students planning on enrolling in the ACME program or who are completing a degree in computer science will likely have the opportunity to code up the K-Means algorithm. 
 
 ``sklearn.cluster.KMeans``
 --------------------------
@@ -270,8 +268,8 @@ Each 2-dimensional layer represents the red, green, and blue color values, so ea
 
 To quantize an image, the K-Means algorithm (or another similar algorithm) first finds clusters which represent groups of pixels are closest in color. It also finds cluster centers which represent the mean color of the cluster. It then takes every pixel in a cluster and recolors it to the cluster center.
 
-Task 2a
--------
+Task 2
+------
 
 Write a function, ``quantize_image(X, k, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, and a random seed and does the following:
 
@@ -287,14 +285,16 @@ Write a function, ``quantize_image(X, k, seed)``, that takes a color image array
 
 #. Return the recolored image
 
-Make sure to set ``random_state=42`` when you create your ``KMeans`` object! Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). You can test your code with the file given in CodeBuddy.
+.. warning::
+    
+    Make sure to set ``random_state=42`` when you create your ``KMeans`` object! Do NOT change the original image during any part of this process (use ``np.copy`` or ``X.copy()`` before performing any of the above steps). You can test your code with the file given in CodeBuddy.
 
-Task 2b
--------
+.. Task 2b
+.. -------
 
-So far, we have been training (or fitting) our K-Means clustering algorithm on the entire set of data we are given. This is not a common practice because of how large some datasets are. Instead, we can take a random sample set of X :math:`x \subset X` to get a representative sample of the data.
+.. So far, we have been training (or fitting) our K-Means clustering algorithm on the entire set of data we are given. This is not a common practice because of how large some datasets are. Instead, we can take a random sample set of X :math:`x \subset X` to get a representative sample of the data.
 
-Write a function, ``quantize_image_sampled(X, k, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, the number of samples, ``n_samples``, and a random seed. Your function should follow the same process as the function in the last task, but should train (or ``fit()``) the model on a subset of ``X``. Use ``np.random.randint(0, X.shape[0], n_samples)`` to get random integer indices for your random subset. Once you fit the model, get predictions for the entire set of points ``X``, recolor the image and return it.
+.. Write a function, ``quantize_image_sampled(X, k, n_samples, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, the number of samples, ``n_samples``, and a random seed. Your function should follow the same process as the function in the last task, but should train (or ``fit()``) the model on a subset of ``X``. Use ``np.random.randint(0, X.shape[0], n_samples)`` to get random integer indices for your random subset. Once you fit the model, get predictions for the entire set of points ``X``, recolor the image and return it.
 
 Application: Detecting Active Earthquake Regions
 ------------------------------------------------
