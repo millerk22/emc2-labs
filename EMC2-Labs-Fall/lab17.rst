@@ -8,7 +8,7 @@ Systems of One-Way Roads
 In Section 15 of the `Math 290 textbook <https://mathdept.byu.edu/~doud/Transition/Transition.pdf>`_ it is shown that any finite set of cities with a system of one-way roads connecting them has a valid path (re-read that section if you don't remember what these terms mean). 
 We will write a program that finds a valid path through any such system of roads.
 
-First, we need to generate systems of roads.
+First, we need to be able to generate random systems of roads.
 A system of one-way roads through ``n`` cities can be represented as a list of ``n`` city names together with an ``n x n`` matrix ``A``, where
 
 .. math::
@@ -19,7 +19,12 @@ A system of one-way roads through ``n`` cities can be represented as a list of `
       -1 & \text{ if there is a road from $j$ to $i$}.
    \end{cases}
 
-For example, the system of roads through five cities pictured on p. 108 of the Math 290 textbook would be represented by the list ``L = ['A', 'B', 'C', 'D', 'E']`` together with the matrix
+We will use the system of roads through five cities pictured on p. 108 of the Math 290 textbook as an example.
+
+.. image:: _static/cities.svg
+   :align: center
+
+These cities would be represented by the list ``L = ['A', 'B', 'C', 'D', 'E']`` together with the matrix
 
 .. math::
    M = \left[\begin{matrix}
@@ -30,9 +35,7 @@ For example, the system of roads through five cities pictured on p. 108 of the M
       1 & -1 & -1 & 1 & 0
    \end{matrix}\right].
 
-
 Notice that ``M`` is antisymmetric, meaning that ``transpose(M) = -M``.
-
 
 Task 1
 ------
@@ -42,35 +45,43 @@ If you need help generating random integers, read about the function ``randint``
 
 >>> from random import randint
 
+Valid Paths
+-----------
 
-
-To find a valid path through ``n`` cities: let ``X`` be the first city in the list ``L``.
-For each other city ``Y`` say that ``Y`` is a red city if there is a road from ``X`` to ``Y`` (i.e. ``A[X,Y]=1``) and say that ``Y`` is a blue city if there is a road from ``Y`` to ``X`` (i.e. ``A[X,Y]=-1``).
-Then form two smaller systems of one way roads, one comprising the red cities, and the other comprising the blue cities (where the order of the labels is preserved).
-For example, for the matrix ``M`` above, we have ``X=A`` and
-
-.. math::
-   M_\text{red} = 
-   \left[
-   \begin{matrix}
-      0
-   \end{matrix}
-   \right], \quad L_{\text{red}} = [C] 
-   \quad \text{ and } \quad 
-   M_\text{blue} = 
-   \left[
-   \begin{matrix}
-      0 & 1 & 1 \\
-      -1 & 0 & -1 \\
-      -1 & 1 & 0
-   \end{matrix}
-   \right], \quad L_{\text{blue}} = [B,D,E]. 
-
-
-Now we (recursively) find a valid path through the red cities and a valid path through the blue cities and combine them to make the path
+To find a valid path through ``n`` cities: let ``X`` be a random city in the list ``L``.
+For each other city ``Y``, say that ``Y`` is a blue city if there is a road from ``Y`` to ``X`` (i.e. ``A[X,Y]=-1``), and say that ``Y`` is a red city if there is a road from ``X`` to ``Y`` (i.e. ``A[X,Y]=1``).
+Then form two smaller systems of one way roads, one comprising the blue cities, and the other comprising the red cities (where the order of the labels is preserved).
 
 .. math::
    [\text{path through blue cities}] \rightarrow X \rightarrow [\text{path through red cities}].
+
+Then, solve each reduced system with the same process.
+
+For example, for the matrix ``M`` above, we have ``X=C`` and
+
+.. math::
+   M_\text{blue} = 
+   \left[
+   \begin{matrix}
+      0 & 1 & -1 \\
+      -1 & 0 & -1 \\
+      1 & 1 & 0
+   \end{matrix}
+   \right], \quad L_{\text{red}} = [A,C,D] 
+   \quad \text{ and } \quad 
+   M_\text{red} = 
+   \left[
+   \begin{matrix}
+      0 & -1 & 1 \\
+      1 & 0 & 1 \\
+      -1 & -1 & 0
+   \end{matrix}
+   \right], \quad L_{\text{blue}} = [B,C,E]. 
+
+Now we recursively find a valid path through the red cities and a valid path through the blue cities and combine them to make the final valid path.
+
+.. image:: _static/cities_path.svg
+   :align: center
 
 Task 2
 ------
@@ -84,14 +95,10 @@ The ``copy`` package helps with this:
 >>> import copy
 >>> Mc = copy.deepcopy(M)
 
-
-
 As an extra (ungraded) challenge, write a function that computes all valid paths for the given input.
 
-
-A problem with recursion
+A Problem with Recursion
 ------------------------
-
 
 Pull up your Fibonacci function ``fib(n)`` from :doc:`lab12` and see how long it takes to compute the ``40``-th Fibonacci number.
 To do this, first run the following code:
@@ -137,7 +144,6 @@ Luckily, there's a built-in Python tool just for that:
        blah blah blah
 
 The line starting with ``@`` needs to come immediately before your function definition. Replace ``blah blah blah`` by the code you already wrote for the ``fib`` function. Now see how fast your function computes ``fib(40)``. And just for fun, see how fast it computes ``fib(200)``. It should compute this in less than one second; don't submit your code to CodeBuddy until you have memoization working properly.
-
 
 
 Task 4: Towers of Hanoi
