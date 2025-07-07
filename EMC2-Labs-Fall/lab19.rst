@@ -2,12 +2,12 @@ Lab 19: Applications of SVD
 ==================================
 
 
-In this lab you will learn about applications of SVD in image compression and in principal component analysis (PCA). 
+In this lab, you will learn about applications of SVD in image compression and principal component analysis (PCA). 
 
-Image compression
------------------
+Application 1: Image compression
+--------------------------------
 
-For this part of the lab you will perform image compression using singular value decomposition. 
+For this part of the lab, you will perform image compression using singular value decomposition. 
 Image compression is the process of reducing the amount of data required to represent an image by removing redundant or less important information.
 You will need to import the following:
 
@@ -16,44 +16,44 @@ You will need to import the following:
 >>> import matplotlib.pyplot as plt
 >>> from skimage import data, color
 
-First, we will do a quick review of SVD decomposition.
-Consider an arbitrary matrix of size :math:`m \times n` called :math:`F`.
-Recall that the singular value decomposition writes :math:`F` in the form
+First, we will do a quick review of SVD.
+Consider an arbitrary matrix of size :math:`m \times n` called :math:`A`.
+Recall that the singular value decomposition writes :math:`A` in the form
 
 .. math::
 
-   F = U \Sigma V^T
+   A = U \Sigma V^T
 
 The matrix :math:`U` is an :math:`m \times m` matrix with orthonormal columns, and :math:`V` is an :math:`n \times n` matrix with orthonormal columns. 
-:math:`\Sigma` is a diagonal matrix whose nonzero entries are the singular values of :math:`F`. 
+:math:`\Sigma` is a diagonal matrix whose nonzero entries are the singular values of :math:`A`. 
 We can use the NumPy function ``la.svd()`` to get these matrices in Python.
 
->>> U,S,VT = la.svd(F)
+>>> U,S,VT = la.svd(A)
 
-Python represents :math:`\Sigma` as ``S``, a list (NumPy array) of the singular values of ``F``. 
+Python represents :math:`\Sigma` as ``S``, a list (NumPy array) of the singular values of ``A``. 
 The ``np.diag()`` function will turn a list into a diagonal matrix. 
-Remember that one of the most useful concepts about SVD decomposition is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`F`\.
+Remember that one of the most useful concepts about SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
 
->>> F_approx = U[:,:s].dot(np.diag(S[:s])).dot(VT[:s])
+>>> A_approx = U[:,:s].dot(np.diag(S[:s])).dot(VT[:s])
 
 This becomes very useful in the context of images.
 Most images are stored in matrices of the size ``(height, width, 3)`` where the 3 depths refer to red, blue, green colors represented by a number between 0 and 255.
 Because space to store data is finite, performing SVD on every depth, and keeping the first ``s`` ranks of the decomposition can greatly reduce the data taken up while still preserving much of the image quality.
 For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2-D matrices with values between 0 and 255.
-For this lab we will use a grayscale image of a cat named *Chelsea* from the ``skimage.data`` module, which can be accessed by
+For this lab we will use a grayscale image of a cat named *Chelsea* from the ``skimage.data`` module, which can be accessed with
 this
 
->>> F = color.rgb2gray(data.chelsea())
+>>> A = color.rgb2gray(data.chelsea())
 
 To display the image, use the command
 
->>> plt.imshow(F, cmap='gray')
+>>> plt.imshow(A, cmap='gray')
 
 .. image:: _static/cat1.png
         :align: center
         :scale: 80%
 
-Now observe what happens when use different values for ``s`` and display the image then. 
+Now observe what happens when we use different values for ``s`` and display the image then. 
 This will show what information about the image is preserved in the first few ranks. 
 It is impressive how quickly the image can become recognizable with so little data.
 
@@ -61,7 +61,7 @@ It is impressive how quickly the image can become recognizable with so little da
         :align: center
         :scale: 70%
 
-The command ``F.shape`` shows that the image is stored as a NumPy array of dimensions ``m x n``. 
+The command ``A.shape`` shows that the image is stored as a NumPy array of dimensions ``m x n``. 
 These dimensions represent the coordinates of a pixel in the image with ``(0,0)`` in the top left corner. 
 The first dimension is the vertical dimension and the second is the horizontal dimension.
 Each entry is an integer representing how dark a pixel is (``0=black``, ``255=white``).
@@ -71,7 +71,7 @@ Each entry is an integer representing how dark a pixel is (``0=black``, ``255=wh
 Task 1
 ------
 
-Write a function ``svd_decomp(F, s)`` which takes in a 2-D grayscale matrix ``F``\, and rank ``s``, and returns an SVD approximation of ``F`` up to rank ``s``.
+Write a function ``svd_approx(A, s)`` which takes in a 2-D grayscale matrix ``A``\, and rank ``s``, and returns an SVD approximation of ``A`` up to rank ``s``.
 
 .. If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and print ``"s cannot be larger than length of S"``.
 
@@ -82,31 +82,31 @@ Task 2
 How small can you make ``s`` and still have the image recognizable? Don't worry about a little graininess.
 
 
-Principal Component Analysis
-----------------------------
+Application 2: Principal Component Analysis (PCA)
+-------------------------------------------------
 
 Principal component analysis is a dimensionality reduction technique used to simplify complex datasets while preserving as much information as possible.
 In other words, we want to project the data onto a subspace where the most variance exists.
 This can be incredibly useful for visualizing patterns in data.
-First, we start with and :math:`m \times n` matrix :math:`X` where :math:`m` is the number of data points and :math:`n` is the number of features for each data point.
+First, we start with an :math:`m \times n` matrix :math:`X` where :math:`m` is the number of data points and :math:`n` is the number of features for each data point.
 For example, if you went around interviewing people in the Talmage, :math:`m` would be the number of students and :math:`n` would be their answers to various questions.
 The first step is to center the data over each column to obtain :math:`\bar{X}`.
 We need to center the data because we care more about how the data is spread about the mean rather than its scale. 
 
-We then need to obtain the sample covariance matrix :math:`C` through :math:`C = \frac{1}{m} \bar{X}^T \bar{X}`\.
+We then need to obtain the sample covariance matrix :math:`C` given by :math:`C = \frac{1}{m} \bar{X}^T \bar{X}`\.
 In a covariance matrix each entry :math:`(i,j)` gives the covariance between :math:`i` and :math:`j` and the diagonal entries are the variance of each feature. 
-What is useful about this matrix is that for each eigenvalue and coresponding eigenvector, the larger the eigenvector, the more variance/information that is preserved in the direction of that eigenvector.
-Below is the data points of a :math:`2 \times 100` matrix plotted, along with the assocciated eigenvectors. 
-As you can see the first eigenvector preserverse the most variance on the data points.
+What is useful about this matrix is that for each eigenvalue and its corresponding eigenvector: the larger the eigenvalue, the more variance is captured along that eigenvector.
+Below are the data points of a :math:`2 \times 100` matrix, plotted, along with the associated eigenvectors. 
+As you can see the first eigenvector preserves the most variance on the data points.
 
 .. image:: _static/eigendata.png
         :align: center
 
-So all we need to do is find the eigenvectors of the :math:`C` and then project :math:`X` onto the eigenvectors depending on the amount of dimensions we want. 
-Each eigenvector will become a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
-Becuase :math:`C` is symetric that means it is diagonizable can be written in the form :math:`C = PDP^{-1}` where P is the eigenvectors of :math:`C` and :math:`D` is a diagonal matrix containing the eigenvectors of :math:`C`.
+All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors coresponding to largest eigenvalue). 
+Each eigenvector will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
+Because :math:`C` is symmetric, it is diagonalizable can be written in the form :math:`C = PDP^{-1}` where P is the eigenvectors of :math:`C` and :math:`D` is a diagonal matrix containing the eigenvalues of :math:`C`.
 This is where SVD becomes important. 
-if we can perfrom SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can then obtain a way to get the eigenvectors of :math:`C`\.
+If we can perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can then obtain a way to get the eigenvectors of :math:`C`\.
 
 .. math::
         C = \frac{1}{m}\bar{X} ^T \bar{X}
@@ -116,13 +116,13 @@ if we can perfrom SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\,
         = PDP^{-1}
 
 This shows that :math:`V = P` or in other words, :math:`\bar{X}` and :math:`C` have the same eigenvectors.
-This means that all you need to do to find the SVD of :math:`X` centered, and then project :math:`X` onto the each eigenvector we want to use as a basis for the space.
+This means all you need to do is compute the SVD of the centered matrix :math:`X` and then project :math:`X` onto whichever eigenvectors you choose as your basis.
 
 Let's do an example with relevant data. 
 We will use the NASA Star-Type Dataset which contains 240 stars and 4 features for each star; temperature, luminosity, radius, and absolute magnitude.
 So if we center the data over the columns and obtain :math:`\bar{X}` we can then get the SVD and get :math:`V`.
 Because we have 4 features :math:`V` will be a :math:`4 \times 4` matrix. 
-So if we want to project our data :math:`X` onto a 2-D space, all we have to do is take a truncate it to the first 2 columns and mutliply :math:`X` by it.
+So if we want to project our data :math:`X` onto a 2-D space, all we have to do is take it, truncate  to the first 2 columns, and multiply :math:`X` by it.
 
 .. math::
 
@@ -158,13 +158,13 @@ So if we want to project our data :math:`X` onto a 2-D space, all we have to do 
 ..     \in \mathbb{R}^{240 \times 2}
 
 
-Once we plot this data we end up with this graph. 
+Once we plot this data, we obtain the following graph.
 
 .. image:: _static/pca.png
         :align: center
 
 As you can see above the PCA works very well because we can see almost distinct groupings for each star type.
-Now just so you can understand more of how the variance is preserved through the first two features take a look at the two graphs below. 
+Now, just so you can understand more of how the variance is preserved through the first two features, take a look at the two graphs below. 
 On the left we have PCA done with the first 2 columns of :math:`V`, and on the right we have it done with columns 3 and 4.
 It is clear to see how so much more variance, and accuracy, is preserved in columns 1 and 2 compared with 3 and 4.
 
@@ -174,8 +174,8 @@ It is clear to see how so much more variance, and accuracy, is preserved in colu
 
 .. note::
                 
-        We say principal component in PCA because the axis of these projections hold no metric (they don't mean anything interpretable in context of the features). 
-        So while PCA can be really effective to visualize groupings and relations among the data in data sets, it is limited in producing actual conclusions about the features relation to the data.
+        We call them principal components because the axes of these projections carry no physical units (they are not directly interpretable features).
+        So while PCA can be really effective to visualize groupings and relations among the data in datasets, it is limited in producing actual conclusions about how individual features relate to the data.
 
 
 Task 3
@@ -186,4 +186,5 @@ Write a function called ``PCA(X, k)`` which takes in a matrix ``X``, and number 
 Task 4
 ------
 
-Use your newly defined ``PCA(X, k)`` function to perfrom PCA on the Palmer Penguins Dataset, and then print out which two groups are the most similar according to the analysis. 
+Use your newly defined ``PCA(X, k)`` function to perform PCA on the Palmer Penguins dataset, and then print out which two groups are the most similar according to the analysis. 
+The dataset will be provided in CodeBuddy. 
