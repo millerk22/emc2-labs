@@ -84,6 +84,27 @@ we would create a list with three elements. The first element will be the list `
  [-5 -6 -7 -8]
  [ 1  5  2  3]]
 
+.. note:: ``@``, ``np.dot()``, and ``np.matmul()``
+    There are a few different ways to multiply matrices in Python. ``@`` is native to python, while ``np.dot()`` and ``np.matmul()`` come with NumPy.
+
+    >>> import numpy as np
+    >>> a = np.array([[1, 2, 3],
+                      [3, 4, 5]])
+    >>> b = np.array([[2, 3],
+                      [4, 5],
+                      [6, 7]])
+    >>> a @ b
+    [[28 34]
+     [52 64]]
+    >>> np.dot(a, b)
+    [[28 34]
+     [52 64]]
+    >>> np.matmul(a, b)
+    [[28 34]
+     [52 64]]
+    
+    Each of these operations returns the same thing for 2d matrices. Each has different rules for NumPy arrays that are not two dimensional, so be careful of that. You can see more information `here <https://stackoverflow.com/questions/34142485/difference-between-numpy-dot-and-python-3-5-matrix-multiplication>`_.
+
 Accessing NumPy Arrays with Slicing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
