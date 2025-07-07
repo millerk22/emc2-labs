@@ -98,8 +98,6 @@ We see there are no :math:`M`'s or :math:`L`'s on the left, so we write :math:`x
 
 When we represent this system of equations in a matrix form, we get
 
-.. put the number here
-.. 
 .. math::
     :label: eq:(1)
 
@@ -111,7 +109,6 @@ When we represent this system of equations in a matrix form, we get
     \begin{bmatrix} x \\ y \\ z \end{bmatrix}
     =
     \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
-
 
 .. note::
     The rows represent the physical dimension (:math:`M`, :math:`L`, and :math:`T`) and the columns represent the powers (:math:`x`, :math:`y`, and :math:`z`).
@@ -193,6 +190,7 @@ Use ``numpy.round(a, decimals)`` to round your answers to 2 decimal places. ``a`
 
 Task 3: Estimate the Energy Yield
 ---------------------------------
+
 With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a function ``energy_yield(R, t)`` that will estimate the energy yield of the bomb for any given radius ``R`` and time ``t``. Use it to estimate the energy yield of the bomb for all of the pictures shown above. Assume :math:`C=1`.
 
 .. note::
