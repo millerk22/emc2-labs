@@ -1,5 +1,5 @@
-Lab 7: Matrix Row Reduction
-===========================
+Lab 7: NumPy and Matrix Row Reduction
+=====================================
 
 In Lab 5, we wrote ``scalar_mult(s, v)``, ``vector_add(v, w)``, and ``dot_product(v, w)``. In order to avoid having to write these functions every time, people like `Travis Oliphant <https://en.wikipedia.org/wiki/Travis_Oliphant>`_ (a BYU alumnus) created a python library we can use called NumPy. 
 
