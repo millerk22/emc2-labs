@@ -2,7 +2,7 @@ Lab 19: Applications of SVD
 ==================================
 
 
-In this lab, you will learn about applications of SVD in image compression and principal component analysis (PCA). 
+In this lab, you will learn about applications of SVD, like image compression and principal component analysis (PCA). 
 
 Application 1: Image compression
 --------------------------------
@@ -25,20 +25,20 @@ Recall that the singular value decomposition writes :math:`A` in the form
    A = U \Sigma V^T
 
 The matrix :math:`U` is an :math:`m \times m` matrix with orthonormal columns, and :math:`V` is an :math:`n \times n` matrix with orthonormal columns. 
-:math:`\Sigma` is a diagonal matrix whose nonzero entries are the singular values of :math:`A`. 
+:math:`\Sigma` is a :math:`m \times n` diagonal matrix whose nonzero entries are the singular values of :math:`A`. 
 We can use the NumPy function ``la.svd()`` to get these matrices in Python.
 
 >>> U,S,VT = la.svd(A)
 
-Python represents :math:`\Sigma` as ``S``, a list (NumPy array) of the singular values of ``A``. 
-The ``np.diag()`` function will turn a list into a diagonal matrix. 
+Python represents :math:`\Sigma` as ``S``, a 1-D NumPy array of the singular values of ``A``. 
+The ``np.diag()`` function will turn a 1-D NumPy array into a diagonal matrix. 
 Remember that one of the most useful concepts about SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
 
->>> A_approx = U[:,:s].dot(np.diag(S[:s])).dot(VT[:s])
+>>> A_approx = U[:,:s] @ np.diag(S[:s]) @ VT[:s]
 
 This becomes very useful in the context of images.
-Most images are stored in matrices of the size ``(height, width, 3)`` where the 3 depths refer to red, blue, green colors represented by a number between 0 and 255.
-Because space to store data is finite, performing SVD on every depth, and keeping the first ``s`` ranks of the decomposition can greatly reduce the data taken up while still preserving much of the image quality.
+Most images are stored in matrices of the size ``(height, width, 3)`` where the 3 depths refer to red, blue, and green colors represented by a number between 0 and 255.
+Because the space to store an image is finite, performing SVD on every depth, and keeping the first ``s`` ranks of the decomposition can greatly reduce the storage space while still preserving much of the image quality.
 For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2-D matrices with values between 0 and 255.
 For this lab we will use a grayscale image of a cat named *Chelsea* from the ``skimage.data`` module, which can be accessed with
 this
@@ -48,6 +48,7 @@ this
 To display the image, use the command
 
 >>> plt.imshow(A, cmap='gray')
+>>> plt.show()
 
 .. image:: _static/cat1.png
         :align: center
@@ -90,12 +91,13 @@ In other words, we want to project the data onto a subspace where the most varia
 This can be incredibly useful for visualizing patterns in data.
 First, we start with an :math:`m \times n` matrix :math:`X` where :math:`m` is the number of data points and :math:`n` is the number of features for each data point.
 For example, if you went around interviewing people in the Talmage, :math:`m` would be the number of students and :math:`n` would be their answers to various questions.
-The first step is to center the data over each column to obtain :math:`\bar{X}`.
+The first step is to center each column of the data to obtain :math:`\bar{X}`.
 We need to center the data because we care more about how the data is spread about the mean rather than its scale. 
 
 We then need to obtain the sample covariance matrix :math:`C` given by :math:`C = \frac{1}{m} \bar{X}^T \bar{X}`\.
-In a covariance matrix each entry :math:`(i,j)` gives the covariance between :math:`i` and :math:`j` and the diagonal entries are the variance of each feature. 
-What is useful about this matrix is that for each eigenvalue and its corresponding eigenvector: the larger the eigenvalue, the more variance is captured along that eigenvector.
+In a covariance matrix each entry :math:`(i,j)` gives the covariance between feature :math:`i` and feature :math:`j`\.
+This implies the diagonal entries are the variance of each feature. 
+What is useful about this matrix is that for each eigenvalue and its corresponding eigenvector, the larger the eigenvalue, the more variance is captured along that eigenvector.
 Below are the data points of a :math:`2 \times 100` matrix, plotted, along with the associated eigenvectors. 
 As you can see the first eigenvector preserves the most variance on the data points.
 
@@ -103,10 +105,10 @@ As you can see the first eigenvector preserves the most variance on the data poi
         :align: center
 
 All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors coresponding to largest eigenvalue). 
-Each eigenvector will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
-Because :math:`C` is symmetric, it is diagonalizable can be written in the form :math:`C = PDP^{-1}` where P is the eigenvectors of :math:`C` and :math:`D` is a diagonal matrix containing the eigenvalues of :math:`C`.
+These eigenvectors will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
 This is where SVD becomes important. 
-If we can perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can then obtain a way to get the eigenvectors of :math:`C`\.
+If we can perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can show that the eigenvectors of :math:`\bar{X}` and :math:`C` are the same.
+Because :math:`C` is symmetric, it is diagonalizable and can be written in the form :math:`C = PDP^{-1}` where :math:`P` contains the eigenvectors of :math:`C`\, and :math:`D` is a diagonal matrix containing the eigenvalues of :math:`C`.
 
 .. math::
         C = \frac{1}{m}\bar{X} ^T \bar{X}
@@ -115,14 +117,14 @@ If we can perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\,
         = V (\frac{1}{m}  \Sigma^T \Sigma) V^T
         = PDP^{-1}
 
-This shows that :math:`V = P` or in other words, :math:`\bar{X}` and :math:`C` have the same eigenvectors.
-This means all you need to do is compute the SVD of the centered matrix :math:`X` and then project :math:`X` onto whichever eigenvectors you choose as your basis.
+This clearly shows that :math:`V = P`\.
+This means all you need to do is compute the SVD of the centered matrix :math:`X` to obtain the eigenvectors and then project :math:`X` onto whichever eigenvectors you choose as your basis.
 
 Let's do an example with relevant data. 
 We will use the NASA Star-Type Dataset which contains 240 stars and 4 features for each star; temperature, luminosity, radius, and absolute magnitude.
-So if we center the data over the columns and obtain :math:`\bar{X}` we can then get the SVD and get :math:`V`.
+So if we center each column of the data and obtain :math:`\bar{X}` we can then get the SVD and get :math:`V`.
 Because we have 4 features :math:`V` will be a :math:`4 \times 4` matrix. 
-So if we want to project our data :math:`X` onto a 2-D space, all we have to do is take it, truncate  to the first 2 columns, and multiply :math:`X` by it.
+So if we want to project our data :math:`X` onto a 2-D space, all we have to do is take it, truncate  to the first 2 columns, and multiply it by :math:`X`\.
 
 .. math::
 
@@ -180,7 +182,7 @@ It is clear to see how so much more variance, and accuracy, is preserved in colu
 
 Task 3
 ------
-Write a function called ``PCA(X, k)`` which takes in a matrix ``X``, and number of principal components ``k`` and returns an ``m x k`` ``numpy.array`` using the PCA algorithm defined above.
+Write a function called ``PCA(X, k)`` which takes in a matrix ``X``, and number of principal components ``k`` and returns an ``m x k`` ``numpy.ndarray`` using the PCA algorithm defined above.
 
 
 Task 4
