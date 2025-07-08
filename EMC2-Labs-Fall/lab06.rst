@@ -1,32 +1,43 @@
 Lab 6: The Caesar Cipher
 ========================
 
+The Caesar (or shift) cipher takes a message and "shifts" it by a certain number of letters. Here is the entire process:
 
-
-
-The Caesar (or shift) cipher with integer key ``n`` encodes a string of letters by doing the following to each letter:
-
-1. Translate the letter to an integer using the 26 character alphabet
+#. Translate the letter to an integer using the 26 character alphabet
 	A = 00, B = 01, ..., Z = 25
 
-2. Add ``n``
+#. Add ``n``
 
-3. Reduce the result modulo 26 (take the remainder after dividing by 26)
+#. Reduce the result modulo 26 (take the remainder after dividing by 26)
 
-4. Translate the result back to a letter
+#. Translate the result back to a letter
 
 The effect is to shift each letter forward in the alphabet by ``n`` spaces, wrapping around at the end of the alphabet.
 For example, to shift the letter ``T`` by ``n=12``, we would do the following:
 
-1. ``T -> 19``
+#. ``T -> 19``
 
-2. ``19 -> 19+12 = 31``
+#. ``19 -> 19+12 = 31``
 
-3. ``31 % 26 = 5``
+#. ``31 % 26 = 5``
 
-4. ``5 -> F``
+#. ``5 -> F``
 
- 
+The Mod Operator
+----------------
+
+An important operator we haven't covered yet is the mod (modulo) operator. It is represented by the ``%`` sign. All it does is take the first operator and repeatedly subtract the second operator from it until it can't anymore, then it returns the result. You can think of this as the remainder of an integer division problem. For example,
+
+>>> 10 % 2
+0
+>>> 9 % 2
+1
+>>> 127 % 126
+1
+>>> 126 % 127
+126
+
+If you want some more help understanding how mod works, open up Colab and try a few examples.
 
 Task 1
 ------
