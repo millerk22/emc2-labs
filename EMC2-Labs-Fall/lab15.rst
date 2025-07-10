@@ -11,9 +11,9 @@ See Algorithm 17.20 in the Math 290 textbook.
 Your function should raise a ``ValueError`` if ``a`` and ``b`` are both zero. 
 
 
->>> gcd_it(12345,67890)
+>>> gcd_it(12345, 67890)
 15
->>> gcd_it(-56,98)
+>>> gcd_it(-56, 98)
 14
 
 
@@ -23,36 +23,51 @@ Task 2: Recursive GCD
 
 
 
-Write a function ``gcd(a,b)`` that computes the GCD of ``a`` and ``b`` recursively. See Algorithm 17.21 in the Math 290 textbook. Your function should raise a ``ValueError`` if ``a`` and ``b`` are both zero. 
+Write a function ``gcd(a, b)`` that computes the GCD of ``a`` and ``b`` recursively. See Algorithm 17.21 in the Math 290 textbook. Your function should raise a ``ValueError`` if ``a`` and ``b`` are both zero. 
 
 
->>> gcd(112233,445566)
+>>> gcd(112233, 445566)
 33
 
 
 
-Task 3: The Extended GCD, nonnegative inputs
---------------------------------------------
-
-
+The Extended GCD Algoirthm
+--------------------------
 
 In addition to computing the GCD :math:`d` of two integers :math:`a` and :math:`b`, the extended Euclidean algorithm also computes integers :math:`x` and :math:`y` such that :math:`d` can be written as the linear combination :math:`d = ax+by`. 
 
-How does this work recursively? 
-Suppose that we start with nonnegative integers :math:`a` and :math:`b` where :math:`a \leq b`. 
-Then we know that :math:`d = gcd(a,b) = gcd(r,a)`, where :math:`b = qa+r` with :math:`0 \leq r < a`. 
-If we have some way of computing integers :math:`e` and :math:`f` such that :math:`d = re+af` then we can work backwards as follows:
+In order to make this algorithm work recursively, we will always assume the first argument is always less than or equal to the second (:math:`a \leq b`). Keep in mind that :math:`gcd(a, b) = gcd(b, a)`.
+
+We will need three separate cases, the recursive case, the base case, and the switch case.
+
+Recursive Case
+**************
+
+Normally when doing a extended GCD algorithm problem, we care about the coefficients :math:`x` and :math:`y` in :math:`gcd(a,b) = d = ax + by`. To understand the recursive case (we can also think of this as the inductive step), we want to understand what happens after one more iteration of the GCD algorithm. We already know :math:`gcd(a,b)=d` and :math:`b=aq + r`. One more iteration takes us to :math:`gcd(r,a) = d` (note that :math:`r=b%a`). This gets us some different coefficients :math:`e` and :math:`f` in :math:`gcd(r,a) = d = re + af`. These coefficients represent the coefficients of the recursive case (sub-problem). Lets assume that the algoirthm will figure out these coefficients for us. All we have to do now is figure out how :math:`e` and :math:`f` relate to :math:`x` and :math:`y`.
 
 .. math::
-   re + af &= d \qquad \qquad \text{plug in } r=b-qa, \\
-   (b-qa)e + af &= d \qquad \qquad \text{do algebra} \\
-   a(f-qe) + be &= d.
+   re + af &= d\\
+   (b-aq)e + af &= d \qquad \qquad \text{from } b=aq+r\\
+   a(f-eq) + be &= d \qquad \qquad \text{simplify.}\\
 
-Now we have :math:`x` and :math:`y` such that :math:`ax+by=d`, namely :math:`x=f-qe` and :math:`y=e`.
-(We can get :math:`q` by using integer division: :math:`q=b//a`)
+This is in the form :math:`d = ax + by`. So our coefficients are
 
-It remains to find :math:`x, y` such that :math:`d = ax+by` in some simple base case. If :math:`a = 0` then we know that :math:`d = b` and therefore we can take :math:`x = 0` and :math:`y=1` to get :math:`b = a*0+b*1`.
+.. math::
+   x &= f-eq\\
+   y &= e\\
+   q &= b//a \qquad \qquad \text{from } b=aq+r.\\
 
+Remember that :math:`f` and :math:`e` are the coefficients for the recursive call (subproblem), while :math:`x` and :math:`y` are the coefficients for the current problem which are calculated from :math:`f` and :math:`e`.
+
+Base and Switch Cases
+*********************
+
+The base case (what to return when we want to stop recursing) will be when :math:`a=0`. At that point we have :math:`gcd(a, b) = d = ax + by` so :math:`x=0`, :math:`y=1`, and :math:`d=b`.
+
+The switch case will occur when :math:`a > b`. When that happens, we just need to switch :math:`a` and :math:`b` and :math:`x` and :math:`y`.
+
+Task 3: The Extended GCD, nonnegative inputs
+--------------------------------------------
 
 Write a recursive function ``xgcd_pos(a,b)`` that performs the extended Euclidean Algorithm on the pair ``a, b``, assuming that ``a`` and ``b`` are nonnegative integers, not both zero. Do not do any error checking at this point.
 Your function should return a list of three integers ``[d,x,y]`` such that ``d = gcd(a,b)`` and ``d = ax+by``. 
@@ -61,13 +76,13 @@ See Section 18.B in the Math 290 textbook.
 Here is some pseudocode to get you started.
 
 
-.. code-block:: python
+.. code-block:: console
 
    def xgcd_pos(a,b):
       if a > b:
          return the result of xgcd_pos(b,a) after swapping x and y
       elif a==0:
-         return [b, 0, 1]
+         return the values for the base case
       else:
          get d, e, f from recursively calling xgcd_pos(b%a, a)
          set x = f-qe and y = e
