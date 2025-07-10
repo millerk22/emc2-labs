@@ -91,23 +91,23 @@ Turn to a neighbor and discuss which line is the base case, recursive case, and 
 
 Write out the different calls ``recursive_sum(5)`` will make. This should look something like when we called ``line_count`` on ``You``.
 
-.. admonition:: "If all you have is a hammer, everything looks like a nail." - Abraham Maslow
+.. admonition:: "If all you have is a hammer everything looks like a nail." - Abraham Maslow
 
    Recursion is perfectly suited for certain situations, but be careful to not overuse it. Generally speaking, recursion works well for divide and conquer problems, data in tree-based structures, and any time a problem can be divided in to smaller subproblems. Iteration can then be used for everything else.
 
    .. list-table::
       :widths: 33 34 33
       :header-rows: 1
-
+      
       * - Feature
-      - Recursion
-      - Iteration (for or while loops)
+        - Recursion
+        - Iteration (for or while loops)
       * - **Efficiency**
-      - Less efficient
-      - Frequently more efficient
+        - Less efficient
+        - Frequently more efficient
       * - **Use Cases**
-      - Good for when you don't know how big something is (think the restaurant example)
-      - Good for simple, repetitive tasks
+        - Good for when you don't know how big something is (think the restaurant example)
+        - Good for simple, repetitive tasks
 
    Recursion is a very difficult topic to understand when first starting out, so don't worry if you have trouble grasping it.
 
