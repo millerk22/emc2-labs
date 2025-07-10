@@ -82,8 +82,8 @@ When you execute a cell with more than one command, the commands will be execute
 In the cell that was just created write and execute the following two commands:
 
 >>> print("Hello World!")
->>> print("I'm hungry.")
 Hello World!
+>>> print("I'm hungry.")
 I'm hungry.
 
 Each time you execute a cell, a new cell should be created at the bottom of the notebook. 
@@ -235,8 +235,8 @@ quantities that are less than or equal to, or greater than or equal to each othe
 >>> print (7 <= a)
 False
 >>> print(a == 5)
->>> print(a < 10)
 True
+>>> print(a < 10)
 True
 
 Notice that the commands ``a=5`` and ``a==5`` have different meanings in the above code. In the
