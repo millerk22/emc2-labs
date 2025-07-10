@@ -39,13 +39,15 @@ Task 2
 
 
 
-Write a function  ``GramSchmidt(X)`` that takes as input a list ``X`` of vectors ``[v_1, v_2,... v_p]`` and returns a list of vectors ``[u_1, u_2,... u_q]`` which forms an orthogonal basis for the space spanned by the original vectors.
-You may assume the original vectors are the same length, however you should not assume the original vectors are linearly independent. 
-In order to avoid some ``numpy`` errors, you may need to convert the contents of each vector into ``floats``; this can be done by dividing each vector by ``1.0`` after it has been converted to a ``numpy`` array.
+Write a function  ``GramSchmidt(X)`` that takes as input a Python list ``X`` of vectors ``[v_1, v_2,... v_p]`` and returns a Python list of vectors ``[u_1, u_2,... u_q]`` which forms an orthogonal basis for the space spanned by the original vectors.
 
-So that your results match the autograder, the order in which this is done matters. Start the process with the first element of ``X``, and continue in order through the rest of the elements. Set ``u_1 = v_1``, and then ``u_2 = v_2 - projection(u_1,v_2)``, etc.
+Here are a few more things you should be aware of:
 
-Due to rounding errors, after calculating each ``u_i`` vector, replace each of its elements that has absolute value ``< 10^-5`` with ``0``. As you go through the process you should throw out any ``0`` vectors that come up. The ``np.count_nonzero`` function may be useful here.
+* You may assume the original vectors are the same length, however you should not assume the original vectors are linearly independent. Think about what this means for your vectors, will you need to keep all of them?
+* Convert the contents of each vector from ``int`` to ``float``. This can be done by dividing each vector by ``1.0`` after it has been converted to a NumPy array.
+* Start the Gram-Schmidt algorithm with the first element of ``X`` and continue, in order, through the rest of the elements. Set ``u_1 = v_1``, and then ``u_2 = v_2 - projection(u_1,v_2)``, etc. This will make sure your answers correspond with the autograder.
+* Round each of your vectors to two decimal places. (Use ``np.round(v, dec)`` to make things quicker)
+
 
 >>> GramSchmidt([[1,0,-1],[1,2,3]])
 [array([1., 0., -1.]), array([2., 2., 2.])]
