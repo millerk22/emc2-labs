@@ -101,7 +101,7 @@ Task 4: The Extended GCD, general inputs
 Write a function ``xgcd(a,b)`` that takes in any integers ``a`` and ``b`` and returns ``[d,x,y]`` such that ``d=ax+by`` (unless ``a=0`` and ``b=0``).
 Your function should raise an exception if ``a`` and ``b`` are both zero. 
 
-The simplest way to do this is to call your ``xgcd_pos`` function from the previous task with ``abs(a)`` and ``abs(b)`` and modify the signs of ``x`` and ``y`` appropriately. 
+The simplest way to do this is to call your ``xgcd_pos`` function from the previous task with ``abs(a)`` and ``abs(b)`` and modify the signs of ``x`` and ``y`` appropriately. Remember, :math:`d = ax + by` where ``xgcd(a, b)`` returns ``[d, x, y]``.
 
 >>> xgcd_pos(12, 53)
 [1, -22, 5]
