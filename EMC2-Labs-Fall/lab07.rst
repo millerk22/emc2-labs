@@ -84,7 +84,8 @@ we would create a list with three elements. The first element will be the list `
  [-5 -6 -7 -8]
  [ 1  5  2  3]]
 
-.. note:: ``@``, ``np.dot()``, and ``np.matmul()``
+.. admonition:: Matrix Multiplication with ``@``, ``np.dot()``, and ``np.matmul()``
+
     There are a few different ways to multiply matrices in Python. ``@`` is native to python, while ``np.dot()`` and ``np.matmul()`` come with NumPy.
 
     >>> import numpy as np
