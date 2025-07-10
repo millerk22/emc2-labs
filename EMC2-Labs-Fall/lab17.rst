@@ -57,7 +57,7 @@ Then form two smaller systems of one way roads, one comprising the blue cities, 
 
 Then, solve each reduced system with the same process.
 
-For example, for the matrix ``M`` above, we have ``X=C`` and
+For example, using the matrix ``M`` above and setting ``X=C``, we have
 
 .. math::
    M_\text{blue} = 
@@ -67,8 +67,10 @@ For example, for the matrix ``M`` above, we have ``X=C`` and
       -1 & 0 & -1 \\
       1 & 1 & 0
    \end{matrix}
-   \right], \quad L_{\text{red}} = [A,C,D] 
-   \quad \text{ and } \quad 
+   \right], \quad L_{\text{blue}} = [A,C,D] 
+
+
+.. math::
    M_\text{red} = 
    \left[
    \begin{matrix}
@@ -76,7 +78,7 @@ For example, for the matrix ``M`` above, we have ``X=C`` and
       1 & 0 & 1 \\
       -1 & -1 & 0
    \end{matrix}
-   \right], \quad L_{\text{blue}} = [B,C,E]. 
+   \right], \quad L_{\text{red}} = [B,C,E]. 
 
 Now we recursively find a valid path through the red cities and a valid path through the blue cities and combine them to make the final valid path.
 
