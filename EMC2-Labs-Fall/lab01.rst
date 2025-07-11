@@ -540,6 +540,17 @@ This uses a similar notation to indexing:
 >>> print(my_list)
 [1,2,-15,4]
 
+Another way to change lists is by adding data to them. There are two ways to do this, both are referred to as *appending* to a list.
+
+>>> my_list=[1,2,3,4]
+>>> my_list.append(5)
+>>> my_list
+[1,2,3,4,5]
+>>> my_list = my_list + [6]
+[1,2,3,4,5,6]
+
+You can append any type of data (``str``, ``int``, ``float``, or ``bool``) to a list.
+
 .. warning::
    
    There is something you will need to be careful about when using lists in Python, and in
