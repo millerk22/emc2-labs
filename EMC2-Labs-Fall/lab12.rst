@@ -128,14 +128,6 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
 Task 2
 ------
 
-Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
-
-.. hint::
-   Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor divison) removes the remainder after division.
-
-Task 3
-------
-
 Recall that the factorial function is defined on nonnegative integers as
 
 .. math::
@@ -154,7 +146,14 @@ Write a function ``fac(n)`` that computes ``n!`` recursively. Your program shoul
 >>> fac(30)
 265252859812191058636308480000000
    
-   
+Task 3
+------
+
+Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
+
+.. hint::
+   Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor divison) removes the remainder after division.
+
 
 .. Task 3
 .. ------
