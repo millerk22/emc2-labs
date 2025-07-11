@@ -455,6 +455,14 @@ Think about how the code above resembles the following.
 .. math::
    a = \{3i : i \in \{0, 1, 2,\ldots, 9\}\}
 
+Here is what this list comprehension looks like using a ``for`` loop.
+
+.. code:: python
+   
+   a = []
+   for i in range(10):
+      a = a + 3*i
+
 The first part of the above list comprehension, namely ``3*i``, tells Python that we are going
 to create a list and fill it with numbers of the form ``3*i``, for some values of ``i``. The second part
 of the list comprehension, the command ``for i in range(10)``, tells Python what values of ``i``
@@ -476,54 +484,15 @@ Task 7
 ------
 
 
-Using a list comprehension, create a list
+Using list comprehension, create a list
 
 .. math::
    [0.5^1, 0.5^2, 0.5^3,\ldots, 0.5^{100}]
 
 and save it as a variable called ``long_list``.
 
-Nested List Comprehension
--------------------------
-
-
-Much like nested ``for`` loops, we can use double list comprehensions to create more complicated lists. We can also have a list comprehension cycle through a list of functions instead of
-just a range of numbers. Suppose, for example, that we
-wanted to create a list of the form
-
-.. math::
-   [\sin(1), \cos(1), \log(1), \sin(2), \cos(2), \log(2),\ldots, \sin(99), \cos(99), \log(99)]
-
-We could do this using a double list comprehension as follows.
-
-
->>> a=[f(i) for i in range(1,100) for f in [np.sin, np.cos, np.log]]
-
-In this example, the ``for i in range(1,100)`` acts similarly to an outer ``for`` loop, while
-``for f in [np.sin, np.cos, np.log]`` acts like an inner ``for`` loop. For each ``i`` value, the
-function ``f`` cycles through the different function ``np.sin``, ``np.cos``, and ``np.log``, before moving
-on to the value ``i+1``.
-
 
 Task 8
 ------
 
-Using a double list comprehension, create a list
-
-.. math::
-   [1^1, 2^1, 3^1, 1^2, 2^2, 3^2, 1^3, 2^3, 3^3, \ldots, 1^{99}, 2^{99}, 3^{99}]
-
-and save it as a variable called ``very_long_list``.
-
-.. hint::
-   
-   By looking at the above example try to figure out the order in which the list comprehensions need to be stated. If you don't obtain the correct answer, try swapping the order
-   of the list comprehensions.
-
-
-
-
-
-
-
-
+Using list comprehension, write a function returns a Python list of temperatures in fahrenheit from a Python list of temperatures in celcius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
