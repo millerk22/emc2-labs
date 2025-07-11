@@ -123,19 +123,6 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
 
    Generally speaking, if you want something to be fast and efficient, but look messy, use iteration. If those things aren't important and you want pretty code, use recursion.
         
-
-Recursion	Iteration
-Implementation	Function calling itself	Loops
-Applied to	Functions	Loops
-Termination	Defined in the recursive function	Defined in loop’s definition
-Size of Code	Small	Large
-Speed	Slow	Fast
-Time Complexity Intensity	High	Low
-Stack	Requires stack updation	No need for stack utilization
-Usability	When time complexity is not a major issue, and the size of the code is small	To balance time complexity for heavy code size
-Overhead	Extended overhead	No overhead
-Memory	Consumes more memory	Consumes less memory
-
    Recursion is a very difficult topic to understand when first starting out, so don't worry if you have trouble grasping it.
 
 Task 2
@@ -181,14 +168,14 @@ Write a function ``fac(n)`` that computes ``n!`` recursively. Your program shoul
 .. Similarly, if the binary expansion of a number ends in a one (e.g. ``5=101``) then the function ``x -> (x-1)/2`` simply removes the rightmost bit (``2=10``).
 
    
-Write a function ``binary(n)`` that returns the binary expansion of ``n`` as a string. 
-Your program should raise a ``ValueError`` if the input is not a positive integer.
+.. Write a function ``binary(n)`` that returns the binary expansion of ``n`` as a string. 
+.. Your program should raise a ``ValueError`` if the input is not a positive integer.
 
    
->>> binary(45)
-'101101'
->>> binary(2**30)
-'1000000000000000000000000000000'
+.. >>> binary(45)
+.. '101101'
+.. >>> binary(2**30)
+.. '1000000000000000000000000000000'
    
    
 
