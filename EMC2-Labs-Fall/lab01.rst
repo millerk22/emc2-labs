@@ -549,7 +549,7 @@ Another way to change lists is by adding data to them. There are two ways to do 
 >>> my_list = my_list + [6]
 [1,2,3,4,5,6]
 
-You can append any type of data (``str``, ``int``, ``float``, or ``bool``) to a list.
+Notice how one of these methods uses ``[]`` while the other does not require it. You can append any type of data (``str``, ``int``, ``float``, or ``bool``) to a list.
 
 .. warning::
    
