@@ -128,6 +128,14 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
 Task 2
 ------
 
+Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
+
+.. hint::
+   Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor divison) removes the remainder after division.
+
+Task 3
+------
+
 Recall that the factorial function is defined on nonnegative integers as
 
 .. math::
@@ -179,7 +187,7 @@ Write a function ``fac(n)`` that computes ``n!`` recursively. Your program shoul
    
    
 
-Task 3
+Task 4
 ------
 
 The Fibonacci numbers are a collection of natural numbers labeled
@@ -209,7 +217,7 @@ Write a function ``fib(n)`` that recursively computes the ``n``-th Fibonacci num
    
    
 
-Task 4
+Task 5
 ------
 
 Follow the proof of Proposition 14.6 in the Math 290 textbook to write the following function computing power sets.
