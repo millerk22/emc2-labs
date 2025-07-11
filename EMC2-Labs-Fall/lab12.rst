@@ -101,13 +101,40 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
       
       * - Feature
         - Recursion
-        - Iteration (for or while loops)
-      * - **Efficiency**
-        - Less efficient
-        - Frequently more efficient
-      * - **Use Cases**
-        - Good for when you don't know how big something is (think the restaurant example)
-        - Good for simple, repetitive tasks
+        - Iteration
+      * - **Implementation**
+        - Function calling itself
+        - Loops
+      * - **Termination**
+        - Defined in recursive function
+        - Defined in loop's definition
+      * - **Size of Code**
+        - Small
+        - Large
+      * - **Speed**
+        - Slow
+        - Fast
+      * - **Time Complexity**
+        - High
+        - Low
+      * - **Memory**
+        - Uses more memory
+        - Uses less memory
+
+   Generally speaking, if you want something to be fast and efficient, but look messy, use iteration. If those things aren't important and you want pretty code, use recursion.
+        
+
+Recursion	Iteration
+Implementation	Function calling itself	Loops
+Applied to	Functions	Loops
+Termination	Defined in the recursive function	Defined in loop’s definition
+Size of Code	Small	Large
+Speed	Slow	Fast
+Time Complexity Intensity	High	Low
+Stack	Requires stack updation	No need for stack utilization
+Usability	When time complexity is not a major issue, and the size of the code is small	To balance time complexity for heavy code size
+Overhead	Extended overhead	No overhead
+Memory	Consumes more memory	Consumes less memory
 
    Recursion is a very difficult topic to understand when first starting out, so don't worry if you have trouble grasping it.
 
