@@ -72,7 +72,7 @@ Each entry is an integer representing how dark a pixel is (``0=black``, ``255=wh
 Task 1
 ------
 
-Write a function ``svd_approx(A, s)`` which takes in a 2-D grayscale matrix ``A``\, and rank ``s``, and returns an SVD approximation of ``A`` up to rank ``s``.
+Write a function ``svd_approx(A, s)`` which takes in a 2-D matrix ``A``\, and rank ``s``, and returns an SVD approximation of ``A`` up to rank ``s``.
 
 .. If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and print ``"s cannot be larger than length of S"``.
 
