@@ -20,6 +20,7 @@ In the above example, we might instead raise a ``ValueError`` above when the vec
 	raise ValueError('Error: Vectors have different lengths.')
 
 .. admonition:: Challenge
+
 	Can you do all the Vector tasks with list comprehension?
 
 Task 1
@@ -79,13 +80,13 @@ This is the same thing as:
 [0, 1, 2, 3, 4, 10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 30, 31, 32, 33, 34, 40, 41, 42, 43, 44]
 
 .. admonition:: Functions
+
 	We can also have a list comprehension cycle through a list of functions instead of just a range of numbers. Suppose, for example, that we wanted to create a list of the form
 
 	.. math::
-	[\sin(1), \cos(1), \log(1), \sin(2), \cos(2), \log(2),\ldots, \sin(99), \cos(99), \log(99)].
+		[\sin(1), \cos(1), \log(1), \sin(2), \cos(2), \log(2),\ldots, \sin(99), \cos(99), \log(99)].
 
 	We could do this using a double list comprehension as follows.
-
 
 	>>> a=[f(i) for i in range(1,100) for f in [np.sin, np.cos, np.log]]
 
