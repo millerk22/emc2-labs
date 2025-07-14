@@ -1,5 +1,5 @@
-Lab 1: Introduction to Python, Part I
-=====================================
+Lab 1: Introduction to Python Revised, Part I
+=============================================
 
 What is Programming?
 --------------------
@@ -67,7 +67,7 @@ In your notebook type the following into the cell:
 >>> print("Hello World!")
 
 .. note::
-   ``>>>`` indicates that the code that follows should be typed into a cell!
+   ``>>>`` indicates that the code that follows should be typed into a cell.
 
 As you might expect, this is a command which tells the notebook to display the phrase ``Hello World!`` below the cell. 
 In order to tell Python to actually perform this command, we must execute the cell by holding down the Shift button and pressing Return/Enter or by clicking the run button in the upper left of the cell.
@@ -265,8 +265,8 @@ One import thing you need to understand about Python is how it uses **types**. W
       - Words, sentences, or even individual characters.
       - ``Hello World``, ``a``, ``BYU!``
 
-.. note:: 
-    You may have noticed that earlier when we evaluated the expression ``15 * 3 - 81 / 9``, we got ``36.0``, not ``36``. This is because the division operator (``/``) always returns a ``float`` type in Python, even when both dividend and divisor are ``int``s.
+.. note::
+    You may have noticed that earlier when we evaluated the expression ``15 * 3 - 81 / 9``, we got ``36.0``, not ``36``. This is because the division operator (``/``) always returns a ``float`` type in Python, even when both dividend and divisor are ``int``\s.
 
     If we want to force the output to be an ``int`` we can use integer division (``//``) instead:
 
@@ -282,7 +282,7 @@ One import thing you need to understand about Python is how it uses **types**. W
 
 To figure out what type a variable or value is, you can use ``type()``.
 
-    Practice: Put this code into a cell in your Colab notebook and run the cell. See if you can figure out what type each variable is. Then, call ``type()`` on each variable and see if you are right!
+    Practice: Put this code into a cell in your Colab notebook and run the cell. See if you can figure out what type each variable is, then, call ``type()`` on each variable and see if you are right!
 
     >>> name = "Alice"
     >>> pi = 3.14
@@ -546,13 +546,12 @@ To test more complicated conditions it is useful to use the ``and`` and ``or`` o
 
 
 .. list-table:: ``And`` Truth Table
-
     :widths: 33 33 34
     :header-rows: 1
 
-    * - ``P``
-      - ``Q``
-      - ``P and Q``
+    * - P
+      - Q
+      - P and Q
     * - True
       - True
       - True
@@ -577,13 +576,12 @@ False.
    (10==11) or (-3==-12)   # This will return False because both of the statements are False.
 
 .. list-table:: ``Or`` Truth Table
-
     :widths: 33 33 34
     :header-rows: 1
 
-    * - ``P``
-      - ``Q``
-      - ``P or Q``
+    * - P
+      - Q
+      - P or Q
     * - True
       - True
       - True
@@ -661,7 +659,7 @@ Hello, world!
 >>> name
 'Alice'
 
-Notice that ``print``ing a string shows it without the quotes.
+Notice that ``print``\ing a string shows it without the quotes.
 
 You can combine (concatenate) strings using the ``+`` operator:
 
@@ -753,6 +751,7 @@ Review
 ------
 
 Congrats on making it through your first Python lab of this class! Here is a quick summary of what we have learned:
+
 - printing in Python
 - arithmetic in Python
 - variables
