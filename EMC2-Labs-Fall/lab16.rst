@@ -2,7 +2,7 @@ Lab 16: The Gram-Schmidt Process
 ================================
 
 
-In this lab you will use the python ``numpy`` module to perform the Gram-Schmidt process on a collection of vectors to find an orthonormal basis for their span. Recall that to import the numpy module you use the command
+In this lab you will use the python ``numpy`` module to perform the Gram-Schmidt process on a collection of vectors to find an orthonormal basis for their span. Recall that to import the NumPy module you use the command
 
 >>> import numpy as np
 
