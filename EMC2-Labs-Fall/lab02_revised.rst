@@ -1,5 +1,250 @@
-Lab 2: Introduction to Python, Part II
-======================================
+Lab 2: Introduction to Python Revised, Part II
+==============================================
+
+In `Lab 1 <lab01.html>`_, you were introduced to Python, learned about data types (like ``int``, ``float``, ``bool``, ``str``, and ``list``), and learned about conditionals and functions. In this lab, we are going to expound on functions and lists, and then we will introduce loops and list comprehension.
+
+Functions, Part 2
+-----------------
+
+For Lab 1, we mainly worked with functions that took in one or two values and returned one value. We can also define functions that return multiple values and functions that call other functions when they are being evaluated.
+
+.. code-block:: python
+   
+   def multiply(x,y):
+      return x*y
+
+>>> multiply(3,7)
+21
+
+.. code-block:: python
+   
+   def sum_diff(x,y):
+      return x+y, x-y
+
+>>> sum_diff(3,7)
+(10, -4)
+
+.. code-block:: python
+   
+   def mult_add(x,y):
+      w = multiply(x,y)+x  # Here we call the function multiply that we defined earlier.
+      return w             # Make sure that the cell containing the definition of multiply has already been executed.
+
+>>> mult_add(3,7)
+24
+
+When we have nested functions like this, Python will step into each function as it encounters it. It will only exit the function when there are no more lines to complete in the function, or it runs into a ``return``. So in this case, Python starts executing our cell, then jumps into ``mult_add``, and then into ``multiply`` before returning from each function in reverse order.
+
+.. code-block::
+
+   Colab Cell
+   ├── mult_add()
+   │   ├── multiply()
+   │   │   └── return
+   │   └── return
+   └── Cell Complete
+
+Global and Local Variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Consider the function from Lab 1:
+
+.. code-block:: python
+
+    def arithmetic(i, j):
+        k = i + 2
+        l = k * j
+        w = k - 5
+        return w
+
+One important thing to note is how variables are treated by Python when they are defined inside of a function (like the variables ``k``, ``l``, and ``w`` above). These are examples of **local** variables, which are defined and can only be accessed from within the function itself. For example, when calling the function ``arithmetic(3)``, the intermediate variable ``k`` is assigned the value of ``15`` as part of the evaluation. However, as soon as the function finishes evaluating, the variable ``k`` and its value are immediately discarded, and can no longer be accessed. Trying to access it will result in an error message, indicating that we did something wrong:
+
+>>> arithmetic(3, 4)
+10
+>>> k
+NameError: name 'k' is not defined
+
+**Global** variables act as a companion to local variables. These variables are accessible anywhere in the program. For example,
+
+.. code-block:: python
+    
+    a = 10
+
+    def add(n):
+        return a + n
+
+>>> add(4)
+14
+>>> a
+10
+
+
+Task 1
+------
+
+1. Define a function called ``triple(y)`` which takes a value ``y`` as input, and outputs ``3y``.
+2. Define a function called ``avg(x,y)`` which takes two values ``x`` and ``y`` as input, and outputs the mean of ``x`` and ``y``. Recall that the *mean* of two numbers :math:`a` and :math:`b` is defined to be :math:`(a+b)/2`.
+3. Define a function called ``combine(x,y)`` which takes a pair of input values ``x`` and ``y``, and finds the mean of ``x`` and ``3y``. The function ``combine(x,y)`` should call both of your functions ``triple(y)`` and ``avg(x,y)`` in its definition.
+
+>>> triple(10)
+30
+>>> avg(5, 25)
+15.0
+>>> combine(6,5)
+10.5
+
+
+Lists
+-----
+
+So far, we have seen the ``int``, ``float``, ``str``, and ``bool`` data types.
+Another very important data type in Python is the ``list`` data type. A list is an ordered
+collection of objects (which can be numbers, strings, or even other lists), which we specify by
+enclosing them in square brackets ``[]``.
+
+>>> my_list=["Hello", 91.7, "world", 15, 100, -10.2]
+
+Here the list ``my_list`` contains two strings, two floats (decimal values), and two integers. The benefit of lists is that we can store lots of data and access it easily because each entry in a list is labeled with an index starting at 0. We can access any element in a list "indexing" with ``[]``.
+
+>>> my_list[0]
+Hello
+>>> my_list[4]
+100
+>>> my_list[5]
+-10.2
+
+.. warning::
+
+   An important thing to remember is that Python begins indexing elements of a list starting
+   at ``0``. This may seem unusual at first, since humans typically start counting objects with the
+   number ``1``.
+
+We can also access elements from the end of a list by using negative numbers.
+
+>>> my_list[-1]
+-10.2
+>>> my_list[-3]
+15
+
+If we would like to access a range of characters in a list, we can use "slicing". If we have list ``L``, then we can slice it  using the notation ``L[start:stop]``, where ``start`` and ``stop`` are both integer index values. Using
+this command will return all of the objects in ``L`` that are between the positions ``start`` and ``stop``.
+It will **include** ``start`` and **exclude** ``stop``.
+
+>>> L = [0,1,2,3,4,5,6]
+>>> L[3:6]
+[3,4,5]
+
+>>> L[-3:-1]
+[4,5]
+
+By not specifying a starting or stopping index, Python returns the elements starting at the
+beginning of the list, or stopping at the end.
+
+>>> L[:4]
+[0,1,2,3]
+
+>>> L[3:]
+[3,4,5,6]
+
+>>> L[-2:]
+[5,6]
+
+Finally, list elements can be changed by accessing an element from an array and reassigning it.
+This uses a similar notation to indexing:
+
+>>> my_list=[1,2,3,4]
+>>> my_list[2] = -15
+>>> print(my_list)
+[1,2,-15,4]
+
+Another way to change lists is by adding data to them. There are two ways to do this, both are referred to as *appending* to a list.
+
+>>> my_list=[1,2,3,4]
+>>> my_list.append(5)
+>>> my_list
+[1,2,3,4,5]
+>>> my_list = my_list + [6]
+[1,2,3,4,5,6]
+
+Notice how one of these methods uses ``[]`` while the other does not require it. You can append any type of data (``str``, ``int``, ``float``, or ``bool``) to a list.
+
+.. warning::
+   
+   There is something you will need to be careful about when using lists in Python, and in
+   particular when you are trying to copy a list. Suppose we create a list, called ``list_a`` with the
+   values ``[1,2,3]``. Then, we create a second list ``list_b``, and assign it the value of ``list_a``.
+   As expected, when we print the values of ``list_b`` Python returns the list ``[1,2,3]``.
+
+   >>> list_a=[1,2,3]
+   >>> list_b=list_a
+   >>> print(list_a)
+   >>> print(list_b)
+
+   You might expect that what we've done above is to create two separate lists, ``list_a`` and ``list_b``,
+   both of which happen to have the same values. However, we have actually only created a single
+   list, but given it two different names ``list_a`` and ``list_b`` to reference it by! For example, if we
+   change one of the entries in ``list_b``, we will also be changing the list ``list_a``.
+
+   >>> list_b[0]=100
+   >>> print(list_b)
+   [100,2,3]
+   >>> print(list_a)
+   [100,2,3]
+
+   There are several ways to create a new copy of a list, which will avoid this behavior. One is
+   by using the command ``list_a.copy()``, which we illustrate below.
+
+   >>> list_a=[1,2,3]
+   >>> list_b=list_a.copy()  # Here we create a separate copy of list_a, and assign it to list_b.
+   >>> print(list_a)
+   [1,2,3]
+   >>> print(list_b)
+   [1,2,3]
+   
+   >>> list_b[0]=100         # Now this only changes list_b.
+   >>> print(list_a)
+   [1,2,3]
+   >>> print(list_b)
+   [100,2,3]
+
+
+Task 4
+------
+
+1. Write a function ``first(c)`` which accepts as input any list ``c``, and outputs the first element in the list ``c``.
+2. Write a function ``first_last(c)`` which accepts as input a list ``c``, and outputs two values, the first element and the last element of ``c`` (in that order).
+3. Write a function ``middle(c)`` which accepts as input a list ``c``, and outputs a list which is the same as ``c`` except that the first element and the last element have been removed.
+
+>>> w=[1,2,3,4,5]
+>>> first(w)
+1
+>>> first_last(w)
+(1, 5)
+>>> middle(w)
+[2,3,4]
+
+
+Task 5
+------
+
+Define a function ``swap(c)`` which accepts a list ``c`` with two or more elements,
+and returns another list which is the same as ``c`` except that the first and last elements are
+switched.
+
+The first line of code in your ``swap`` function should be
+
+``copied_list=c.copy()``
+
+The rest of your function should only reference ``copied_list`` so that the original list ``c`` remains unchanged.
+
+>>> A = [0,1,2,3,4,5]
+>>> swap(A)
+[5,1,2,3,4,0]
+>>> A
+[0,1,2,3,4,5]
+
+
+
 
 .. review functions and lists
 .. this becomes vector arithmetic
@@ -133,6 +378,10 @@ Notes:
 
 >>> list_relu([1,-2,17,-3.2,-15])
 [1,0,17,0,0]
+
+
+.. while loops
+
 
 
 .. NumPy
@@ -347,98 +596,6 @@ Notes:
 .. array([[1, 2, 3, 4],
 ..        [1, 2, 3, 4],
 ..        [1, 2, 3, 4]])
-
-
-Nested for Loops
-----------------
-
-Oftentimes when working with matrices it is helpful to use more than one ``for`` loop, with
-some loops sitting inside of others. We call these nested ``for`` loops. Consider the following
-simple code.
-
-.. code-block:: python
-
-   for i in range(4):
-      for j in range(3):
-         print('i = ', i, ' and j = ', j)
-
-
-In this code, there are two ``for`` loops, an outside loop with variable ``i``, and an inside loop
-with variable ``j``. When we first encounter the outside loop, we set the value of ``i`` to be ``0``, before
-executing the code inside this loop. Executing the code inside the ``i`` loop involves running
-another ``for`` loop though, this time with variable ``j``. The inner ``j`` loop is thus executed, and we
-cycle through all of the ``j`` values, while the ``i`` value stays fixed at ``0``.
-
-Once we've finished cycling through all of the ``j`` values, we then exit the inside ``j`` loop, and
-return to the top of the outside ``i`` loop. It is at this time that the variable ``i`` is assigned the
-value ``1``, before the inner ``j`` loop is called again, and we cycle through all of the ``j`` values once
-again. This continues until we've run through all of the ``i`` values and the ``j`` values. The output
-of this code is shown below.
-
-.. code-block:: console
-
-   i = 0 and j = 0
-   i = 0 and j = 1
-   i = 0 and j = 2
-   i = 1 and j = 0
-   i = 1 and j = 1
-   i = 1 and j = 2
-   i = 2 and j = 0
-   i = 2 and j = 1
-   i = 2 and j = 2
-   i = 3 and j = 0
-   i = 3 and j = 1
-   i = 3 and j = 2
-
-Consider the following, slightly more complex, code. Here we define a function that takes
-a matrix ``M``, and replaces all of the negative entries with their absolute values (so for example,
-if a ``-2`` occurs somewhere in the matrix, that entry is replaced with ``2``, while any nonnegative
-entries are left alone).
-
-.. code-block:: python
-
-   def abs_matrix(M):
-      n_rows, n_cols = M.shape   # This gets the number of rows and columns of M.
-      for i in range(n_rows):    # i represents the row position.
-         for j in range(n_cols): # j represents the column position.
-            if M[i,j]<0:         # If M[i,j] is negative, we make it positive.
-               M[i,j]=-M[i,j]    # Set the new value
-      return M
-
-.. Note::
-   ``M.shape`` is **not** a function. It is called an attribute (which we will talk about later).
-   For now, all you need to know is that you don't need to use ``()`` to call it.
-
-In the above function, we first create two variables, ``n_rows`` and ``n_cols`` which store the
-number of rows and columns in ``M`` respectively. After defining these two variables there are two
-loops, one inside of the other. The outside loop uses the variable ``i``, which loops through the
-different row indices in ``range(n_rows)``. For each step in the outside ``i`` loop (which we think of
-as being a row of ``M``), we run through another for loop, this time cycling through the column
-indices in ``range(n_cols)``. For each combination of ``i`` and ``j``, we test whether the entry ``M[i,j]``
-in the ``i, j`` location is negative, and if it is we replace it with its absolute value.
-
-Now, we can see if the function actually does what we think it should:
-
->>> mat=np.array([[1,-1,2,-3,1,1],[-2,-2,0,1,1,-5],[1,1,1,1,-2,-1]])
->>> print(mat)
-[[ 1 -1 2 -3 1 1]
- [-2 -2 0 1 1 -5]
- [ 1 1 1 1 -2 -1]]
->>> abs_mat=abs_matrix(mat) 
->>> print(abs_mat)
-[[1 1 2 3 1 1]
- [2 2 0 1 1 5]
- [1 1 1 1 2 1]]
-
-Task 6
-------
-
-Define a function, called ``matrix_sum(M)``, which takes as input a matrix ``M`` (as
-a NumPy array), and adds up all of the entries.
-
->>> mat=np.array([[1,-1,2,-3,1,1],[-2,-2,0,1,1,-5],[1,1,1,1,-2,-1]])
->>> matrix_sum(mat)
--5
 
 
 List Comprehension
