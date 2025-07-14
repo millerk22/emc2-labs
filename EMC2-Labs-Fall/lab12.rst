@@ -121,7 +121,7 @@ Write out the different calls ``recursive_sum(5)`` will make. This should look s
         - Uses more memory
         - Uses less memory
 
-   Generally speaking, if you want something to be fast and efficient, but look messy, use iteration. If those things aren't important and you want pretty code, use recursion.
+   If you want something to be fast and efficient, but look messy, use iteration. If those things aren't important and you want pretty code, use recursion.
         
    Recursion is a very difficult topic to understand when first starting out, so don't worry if you have trouble grasping it.
 
