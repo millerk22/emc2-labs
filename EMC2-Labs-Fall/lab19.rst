@@ -133,7 +133,7 @@ If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to 
 
 .. math::
 
-    \textbf{X} =
+    \bar{\textbf{X}} =
     \begin{bmatrix}
         x_{1,1} & x_{1,2} & \cdots & x_{1,4} \\
         x_{2,1} & x_{2,2} & \cdots & x_{2,4} \\
@@ -155,7 +155,7 @@ If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to 
 
 .. math::
 
-    \textbf{X}_{\text{proj}} = \textbf{X} \cdot \textbf{V}_{\text{trunc}} =
+    \bar{\textbf{X}}_{\text{proj}} = \bar{\textbf{X}} \textbf{V}_{\text{trunc}} =
     \begin{bmatrix}
         p_{1,1} & p_{1,2} \\
         p_{2,1} & p_{2,2} \\
