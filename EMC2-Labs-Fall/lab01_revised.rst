@@ -437,8 +437,7 @@ can use the value (as shown above), while when we print, the value is discarded 
    Just because you don't get an error message when you execute some code doesn't mean that it code is doing what you want it to be doing. This is why we will always test our code with various input values. If you have ever had a page crash, weird characters on a website, or infinte loading pages, then you have experienced code with some type of errors in it.
 
 
-Our functions can also include more lines of code inside of them, which dictate which steps
-to perform before returning the output of the function. We can also define new variables inside
+Our functions can also include multiple inputs (called parameters). We can also define new variables inside
 of a function. In this case, each step in the function should be on its own line, indented from
 the first line of the function.
 
@@ -449,16 +448,16 @@ the first line of the function.
 
    .. code-block:: python
 
-      def arithmetic(i):
-         j=i+2
-         k=3*j
-         w=k-5
+      def arithmetic(i, j):
+         k = i + 2
+         l = k * j
+         w = k - 5
          return w
 
    What output do the following commands produce? (Try to figure it out before you run the code.)
 
-   >>> print(arithmetic(3))
-   >>> print(arithmetic(-10))
+   >>> print(arithmetic(3, 4))
+   >>> print(arithmetic(-10, 1))
 
 Combining functions with things like conditionals enables us to do a lot more.
 Consider the following function.
@@ -493,20 +492,20 @@ The great thing about functions is that once they are written, we can use them o
 Task 2
 ------
 
-Define a function called ``arithmetic2(i)`` which does exactly the same thing
-as the function ``arithmetic(i)`` defined above, but which only has a ``def`` line and
+Define a function called ``arithmetic2(i, j)`` which does exactly the same thing
+as the function ``arithmetic(i, j)`` defined above, but which only has a ``def`` line and
 a ``return`` statement. In other words, write a function that does the exact same thing as
-``arithmetic(i)``, but which fits in only two lines of code.
+``arithmetic(i, j)``, but which fits in only two lines of code.
 
 .. admonition:: Test your Code
    
    Whenever you are instructed to write a function in these labs, we will include some test code that you can run to make sure your code is working properly.
    This is a very important step in programming -- don't skip it!
 
-   >>> arithmetic2(3)
-   10
-   >>> arithmetic2(-10)
-   -29
+   >>> arithmetic2(3, 4)
+   0
+   >>> arithmetic2(-10, 1)
+   -13
 
 Task 3
 ------
