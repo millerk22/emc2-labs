@@ -58,8 +58,6 @@ Choose a lab in the left sidebar.
    lab22
    lab23
    lab24
-   labPageRank
-   labpandas
 
 
 
