@@ -33,7 +33,10 @@ Choose a lab in the left sidebar.
 .. ---------
 
 .. toctree::
-
+   lab01_revised
+   lab02_revised
+   lab03_revised
+   lab05_revised
    lab01
    lab02
    lab03
