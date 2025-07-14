@@ -6,7 +6,7 @@ From the Lean Theorem Prover community website:
 
    These tools are often used to verify the correctness of programs. But they can also be used for abstract mathematics.... In a formalization, all definitions are precisely specified and all proofs are virtually guaranteed to be correct.
 
-In this lab, we will get a sense of how a theorem prover works by proving  basic properties of the natural numbers in the interactive theorem prover Lean.
+In this lab, we will get a sense of how a theorem prover works by proving basic properties of the natural numbers in the interactive theorem prover Lean.
 Visit
 
 `<https://adam.math.hhu.de/#/g/leanprover-community/nng4>`_
@@ -18,9 +18,8 @@ Task 1
 
 Complete every level from each of the following worlds:
 
-1. Tutorial World
-2. Addition World
-3. Multiplication World
-4. Implication World
-5. Advanced Addition World
-6. Inequality World
+#. Tutorial World
+#. Addition World
+#. Multiplication World
+
+In the next lab, you will complete worlds 4-6.
