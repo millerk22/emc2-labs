@@ -461,7 +461,7 @@ Here is what this list comprehension looks like using a ``for`` loop.
    
    a = []
    for i in range(10):
-      a = a + 3*i
+      a.append(3*i)
 
 The first part of the above list comprehension, namely ``3*i``, tells Python that we are going
 to create a list and fill it with numbers of the form ``3*i``, for some values of ``i``. The second part
