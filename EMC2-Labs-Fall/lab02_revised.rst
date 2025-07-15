@@ -6,7 +6,7 @@ In `Lab 1 <lab01.html>`_, you were introduced to Python, learned about data type
 Functions, Part 2
 -----------------
 
-For Lab 1, we mainly worked with functions that took in one or two values and returned one value. We can also define functions that return multiple values and functions that call other functions when they are being evaluated.
+For Lab 1, We introduced basic functions like the ``multiply`` function below. We can also define functions that return multiple values and functions that call other functions when they are being evaluated.
 
 .. code-block:: python
    
@@ -27,8 +27,8 @@ For Lab 1, we mainly worked with functions that took in one or two values and re
 .. code-block:: python
    
    def mult_add(x,y):
-      w = multiply(x,y)+x  # Here we call the function multiply that we defined earlier.
-      return w             # Make sure that the cell containing the definition of multiply has already been executed.
+      w = multiply(x,y) + x   # Here we call the function multiply that we defined earlier.
+      return w                # Make sure that the cell containing the definition of multiply has already been executed.
 
 >>> mult_add(3,7)
 24
@@ -97,14 +97,13 @@ Task 1
 Lists
 -----
 
-So far, we have seen the ``int``, ``float``, ``str``, and ``bool`` data types.
-Another very important data type in Python is the ``list`` data type. A list is an ordered
-collection of objects (which can be numbers, strings, or even other lists), which we specify by
-enclosing them in square brackets ``[]``.
+In Lab 1, we breifly introduced ``list``\s. Let's go into a little more detail.
+
+A list is an ordered collection of objects (which can be numbers, strings, or even other lists), which we specify by enclosing them in square brackets ``[]``.
 
 >>> my_list=["Hello", 91.7, "world", 15, 100, -10.2]
 
-Here the list ``my_list`` contains two strings, two floats (decimal values), and two integers. The benefit of lists is that we can store lots of data and access it easily because each entry in a list is labeled with an index starting at 0. We can access any element in a list "indexing" with ``[]``.
+Lists make it easy to store lots of data together. We can access data from lists with **indexing** with ``[]``.
 
 >>> my_list[0]
 Hello
@@ -113,11 +112,9 @@ Hello
 >>> my_list[5]
 -10.2
 
-.. warning::
+.. admonition:: Remember
 
-   An important thing to remember is that Python begins indexing elements of a list starting
-   at ``0``. This may seem unusual at first, since humans typically start counting objects with the
-   number ``1``.
+   Python indexing starts at 0, not 1.
 
 We can also access elements from the end of a list by using negative numbers.
 
@@ -126,7 +123,7 @@ We can also access elements from the end of a list by using negative numbers.
 >>> my_list[-3]
 15
 
-If we would like to access a range of characters in a list, we can use "slicing". If we have list ``L``, then we can slice it  using the notation ``L[start:stop]``, where ``start`` and ``stop`` are both integer index values. Using
+If we would like to access a range of characters in a list, we can use a feature called **slicing**. Given list ``L``, slicing uses the notation ``L[start:stop]``, where ``start`` and ``stop`` are both integer index values. Using
 this command will return all of the objects in ``L`` that are between the positions ``start`` and ``stop``.
 It will **include** ``start`` and **exclude** ``stop``.
 
@@ -140,24 +137,23 @@ It will **include** ``start`` and **exclude** ``stop``.
 By not specifying a starting or stopping index, Python returns the elements starting at the
 beginning of the list, or stopping at the end.
 
->>> L[:4]
+>>> L[:4]   # the beginning of the list to 4
 [0,1,2,3]
 
->>> L[3:]
+>>> L[3:]   # 3 to the end of the list
 [3,4,5,6]
 
->>> L[-2:]
+>>> L[-2:]  # -2 to the end of the list
 [5,6]
 
-Finally, list elements can be changed by accessing an element from an array and reassigning it.
-This uses a similar notation to indexing:
+List elements can be changed by accessing an element from an array and reassigning it. This looks just like assigning a variable to a value.
 
->>> my_list=[1,2,3,4]
+>>> my_list = [1,2,3,4]
 >>> my_list[2] = -15
 >>> print(my_list)
 [1,2,-15,4]
 
-Another way to change lists is by adding data to them. There are two ways to do this, both are referred to as *appending* to a list.
+Another way to change lists is by adding data to them. There are two ways to do this, both are referred to as **appending** to a list.
 
 >>> my_list=[1,2,3,4]
 >>> my_list.append(5)
@@ -166,7 +162,7 @@ Another way to change lists is by adding data to them. There are two ways to do 
 >>> my_list = my_list + [6]
 [1,2,3,4,5,6]
 
-Notice how one of these methods uses ``[]`` while the other does not require it. You can append any type of data (``str``, ``int``, ``float``, or ``bool``) to a list.
+Notice how one of these methods uses ``[]`` while ``.append()`` does not require it. You can ``.append()`` any type of data (``str``, ``int``, ``float``, ``bool``, or even ``list``) to a list.
 
 .. warning::
    
@@ -195,20 +191,20 @@ Notice how one of these methods uses ``[]`` while the other does not require it.
    by using the command ``list_a.copy()``, which we illustrate below.
 
    >>> list_a=[1,2,3]
-   >>> list_b=list_a.copy()  # Here we create a separate copy of list_a, and assign it to list_b.
+   >>> list_b=list_a.copy()  # Here we create a separate copy of list_a, and assign it to list_b
    >>> print(list_a)
    [1,2,3]
    >>> print(list_b)
    [1,2,3]
    
-   >>> list_b[0]=100         # Now this only changes list_b.
+   >>> list_b[0]=100         # Now this only changes list_b
    >>> print(list_a)
    [1,2,3]
    >>> print(list_b)
    [100,2,3]
 
 
-Task 4
+Task 2
 ------
 
 1. Write a function ``first(c)`` which accepts as input any list ``c``, and outputs the first element in the list ``c``.
@@ -224,7 +220,7 @@ Task 4
 [2,3,4]
 
 
-Task 5
+Task 3
 ------
 
 Define a function ``swap(c)`` which accepts a list ``c`` with two or more elements,
@@ -244,18 +240,36 @@ The rest of your function should only reference ``copied_list`` so that the orig
 [0,1,2,3,4,5]
 
 
-
-
-.. review functions and lists
-.. this becomes vector arithmetic
-
 For Loops
 ---------
 
-In the previous lab we learned how to define functions, and how to use ``if`` statements to
-design ones that do more than just perform arithmetic operations. In this lab we will learn
-about another tool for writing functions, called ``for`` loops. We will illustrate this idea with the
-following simple example of a ``for`` loop.
+Loops are another tool we have in programming. They are commonly used to perform repetitive tasks like repeating calculations, processing items in a list, or automating steps that would be tedious to write out individually. In Python, the most common types of loops are ``for`` loops and ``while`` loops. Let's start by exploring ``for`` loops. In this lab, we will be using loops and ``list``\s to do vector arithmetic. 
+
+This is what a for loop looks like.
+
+.. code-block:: python
+   
+   for variable in sequence:
+      # code to execute
+
+``variable`` takes the value of each item in ``sequence`` one by one, then the indented block under the for statement runs for each value of ``variable``. Lets think of this as our "for-sequence" loop. Here is an example,
+
+.. code-block:: python
+
+   A = [2, -6.7, "sandwich", []]
+
+   for item in A:
+      print(item)
+
+.. code-block:: console
+   2
+   -6.7
+   sandwich
+   []
+
+When executing a loop, Python starts by assigning the variable (in this case, ``item``) to the first element in the sequence (``A``). Then, Python executes all of the lines that are tabbed in under the loop. For us, this just prints the item to the screen. After it has completed all the tabbed lines, Python returns to the top of the loop and checks if it is done. After one iteration, there are still three more items in the list so we need to keep going. Python wil then set ``item`` to the second item in ``L``, which is ``-6.7`` and print it to the screen. Then we return to the top of the loop and continue the process until there are no more items in ``L``.
+
+Another kind of for loop uses the ``range()`` function. Lets call this our "for-range" loop.
 
 .. code-block:: python
 
@@ -270,12 +284,51 @@ following simple example of a ``for`` loop.
    3
    4
 
-First, the ``range(5)`` function essentally creates a
-list of integers ``[0,1,2,3,4]``, which we will call ``L``, which starts with ``0`` and ends at ``4``.
-``range`` doesn't actually return a list like this, but we can think of it as behaving
-like one, so we will refer to it as a "list" anyway. Notice that the second line of code above
-is indented. We think of this as being code that is inside the ``for`` loop. It's possible to have
-multiple lines of indented code following a ``for`` statement like the one above.
+We can think of the ``range(5)`` function as creating a list of integers ``[0,1,2,3,4]`` (``range`` doesn't actually do this, but that description is close enough). For each integer in ``[0,1,2,3,4]``, we assign it to the variable ``j``, and then print it out.
+
+Now let's try something slightly more complicated. Let's say we wanted to sum up all the elements in a list. Here is what that would look like with our "for-sequence" loop.
+
+.. code-block:: python
+   L = [1, 5, 6, 2, 7]
+
+   sum = 0
+   for num in L:
+      sum = sum + num
+
+   print(sum)
+
+We start by defining our list ``L`` and setting our ``sum`` variable to 0. Then, we step into our for loop. The first step in the loop will take the first element in ``L`` (``1``) and assign it to ``num``. Then, we take the previous ``sum`` and add it to ``num`` and make that the new ``sum``. At that point, our loop is done with its first iteration, so Python goes back up to the top of the loop and follows the same process with the next value in ``L``, which, in this case is ``5``.
+
+Notice that we initially set our ``sum`` variable to ``0`` because we are treating it as a running sum that we calculate as we move through the list.
+
+Consider the following function:
+
+.. code-block:: python
+
+   def double_list(L):
+      for i in range(len(L)):
+         L[i] = 2*L[i]
+
+
+>>> L = [1, 4.2, 5, 6]
+>>> double_list(L)
+>>> L
+[2, 8.4, 10, 12]
+
+Note that ``len(L)`` returns the number of items in the list ``L``.
+
+   Question: What is the difference between ``double_list`` and the function below?
+
+   .. code-block:: python
+      
+      def double_list_2(L):
+         new_L = []
+         for item in L:
+            new_L.append(item * 2)
+
+   Once you have an answer, read the following paragraph.
+
+   The main difference is that ``double_list_2`` creates a new list, while ``double_list`` modifies the original list. This is because in ``double_list``, we use indexing with ``[]`` and a "for-range" loop, but in ``double_list_2``, we use a "for-sequence" loop. The "for-sequence" loop creates a copy of the ``item`` in ``L``.
 
 .. admonition:: Range
 
@@ -289,83 +342,18 @@ multiple lines of indented code following a ``for`` statement like the one above
       range(-2,-5,-1) -->   [-2, -3, -4]
 
 
-When Python encounters the statement ``for j in range(5):``, it starts by assigning ``j`` the
-first value in the list ``L``, namely ``0``, and then it proceeds to execute the commands which are
-indented inside the ``for`` loop. In this case, ``print(j)`` is the only command, and since we
-have assigned ``j`` to be ``0``, this prints ``0`` in the output.
+.. We don't have to use the ``range`` function with ``for`` loops. We can replace ``range`` with
+.. any ``list`` we'd like. Try the following code out in your ``Sandbox`` notebook.
+
+.. .. code-block:: python
+
+..    A = [2, -6.7, "sandwich", []]
+
+..    for item in A:
+..       print(item)
 
 
-Once Python has finished executing all of the code inside the ``for`` loop, it then returns to
-the top of the ``for`` loop and continues the same process. This time, however, it assigns ``j`` to
-be the second entry in the list ``L``, which is ``1``. Python again executes the code inside the ``for``
-loop, which again consists only of ``print(j)``. This time, however, ``j = 1``, and hence we see a ``1``
-printed in the output following the ``0``.
-
-After executing the code in the for loop with ``j = 1``, Python then returns again to the top
-of the ``for`` loop at the beginning of the cell. At this point ``j`` takes on the next value
-in the list ``L``, namely ``2``, and proceeds again to execute the code inside the ``for`` loop. This
-continues until ``j`` has cycled through every value in the list ``L=[0,1,2,3,4]``, and executed the
-code inside the ``for`` loop for each value of ``j``.
-
-We don't have to use the ``range`` function with ``for`` loops. We can replace ``range`` with
-any ``list`` we'd like. Try the following code out in your ``Sandbox`` notebook.
-
-.. code-block:: python
-
-   A = [2, -6.7, "sandwich", []]
-
-   for item in A:
-      print(item)
-
-Now let's try something slightly more complicated. Consider the following function.
-
-.. code-block:: python
-
-   def summation(n):
-      total = 0
-      for i in range(n+1):
-         total = total + i
-      return total
-
-The function ``summation`` takes as input an integer ``n``, and then adds up all of the integers
-between 0 and ``n``. The function first creates a variable ``sum``, which will keep track of the running
-total of our summation as we add everything up. We will think of our function as adding one
-number at a time, so we initially define the variable ``sum`` so that it has value ``0`` since we haven't
-added any of the numbers to it yet.
-
-The variable ``i`` in the ``for`` loop then runs through the integers ``0,1,...,n``, and at each step
-it adds the current value of ``i`` to the running total in the variable ``sum``. Once we have looped
-through all of the integers ``0,1,...,n``, the function exits the ``for`` loop, and returns the final
-value of ``sum``.
-
-Question: Why do we use ``range(n+1)`` instead of ``range(n)`` in the code above?
-
-
-   Practice: What does the following code do? Work out the expected output on paper, then run the code to check your answer.
-
-   .. code-block:: python
-
-      my_list = [1,2,3,4]
-
-      for i in range(len(my_list)):
-         my_list[i] = 2*my_list[i]
-
-      print(my_list)
-
-   Note: we have introduced a new command ``len`` which gives the length of a list.
-
-
-Task 1
-------
-
-Define a function ``sum_list(L)`` which takes as input a list ``L`` of numbers, and
-returns the sum of the values in the list. 
-
->>> sum_list([1,3,7,-13])
--2
-
-
-Task 2
+Task 4
 ------
 
 Define a function ``list_relu(L)`` which takes as input a list ``L`` of numbers, and
@@ -380,7 +368,66 @@ Notes:
 [1,0,17,0,0]
 
 
-.. while loops
+Task 5
+------
+
+Write a function ``scalar_mult(s,v)`` that takes as input a scalar ``s`` and a vector ``v`` and returns the vector 
+``sv``. The input and output vectors should be represented as Python list data types. 
+
+>>> scalar_mult( 4, [ 1, 2 ] )
+[ 4, 8 ]
+>>> scalar_mult( 3, [ 1., 0., 0.5 ] )
+[ 3., 0., 1.5 ]
+	
+Exceptions
+----------
+
+The next task has you write a function that will add two vectors together. This operation is only valid if the two vectors are the same size. If someone tries to use your function and passes in a vector with three elements, and a vector with 6 elements, you want the function to fail and tell them what they did wrong. This is what ``Exceptions`` are for in Python. Exceptions are ``raised`` like:
+
+.. code-block:: python
+   raise type_of_exception(message)
+   
+
+For you vector addition function, you will want to raise this Exception ``if`` the lengths of the two vectors are different.
+
+.. code-block:: python	
+
+	raise Exception('Error: Vectors have different lengths.')
+
+Unless appropriately caught, an exception will immediately terminate not only the current function, but also every function that called it. So for instance if function ``A`` calls function ``B`` which calls function ``C``, and ``C``  raises an exception, then all three functions will terminate without returning a value, and the exception message will be printed.
+
+``Exception`` is a generic exception. It can be a good idea to raise a more specific exception that is more descriptive depending on the context.
+In the above example, we might instead raise a ``ValueError`` above when the vectors have different lengths.
+
+.. code-block:: python	
+
+	raise ValueError('Error: Vectors have different lengths.')
+
+Task 6
+------
+
+Write a function ``vector_add(v,w)`` that takes as input two vectors ``v`` and ``w`` and returns the vector ``v+w``. The input and output vectors should be represented as  python list data types. Your function should check to ensure the vectors are the same size. If not, your function should raise a ``ValueError`` with an appropriate message.
+
+>>> vector_add( [ 1, -1, 0 ], [ 1, 2, 3 ] )
+[ 2, 1, 3 ]
+>>> vector_add( [ 1.5, -.5 ], [ -1, 1 ] )
+[ 0.5, 0.5 ]
+>>> vector_add( [ 0, 2 ], [ 1, 5, -4 ] )
+Error: Vectors have different lengths.
+
+Task 7
+------
+
+Write a function ``dot_product(v,w)`` that takes as input two vectors ``v`` and ``w`` and returns the dot product of ``v`` and ``w``. The input and output vectors should be represented as  python list data types. Your function should check to ensure the vectors are the same size.  If not, your function should raise a ``ValueError`` with an appropriate message.
+	
+>>> dot_product( [ 1, -1, 0 ], [ 1, 2, 3 ] )
+-1
+>>> dot_product( [ 1, 3 ], [ 4, 0 ] )
+4
+>>> dot_product( [ 0, 2 ], [ 1, 5, -4 ] )
+Error: Vectors have different lengths.
+
+
 
 
 
@@ -601,9 +648,7 @@ Notes:
 List Comprehension
 ------------------
 
-
-One handy way to define lists (and NumPy arrays) is by using a list comprehension. To
-illustrate how this is done, consider the following.
+Lists and loops are used together very frequently, especially in mathematical applications. Because of this, Python has a way to create or modify lists using a loop-type syntax. This is called list comprehension. To illustrate how this is done, consider the following.
 
 >>> a = [3*i for i in range(10)] 
 >>> a
@@ -621,7 +666,7 @@ Here is what this list comprehension looks like using a ``for`` loop.
    
    a = []
    for i in range(10):
-      a = a + 3*i
+      a.append(3*i)
 
 The first part of the above list comprehension, namely ``3*i``, tells Python that we are going
 to create a list and fill it with numbers of the form ``3*i``, for some values of ``i``. The second part
@@ -640,7 +685,18 @@ Here are a few more examples.
 [5, 4, 3]
 
 
-Task 7
+Task 8
+------
+
+Rewrite your ``scalar_mult(s,v)`` function with list comprehension. It should take as input a scalar ``s`` and a vector ``v`` and returns the vector ``sv``. The input and output vectors should be represented as Python list data types. 
+
+>>> scalar_mult( 4, [ 1, 2 ] )
+[ 4, 8 ]
+>>> scalar_mult( 3, [ 1., 0., 0.5 ] )
+[ 3., 0., 1.5 ]
+
+
+Task 9
 ------
 
 
@@ -652,7 +708,7 @@ Using list comprehension, create a list
 and save it as a variable called ``long_list``.
 
 
-Task 8
+Task 10
 ------
 
 Using list comprehension, write a function returns a Python list of temperatures in fahrenheit from a Python list of temperatures in celcius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
