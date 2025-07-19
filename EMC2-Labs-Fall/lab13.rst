@@ -144,6 +144,7 @@ Task 1
 ------
 
 Write a function for each type of linear transformation.
+(``stretch(X, a, b)``, ``shear(X, a, b)``, ``reflection(X, a, b)``, ``rotation(X, theta)``).
 Each function should accept an array to transform and the scalars that define the transformation (:math:`a` and :math:`b` for stretch, shear, and reflection, and ``theta`` for rotation).
 Construct the matrix representation, left multiply it with the input array, and return a transformation of the data.
 Make sure to copy the array before transforming it.
@@ -190,48 +191,48 @@ Write a function ``affine_transform(X, A, b)`` that takes in an array ``X`` and 
 The function should return the affine transformation of the data.
 
 
-Modeling Motion with Affine Transformations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. Modeling Motion with Affine Transformations
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Affine transformations can be used to model particle motion, such as a planet rotating around the sun.
-Let the sun be the origin, the planet's location at time :math:`t` be given by the vector :math:`p(t)`, and suppose the planet has angular velocity :math:`\omega` (a measure of how fast the planet goes around the sun).
-To find the planet's position at time :math:`t` given the planet's initial position :math:`p(0)`, rotate the vector :math:`p(0)` around the origin by :math:`t \omega` radians.
-Thus if :math:`R(\theta)` is the matrix representation of the linear transformation that rotates a vector around the origin by :math:`\theta` radians, then :math:`p(t) = R(t \omega) p(0)`.
+.. Affine transformations can be used to model particle motion, such as a planet rotating around the sun.
+.. Let the sun be the origin, the planet's location at time :math:`t` be given by the vector :math:`p(t)`, and suppose the planet has angular velocity :math:`\omega` (a measure of how fast the planet goes around the sun).
+.. To find the planet's position at time :math:`t` given the planet's initial position :math:`p(0)`, rotate the vector :math:`p(0)` around the origin by :math:`t \omega` radians.
+.. Thus if :math:`R(\theta)` is the matrix representation of the linear transformation that rotates a vector around the origin by :math:`\theta` radians, then :math:`p(t) = R(t \omega) p(0)`.
 
-.. figure::
-   :width: 60%
-   :align: center
+.. .. figure::
+..    :width: 60%
+..    :align: center
 
-   .. image:: tikz:affine-transform
+..    .. image:: tikz:affine-transform
 
-   ---
+..    ---
 
-Composing the rotation with a translation shifts the center of rotation away from the origin, yielding more complicated motion.
+.. Composing the rotation with a translation shifts the center of rotation away from the origin, yielding more complicated motion.
 
-.. admonition:: Problem
-   :class: problem
-   :name: prob:solar-system-trajectories
+.. .. admonition:: Problem
+..    :class: problem
+..    :name: prob:solar-system-trajectories
 
-   The moon orbits the earth while the earth orbits the sun.
-   Assuming circular orbits, we can compute the trajectories of both the earth and the moon using only linear and affine transformations.
+..    The moon orbits the earth while the earth orbits the sun.
+..    Assuming circular orbits, we can compute the trajectories of both the earth and the moon using only linear and affine transformations.
 
-   Assume an orientation where both the earth and moon travel counterclockwise, with the sun at the origin.
-   Let :math:`p_e(t)` and :math:`p_m(t)` be the positions of the earth and the moon at time :math:`t`, respectively, and let :math:`\omega_e` and :math:`\omega_m` be each celestial body's angular velocity.
-   For a particular time :math:`t`, we calculate :math:`p_e(t)` and :math:`p_m(t)` with the following steps.
+..    Assume an orientation where both the earth and moon travel counterclockwise, with the sun at the origin.
+..    Let :math:`p_e(t)` and :math:`p_m(t)` be the positions of the earth and the moon at time :math:`t`, respectively, and let :math:`\omega_e` and :math:`\omega_m` be each celestial body's angular velocity.
+..    For a particular time :math:`t`, we calculate :math:`p_e(t)` and :math:`p_m(t)` with the following steps.
 
-   1. Compute :math:`p_e(t)` by rotating the initial vector :math:`p_e(0)` counterclockwise about the origin by :math:`t \omega_e` radians.
-   2. Calculate the position of the moon relative to the earth at time :math:`t` by rotating the vector :math:`p_m(0) - p_e(0)` counterclockwise about the origin by :math:`t \omega_m` radians.
-   3. To compute :math:`p_m(t)`, translate the vector resulting from the previous step by :math:`p_e(t)`.
+..    1. Compute :math:`p_e(t)` by rotating the initial vector :math:`p_e(0)` counterclockwise about the origin by :math:`t \omega_e` radians.
+..    2. Calculate the position of the moon relative to the earth at time :math:`t` by rotating the vector :math:`p_m(0) - p_e(0)` counterclockwise about the origin by :math:`t \omega_m` radians.
+..    3. To compute :math:`p_m(t)`, translate the vector resulting from the previous step by :math:`p_e(t)`.
 
-   Write a function that accepts a final time :math:`T`, initial positions :math:`x_e` and :math:`x_m`, and the angular momenta :math:`\omega_e` and :math:`\omega_m`.
-   Assuming initial positions :math:`p_e(0) = (x_e, 0)` and :math:`p_m(0) = (x_m, 0)`, plot :math:`p_e(t)` and :math:`p_m(t)` over the time interval :math:`t \in [0, T]`.
+..    Write a function that accepts a final time :math:`T`, initial positions :math:`x_e` and :math:`x_m`, and the angular momenta :math:`\omega_e` and :math:`\omega_m`.
+..    Assuming initial positions :math:`p_e(0) = (x_e, 0)` and :math:`p_m(0) = (x_m, 0)`, plot :math:`p_e(t)` and :math:`p_m(t)` over the time interval :math:`t \in [0, T]`.
 
-   Setting :math:`T = \frac{3\pi}{2}`, :math:`x_e=10`, :math:`x_m=11`, :math:`\omega_e = 1`, and :math:`\omega_m = 13`, your plot should resemble the following figure (fix the aspect ratio with ``ax.set_aspect('equal')``).
-   Note that a more celestially accurate figure would use :math:`x_e=400`, :math:`x_m=401` (the interested reader should see `this archived article <https://web.archive.org/web/20130116204505/http://www.math.nus.edu.sg/aslaksen/teaching/convex.html>`_).
+..    Setting :math:`T = \frac{3\pi}{2}`, :math:`x_e=10`, :math:`x_m=11`, :math:`\omega_e = 1`, and :math:`\omega_m = 13`, your plot should resemble the following figure (fix the aspect ratio with ``ax.set_aspect('equal')``).
+..    Note that a more celestially accurate figure would use :math:`x_e=400`, :math:`x_m=401` (the interested reader should see `this archived article <https://web.archive.org/web/20130116204505/http://www.math.nus.edu.sg/aslaksen/teaching/convex.html>`_).
 
-   .. figure:: py:solar_system
-      :width: 70%
-      :align: center
+..    .. figure:: py:solar_system
+..       :width: 70%
+..       :align: center
 
 .. Timing Matrix Operations
 .. ------------------------
