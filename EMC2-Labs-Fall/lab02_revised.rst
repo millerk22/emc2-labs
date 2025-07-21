@@ -97,7 +97,7 @@ Task 1
 Lists
 -----
 
-In Lab 1, we breifly introduced ``list``\s. Let's go into a little more detail.
+In Lab 1, we briefly introduced ``list``\s. Let's go into a little more detail.
 
 A list is an ordered collection of objects (which can be numbers, strings, or even other lists), which we specify by enclosing them in square brackets ``[]``.
 
@@ -243,7 +243,7 @@ The rest of your function should only reference ``copied_list`` so that the orig
 For Loops
 ---------
 
-Loops are another tool we have in programming. They are commonly used to perform repetitive tasks like repeating calculations, processing items in a list, or automating steps that would be tedious to write out individually. In Python, the most common types of loops are ``for`` loops and ``while`` loops. Let's start by exploring ``for`` loops. In this lab, we will be using loops and ``list``\s to do vector arithmetic. 
+Loops are another tool we have in programming. They are commonly used to perform repetitive tasks like repeating calculations, processing items in a list, or automating steps that would be tedious to write out individually. In Python, the most common types of loops are ``for`` loops and ``while`` loops. Let's start by exploring ``for`` loops. In this lab, we will be using loops and lists to do vector arithmetic. 
 
 This is what a for loop looks like.
 
@@ -252,7 +252,7 @@ This is what a for loop looks like.
    for variable in sequence:
       # code to execute
 
-``variable`` takes the value of each item in ``sequence`` one by one, then the indented block under the for statement runs for each value of ``variable``. Lets think of this as our "for-sequence" loop. Here is an example,
+``variable`` takes the value of each item in ``sequence`` one by one, then the indented block under the for statement runs for each value of ``variable``. Let's think of this as our "for-sequence" loop. Here is an example,
 
 .. code-block:: python
 
@@ -262,14 +262,15 @@ This is what a for loop looks like.
       print(item)
 
 .. code-block:: console
+
    2
    -6.7
    sandwich
    []
 
-When executing a loop, Python starts by assigning the variable (in this case, ``item``) to the first element in the sequence (``A``). Then, Python executes all of the lines that are tabbed in under the loop. For us, this just prints the item to the screen. After it has completed all the tabbed lines, Python returns to the top of the loop and checks if it is done. After one iteration, there are still three more items in the list so we need to keep going. Python wil then set ``item`` to the second item in ``L``, which is ``-6.7`` and print it to the screen. Then we return to the top of the loop and continue the process until there are no more items in ``L``.
+When executing a loop, Python starts by assigning the variable (in this case, ``item``) to the first element in the sequence (``A``). Then, Python executes all of the lines that are tabbed in under the loop. For us, this just prints the item to the screen. After it has completed all the tabbed lines, Python returns to the top of the loop and checks if it is done. After one iteration, there are still three more items in the list so we need to keep going. Python will then set ``item`` to the second item in ``L``, which is ``-6.7`` and print it to the screen. Then we return to the top of the loop and continue the process until there are no more items in ``L``.
 
-Another kind of for loop uses the ``range()`` function. Lets call this our "for-range" loop.
+Another kind of for loop uses the ``range()`` function. Let's call this our "for-range" loop.
 
 .. code-block:: python
 
@@ -317,18 +318,18 @@ Consider the following function:
 
 Note that ``len(L)`` returns the number of items in the list ``L``.
 
-   Question: What is the difference between ``double_list`` and the function below?
+**Question:** What is the difference between ``double_list`` and the function below?
 
-   .. code-block:: python
-      
-      def double_list_2(L):
-         new_L = []
-         for item in L:
-            new_L.append(item * 2)
+.. code-block:: python
+   
+   def double_list_2(L):
+      new_L = []
+      for item in L:
+         new_L.append(item * 2)
 
-   Once you have an answer, read the following paragraph.
+Once you have an answer, read the following paragraph.
 
-   The main difference is that ``double_list_2`` creates a new list, while ``double_list`` modifies the original list. This is because in ``double_list``, we use indexing with ``[]`` and a "for-range" loop, but in ``double_list_2``, we use a "for-sequence" loop. The "for-sequence" loop creates a copy of the ``item`` in ``L``.
+The main difference is that ``double_list_2`` creates a new list, while ``double_list`` modifies the original list. This is because in ``double_list``, we use indexing with ``[]`` and a "for-range" loop, but in ``double_list_2``, we use a "for-sequence" loop. The "for-sequence" loop creates a copy of the ``item`` in ``L``.
 
 .. admonition:: Range
 
@@ -377,7 +378,7 @@ The next task has you write a function that will add two vectors together. This 
    raise type_of_exception(message)
    
 
-For you vector addition function, you will want to raise this Exception ``if`` the lengths of the two vectors are different.
+For your vector addition function, you will want to raise this Exception ``if`` the lengths of the two vectors are different.
 
 .. code-block:: python	
 
@@ -483,7 +484,7 @@ and save it as a variable called ``long_list``.
 Task 10
 ------
 
-Using list comprehension, write a function that returns a Python list of temperatures in fahrenheit from a Python list of temperatures in celcius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
+Using list comprehension, write a function that returns a Python list of temperatures in fahrenheit from a Python list of temperatures in celsius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
 
 >>> fah_to_cel([0, 32, 100, 15])
 [32.0, 89.6, 212.0, 59.0]
