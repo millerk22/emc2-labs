@@ -38,7 +38,7 @@ Any degree :math:`p` polynomial function :math:`f_p` can be identified by a set 
 
 Task 1
 ------
-Write a function ``compute_data_matrix(x, p)`` that accepts an input vector ``x`` and a non-negative integer power ``p``, and returns the corresponding polynomial data matrix as a ``Numpy`` array.
+Write a function ``compute_data_matrix(x, p)`` that accepts an input vector ``x`` and a non-negative integer power ``p``, and returns the corresponding polynomial data matrix as a ``NumPy`` array.
 
 
 Task 2
@@ -98,9 +98,9 @@ Complete the following function ``plot_least_squares(x, y, p)``\, anywhere you s
 
    def plot_least_squares(x, y, p):
       assert x.size == y.size
-      X = ...      # Compute data matrix with inputs x and polynomial power p using your compute_data_matrix function
-      c_hat =  ...  # Compute the least squares solution using X and y
-      f = ...      # Compute the least squares output, f = X @ c_hat
+      X = ...       # Compute data matrix with inputs x and polynomial power p using your compute_data_matrix function
+      c_hat =  ...  # Compute the least-squares solution using X and y
+      f = ...       # Compute the least-squares output, f = X @ c_hat
       fig, ax = plt.subplots()
       ax.scatter(x, y, label='orig data')  # this scatter plots the original data
       ax.plot(x, f, 'k--', label='LS fit') # this plots the least squares fit line 
@@ -126,13 +126,13 @@ For example, try :math:`p = 1, 2, 3, 5, 15`.
 
 .. note::
 
-   In the task above, we computed the least squares solution by solving the normal equations which involved inverting a matrix.
+   In the task above, we computed the least-squares solution by solving the normal equations which involved inverting a matrix.
    However, inverting a matrix is computationally expensive and can be numerically unstable.
-   This is why we solve for the least squares solution by using the normal equations.
-   Numpy's numerical linear algebra library contains an optimized version of the least squares method, called ``numpy.linalg.lstsq``\, so in the future you can use it to compute the least squares solution instead. 
+   This is why we solve for the least-squares solution by using the normal equations.
+   NumPy's numerical linear algebra library contains an optimized version of the least-squares method, called ``numpy.linalg.lstsq``, so in the future you can use it to compute the least-squares solution instead. 
    Note that this still solves the normal equations, but it is more numerically stable and efficient.
    You will need to view the documentation for ``numpy.linalg.lstsq`` to see how to use it.
-   See `the Numpy reference here <https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html>`_ .
+   See `the NumPy reference here <https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html>`_ .
 
 =============================================
 Computing Linear Regression for Diabetes Data
@@ -172,7 +172,7 @@ You may find the following code and guidelines to be useful:
 >>> X, y = diabetes_data.data, diabetes_data.target  # extract the data matrix (X) and targets (outputs) vector y 
 
 - Extend the data matrix with a column of ones to model the offset. **Hint:** `See the numpy function`_ ``numpy.hstack``.
-- Compute the least squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
+- Compute the least-squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
 
 .. _See the numpy function: https://numpy.org/doc/stable/reference/generated/numpy.hstack.html
 
