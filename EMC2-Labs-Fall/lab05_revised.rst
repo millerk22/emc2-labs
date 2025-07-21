@@ -431,7 +431,7 @@ and save it as a variable called ``my_vect_var``.
 Conclusion
 ----------
 
-We will dive more into NumPy in Lab 7. It makes so much about linear algebra easier. Even though most of the code you have written in these labs so far is not unique, it has hopefully given you good coding experience and helped you understand what is going on behind the scenes. Libraries like NumPy do a lot, but are limited in their capacity so there is still a lot more we can do with it. In future labs, we will use other packages and libraries to do things like
+We will dive more into NumPy in Lab 7. It makes much about linear algebra easier. Even though most of the code you have written in these labs so far is not unique, it has hopefully given you good coding experience and helped you understand what is going on behind the scenes. Libraries like NumPy do a lot, but are limited in their capacity so there is still a lot more we can do with it. In future labs, we will use other packages and libraries to do things like
 
 - machine learning
 - image manipulation
