@@ -611,7 +611,7 @@ False.
 
    </div>
 
-Task 7
+Task 5
 ------
 
 
@@ -621,13 +621,12 @@ satisfies ``lower <= n <= upper``, and returns ``0`` otherwise.
 
 >>> indicator(3,7,2)
 0
-
 >>> indicator(-3,9,8)
 1
 
 
 
-Task 8
+Task 6
 ------
 
 
@@ -702,7 +701,7 @@ Strings support a feature called **indexing** which allows you to access individ
 
    Python begins indexing elements of a string starting at ``0``. This may seem unusual at first, since humans typically start counting objects with the number ``1``.
 
-Task 5
+Task 7
 ------
 
 Write a function ``print_len(my_string)`` that takes in a ``str`` called ``my_string``. This function should **print** "``The length of the string is: length``" where "``length``" is the actual length of the string.
@@ -712,7 +711,7 @@ The length of the string is: 0
 >>> print_len("Hello World!")
 The length of the string is: 12
 
-Task 6
+Task 8
 ------
 Write a function ``last_character(my_string)`` that takes in a ``str`` called ``my_string``. It should **return** the last character in the string.
 
@@ -750,7 +749,7 @@ Hello
 
 We will learn more about lists in the next lab.
 
-Task 7
+Task 9
 ------
 
 Write a function, ``median(a)``, that finds the median of sorted list ``a`` with an odd number of elements.
