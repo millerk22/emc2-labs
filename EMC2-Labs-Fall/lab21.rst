@@ -26,7 +26,7 @@ To review least squares for polynomial regression, let :math:`y := (y_1, y_2, \l
    X = \begin{pmatrix}
       x_1^p & x_1^{p-1} & \ldots & x_1 & 1 \\
       x_2^p & x_2^{p-1} & \ldots & x_2 & 1 \\
-      \vdots & \vdots & \vdots & \vdots & \vdots \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
       x_n^p & x_n^{p-1} & \ldots & x_n & 1 \\
    \end{pmatrix} \in \mathbb{R}^{n \times (p+1)}.
 
