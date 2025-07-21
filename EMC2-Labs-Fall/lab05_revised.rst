@@ -23,9 +23,9 @@ When working with vectors represented as Python ``list``\s, we used a single for
 
 .. code-block:: python
 
-for i in range(4):
-   for j in range(3):
-      print('i = ' + str(i) + ' and j = ' + str(j))
+   for i in range(4):
+      for j in range(3):
+         print('i = ' + str(i) + ' and j = ' + str(j))
 
 In this code, there are two ``for`` loops, an outside loop with variable ``i``, and an inside loop
 with variable ``j``. When we first encounter the outside loop, we set the value of ``i`` to be ``0``, before
@@ -67,6 +67,7 @@ Let's print out the values of matrix ``A`` from above using nested for loops.
          print(str(A[i][j]) + ' at ' + 'i = ' + str(i) + ' and j = ' + str(j))
 
 .. code-block:: console
+
    1 at i = 0 and j = 0
    2 at i = 0 and j = 1
    3 at i = 0 and j = 2
@@ -138,6 +139,7 @@ Now, we can see if the function actually does what we think it should:
    ``abs_matrix(mat)`` changes the actual value of ``mat`` because it uses indexing. If we wanted to return a copy, we could do something like this:
 
    .. code-block:: python
+
       def abs_matrix(M):
          n_rows = len(M)                        # the number of rows
          n_cols = len(M[0])                     # the number of columns
@@ -240,7 +242,7 @@ Using a double list comprehension, write a function ``cartesian_product(a, b)`` 
 Task 4
 ------
 
-Rewrite ``matrix_sum(A, B`` using a nested list comprehsion. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum.
+Rewrite ``matrix_sum(A, B)`` using a nested list comprehsion. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum.
 
 .. [[a[j][i] + c[j][i]  for i in range(len(a[0]))] for j in range(len(a))]
 
@@ -337,9 +339,10 @@ function ``np.array``.
 
 .. code-block::
 
-   my_list=[1,2,-1]           # This is a good old-fashioned list.
-   my_vect=np.array(my_list)  # my_vect is a NumPy array now, which we think of as a vector.
-   print(my_vect)             # This prints the array my_vect.
+   >>> my_list=[1,2,-1]           # This is a good old-fashioned list.
+   >>> my_vect=np.array(my_list)  # my_vect is a NumPy array now, which we think of as a vector.
+   >>> print(my_vect)             # This prints the array my_vect.
+   array([1, 2, -1])
 
 Alternatively, one could create my_vect simply by writing
 
