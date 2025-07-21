@@ -151,6 +151,11 @@ Task 3
 
 Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
 
+>>> sum_digits(1)
+1
+>>> sum_digits(123456)
+21
+
 .. hint::
    Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor divison) removes the remainder after division.
 
@@ -184,7 +189,18 @@ Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
 .. >>> binary(2**30)
 .. '1000000000000000000000000000000'
    
-   
+.. def binary(n):
+..     # We check that the input is valid first
+..     if type(n) != int or n < 1:
+..         raise ValueError('Error: the input is not a positive integer')
+..     output = ''
+..     while n > 0:
+..         # The last digit is given by `n%2`, the second-to-last digit is given by `(n//2) % 2`, the third-to-last digit is
+..         # given by `((n//2)//2) % 2`, etc. This is explained in the lab, and in further detail in the Wikipedia article linked
+..         # in the lab, under the "Decimal to Binary" section
+..         output = str(n % 2) + output
+..         n = n//2
+..     return output
 
 Task 4
 ------
