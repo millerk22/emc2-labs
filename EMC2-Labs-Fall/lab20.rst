@@ -110,15 +110,19 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
 
 .. admonition:: Understanding the logic
 
-   This algorithm can be difficult to understand, so we will try to understand it conceptually.
-   The core idea is that the correct key is the one that has the letter frequencies that are closest to the letter frequencies of the English language.4
-   Hence if we have enough letters to decrypt, we can get a pretty good understanding of letter frequencies.
-   This is why it is important to decrypt the key length, so that way we know how we should split up the letters to decrypt.
-   We can try every possible key and record the frequency.
-   With these frequencies, we can compute the dot product of the frequency vector with the frequency vector of the English language.
-   The key with the largest dot product is the correct key (mathematically the closest in distance).
-   So we do this for every key in the key length and find each lettter of the key.
-   So as long as we have enough text, we should be able to find the correct key.
+   The key insight behind this algorithm is that letter frequencies in English text are not uniform—some letters, like ``E``, ``T``, and ``A``, appear much more often than others. 
+   The Vigenère cipher hides this fact by "spreading out" the effect of each key letter across different parts of the message.
+
+   Once we know the key length, we can group the ciphertext into multiple substrings, where each substring was encrypted with the same letter of the key. 
+   Within each group, we expect the decrypted letters to roughly follow English letter frequency patterns.
+
+   To find the correct key letter for each group, we try all 26 possible Caesar shifts (one for each letter of the alphabet), decrypt the group with each shift, and calculate the letter frequency of the result. 
+   We then compute the **dot product** of that frequency vector with the standard English letter frequency vector. 
+   The shift that gives the largest dot product is considered the best match—because it produces a decrypted string whose letter frequencies are closest to normal English.
+
+   Repeating this process for every group (i.e., for every position in the key) gives us the full key. 
+   With that, we can finally decrypt the entire ciphertext.
+
 
 
 
