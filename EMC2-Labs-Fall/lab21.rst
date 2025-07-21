@@ -91,7 +91,7 @@ which when applied to our set of inputs in the data matrix looks like :math:`f =
 
 Task 3
 ------
-Complete the following function ``plot_least_squares(x, y, p)``\, anywhere you see ``...``\, to compute the least squares solution line and plot it against the data.
+Replace any ``...`` to complete the function ``plot_least_squares(x, y, p)`` that will compute the least squares solution line and plot it against the data.
 (Equations for :math:`\hat{c}` and :math:`f` are given above.)
 
 .. code-block:: python
@@ -168,8 +168,8 @@ Task 4
 Write a function ``compute_diabetes_fit()`` that computes the least squares fit coefficient vector :math:`\hat{\beta} \in \mathbb{R}^{d+1}` that is computed by ``linalg.lstsq()``. 
 You may find the following code and guidelines to be useful:
 
->>> diabetes_data = load_diabetes()       # download the diabetes dataset
->>> X, y = diabetes_data.data, diabetes_data.target  # extract the data matrix (X) and targets (outputs) vector y 
+>>> diabetes_data = load_diabetes()                   # download the diabetes dataset
+>>> X, y = diabetes_data.data, diabetes_data.target   # extract the data matrix (X) and targets (outputs) vector y 
 
 - Extend the data matrix with a column of ones to model the offset. **Hint:** `See the numpy function`_ ``numpy.hstack``.
 - Compute the least-squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
