@@ -1,4 +1,4 @@
-Lab 5: Intro to Python Revised, Part IV
+Lab 5: Introduction to Python Revised, Part IV
 =======================================
 
 In this lab we will be working with matrix operations. We can think of matrices like lists of lists. So a matrix would look something like this:
