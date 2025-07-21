@@ -237,14 +237,23 @@ The main difference between double list comprehension and nested list comprehens
 Task 3
 ------
 
-Using a double list comprehension, write a function ``cartesian_product(a, b)`` that takes in two Python lists ``a``, and ``b`` and returns a list of the cartesian product of :math:`a` and :math:`b`.
+Using a double list comprehension, write a function ``cartesian_product(A, B)`` that takes in two Python lists ``A``, and ``B`` and returns a list of the cartesian product of :math:`A` and :math:`B`.
+
+>>> cartesian_product([1, 2, 3], [4, 5, 6])
+[[1, 4], [1, 5], [1, 6], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6]]
+
 
 Task 4
 ------
 
-Rewrite ``matrix_sum(A, B)`` using a nested list comprehsion. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum.
+Rewrite ``matrix_sum(A, B)`` using a nested list comprehsion. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum. Don't worry about raising a value error if the matrices are different sizes.
 
-.. [[a[j][i] + c[j][i]  for i in range(len(a[0]))] for j in range(len(a))]
+>>> matrix_sum([[1, 2], [3, 4]], [[5, 6], [7, 8]])
+[[6, 8], [10, 12]]
+>>> A = [[3.14, 56, 1], [90, 1, 42]]
+>>> B = [[5, 6, 7], [89, 10.2, 32.1]]
+>>> matrix_sum(A, B)
+[[8.14, 62, 8], [179, 11.2, 74.1]]
 
 
 Intro to Numpy
@@ -434,7 +443,7 @@ and save it as a variable called ``my_vect_var``.
 Conclusion
 ----------
 
-We will dive more into NumPy in Lab 7. It makes much about linear algebra easier. Even though most of the code you have written in these labs so far is not unique, it has hopefully given you good coding experience and helped you understand what is going on behind the scenes. Libraries like NumPy do a lot, but are limited in their capacity so there is still a lot more we can do with it. In future labs, we will use other packages and libraries to do things like
+We will dive more into NumPy in Lab 7. It makes much about computational linear algebra easier. Even though most of the code you have written in these labs so far is not unique, it has hopefully given you good coding experience and helped you understand what is going on behind the scenes. Libraries like NumPy do a lot, but are limited in their capacity so there is still a lot more we can do with it. In future labs, we will use other packages and libraries to do things like
 
 - machine learning
 - image manipulation
