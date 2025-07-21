@@ -189,7 +189,7 @@ Task 4: Decrypt the ciphertext
 Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
 
 As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
-(Follow the outline at the top of the lab to get the sudo code for this function.)
+(Follow the outline at the top of the lab to get the pseudocode for this function.)
 
 You can get other test input strings at `<https://mathdept.byu.edu/~doud/Vigenere/>`_
 
