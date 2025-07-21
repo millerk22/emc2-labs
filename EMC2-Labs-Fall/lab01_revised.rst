@@ -296,7 +296,7 @@ Each of these data types operate differently from the others. We will get into w
 Booleans and Comparison Operators
 ---------------------------------
 
-Earlier you learned about symbols like ``+``, ``-``, ``*``, ``/``, ``**``, and ``=`` that work for ``int``s and ``float``s. We can also use Python operators to compare values. For example, ``<`` and ``>`` unsurprisingly represent our less than and greater than symbols. We can alsue use ``<=`` and ``>=`` to test quantities that are less than or equal to, or greater than or equal to each other. 
+Earlier you learned about symbols like ``+``, ``-``, ``*``, ``/``, ``**``, and ``=`` that work for ``int``\s and ``float``\s. We can also use Python operators to compare values. For example, ``<`` and ``>`` unsurprisingly represent our less than and greater than symbols. We can alsue use ``<=`` and ``>=`` to test quantities that are less than or equal to, or greater than or equal to each other. 
 
 >>> a = 5
 >>> print (7 <= a)
@@ -536,6 +536,9 @@ Compound Conditions
 To test more complicated conditions it is useful to use the ``and`` and ``or`` operators. The statement ``P and Q`` will return ``True`` only if both ``P`` and ``Q`` are ``True``. If either one of, or both of, ``P`` and
 ``Q`` are ``False``, then the statement ``P`` and ``Q`` will return ``False``.
 
+.. raw:: html
+
+   <div style="text-align: center">
 
 .. code-block:: python
    
@@ -547,6 +550,7 @@ To test more complicated conditions it is useful to use the ``and`` and ``or`` o
 .. list-table:: ``And`` Truth Table
     :widths: 33 33 34
     :header-rows: 1
+    :align: center
 
     * - P
       - Q
@@ -564,6 +568,10 @@ To test more complicated conditions it is useful to use the ``and`` and ``or`` o
       - False
       - False
 
+.. raw:: html
+
+   </div>
+
 The statement ``P or Q``, on the other hand, will return ``True`` if at least one of, or both of, ``P``
 and ``Q`` are true. The only situation in which ``P or Q`` will return False is if both ``P`` and ``Q`` are
 False.
@@ -574,9 +582,14 @@ False.
    (10<11) or (-3==-12)    # This will return True because at least one of the statements is True.
    (10==11) or (-3==-12)   # This will return False because both of the statements are False.
 
+.. raw:: html
+
+   <div style="text-align: center">
+
 .. list-table:: ``Or`` Truth Table
     :widths: 33 33 34
     :header-rows: 1
+    :align: center
 
     * - P
       - Q
@@ -594,6 +607,9 @@ False.
       - False
       - False
 
+.. raw:: html
+
+   </div>
 
 Task 7
 ------
@@ -658,7 +674,7 @@ Hello, world!
 >>> name
 'Alice'
 
-Notice that ``print``\ing a string shows it without the quotes.
+Notice that printing a string shows it without the quotes.
 
 You can combine (concatenate) strings using the ``+`` operator:
 
@@ -737,7 +753,7 @@ We will learn more about lists in the next lab.
 Task 7
 ------
 
-Write a function, ``median(a)``, that finds the median of list ``a``.
+Write a function, ``median(a)``, that finds the median of sorted list ``a`` with an odd number of elements.
 
 >>> a = [1, 2, 3, 4, 5]
 >>> median(a)
