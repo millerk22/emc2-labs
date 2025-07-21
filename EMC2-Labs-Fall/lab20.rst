@@ -87,9 +87,9 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
 
    .. code-block:: console
 
-      S[0] = 'ADGJ'
-      S[1] = 'BEHK'
-      S[2] = 'CFI'
+      S[0] = 'ADGJ' # 0, 3, 6, 9
+      S[1] = 'BEHK' # 1, 4, 7, 10
+      S[2] = 'CFI' # 2, 5, 8
 
    For each ``j``, every letter of ``S[j]`` has been encrypted with the same letter of the key.
 
@@ -108,6 +108,17 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
 
 4. Decrypt the ciphertext using the key you found in part 5.
 
+.. admonition:: Understanding the logic
+
+   This algorithm can be difficult to understand, so we will try to understand it conceptually.
+   The core idea is that the correct key is the one that has the letter frequencies that are closest to the letter frequencies of the English language.4
+   Hence if we have enough letters to decrypt, we can get a pretty good understanding of letter frequencies.
+   This is why it is important to decrypt the key length, so that way we know how we should split up the letters to decrypt.
+   We can try every possible key and record the frequency.
+   With these frequencies, we can compute the dot product of the frequency vector with the frequency vector of the English language.
+   The key with the largest dot product is the correct key (mathematically the closest in distance).
+   So we do this for every key in the key length and find each lettter of the key.
+   So as long as we have enough text, we should be able to find the correct key.
 
 
 
@@ -173,7 +184,8 @@ Task 4: Decrypt the ciphertext
 
 Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
 
-As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext.
+As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
+(Follow the outline at the top of the lab to get the sudo code for this function.)
 
 You can get other test input strings at `<https://mathdept.byu.edu/~doud/Vigenere/>`_
 
