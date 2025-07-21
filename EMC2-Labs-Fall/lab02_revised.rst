@@ -484,7 +484,7 @@ and save it as a variable called ``long_list``.
 Task 10
 ------
 
-Using list comprehension, write a function that returns a Python list of temperatures in fahrenheit from a Python list of temperatures in celsius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
+Using list comprehension, write a function that returns a Python list of temperatures in Fahrenheit from a Python list of temperatures in Celsius. Call it ``fah_to_cel(c)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
 
 >>> fah_to_cel([0, 32, 100, 15])
 [32.0, 89.6, 212.0, 59.0]
