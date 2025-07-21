@@ -18,7 +18,7 @@ This task is referred to as **regression**; it is ubiquitous in data-driven mode
 Polynomial Regression
 =====================
 
-For simplicity, let's consider the degree :math:`p` **polynomial regression** in the 1D case, where :math:`x_i \in \mathbb{R}`. 
+For simplicity, let's consider the degree :math:`p` **polynomial regression** in the 1-D case, where :math:`x_i \in \mathbb{R}`. 
 
 To review least squares for polynomial regression, let :math:`y := (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n` be the vector of output coefficients and let :math:`X` denote the polynomial data matrix
 
@@ -38,7 +38,7 @@ Any degree :math:`p` polynomial function :math:`f_p` can be identified by a set 
 
 Task 1
 ------
-Write a function ``compute_data_matrix(x, p)`` that accepts an input vector ``x`` and a non-negative integer power ``p``, and returns the corresponding polynomial data matrix as a ``Numpy`` array.
+Write a function ``compute_data_matrix(x, p)`` that accepts an input vector ``x`` and a non-negative integer power ``p``, and returns the corresponding polynomial data matrix as a ``NumPy`` array.
 
 
 Task 2
@@ -89,21 +89,18 @@ The least squares fit line then is defined as the degree :math:`p` polynomial
 which when applied to our set of inputs in the data matrix looks like :math:`f = X \hat{c} \in \mathbb{R}^n`. 
 
 
-Numpy's numerical linear algebra library contains an optimized version of the least squares method, called ``numpy.linalg.lstsq`` and so we will use it. 
-See `the Numpy reference here`_.
-
-.. _the Numpy reference here: https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html
-
-
 Task 3
 ------
-Complete the following function ``plot_least_squares(x, y, p)`` to compute the least squares solution line and plot it against the data.::
+Complete the following function ``plot_least_squares(x, y, p)``\, anywhere you see ``...``\, to compute the least squares solution line and plot it against the data.
+(Equations for :math:`\hat{c}` and :math:`f` are given above.)
+
+.. code-block:: python
 
    def plot_least_squares(x, y, p):
       assert x.size == y.size
-      X = ...      # Compute data matrix with inputs x and polynomial power p 
-      c_hat =  ...  # Compute the least squares solution using X and y
-      f = ...      # Compute the least squares output, f = X \hat{c}
+      X = ...       # Compute data matrix with inputs x and polynomial power p using your compute_data_matrix function
+      c_hat =  ...  # Compute the least-squares solution using X and y
+      f = ...       # Compute the least-squares output, f = X @ c_hat
       fig, ax = plt.subplots()
       ax.scatter(x, y, label='orig data')  # this scatter plots the original data
       ax.plot(x, f, 'k--', label='LS fit') # this plots the least squares fit line 
@@ -127,12 +124,26 @@ For example, try :math:`p = 1, 2, 3, 5, 15`.
 * What happens if you use a power :math:`p<P`, where :math:`P` is the degree determined in Task 2? 
 * What happens if you use a *much larger* power than :math:`P`?
 
+.. note::
+
+   In the task above, we computed the least-squares solution by solving the normal equations which involved inverting a matrix.
+   However, inverting a matrix is computationally expensive and can be numerically unstable.
+   This is why we solve for the least-squares solution by using the normal equations.
+   NumPy's numerical linear algebra library contains an optimized version of the least-squares method, called ``numpy.linalg.lstsq``, so in the future you can use it to compute the least-squares solution instead. 
+   Note that this still solves the normal equations, but it is more numerically stable and efficient.
+   You will need to view the documentation for ``numpy.linalg.lstsq`` to see how to use it.
+   See `the NumPy reference here <https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html>`_ .
 
 =============================================
 Computing Linear Regression for Diabetes Data
 =============================================
 
 We now turn to a "real-world" regression task of predicting diabetes progression based on patient information and medical measurements. 
+The data is from the `sklearn diabetes dataset <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html>`_.
+It contains 442 samples with 10 features each. 
+And the features are: Age, Sex, Body Mass Index, Average Blood Pressure, S1, S2, S3, S4, S5, S6.
+Where S1, S2, S3, S4, S5, S6 are the 6 blood serum measurements.
+The target is the disease progression after 1 year of follow-up.
 Let's compute a **linear regression** fit to the data in order to predict the disease progression; that is, we will identify coefficients 
 :math:`\beta_0, \beta_1, \ldots, \beta_d \in \mathbb{R}` to approximate the mapping :math:`x_i \mapsto y_i`
 
@@ -161,7 +172,7 @@ You may find the following code and guidelines to be useful:
 >>> X, y = diabetes_data.data, diabetes_data.target  # extract the data matrix (X) and targets (outputs) vector y 
 
 - Extend the data matrix with a column of ones to model the offset. **Hint:** `See the numpy function`_ ``numpy.hstack``.
-- Compute the least squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
+- Compute the least-squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
 
 .. _See the numpy function: https://numpy.org/doc/stable/reference/generated/numpy.hstack.html
 
@@ -169,6 +180,7 @@ To conclude, we now analyze the linear regression coefficient result vector, :ma
 of this coefficient vector indicates the whether or not there is a **positive** or **negative** correlation between the 
 corresponding input variable and the output data, conditioned on the other data. For example, if :math:`\hat{\beta}_j >0` and is **large**, then 
 holding all else equal, a small change in the :math:`j^{th}` feature will lead to a large, positive change in the output. 
+In context of this dataset, that means if the :math:`\hat{\beta}` of the age is positive and large, then a small change in age will lead to a large, positive change in the disease progression.
 
 Task 5
 ------
@@ -177,7 +189,7 @@ Extend the capability of your previous function ``compute_diabetes_fit()`` to pe
 1. Extract the feature names of this dataset (``feature_names = diabetes_data.feature_names``)
 2. Print out the feature names of the **most positive** and **most negative** regression coefficients. Record the names and values of those coefficients in CodeBuddy.
 
-**NOTE: Be careful to account for indexing of the offset column in the data matrix** ``X``. **This is not accounted for in the** ``feature_names`` **list.**
+.. **NOTE: Be careful to account for indexing of the offset column in the data matrix** ``X``. **This is not accounted for in the** ``feature_names`` **list.**
 
 You can check out the description of all the different features (independent variables) in this diabetes dataset by 
 printing out 

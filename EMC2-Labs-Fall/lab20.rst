@@ -87,9 +87,9 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
 
    .. code-block:: console
 
-      S[0] = 'ADGJ'
-      S[1] = 'BEHK'
-      S[2] = 'CFI'
+      S[0] = 'ADGJ' # 0, 3, 6, 9
+      S[1] = 'BEHK' # 1, 4, 7, 10
+      S[2] = 'CFI' # 2, 5, 8
 
    For each ``j``, every letter of ``S[j]`` has been encrypted with the same letter of the key.
 
@@ -107,6 +107,21 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
       Then the ``j``-th letter of the key is the ``m``-th letter of the alphabet.
 
 4. Decrypt the ciphertext using the key you found in part 5.
+
+.. admonition:: Understanding the logic
+
+   The key insight behind this algorithm is that letter frequencies in English text are not uniform—some letters, like ``E``, ``T``, and ``A``, appear much more often than others. 
+   The Vigenère cipher hides this fact by "spreading out" the effect of each key letter across different parts of the message.
+
+   Once we know the key length, we can group the ciphertext into multiple substrings, where each substring was encrypted with the same letter of the key. 
+   Within each group, we expect the decrypted letters to roughly follow English letter frequency patterns.
+
+   To find the correct key letter for each group, we try all 26 possible Caesar shifts (one for each letter of the alphabet), decrypt the group with each shift, and calculate the letter frequency of the result. 
+   We then compute the **dot product** of that frequency vector with the standard English letter frequency vector. 
+   The shift that gives the largest dot product is considered the best match—because it produces a decrypted string whose letter frequencies are closest to normal English.
+
+   Repeating this process for every group (i.e., for every position in the key) gives us the full key. 
+   With that, we can finally decrypt the entire ciphertext.
 
 
 
@@ -173,7 +188,8 @@ Task 4: Decrypt the ciphertext
 
 Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
 
-As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext.
+As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
+(Follow the outline at the top of the lab to get the sudo code for this function.)
 
 You can get other test input strings at `<https://mathdept.byu.edu/~doud/Vigenere/>`_
 

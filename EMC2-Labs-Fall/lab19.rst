@@ -16,7 +16,7 @@ You will need to import the following:
 >>> import matplotlib.pyplot as plt
 >>> from skimage import data, color
 
-First, we do a brief review of the SVD.
+First, let's do a brief review of the SVD.
 Consider an arbitrary matrix of size :math:`m \times n` called :math:`A`.
 Recall that the singular value decomposition writes :math:`A` in the form
 
@@ -32,12 +32,12 @@ We can use the NumPy function ``la.svd()`` to get these matrices in Python.
 
 Python represents :math:`\Sigma` as ``S``, a 1-D NumPy array of the singular values of ``A``. 
 The ``np.diag()`` function will turn a 1-D NumPy array into a diagonal matrix. 
-Remember that one of the most useful concepts about SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
+Remember that one of the most useful features of SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
 
 >>> A_approx = U[:,:s] @ np.diag(S[:s]) @ VT[:s]
 
 This becomes very useful in the context of images.
-Most images are stored in matrices of the size ``(height, width, 3)`` where the 3 dimensions refer to red, blue, and green colors represented by a number between 0 and 255.
+Most images are stored in matrices of the size ``(height, width, 3)`` where 3 dimensions refers to the color dimensions, red, blue, and green colors represented by a number between 0 and 255.
 Because the space to store an image is finite, performing SVD on every dimension, and keeping the first ``s`` ranks of the decomposition can greatly reduce the storage space while still preserving much of the image quality.
 For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2-D matrices with values between 0 and 255 (i.e., ``(height, width)``).
 
@@ -123,13 +123,13 @@ Because :math:`C` is real-valued and symmetric, it is orthogonally diagonalizabl
         = V D V^T,
 
 showing that :math:`V` contains the eigenvectors of :math:`C` and :math:`D` contains the eigenvalues of :math:`C`.
-This means we simply need to compute the right singular vectors of the centered matrix :math:`\bar{X}` (which are the eigenvectors of :math:`C`) and then project :math:`\bar{X}` onto the desired number of dominant eigenvectors.
+This means we simply need to compute the right singular vectors of the centered matrix :math:`\bar{X}` (which are the eigenvectors of :math:`C`) and then project :math:`\bar{X}` onto the desired number of dominant eigenvectors to capture the most variance in the desired number of dimensions.
 
 Let's do an example with real-world data. 
 We will use the NASA Star-Type Dataset which contains 240 stars and 4 features for each star; temperature, luminosity, radius, and absolute magnitude.
 If we center each column of the data and obtain :math:`\bar{X}` we can then compute the SVD and get :math:`V`.
 Because we have 4 features, :math:`V` will be a :math:`4 \times 4` matrix. 
-If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to do is take the first 2 columns of :math:`V`, and multiply it by :math:`\bar{X}`:
+If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to do is take :math:`\bar{X}` and multiply it by the first 2 columns of :math:`V`:
 
 .. math::
 
