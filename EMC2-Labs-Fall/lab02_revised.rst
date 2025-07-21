@@ -488,7 +488,3 @@ Using list comprehension, write a function that returns a Python list of tempera
 
 >>> fah_to_cel([0, 32, 100, 15])
 [32.0, 89.6, 212.0, 59.0]
-
-
-.. def fah_to_cel(c):
-.. ...     return [9/5 * ele + 32 for ele in c]
