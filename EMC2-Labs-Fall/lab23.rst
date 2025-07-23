@@ -1,5 +1,5 @@
-Lab 23: The Lean Theorem Prover
-===============================
+Lab 23: The Lean Theorem Prover Part I
+======================================
 
 From the Lean Theorem Prover community website:
    A proof assistant is a piece of software that provides a language for defining objects, specifying properties of these objects, and proving that these specifications hold. The system checks that these proofs are correct down to their logical foundation.
