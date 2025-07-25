@@ -158,13 +158,6 @@ If :math:`L:V\rightarrow W` and :math:`K:W\rightarrow Z` are linear transformati
 For example, if :math:`S` is a matrix representing a shear and :math:`R` is a matrix representing a rotation, then :math:`R S` represents a shear followed by a rotation.
 In fact, any linear transformation :math:`L:\mathbb{R}^2 \rightarrow\mathbb{R}^2` is a composition of the four transformations discussed above.
 
-Task 2
-------
-
-Write a function ``compose_transformations(X, a, b, c, d, e, f, theta)`` that takes in an array ``X`` and the scalars ``a``, ``b``, ``c``, ``d``, ``e``, and ``f`` for stretch, shear, and reflection, and ``theta`` for rotation.
-The function should return the composition of the transformations.
-
-
 
 Affine Transformations
 ----------------------
@@ -184,11 +177,90 @@ For example, if :math:`T` is the translation with :math:`b = [\frac{3}{4}, \frac
 Affine transformations include all compositions of stretches, shears, rotations, reflections, and translations.
 For example, if :math:`S` represents a shear and :math:`R` a rotation, and if :math:`b` is a vector, then :math:`R S x + b` shears, then rotates, then translates :math:`x`.
 
-Task 3
+Task 2
 ------
 
 Write a function ``affine_transform(X, A, b)`` that takes in an array ``X`` and the matrix ``A`` and vector ``b`` for the affine transformation.
 The function should return the affine transformation of the data.
+
+
+Linear Transformations in 3-D
+-----------------------------
+
+In the same way that linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2` can be represented by :math:`2 \times 2` matrices, linear transformations from :math:`\mathbb{R}^3` to :math:`\mathbb{R}^3` can be represented by :math:`3 \times 3` matrices.
+For this part of the lab we will be using data points from the `Global Hawk aircraft <https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Global%20Hawk>`_.
+
+.. image:: _static/Global_Hawk.png
+   :align: center
+   :width: 60% 
+
+This is what the data points look like plotted with 50,000 points in 3-D.
+
+.. image:: _static/plane_normal.png
+   :align: center
+
+We will stritly dealing with the rotation transformations in :math:`\mathbb{R}^3`.
+While in 2-D we could rotate on the X-Y plane, in 3-D we can rotate on the X-Y plane, the Y-Z plane, and the X-Z plane making 3 different rotations.
+With all 3 of these rotations, we can achieve any rotation in 3-D.
+Here is what the 3 different rotations look like.
+
+.. image:: _static/rotations.png
+   :align: center
+   :width: 50% 
+
+These are the linear transformations for each of the 3 rotations.
+
+- **X-Y plane rotation**:
+
+  .. math::
+
+     \left[\begin{array}{ccc}
+     \cos\theta & -\sin\theta & 0 \\
+     \sin\theta & \cos\theta & 0 \\
+     0 & 0 & 1
+     \end{array}\right]
+
+- **Y-Z plane rotation**:
+
+  .. math::
+
+     \left[\begin{array}{ccc}
+     1 & 0 & 0 \\
+     0 & \cos\theta & -\sin\theta \\
+     0 & \sin\theta & \cos\theta
+     \end{array}\right]
+
+- **X-Z plane rotation**:
+  
+  .. math::
+
+     \left[\begin{array}{ccc}
+     \cos\theta & 0 & -\sin\theta \\
+     0 & 1 & 0 \\
+     \sin\theta & 0 & \cos\theta
+     \end{array}\right]
+
+Below is an example of each of the 3 rotations.
+
+.. image:: _static/plane_normal_rotations.png
+   :align: center
+   :width: 100%
+
+Task 3
+------
+
+Write a function for each 3-D rotation.
+(``rotate_xy(X, theta)``, ``rotate_yz(X, theta)``, ``rotate_xz(X, theta)``).
+Each function should accept an array to transform and the angle :math:`\theta` for the rotation.
+Construct the matrix representation, left multiply it with the input array, and return a transformation of the data.
+Make sure to copy the array before transforming it.
+
+Task 4
+------
+
+Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector :math:`[7, -5, -1]^\mathrm{T}` and save it to the variable ``X_rotated``.
+(The data will be in the file ``plane.npy``.)
+
 
 
 .. Modeling Motion with Affine Transformations
