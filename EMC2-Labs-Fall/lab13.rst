@@ -10,19 +10,19 @@ By blending visual intuition, algebraic structure, and empirical timing, we gain
 Linear Transformations
 ----------------------
 
-A *linear transformation* is a mapping between vector spaces that preserves addition and scalar multiplication.
-More precisely, let :math:`V` and :math:`W` be vector spaces over a common field :math:`\mathbb{F}`.
+A *linear transformation* is a mapping between vector spaces that preserves vector addition and scalar multiplication.
+More precisely, let :math:`V` and :math:`W` be vector spaces over :math:`\mathbb{R}^n`.
 A map :math:`L:V\rightarrow W` is a linear transformation from :math:`V` into :math:`W` if
-:math:`L(a x_1 + b x_2) = a L x_1 + b L x_2` for all vectors :math:`x_1, x_2 \in V` and scalars :math:`a, b \in \mathbb{F}`.
+:math:`L(a \mathbf{x}_1 + b \mathbf{x}_2) = a L \mathbf{x}_1 + b L \mathbf{x}_2` for all vectors :math:`\mathbf{x}_1, \mathbf{x}_2 \in V` and scalars :math:`a, b \in \mathbb{R}`.
 
 Every linear transformation :math:`L` from an :math:`n`-dimensional vector space into an :math:`m`-dimensional vector space can be represented by an :math:`m \times n` matrix :math:`A`, called the *matrix representation* of :math:`L`.
-To apply :math:`L` to a vector :math:`x`, left multiply by its matrix representation.
-This results in a new vector :math:`x'`, where each component is some linear combination of the elements of :math:`x`.
+To apply :math:`L` to a vector :math:`\mathbf{x}`, left multiply by its matrix representation.
+This results in a new vector :math:`\mathbf{x}'`, where each component is some linear combination of the elements of :math:`\mathbf{x}`.
 For linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2`, this process has the form
 
 .. math::
 
-   A x =
+   A \mathbf{x} =
    \left[\begin{array}{cc}
    a & b \\
    c & d \\
@@ -41,11 +41,11 @@ For linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2`, th
    x' \\
    y'
    \end{array}\right]
-   = x'.
+   = \mathbf{x}'.
 
 Linear transformations can be interpreted geometrically.
 To demonstrate this, consider the array of points :math:`T` that collectively form a picture of a turtle, stored in the file ``turtle.npy``.
-The coordinate pairs :math:`x_i` are organized by column, so the array has two rows: one for :math:`x`-coordinates, and one for :math:`y`-coordinates.
+The coordinate pairs :math:`\mathbf{x}_i` are organized by column, so the array has two rows: one for :math:`x`-coordinates, and one for :math:`y`-coordinates.
 Matrix multiplication on the left transforms each coordinate pair, resulting in another matrix :math:`H'` whose columns are the transformed coordinate pairs:
 
 .. math::
@@ -57,19 +57,19 @@ Matrix multiplication on the left transforms each coordinate pair, resulting in 
    =
    A \left[\begin{array}{c|c|c|c}
     & & & \\
-   x_1 & x_2 & x_3 & \ldots \\
+   \mathbf{x}_1 & \mathbf{x}_2 & \mathbf{x}_3 & \ldots \\
     & & & 
    \end{array}\right]
    =
    \left[\begin{array}{c|c|c|c}
     & & & \\
-   A x_1 & A x_2 & A x_3 & \ldots \\
+   A \mathbf{x}_1 & A \mathbf{x}_2 & A \mathbf{x}_3 & \ldots \\
     & & &
    \end{array}\right] \\
     =
    \left[\begin{array}{c|c|c|c}
     & & & \\
-   x_1' & x_2' & x_3' & \ldots \\
+   \mathbf{x}_1' & \mathbf{x}_2' & \mathbf{x}_3' & \ldots \\
     & & &
    \end{array}\right]
    =
@@ -133,7 +133,7 @@ Linear transformations from :math:`\mathbb{R}^2` into :math:`\mathbb{R}^2` can b
   
   A negative value of :math:`\theta` performs a clockwise rotation.
   Choosing :math:`\theta = \frac{\pi}{2}` produces a rotation of 90 degrees counterclockwise.
-  Below is an example of each of these linear transformations along with a composition using 3 of them.
+  Below is an example of each of these linear transformations.
 
 .. image:: _static/6turtles.png
     :align: center
@@ -156,17 +156,17 @@ Let :math:`V`, :math:`W`, and :math:`Z` be finite-dimensional vector spaces.
 If :math:`L:V\rightarrow W` and :math:`K:W\rightarrow Z` are linear transformations with matrix representations :math:`A` and :math:`B`, respectively, then the *composition* function :math:`K L:V\rightarrow Z` is also a linear transformation, and its matrix representation is the matrix product :math:`B A`.
 
 For example, if :math:`S` is a matrix representing a shear and :math:`R` is a matrix representing a rotation, then :math:`R S` represents a shear followed by a rotation.
-In fact, any linear transformation :math:`L:\mathbb{R}^2 \rightarrow\mathbb{R}^2` is a composition of the four transformations discussed above.
+In fact, any linear transformation :math:`L:\mathbb{R}^2 \rightarrow\mathbb{R}^2` can be written as a composition of the four transformations.
 
 
 Affine Transformations
 ----------------------
 
 All linear transformations map the origin to itself.
-An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but that may not preserve the origin.
+An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but that may not preserve the origin (i.e. it is a translation).
 Every affine transformation :math:`T` can be represented by a matrix :math:`A` and a vector :math:`b`.
-To apply :math:`T` to a vector :math:`x`, calculate :math:`A x + b`.
-If :math:`b = 0` then the transformation is linear, and if :math:`A = I` but :math:`b \neq 0` then it is called a *translation*.
+To apply :math:`T` to a vector :math:`\mathbf{x}`, calculate :math:`A \mathbf{x} + \mathbf{b}`.
+If :math:`\mathbf{b} = 0` then the transformation is a linear transformation, and if :math:`A = I` but :math:`\mathbf{b} \neq 0` then it is called a *translation*.
 
 For example, if :math:`T` is the translation with :math:`b = [\frac{3}{4}, \frac{1}{2}]^\mathrm{T}`, then applying :math:`T` to an image will shift it right by :math:`\frac{3}{4}` and up by :math:`\frac{1}{2}`.
 
@@ -175,7 +175,7 @@ For example, if :math:`T` is the translation with :math:`b = [\frac{3}{4}, \frac
     :width: 80% 
 
 Affine transformations include all compositions of stretches, shears, rotations, reflections, and translations.
-For example, if :math:`S` represents a shear and :math:`R` a rotation, and if :math:`b` is a vector, then :math:`R S x + b` shears, then rotates, then translates :math:`x`.
+For example, if :math:`S` represents a shear and :math:`R` a rotation, and if :math:`\mathbf{b}` is a vector, then :math:`R S \mathbf{x} + \mathbf{b}` shears, then rotates, then translates :math:`\mathbf{x}`.
 
 Task 2
 ------
