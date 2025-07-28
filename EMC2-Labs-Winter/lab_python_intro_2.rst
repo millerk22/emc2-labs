@@ -25,6 +25,31 @@ The value of a * b is: 370
 
 f-strings also make it possible for fancier formatting. Check out the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_ to learn more.
 
+Raw Strings
+-----------
+
+Raw strings in Python look very similar to f-strings, but they are prefixed by an ``r`` or ``R`` rather than an ``f``. The main difference between raw strings and other strings is how they treat backslashes (``\``). In normal strings backslashes indicate **escape characters** which are special characters like tabs, backspaces, and newlines. For example, ``\n`` is the newline character.
+
+>>> print("Hello\nWorld")
+Hello
+World
+
+To use a backslash in a normal Python string, we have to prefix it with another backslash character:
+
+>>> print("Hello\\World")
+Hello\World
+
+Raw strings treat backslashses as the actual backslash character. This is especially useful when working with windows filepaths (which use the ``\`` character, ``C:\Users\Documents``), regular expressions (which we won't get into), or LaTeX.
+
+>>> print(r"Hello\\World")
+Hello\\World
+>>> print(R'Hello\nWorld')
+Hello\nWorld
+>>> print(R"""Hello\t\\World""")
+Hello\t\\World
+
+Later, we will use raw strings to display LaTeX on plots.
+
 Lambda Functions
 ----------------
 

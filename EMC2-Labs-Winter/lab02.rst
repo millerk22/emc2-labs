@@ -51,14 +51,15 @@ for ``0 <= n <= 19`` and the ``x`` coordinates are given by the list ``[0,1,...,
 Task 1
 ------
 
-Make a plot of the sequence 
+Write a function, ``plot_monotonic()``, to plot the sequence
 
 .. math::
 	a_n = \frac{n}{\sqrt{n^2 + 1}}
 
-Use the ``math`` library and its ``sqrt`` function. Does the sequence appear to converge?  If so, to what limit? Compare with Example 8.2 in the text. 
-Remember to title the plot (use r"$a_n = \frac{n}{\sqrt{n^2 + 1}}$"), label the axes (use r"$n$" and r"$a_n$"), and adjust the x-axis ticks to be the indices of your sequence.
-    
+for :math:`n = 0,1,\ldots,19` using the ``sqrt`` function from the ``math`` library. Title the plot :math:`a_n = \frac{n}{\sqrt{n^2 + 1}}`. We can put the raw LaTeX inside a raw string to do this (``r"$a_n = \frac{n}{\sqrt{n^2 + 1}}$"``). Then, label the axes :math:`n` and :math:`a_n` also using raw strings and LaTeX. Then, adjust the x-axis ticks to be the indices of your sequence.
+
+Does the sequence appear to converge? If so, to what limit? Compare with Example 8.2 in the text.
+
 
 Customizing graphs
 ------------------
@@ -112,13 +113,17 @@ for ``1 <= n <= 20``. Use list comprehension to create the sequence. Add a title
 Task 3
 ------
 
-Now plot the function 
+We will create two different plots for the same function rule, one using the natural numbers as the domain and one using an interval of the real line as the domain.
+
+Write a function, ``plot_function()``, to plot the function
 
 .. math::
 	f(x) = (1-\tfrac{1}{x})^x
 
 
-over ``x`` in ``[1,20]``. (Make sure to use intermediate values instead of just integers! Use the tools from the previous lab.) Use a NumPy ``arange`` for the ``x`` values and list comprehension to generate your ``y`` values. Note that ``y = [f(x) for x in xlist]`` also works as valid list comprehension. We simply need a list ``xlist`` to do list comprehension, not specifically a call to the function ``range``. Customize the plot. How can you customize this plot and your plot from part (a) to emphasize that one is a plot of a sequence and the other is a plot of a function on ``R``?
+over ``x`` in ``[1,20]``. Use a NumPy ``arange`` to generate these non-integer ``x`` values with a distance between each point of 0.1. Use list comprehension to generate your ``y`` values. Note that ``y = [f(x) for x in xlist]``. Use ``"-"`` as your marker argument when plotting to emphasize that this is a function plot.
+
+How can you customize this plot and your plot from part (a) to emphasize that one is a plot of a sequence and the other is a plot of a function on ``R``?
 
 
 
