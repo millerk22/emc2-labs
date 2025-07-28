@@ -1,11 +1,8 @@
 Lab 13: Linear Transformations
-=============================
+==============================
 
 Linear transformations are the heart of linear algebra—they define how shapes stretch, rotate, reflect, and shear across space. 
 In this lab, we explore the geometric power of linear transformations and how matrix multiplication implements them computationally. 
-We also investigate how affine transformations model motion and how the efficiency of matrix operations scales in practice.
-
-By blending visual intuition, algebraic structure, and empirical timing, we gain a multidimensional understanding of how linear maps shape both theory and application.
 
 Linear Transformations
 ----------------------
@@ -199,12 +196,12 @@ This is what the data points look like plotted with 50,000 points in 3-D.
 .. image:: _static/plane_normal.png
    :align: center
 
-We will stritly dealing with the rotation transformations in :math:`\mathbb{R}^3`.
+We will strictly be dealing with the rotation transformations in :math:`\mathbb{R}^3`.
 While in 2-D we could rotate on the X-Y plane, in 3-D we can rotate on the X-Y plane, the Y-Z plane, and the X-Z plane making 3 different rotations.
 With all 3 of these rotations, we can achieve any rotation in 3-D.
 Here is what the 3 different rotations look like.
 
-.. image:: _static/rotations.png
+.. image:: _static/rotations2.png
    :align: center
    :width: 50% 
 
@@ -259,6 +256,7 @@ Task 4
 ------
 
 Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector :math:`[7, -5, -1]^\mathrm{T}` and save it to the variable ``X_rotated``.
+Also the plane is already facing in the direction of the vector :math:`[1, 0, 0]^\mathrm{T}`.
 (The data will be in the file ``plane.npy``.)
 
 
@@ -470,7 +468,7 @@ Take the data points from the Global Hawk aircraft and apply a combination of th
 ..    For more, see the `NumPy dot documentation <https://numpy.org/doc/stable/reference/generated/numpy.dot.html>`_.
 
 .. .. note::
-..    :ref:`prob:numpy-is-awesome` shows that **matrix  operations are significantly faster in NumPy than in plain Python**.
+..    :ref:`prob:numpy-is-awesome` shows that **matrix operations are significantly faster in NumPy than in plain Python**.
 ..    Matrix-matrix multiplication grows cubically regardless of the implementation; however, with lists the times grows at a rate of :math:`an^3` while with NumPy the times grow at a rate of :math:`bn^3`, where :math:`a` is much larger than :math:`b`.
 ..    NumPy is more efficient for several reasons:
 
