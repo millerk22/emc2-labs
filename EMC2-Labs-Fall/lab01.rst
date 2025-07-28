@@ -615,14 +615,14 @@ Task 5
 ------
 
 
-Define a function, called ``indicator(lower,upper,n)`` which accepts as input
-three numbers ``lower``, ``upper``, and ``n``, with ``lower <= upper``, and returns ``1`` if the number ``n``
-satisfies ``lower <= n <= upper``, and returns ``0`` otherwise.
+Define a function, called ``indicator(lower, upper, n)`` which accepts as input
+three numbers ``lower``, ``upper``, and ``n``, with ``lower <= upper``, and returns ``True`` if the number ``n``
+satisfies ``lower <= n <= upper``, and returns ``False`` otherwise.
 
 >>> indicator(3,7,2)
-0
+False
 >>> indicator(-3,9,8)
-1
+True
 
 
 
