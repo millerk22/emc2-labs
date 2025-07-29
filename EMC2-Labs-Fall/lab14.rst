@@ -16,6 +16,7 @@ Transition Matrices
 We will be looking at a black bear population. This diagram shows the four different groups in the population, *cubs*, *juveniles*, *adults*, and *deceased*.
 
 .. image:: ./_static/black_bear_state.png 
+   :align: center
    :width: 800
 
 Population members begin in one stage and transition to other stages. The diagram above models annual transitions from one stage to another. An individual stays in a single class for the entirety of a year but may move to a different class in subsequent years.
