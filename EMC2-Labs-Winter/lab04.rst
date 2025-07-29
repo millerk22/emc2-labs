@@ -30,7 +30,7 @@ We will use a **binary search**. This algorithm is exactly like the algorithm fr
 	3. If ``l[curr_index] < n``, update ``min_index`` to be ``curr_index + 1`` so that we are now searching in the second half of the list.
 	4. If ``l[curr_index] > n``, update ``max_index`` to be ``curr_index - 1`` so that we are now searching in the first half of the list.
 	5. With our new ``min_index`` and ``max_index``, recalculate ``curr_index`` to be halfway between them and continue recursively by calling the function again with the new values for the variables.
-	6. If we never find it, return ``-1``.
+	6. Break the loop and return -1 when ``min_index <= max_index``.
     
 Task 2
 ------
