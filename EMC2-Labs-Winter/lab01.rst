@@ -43,7 +43,8 @@ the function :math:`f(x) = x^2`, then visualizes the array using ``matplotlib``.
 The result is shown below in (a). Just as ``np`` is a standard alias for ``numpy``, ``plt`` is a standard alias for ``matplotlib.pyplot`` in the Python community.
 
 .. image:: _static/figures/y=x2.png
-	:width: 90 %
+  :align: center
+  :width: 90%
 
 The call ``plt.plot(y)`` creates a figure and draws straight lines connecting the entries of ``y`` relative to the ``y``-axis. The ``x``-axis is (by default) the index of the array, which in this case is the integers from 0 to 10. Calling ``plt.show()`` then displays the figure.
 
@@ -150,6 +151,7 @@ Specify one or both of these string codes as the third argument to ``plt.plot()`
 
 .. image:: _static/figures/green-red-plots.png
 	:width: 90 %
+  :align: center
 
 
 See `the MatPlotLib documentation <https://matplotlib.org/stable/index.html>`_ for more comprehensive lists of colors, line styles, and figure customization routines.
@@ -171,6 +173,7 @@ The plot should resemble the figure below.
 
 .. image:: _static/figures/magenta-plot.png
 	:width: 45 %
+  :align: center
 
 
 

@@ -6,7 +6,7 @@ This is still true in Math 314, however it is often no longer quite as easy to d
 Visualizing a 3-dimensional surface or a function :math:`g : \mathbb R^2 \to \mathbb R` (two inputs, one output) requires a different kind of plot than the line plots we have seen thus far. 
 The good news, however, is that the process to create such a plot is similar to creating a line plot but requires slightly more setup: first construct an appropriate domain, then calculate the image of the function on that domain.
 
-NumPy’s ``np.meshgrid()`` function is the standard tool for creating a 2-dimensional domain in the Cartesian plane. Given two 1-dimensional coordinate arrays, ``np.meshgrid()`` creates two corresponding coordinate matrices.
+NumPy's ``np.meshgrid()`` function is the standard tool for creating a 2-dimensional domain in the Cartesian plane. Given two 1-dimensional coordinate arrays, ``np.meshgrid()`` creates two corresponding coordinate matrices.
 
 .. image:: _static/figures/np-meshgrid.png
 	:width: 55 %

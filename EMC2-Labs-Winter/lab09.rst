@@ -9,7 +9,7 @@ Symbolic Variables and Expressions
 
 Most variables in Python refer to a number, string, or data structure. Doing computations on such variables results in more numbers, strings, or data structures. A symbolic variable is a variable that represents a mathematical symbol, such as :math:`x` or :math:`\sqrt{\phantom{x}}`, not a number or another kind of data. Operating on symbolic variables results in an expression, representative of an actual mathematical expression. For example, if a symbolic variable ``Y`` refers to a mathematical variable :math:`y`, the multiplication ``3*Y`` refers to the expression :math:`3y`. This is all done without assigning an actual numerical value to ``Y``.
 
-SymPy is Python’s library for doing symbolic algebra and calculus. It is typically imported with ``import sympy as sy``, and symbolic variables are usually defined using ``sy.symbols()``.
+SymPy is Python's library for doing symbolic algebra and calculus. It is typically imported with ``import sympy as sy``, and symbolic variables are usually defined using ``sy.symbols()``.
 
 .. code:: python
 

@@ -39,6 +39,7 @@ SQL, however, is optimized for sets. So we would solve the problem by asking SQL
 give us the subset where the weight is more than 10. Instead of a list, SQL stores data in a table.
 
 .. csv-table:: items
+   :align: center
    :header: "Name", "Weight"
 
    "item1","15"

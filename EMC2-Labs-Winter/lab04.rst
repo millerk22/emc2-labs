@@ -15,7 +15,8 @@ Searching in a Sorted Space
 What is this algorithm doing? At step :math:`n`, we consider the number :math:`x` halfway between :math:`a_{n-1}` and :math:`b_{n-1}`, creating two intervals: :math:`[a_{n-1}, x]` and :math:`[x, b_{n-1}]`. Because :math:`\sqrt{2}` is between :math:`a_{n-1}` and :math:`b_{n-1}`, it has to lie in one of these intervals. We compare it to :math:`x` to check which one it is in and then toss out the other interval. This "tossing out" is accomplished by setting either :math:`a_n = x` or :math:`b_n = x` and keeping :math:`b_n = b_{n-1}` or :math:`a_n = a_{n-1}`, respectively. At each step, we are cutting in half the interval in which we are searching. See the figure below.
 
 .. image:: _static/figures/binary-search.png
-	:width: 45 %
+	:width: 45%
+	:align: center
 
 Why does this algorithm work? First of all, this algorithm only finishes in a finite number of steps because floats actually have limited precision. Combining this fact with an estimate for the upper and lower bound (:math:`a_0` and :math:`b_0`), we are really only searching within a **finite set**.  If we had an arbitrary level of precision, we could obtain better and better approximations to :math:`\sqrt{2}`, but the code would never finish running. Second, our algorithm relies on our ability to compare because we were searching in a **sorted** space. The number system :math:`\mathbb R` is an *ordered field*, so checking something like :math:`x^2 < 2` is possible.
 

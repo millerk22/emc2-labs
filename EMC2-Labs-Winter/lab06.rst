@@ -6,14 +6,16 @@ In :doc:`lab04`, we created a binary search algorithm to search in a **sorted** 
 Suppose that Alice is having a party with ``4`` friends. At one point during the party, she hands out t-shirts with numbers on them and tells everyone to line up with their numbers going from smallest to largest. (This is, of course, a common party game among mathematicians.) However, they are in a tight hallway and chaos ensues. Eventually, everyone lines up against the wall, out of order. How can they get in order in an organized fashion?
 
 .. image:: _static/figures/unsorted-1.png
-	:width: 45 %
+	:width: 45%
+	:align: center
 
 Alice has an idea. Every pair should compare shirts and decide whether or not to swap places. Then, the people with the smallest numbers will work their way to the left side of the hallway, and those with the biggest numbers will go to the right. Sorting this way will also keep everything efficient and keep everyone from bustling around and elbowing for a spot.
 
 Starting on the left, each pair compares numbers. If they are out of order, they swap. When they have gone through the line once, they start again at the beginning and repeat the process. They continue until they are finally in order. In the figure below, note that ``0 < 2`` and ``2 < 4``, so we don't need to swap either of these. However, ``4 > 1``, so we swap ``4`` and ``1``. Likewise, we swap ``3`` and ``4``. When we reach the end of the line of people, we start again at the beginning and repeat until everyone is in order.
 
 .. image:: _static/figures/unsorted-2.png
-	:width: 45 %
+	:width: 45%
+	:align: center
 
 
 Note that we had to go through the line of people more than once. (In other words, we had to restart at the beginning after we had looked at every element because ``1`` and ``2`` were still out of order.) Most of the time, we cannot sort a list in one pass. What is the largest number of passes needed?

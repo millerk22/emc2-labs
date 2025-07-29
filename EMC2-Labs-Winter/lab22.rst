@@ -192,7 +192,8 @@ The end goal of this lab is to draw the Sierpiński triangle. Since we will be d
 3. With this function, draw the first image below. You must use your ``draw_triangle`` function whenever you draw a triangle. (This can typically be done with either two or three calls to the function.) Your turtle does not have to end in the same location as depicted, but it will be useful to know how to get the turtle into a position such as this as we continue on. *Hint*: Some of the triangles begin at odd locations and it may be difficult to determine their location in the ``xy``-plane precisely. Note that you do not have to know the the exact coordinates of a point, only how to get to it. Retracing is allowed.
 
 .. figure:: _static/figures/Starting-Sierpinski.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     (The Triforce)
 
@@ -205,7 +206,8 @@ Let's compare the first picture with the next step to get a good feel for how th
 
 
 .. figure:: _static/figures/Sierpinski-2.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     (Triforce Inception)
 

@@ -8,7 +8,8 @@ For example, the function :math:`f(x)=x^2-1` has zeros at :math:`-1` and :math:`
 If :math:`x_0<0`, then Newton's method converges to :math:`-1`; if :math:`x_0 > 0` then it converges to :math:`1`.
 
 .. figure:: _static/figures/Basins-1.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     Basins of attraction for :math:`f(x) = x^2 - 1`
 
@@ -20,7 +21,8 @@ The basins of attraction for :math:`f(x) = x^2 - 1` are very straightforward, bu
 
 
 .. figure:: _static/figures/Basins-2.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     Basins of attraction for ``f(x) = x^3 - x``
 
@@ -91,12 +93,14 @@ If we repeat this, we can create many grids ``X_1``, ``X_2``, ``X_3``, and so on
 We then have an array ``Y`` where all the elements are ``0``, ``1`` or ``2``. Plotting this array with each number corresponding to a different color gives us a plot of the basins of attraction.
 
 .. figure:: _static/figures/Basins-Complex.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     Basins of attraction for :math:`f(x) = x^3 - 1`
 
 .. figure:: _static/figures/Basins-Complex-2.png
-    :width: 45 %
+    :width: 45%
+    :align: center
 
     Basins of attraction for :math:`f(x) = x^3 - x`
 

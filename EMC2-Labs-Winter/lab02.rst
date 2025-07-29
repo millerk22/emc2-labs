@@ -7,12 +7,14 @@ Plotting sequences
 As you have seen in class, a sequence is a countably infinite ordered list of numbers. We are often wondering whether a particular sequence has a limit or not, and one of the most intuitive tools that we have to explore this is plotting. For example, if you saw the two plots below, you would guess that sequence :math:`(a_n)` has a limit (probably :math:`0`) and sequence :math:`(b_n)` does not. While this is not a rigorous proof, it can help build intuition about convergence and divergence of sequences. The goal of this lab is to learn how to create plots like these.
 
 .. figure:: _static/figures/a_n-example.png
-    :width: 45 %
+    :width: 45%
+	:align: center
 
     Sequence :math:`(a_n)` converges to :math:`0`
 
 .. figure:: _static/figures/b_n-example.png
-    :width: 45 %
+    :width: 45%
+	:align: center
 
     Sequence :math:`(b_n)` does not converge
 
