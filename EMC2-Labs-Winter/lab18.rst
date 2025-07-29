@@ -1,7 +1,7 @@
 Lab 18: K-Means Clustering
 ==========================
 
-.. This is the link to the old implementation with some bugs https://colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing
+.. This is the link to the old implementation with some bugs colab.research.google.com/drive/1GtrgUCOU4LdT-0arXn1S12uWeGMM2YVX?usp=sharing
 
 A current area of high interest is data science and machine learning. Machine learning can be roughly divided into three  categories, supervised learning, unsupervised learning, and reinforcement learning.
 
@@ -14,7 +14,7 @@ This lab covers one form of unsupervised learning called clustering. There are m
 For this lab, we will be using the Iris dataset, which is a classic machine learning dataset made in the 1930s. It contains 50 samples each of three different species of the Iris flower: Setosa, Virginica, and Versicolor. Each flower has length and width measurements for petals and sepals.
 
 .. image:: _static/figures/iris.png
-	:align: center
+    :align: center
 
 The objective of clustering is to find a partition of the data such that points in the same subset will be “close” enough. There are many different ways of measuring how close two points are, but we will be using Euclidean distance. Let :math:`p` and :math:`q` be points in a :math:`k` dimensional space with the coordinates :math:`p=(p_1, p_2, \ldots, p_k)` and :math:`q=(q_1, q_2, \ldots, q_k)`. The Euclidean distance for :math:`p` and :math:`q` is:
 
@@ -202,7 +202,7 @@ Now we can plot these predictions by color:
     plt.show()
 
 .. image:: _static/figures/clustered_petal_sepal.png
-	:align: center
+    :align: center
 
 We can see our results look fairly reasonable. We can check by using the actual labels contained in  ``targets``.
 
@@ -239,7 +239,7 @@ We can see our results look fairly reasonable. We can check by using the actual 
     plt.show()
 
 .. image:: _static/figures/clustered_petal_sepal_labeled.png
-	:align: center
+    :align: center
 
 Our clustering algorithm predicted the correct classification of a species 83% (125/150) of the time.
 
@@ -273,7 +273,7 @@ Task 2
 
 Write a function, ``quantize_image(X, k, seed)``, that takes a color image array, ``X`` (shape ``(m, n, 3)``), the number of clusters, ``k``, and a random seed and does the following:
 
-#. Reshape the image array such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``. You can find documentation on how to use ``np.reshape()`` `here <https://numpy.org/doc/stable/reference/generated/numpy.reshape.html>`_.
+#. Reshape the image array such that each row represents a single pixel (shape ``(m * n, 3)``) using ``np.reshape()``. You can find documentation on how to use ``np.reshape()`` in NumPy's `documentation <https://numpy.org/doc/stable/reference/generated/numpy.reshape.html>`_.
 
 #. Fit a K-Means classifier to the reshaped data
 

@@ -150,8 +150,8 @@ Specify one or both of these string codes as the third argument to ``plt.plot()`
 
 
 .. image:: _static/figures/green-red-plots.png
-	:width: 90 %
   :align: center
+  :width: 90%
 
 
 See `the MatPlotLib documentation <https://matplotlib.org/stable/index.html>`_ for more comprehensive lists of colors, line styles, and figure customization routines.
@@ -172,8 +172,8 @@ c. Use ``plt.xlim()`` and ``plt.ylim()`` to change the range of the ``x``-axis t
 The plot should resemble the figure below.
 
 .. image:: _static/figures/magenta-plot.png
-	:width: 45 %
   :align: center
+  :width: 45%
 
 
 

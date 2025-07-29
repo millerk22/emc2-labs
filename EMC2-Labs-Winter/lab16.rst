@@ -166,8 +166,8 @@ The multidimensional probability distribution function of the normal distributio
 where :math:`\mu` is a vector of the means, :math:`\Sigma` is the covariance matrix and :math:`C` is a constant dependent on :math:`\Sigma` that guarantees the probability distribution function integrates to one.
 
 .. image:: _static/figures/gaussians.png
-	:width: 80%
   :align: center
+  :width: 80%
 
 As one can see from the figure the most probable values are those located close to the mean. 
 A natural generalization of this idea is that if we were to independently draw multiple variables, each from a Gaussian distribution the resulting vector would be close to the overall mean and two vectors drawn in this way would be very close to each other. 
