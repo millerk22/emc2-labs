@@ -156,8 +156,8 @@ Affine Transformations
 ----------------------
 
 All linear transformations map the origin to itself.
-An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but that may not preserve the origin (i.e. it is a translation).
-Every affine transformation :math:`T` can be represented by a matrix :math:`A` and a vector :math:`b`.
+An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but that may not preserve the origin (e.g. it is a translation).
+Every affine transformation :math:`T` can be represented by a matrix :math:`A` and a vector :math:`\mathbf{b}`.
 To apply :math:`T` to a vector :math:`\mathbf{x}`, calculate :math:`A \mathbf{x} + \mathbf{b}`.
 If :math:`\mathbf{b} = 0` then the transformation is a linear transformation, and if :math:`A = I` but :math:`\mathbf{b} \neq 0` then it is called a *translation*.
 
