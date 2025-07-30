@@ -41,7 +41,7 @@ For linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2`, th
    = \mathbf{x}'.
 
 Linear transformations can be interpreted geometrically.
-To demonstrate this, consider the array of points :math:`T` that collectively form a picture of a turtle, stored in the file ``turtle.npy``.
+To demonstrate this, consider the array of points :math:`T` that collectively form a picture of a turtle.
 The coordinate pairs :math:`\mathbf{x}_i` are organized by column, so the array has two rows: one for :math:`x`-coordinates, and one for :math:`y`-coordinates.
 Matrix multiplication on the left transforms each coordinate pair, resulting in another matrix :math:`H'` whose columns are the transformed coordinate pairs:
 
@@ -75,10 +75,6 @@ Matrix multiplication on the left transforms each coordinate pair, resulting in 
    y_1' & y_2' & y_3' & \ldots
    \end{array}\right]
    = T'.
-
-.. note::
-   An NPY file is a binary file that stores a NumPy array. 
-   You can use ``np.load()`` to load the array from the file, and use ``np.save()`` to save the array to a file.
 
 Types of Linear Transformations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -257,7 +253,7 @@ Task 4
 
 Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector :math:`[7, -5, -1]^\mathrm{T}` and save it to the variable ``X_rotated``.
 Also the plane is already facing in the direction of the vector :math:`[1, 0, 0]^\mathrm{T}`.
-(The data will be in the file ``plane.npy``.)
+(The data will be in the file ``plane.csv``.)
 
 
 
