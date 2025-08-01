@@ -1,7 +1,186 @@
 Lab 6: Sorting and Complexity of Algorithms 
 ===========================================
 
-In :doc:`lab04`, we created a binary search algorithm to search in a **sorted** list. What do we do if we have an unsorted list? We sort it of course! The goal of this lab is to create a function that sorts an unsorted list. The sorting algorithm that we are going to implement is called Bubble Sort. It is not the fastest sorting algorithm, but it works well as an introduction to sorting. If you take CS 235, you will be introduced to more sorting algorithms. Some of them are faster, but they can be a bit more difficult to understand if you have never sorted anything before.
+In :doc:`lab04`, we created a binary search algorithm to search in a **sorted** list. What do we do if we have an unsorted list? We sort it of course! There are many ways to sort lists. Say, for example, you had a shuffled deck of cards and you wanted to order them by number and by suit. What strategies would you take to sort the entire deck?
+
+The goal of this lab is to create a function that sorts an unsorted list. We will use a sorting algorithm called Bubble Sort to accomplish this. It is not the fastest sorting algorithm, but it works well as an introduction to sorting. If you take CS 235, you will be introduced to more sorting algorithms. Some of them are faster but can be a bit more difficult to understand. Before diving into that, we will talk about :math:`\text{Big-}O` notation and time complexity.
+
+
+Algorithmic Complexity and :math:`\text{Big}O` Notation
+-------------------------------------------------------
+
+**Time complexity** is a way to describe how the running time of an algorithm increases as the size of its input grows. Say we have a function ``sum_elements`` that adds up all the elements in a list:
+
+.. code:: python
+
+	def sum_elements(input_list):
+		sum = 0
+		for ele in input_list:
+			sum += ele
+		return sum
+
+If the size of our list is :math:`n`, our ``for`` loop will iterate :math:`n` times. This is what we call **linear complexity** or **linear time** because as :math:`n` increases, the amount of time it takes to run the function linearly increases. It is important to note that in this example, lines like ``sum = 0`` and ``for ele in input_list:`` (setting up the for loop) both take some additional time. If we wanted to express the time our code takes to run as a function, it may look something like this:
+
+.. math::
+
+	f(n) = an + b
+
+Where :math:`n` is the number of elements in the list, :math:`a` is a coefficient representing how long one iteration takes, and :math:`b` is a coefficient representing the constant time needed to set up the code.
+
+When working with more complicated functions, it is important to consider the time complexity of your algorithm. We analyze complexity with :math:`\text{Big-}O` notation, which is very similar to a function mapping from :math:`n` to time. Linear complexity is written as ``O(n)`` because ``n`` is a linear term. There are two rules when analyzing complexity with :math:`\text{Big-}O` notation:
+
+#. Only keep the fastest growing term
+#. Drop all coefficients
+
+For our linear example, the two rules of :math:`\text{Big-}O` notation state that we can drop the :math:`b` term becasue it grows slower than :math:`an`, and also that we can drop :math:`a` because it is a coefficient. Thus, we are left with :math:`f(n) = n` which translates to ``O(n)``.
+
+The main question we ask with :math:`\text{Big-}O` notation is **"How much does time grow when input size grows?"**. 
+
+Let's look at some other examples.
+
+Constant Time (``O(1)``)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+	def get_last_element(arr):
+    	return arr[-1]  # Always takes the same amount of time
+
+You don't need to go over all elements in a list in order to get an element.
+
+Quadratic Time (``O(n^2)``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+	def matrix_sum(A):
+		rows, cols = A.shape
+		sum = 0
+		for row in range(rows):
+			for col in range(cols):
+				sum = sum + A[row][col]
+		return sum
+
+Nested for loops most often means ``O(n^2)``.
+
+Logarithmic Time (``O(log(n))``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+	def divide_until_one(n):
+		steps = 0
+		while n > 1:
+			n = n // 2
+			steps = steps + 1
+		return steps
+
+Each iteration, the number is cut in half. This means that every time we double the number, we only add one more iteration. This is logarithmic time.
+
+
+Exponential Time (``O(2^n)``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+	def fib(n):
+		if n <= 1:
+			return n
+		return fib(n - 1) + fib(n - 2)
+
+Every time we increase ``n``, we have to calculate both ``n - 1`` and ``n - 2``. This makes it exponential.
+
+
+There are also time complexities like Log-Linear Time (``O(nlog(n))``) or Factorial Time (``O(n!)``), and a few that are more complicated, but we won't worry about any of these.
+
+.. note::
+
+	As a general rule, we don't need to evaluate how many steps there will be exactly. Each ``for`` loop contributes a multiple of ``n`` **if the** ``for`` **loop depends on** ``n``. For example, the function below is ``O(1)`` even though it has a ``for`` loop within it. That is because it always has the exact same number of iterations for every input of ``n``.
+
+	.. code-block:: python
+
+		def bad_factorial_funct(n):
+			prod = 1
+			for i in range(1,10):
+				prod *= i
+			return prod
+
+
+Task 1
+------
+
+For each function, talk to a friend and find the time complexity in :math:`\text{Big-}O` notation. Make sure you can explain why.
+
+Remember the two rules:
+
+#. Only keep the fastest growing term
+#. Drop all coefficients
+
+
+.. n
+
+.. code:: python
+
+	def print_items(lst):
+		for item in lst:
+			print(item)
+
+.. n^2
+
+.. code:: python
+
+	def print_pairs(lst):
+		for i in lst:
+			for j in lst:
+				print(i, j)
+
+.. 1
+
+.. code:: python
+
+	def print_first(lst):
+		if lst:
+			print(lst[0])
+
+.. 1
+
+.. code:: python
+
+	def print_two_lists(a, b):
+		for item in a:
+			print(item)
+		for item in b:
+			print(item)
+
+.. logn
+
+.. code:: python
+
+	def count_halvings(n):
+		count = 0
+		while n > 1:
+			n = n // 2
+			count += 1
+		return count
+
+.. n^2
+
+.. code:: python
+
+	def has_pair_with_sum(arr, target):
+		for i in range(len(arr)):
+			for j in range(i + 1, len(arr)):
+				if arr[i] + arr[j] == target:
+					return True
+		return False
+
+.. admonition::
+
+	The main thing to take away with :math:`\text{Big-}O` notation is that it helps us understand how much time a function will take to run.
+
+Bubble Sort
+-----------
+
+To learn about Bubble Sort, consider this example.
 
 Suppose that Alice is having a party with ``4`` friends. At one point during the party, she hands out t-shirts with numbers on them and tells everyone to line up with their numbers going from smallest to largest. (This is, of course, a common party game among mathematicians.) However, they are in a tight hallway and chaos ensues. Eventually, everyone lines up against the wall, out of order. How can they get in order in an organized fashion?
 
@@ -21,7 +200,7 @@ Starting on the left, each pair compares numbers. If they are out of order, they
 Note that we had to go through the line of people more than once. (In other words, we had to restart at the beginning after we had looked at every element because ``1`` and ``2`` were still out of order.) Most of the time, we cannot sort a list in one pass. What is the largest number of passes needed?
 
 
-Task 1
+Task 2
 ------
 
 In CodeBuddy, bubble sort the list ``[3,2,1,0]``  so that it is in increasing order, writing each step on its own line. 
@@ -29,7 +208,7 @@ How many times did you have to run through the entire list?
 What do you suspect is the maximum number of times that you will have to run through an arbitrary list to sort it?
 
 
-Task 2
+Task 3
 ------
 
 Write a function ``bubble_sort`` that takes as a parameter an unsorted list ``l`` and returns the list sorted from smallest to largest. Here are some hints and words of caution:
@@ -84,7 +263,7 @@ We consider some examples and find their algorithmic complexity.
 	def my_sum_funct(n):
 	    total = 0
 	    for i in range(n):
-	        total += i
+	        total = total + i
 	    return total
 
 
@@ -118,7 +297,7 @@ As a general rule, we don't need to evaluate how many steps there will be exactl
 	    return prod
 
 
-Task 3
+Task 4
 ------
 
 Let's look at the algorithmic complexity of programs that we have made.
@@ -143,3 +322,7 @@ As promised, here is the formal definition of big ``O``. This is a common concep
 
 In other words, a big ``O`` gives an approximate upper bound on the growth of a function as ``x -> ∞``.
 
+.. https://www.youtube.com/watch?v=D6xkbGLQesk
+.. graph them
+.. use matrix multiplication and matrix vector
+.. go through a bunch of different examples
