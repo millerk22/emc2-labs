@@ -94,7 +94,7 @@ Write a function ``simulate(A, p, t)`` that simulates ``t`` steps of the populat
 Return a list containing the ``t+1`` population vectors. 
 
 .. Note::
-   If ``p`` has negative entries, raise a ``ValueError``.
+   For Task 3, if ``p`` has negative entries, raise a ``ValueError``.
 
 Black Bear Population Demo
 --------------------------

@@ -1,7 +1,7 @@
 Lab 13: Linear Transformations
 ==============================
 
-Linear transformations are the heart of linear algebra—they define how shapes stretch, rotate, reflect, and shear across space. 
+Linear transformations are at the heart of linear algebra and its applications. For example, they define how geometric shapes in :math:`\mathbb{R}^n` stretch, rotate, reflect, and shear. 
 In this lab, we explore the geometric power of linear transformations and how matrix multiplication implements them computationally. 
 
 Linear Transformations
@@ -155,8 +155,8 @@ In fact, any linear transformation :math:`L:\mathbb{R}^2 \rightarrow\mathbb{R}^2
 Affine Transformations
 ----------------------
 
-All linear transformations map the origin to itself.
-An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but that may not preserve the origin (e.g. it is a translation).
+All linear transformations map the origin to itself, since for any :math:`\mathbf{x} \not= 0` we have :math:`L(0) = L(0 \mathbf{x}) = 0 L(\mathbf{x}) = 0` for any linear transformation :math:`L`.
+An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but may not preserve the origin (e.g., it is a translation).
 Every affine transformation :math:`T` can be represented by a matrix :math:`A` and a vector :math:`\mathbf{b}`.
 To apply :math:`T` to a vector :math:`\mathbf{x}`, calculate :math:`A \mathbf{x} + \mathbf{b}`.
 If :math:`\mathbf{b} = 0` then the transformation is a linear transformation, and if :math:`A = I` but :math:`\mathbf{b} \neq 0` then it is called a *translation*.
@@ -192,8 +192,8 @@ This is what the data points look like plotted with 50,000 points in 3-D.
 .. image:: _static/plane_normal.png
    :align: center
 
-We will strictly be dealing with the rotation transformations in :math:`\mathbb{R}^3`.
-While in 2-D we could rotate on the X-Y plane, in 3-D we can rotate on the X-Y plane, the Y-Z plane, and the X-Z plane making 3 different rotations.
+We will simply deal with rotation transformations in :math:`\mathbb{R}^3`.
+While in 2-D we could only rotate on the X-Y plane, in 3-D we can rotate on the X-Y plane, the Y-Z plane, and the X-Z plane making 3 different rotations.
 With all 3 of these rotations, we can achieve any rotation in 3-D.
 Here is what the 3 different rotations look like.
 
@@ -201,7 +201,7 @@ Here is what the 3 different rotations look like.
    :align: center
    :width: 50% 
 
-These are the linear transformations for each of the 3 rotations.
+Below are the matrix representations for each of the 3 kinds of rotations in :math:`\mathbb{R}^3`:
 
 - **X-Y plane rotation**:
 
@@ -242,7 +242,7 @@ Below is an example of each of the 3 rotations.
 Task 3
 ------
 
-Write a function for each 3-D rotation.
+Write a function for each 3-D rotation
 (``rotate_xy(X, theta)``, ``rotate_yz(X, theta)``, ``rotate_xz(X, theta)``).
 Each function should accept an array to transform and the angle :math:`\theta` for the rotation.
 Construct the matrix representation, left multiply it with the input array, and return a transformation of the data.
@@ -252,7 +252,7 @@ Task 4
 ------
 
 Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector :math:`[7, -5, -1]^\mathrm{T}` and save it to the variable ``X_rotated``.
-Also the plane is already facing in the direction of the vector :math:`[1, 0, 0]^\mathrm{T}`.
+Note that the plane is already facing in the direction of the vector :math:`[1, 0, 0]^\mathrm{T}`.
 (The data will be in the file ``plane.csv``.)
 
 

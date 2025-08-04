@@ -31,7 +31,7 @@ As mentioned in `Lab 5 <lab05.html>`_, every time we use a function from NumPy, 
 Vectors and Matrices
 ~~~~~~~~~~~~~~~~~~~~
 
-In NumPy we represent matrices and vectors as a special kind of array called a NumPy array. To define
+Recall that in NumPy, we represent matrices and vectors as a special kind of array called a NumPy array. To define
 a NumPy array, we use the function ``np.array()``. For example, to create the vector
 
 .. math::
@@ -53,7 +53,7 @@ array([1, 9, 7])
 >>> 3 * my_vect      # multiplying by scalars
 array([3, 6, -3])
 
-NumPy has made working with vectors very easy. They even have ``dot()`` which replaces our ``dot_product()`` function.
+NumPy makes working with vectors very easy. They even have ``dot()`` which replaces our ``dot_product()`` function.
 
 >>> array1=np.array([1,2,3])
 >>> array2=np.array([4,5,6])
@@ -170,14 +170,13 @@ row(s) and/or column(s) in which we are interested.
 [-5 -6 -7 -8]
 
 .. warning::
-    Remember in python, index starting at 0!
+    Remember in python, indexing starts at 0!
 
 .. note::
        ``my_matrix[1,2]`` will do the same thing as  ``my_matrix[1][2]`` for ``np.ndarray``s. For two dimensional python lists, only ``my_matrix[1][2]`` is valid.
 
 Other NumPy Tools
 ~~~~~~~~~~~~~~~~~
-What is the funcitonal difference bet
 When you make a NumPy array, it isn't an ``int``, ``str``, ``float``, or ``bool``, it is something called an object of type ``numpy.ndarray`` (which stands for n-dimensional array). Objects in python are just one more way to represent data. When an object is made, it has **attributes** that contain different information about the object. We get attributes with the ``.`` notation. We will learn more about objects later, but for now you just need to know how to use object attributes. As an example, if our array is named ``array1``, then:
 
 - ``array1.ndim`` will tell you the number of dimensions of the array

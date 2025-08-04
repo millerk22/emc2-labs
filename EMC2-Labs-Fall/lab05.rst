@@ -1,7 +1,7 @@
-Lab 5: Introduction to Python, Part IV
-======================================
+Lab 5: Matrix Operations and Intro to NumPy
+===========================================
 
-In this lab we will be working with matrix operations. We can think of matrices like lists of lists. So a matrix would look something like this:
+In this lab we will be working with matrix operations with native Python objects. We can think of matrices like a list of lists; that is, each row of the matrix is a vector that is a Python list. A matrix would then look something like this:
 
 .. code-block:: python
 
@@ -81,7 +81,7 @@ Let's print out the values of matrix ``A`` from above using nested for loops.
    11 at i = 3 and j = 1
    12 at i = 3 and j = 2
 
-Notice how when we print the elements of ``A``, we print ``A[i][j]``. Remember, ``A`` is a list of lists, so the first thing we do is index it with ``i`` which will get us whatever row we are on (like ``[ 1,  2,  3]``, or ``[ 7,  8,  9]``). Then we index that list by ``j`` which represents the column. This way, we end up with a single value.
+Notice how when we print the elements of ``A``, we print ``A[i][j]``. Remember, ``A`` is a list of lists, so the first thing we do is index it with ``i`` which will get us whatever row we are on (e.g.,  ``[ 1,  2,  3]`` or ``[ 7,  8,  9]``). Then we index that list by ``j`` which represents the column. This way, we end up with a single value.
 
 This code works well for 4x3 matirces. If we want to generalize to any matrix, we need to change the ``range``\s based on the shape of the matrix. We can fix this using ``len()`` which gets the length of a Python ``list``. We might as well put this code in a function too.
 
@@ -129,7 +129,7 @@ Now, we can see if the function actually does what we think it should:
 >>> print(abs_mat)
 [[1, 1, 2, 3, 1, 1], [2, 2, 0, 1, 1, 5], [1, 1, 1, 1, 2, 1]]
 
-.. note::
+.. warning::
 
    After running ``abs_matrix`` on ``mat``, what is the value of ``mat``?
 
@@ -151,6 +151,7 @@ Now, we can see if the function actually does what we think it should:
                if row_copy[j] < 0:              # if row_copy[i] is negative, we make it positive.
                   row_copy[j] = -row_copy[j]    # set the new value
          return new_M
+   This way, we create a new matrix ``new_M`` and copy each row of ``M`` into it, so that we don't change the original matrix. 
 
 Task 1
 ------
@@ -276,7 +277,7 @@ are not defined. **Packages** and **libraries** contain functions that we can in
    * - ``random``
      - Generate random numbers, choices, shuffles, etc.
    * - ``numpy``
-     - Fast array/matrix math; foundation of scientific computing.
+     - Numerical Python; foundation of scientific computing and numerical linear algebra.
    * - ``pandas``
      - Powerful data tables (like spreadsheets) and data cleaning.
    * - ``matplotlib``

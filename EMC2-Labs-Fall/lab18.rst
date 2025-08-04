@@ -2,8 +2,8 @@
 Lab 18: Networks and Eigenvector Centrality
 ==============================================
 
-In this lab, you will learn how to model real-world networks as mathematical networks and adjacency matrices. 
-You will also learn how to compute the importance of nodes in a network using PageRank Centrality, which is the basis of Google's search algorithm.
+In this lab, you will learn how we model real-world networks as mathematical objects and adjacency matrices. 
+You will also learn how to compute the importance of nodes in a network using `PageRank Centrality <https://en.wikipedia.org/wiki/PageRank>`_, which is the basis of Google's search algorithm.
 
 Graph Theory Background
 ------------------------

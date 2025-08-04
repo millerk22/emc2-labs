@@ -4,11 +4,9 @@ Lab 1: Introduction to Python, Part I
 What is Programming?
 --------------------
 
-When first starting to learn how to code, it can be difficult to grasp the big ideas behind programming. Think of it like having a robot that can do anything, but only if you tell it *exactly* what to do and how to do it. You need to understand how the computer thinks so you can write instructions that it will understand. A great example of this can be found `here <https://youtube.com/shorts/mrmqRoRDrFg?si=ga23ojvoho0V5Rz5>`_.
+When first learning how to code, it can be difficult to grasp the big ideas behind programming. Think of it like having a robot that can do anything, but only if you tell it *exactly* what to do and how to do it. You need to understand how the computer thinks so you can write instructions that it will understand. A great example of this can be found `here <https://youtube.com/shorts/mrmqRoRDrFg?si=ga23ojvoho0V5Rz5>`_.
 
 These first few labs will be all about understanding how computers think and what language we use to communicate with them, in this case, Python.
-
-This lab is adapted from Math 215 Lab 1.
 
 Setting up Google Colab
 -----------------------
@@ -52,7 +50,7 @@ Now select
 ``Tools > Settings > AI Assistance`` 
 
 and make sure both options are unchecked.
-(Generative AI is a very useful tool -- and it's really cool -- but it's more of a hindrance when your goal is to learn a new programming language.)
+(Generative AI is a very useful tool, but it's more of a hindrance when your goal is to learn a new programming language.)
 
 
 Running Code in Cells
@@ -778,3 +776,5 @@ Congrats on making it through your first Python lab of this class! Here is a qui
 - lists
 
 We have covered a lot here so don't worry if not all of it is sticking right now. We will review and build off of these topics in future labs.
+
+**Note:** This lab was adapted from BYU's Math 215 Lab 1.

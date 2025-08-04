@@ -1,12 +1,12 @@
 Lab 2: Introduction to Python, Part II
 ======================================
 
-In `Lab 1 <lab01.html>`_, you were introduced to Python, learned about data types (like ``int``, ``float``, ``bool``, ``str``, and ``list``), and learned about conditionals and functions. In this lab, we are going to expound on functions and lists, and then we will introduce loops and list comprehension.
+In `Lab 1 <lab01.html>`_, you were introduced to Python and learned about data types (like ``int``, ``float``, ``bool``, ``str``, and ``list``), conditionals, and functions. In this lab, we are going to expound on functions and lists, and then we will introduce loops and list comprehension.
 
 Functions, Part 2
 -----------------
 
-For Lab 1, We introduced basic functions like the ``multiply`` function below. We can also define functions that return multiple values and functions that call other functions when they are being evaluated.
+In Lab 1, we introduced basic functions like the ``multiply`` function below. We can also define functions that return multiple values and functions that call other functions when they are being evaluated.
 
 .. code-block:: python
    
@@ -47,7 +47,7 @@ When we have nested functions like this, Python will step into each function as 
 Global and Local Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Consider the function from Lab 1:
+Consider the following function from Lab 1:
 
 .. code-block:: python
 
@@ -484,7 +484,7 @@ and save it as a variable called ``long_list``.
 Task 10
 ------
 
-Using list comprehension, write a function that takes in a list of temperatures in Celsius and returns a list of temperatures in Fahrenheit. Call it ``cel_to_fah(f)``. The formula is :math:`\frac{9}{5}c + 32 = f`.
+Using list comprehension, write a function called ``cel_to_fah(f)`` that takes in a list of temperatures in Celsius and returns a list of temperatures in Fahrenheit. The formula is :math:`\frac{9}{5}c + 32 = f`.
 
 >>> cel_to_fah([0, 32, 100, 15])
 [32.0, 89.6, 212.0, 59.0]

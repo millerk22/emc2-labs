@@ -1,9 +1,14 @@
 Lab 12: Recursion
 =================
 
-Recursion is an important problem solving technique used in computer programming. It is very similar to mathematical induction. To understand the concept, consider this example:
+Recursion is an important technique used in computer programming and is very similar to the principle of mathematical induction. To understand this concept, consider the following example:
 
-You are at your favorite restaurant on a Friday night and the line has gone out the door into the parking lot. You want to figure out how many people are ahead of you before you try a different restaurant. You could walk down the entire line and count each person as you go, but then you would lose your spot and begin to feel bad about yourself for going out to eat alone on a Friday night. To avoid effort and embarassment, your other option is to ask the person ahead of you how many people are ahead of them. Then they ask the person ahead of them the same question, and the pattern continues all the way down the line until you reach the person at the counter. That person says there are 0 people in front of them. This message is then passed up the line towards you with each person adding one to the count. This is a recursive method. You delegated subtasks to people ahead of you and each person provided a little bit of information at each step.
+You are at your favorite restaurant on a Friday night and the line has gone out the door into the parking lot. You want to figure out how many people are ahead of you before you try a different restaurant. 
+You could walk down the entire line and count each person one-by-one, but then you would lose your spot and perhaps even begin to feel bad about yourself for going out to eat alone on a Friday night. 
+To avoid this effort and embarassment, another option would be to ask the person ahead of you how many people are ahead of them. Then they ask the person ahead of them the same question, and the pattern continues all the way down the line until you reach the person at the counter. That person says there are 0 people in front of them. 
+This message is then passed up the line towards you with each person adding one to the count. 
+
+This illustrates a recursive method for solving a problem. You delegated subtasks to people ahead of you and each person provided a little bit of information at each step. We can think of this as a chain of calls, where each person is a function that calls the next person in line.
 
 Recursion is generally implemented in functions in computer programming. If we were to write pesudocode for our restaurant example, it may look something like this:
 
