@@ -21,7 +21,7 @@ while getopts ":fwa" opt; do
     esac
 done
 
-if (( $FALL + $WINTER + $BOTH != 1 )); then
+if (( $FALL + $WINTER + $ALL != 1 )); then
     echo "Only one argument allowed."
     echo "Usage: build_and_deploy.sh [f|w|a]"
     exit 1
