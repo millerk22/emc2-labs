@@ -40,8 +40,12 @@ For linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2`, th
    \end{array}\right]
    = \mathbf{x}'.
 
+.. image:: _static/turtle1.png
+    :align: center
+    :width: 40%
+
 Linear transformations can be interpreted geometrically.
-To demonstrate this, consider the array of points :math:`T` that collectively form a picture of a turtle.
+To demonstrate this, consider an array of points :math:`T` that collectively form the picture of the BYU Turtle above.
 The coordinate pairs :math:`\mathbf{x}_i` are organized by column, so the array has two rows: one for :math:`x`-coordinates, and one for :math:`y`-coordinates.
 Matrix multiplication on the left transforms each coordinate pair, resulting in another matrix :math:`H'` whose columns are the transformed coordinate pairs:
 
@@ -128,8 +132,7 @@ Linear transformations from :math:`\mathbb{R}^2` into :math:`\mathbb{R}^2` can b
   Choosing :math:`\theta = \frac{\pi}{2}` produces a rotation of 90 degrees counterclockwise.
   Below is an example of each of these linear transformations.
 
-.. image:: _static/6turtles.png
-    :align: center
+
 
 
 
@@ -139,7 +142,7 @@ Task 1
 Write a function for each type of linear transformation.
 (``stretch(X, a, b)``, ``shear(X, a, b)``, ``reflection(X, a, b)``, ``rotation(X, theta)``).
 Each function should accept an array to transform and the scalars that define the transformation (:math:`a` and :math:`b` for stretch, shear, and reflection, and ``theta`` for rotation).
-Construct the matrix representation, left multiply it with the input array, and return a transformation of the data.
+Construct the matrix representation, multiply it with the input array, and return a transformation of the data.
 Make sure to copy the array before transforming it.
 
 Compositions of Linear Transformations
@@ -156,10 +159,10 @@ Affine Transformations
 ----------------------
 
 All linear transformations map the origin to itself, since for any :math:`\mathbf{x} \not= 0` we have :math:`L(0) = L(0 \mathbf{x}) = 0 L(\mathbf{x}) = 0` for any linear transformation :math:`L`.
-An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but may not preserve the origin (e.g., it is a translation).
+An *affine transformation* is a mapping between vector spaces that preserves the relationships between points and lines, but may not preserve the origin.
 Every affine transformation :math:`T` can be represented by a matrix :math:`A` and a vector :math:`\mathbf{b}`.
 To apply :math:`T` to a vector :math:`\mathbf{x}`, calculate :math:`A \mathbf{x} + \mathbf{b}`.
-If :math:`\mathbf{b} = 0` then the transformation is a linear transformation, and if :math:`A = I` but :math:`\mathbf{b} \neq 0` then it is called a *translation*.
+If :math:`\mathbf{b} = 0` then the transformation is a linear transformation, and if :math:`A = I` but :math:`\mathbf{b} \neq 0` then it is called a *translation**.
 
 For example, if :math:`T` is the translation with :math:`b = [\frac{3}{4}, \frac{1}{2}]^\mathrm{T}`, then applying :math:`T` to an image will shift it right by :math:`\frac{3}{4}` and up by :math:`\frac{1}{2}`.
 
@@ -173,8 +176,8 @@ For example, if :math:`S` represents a shear and :math:`R` a rotation, and if :m
 Task 2
 ------
 
-Write a function ``affine_transform(X, A, b)`` that takes in an array ``X`` and the matrix ``A`` and vector ``b`` for the affine transformation.
-The function should return the affine transformation of the data.
+Write a function ``translation(X, b)`` that takes in an array ``X`` and the vector ``b`` for the translation.
+The function should return the translation of the data.
 
 
 Linear Transformations in 3-D
@@ -201,7 +204,7 @@ Here is what the 3 different rotations look like.
    :align: center
    :width: 50% 
 
-Below are the matrix representations for each of the 3 kinds of rotations in :math:`\mathbb{R}^3`:
+Below are the matrix representations for each of these 3 kinds of rotations in :math:`\mathbb{R}^3`:
 
 - **X-Y plane rotation**:
 
@@ -245,7 +248,7 @@ Task 3
 Write a function for each 3-D rotation
 (``rotate_xy(X, theta)``, ``rotate_yz(X, theta)``, ``rotate_xz(X, theta)``).
 Each function should accept an array to transform and the angle :math:`\theta` for the rotation.
-Construct the matrix representation, left multiply it with the input array, and return a transformation of the data.
+Construct the matrix representation, multiply it with the input array, and return a transformation of the data.
 Make sure to copy the array before transforming it.
 
 Task 4
