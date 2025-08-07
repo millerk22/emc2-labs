@@ -5,7 +5,7 @@ set -euo pipefail
 ### ESCAPE SEQUENCES FOR TEXT COLOR
 RESET=$'\e[39m'
 GREY=$'\e[38;5;242m'
-PURPLE=$'\e[38;5;m'
+PURPLE=$'\e[38;5;92m'
 RED=$'\e[31m'
 GREEN=$'\e[32m'
 ###
