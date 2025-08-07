@@ -21,6 +21,8 @@ RED=$'\e[31m'
 GREEN=$'\e[32m'
 ###
 
+EMC2_HOST="ym-emc2.byu.edu"
+
 FALL=0
 WINTER=0
 ALL=0
