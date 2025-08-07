@@ -12,9 +12,8 @@
 set -euo pipefail
 
 source ./server_config_emc2.env
+source ./server_config_math.env
 
-EMC2_PATH=emc2-labs
-MATH_PATH=public_www/emc2
 
 FALL=0
 WINTER=0
@@ -43,33 +42,64 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 initiateDeploySSH() {
     local type="$1"
 
-    if [[ "$type" != "-w" && "$type" != "-f" ]]; then
-        echo "deploySSH used with type = $type which is not 'fall' or 'winter'"
+    if [[ "$type" != "-w" && "$type" != "-f" && "$type" != "-a" ]]; then
+        echo "deploySSH used with type = $type which is not 'fall', 'winter', or 'all'"
         exit 1
     fi
 
-    # clear everything in the directory
-    if [[ ! -n "$EMC2_SSH_PASSWORD" && ! -n "$EMC2_USER" && ! -n "$EMC2_HOST" ]]; then
-        read -s EMC2_USER
+    # attempt keyless login, if it fails, it will generate a key
+    echo "going into if"
+    if ! ssh -o PasswordAuthentication=no "$EMC2_USER@$EMC2_HOST" true 2>/dev/null; then
+        read -p "User for EMC2: " EMC2_USER
+        read -p "Host name for EMC2: " EMC2_HOST
+        read -p "Your email: " USER_EMAIL
         echo
-        read -s EMC2_HOST
-        echo
-        read -s -p EMC2_SSH_PASSWORD
-        echo
+
+        echo "Creating a key"
+        if [ ! -f ~/.ssh/id_emc2 ]; then
+            # create key with ed25519 named id_emc2 with empty passphrase
+            ssh-keygen -t ed25519 -f ~/.ssh/id_emc2 -N "" -C $USER_EMAIL
+        fi
+        # generate a key with id_emc2 id and add it to config so it will be automatically recognized
+        if ! grep -q "Host $EMC2_HOST" ~/.ssh/config 2>/dev/null; then
+            {
+                echo ""
+                echo "Host $EMC2_HOST"
+                echo "  HostName $EMC2_HOST"
+                echo "  User $EMC2_USER"
+                echo "  IdentityFile ~/.ssh/id_emc2"
+            } >> ~/.ssh/config
+        fi
+        
+        echo "Copying the key"
+        ssh-copy-id -i ~/.ssh/id_emc2.pub $EMC2_USER@$EMC2_HOST
     fi
-    output=$(sshpass -p "$EMC2_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$EMC2_USER@$EMC2_HOST" "cd $EMC2_PATH && ./build_and_deploy.sh $type")
-    status=$?
-    # verify ssh worked
-    if [ $status -eq 0 ]; then
-        echo "Success:"
-        echo "$output"
-    else
-        echo "Failed with exit code $status"
-        echo "$output"
-    fi
+
+    echo "SSH-ing into host"
+    ssh -t "$EMC2_USER@$EMC2_HOST" TYPE=$type MATH_PATH=$MATH_PATH bash <<EOF
+        cd "$EMC2_PATH" || exit 1
+        bash build_and_deploy.sh \$TYPE -p $MATH_PATH
+EOF
+    # the \ means it will be expanded remotely (on the emc2 server while the normal variables will be expanded locally)
+
+
+
+
+    # output=$(sshpass -p "$EMC2_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$EMC2_USER@$EMC2_HOST" "cd $EMC2_PATH && echo "Calling script"")
+    # # output=$(sshpass -p "$EMC2_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$EMC2_USER@$EMC2_HOST" "cd $EMC2_PATH && ./build_and_deploy.sh $type")
+    # status=$?
+    # # verify ssh worked
+    # if [ $status -eq 0 ]; then
+    #     echo "Success:"
+    #     echo "$output"
+    # else
+    #     echo "Failed with exit code $status"
+    #     echo "$output"
+    # fi
 }
 
 if [[ "$FALL" -eq 1 ]]; then
+    echo "AJLFDS"
     initiateDeploySSH "-f"
 elif [[ "$WINTER" -eq 1 ]]; then
     initiateDeploySSH "-w"
