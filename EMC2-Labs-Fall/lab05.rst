@@ -151,6 +151,7 @@ Now, we can see if the function actually does what we think it should:
                if row_copy[j] < 0:              # if row_copy[i] is negative, we make it positive.
                   row_copy[j] = -row_copy[j]    # set the new value
          return new_M
+         
    This way, we create a new matrix ``new_M`` and copy each row of ``M`` into it, so that we don't change the original matrix. 
 
 Task 1

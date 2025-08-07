@@ -81,8 +81,8 @@ PageRank Centrality
 For the next part of the lab, we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
 For the next part of the lab consider the network below.
 
-.. image:: _static/directed_network_gprime.png
-        :align: center
+.. image:: _static/directed_network_gprime.PNG
+    :align: center
 
 The adjacency matrix for this network is defined by
 

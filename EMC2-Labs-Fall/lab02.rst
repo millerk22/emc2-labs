@@ -290,6 +290,7 @@ We can think of the ``range(5)`` function as creating a list of integers ``[0,1,
 Now let's try something slightly more complicated. Let's say we wanted to sum up all the elements in a list. Here is what that would look like with our "for-sequence" loop.
 
 .. code-block:: python
+
    L = [1, 5, 6, 2, 7]
 
    sum = 0
@@ -375,6 +376,7 @@ Exceptions
 The next task has you write a function that will add two vectors together. This operation is only valid if the two vectors are the same size. If someone tries to use your function and passes in a vector with three elements, and a vector with 6 elements, you want the function to fail and tell them what they did wrong. This is what ``Exceptions`` are for in Python. Exceptions are ``raised`` like:
 
 .. code-block:: python
+
    raise type_of_exception(message)
    
 
@@ -482,7 +484,7 @@ and save it as a variable called ``long_list``.
 
 
 Task 10
-------
+-------
 
 Using list comprehension, write a function called ``cel_to_fah(f)`` that takes in a list of temperatures in Celsius and returns a list of temperatures in Fahrenheit. The formula is :math:`\frac{9}{5}c + 32 = f`.
 
