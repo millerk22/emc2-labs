@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Deployments script to deploy fall, winter, or all
-# Usage: deploy.sh [f|w]
+# Usage: initiate_deploy.sh [f|w|a]
 # Options:
-#   None    - fall and winter
+#   a       - fall and winter
 #   f       - fall
 #   w       - winter
 
@@ -11,39 +11,50 @@
 
 set -euo pipefail
 
-source ./server_config_emc2.env
-source ./server_config_math.env
+source ./server_config.env
 
+### ESCAPE SEQUENCES FOR TEXT COLOR
+RESET='\e[39m'
+GREY='\e[38;5;242m'
+RED='\e[31m'
+GREEN='\e[32m'
+###
 
 FALL=0
 WINTER=0
-while getopts ":fw" opt; do
+ALL=0
+while getopts ":fwa" opt; do
     case $opt in
         f)
             FALL=1;;
         w)
             WINTER=1;;
+        a)
+            ALL=1;;
         \?)
-            echo "Invalid option: -$OPTARG"
-            echo "Usage: deploy.sh [f|w]"
-            exit 1
+            echo -e "${RED}Invalid option: -$OPTARG${RESET}\n"
+            usage
             ;;
     esac
 done
 
-if (( $FALL + $WINTER > 1 )); then
-    echo "Error: Cannot use both -f (fall) and -w (winter), run with no arguments to deploy both."
-    echo "Usage: deploy.sh [f|w]"
-    exit 1
+if (( $FALL + $WINTER + ALL != 1 )); then
+    echo -e "${RED}Error: Only one argument allowed.${RESET}\n"
+    usage
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+usage() {
+    echo -e "${RED}Usage: initiate_deploy.sh [f|w|a]${RESET}"
+    exit 1
+}
 
 initiateDeploySSH() {
     local type="$1"
 
     if [[ "$type" != "-w" && "$type" != "-f" && "$type" != "-a" ]]; then
-        echo "initiateDeploySSH used with type = $type which is not 'fall', 'winter', or 'all'"
+        echo -e "${RED}initiateDeploySSH used with type = $type which is not 'fall', 'winter', or 'all'.${RESET}"
         exit 1
     fi
 
@@ -54,7 +65,7 @@ initiateDeploySSH() {
         read -p "Your email: " USER_EMAIL
         echo
 
-        echo "Creating a key"
+        echo -e "${RESET}Creating a key...${RESET}"
         if [ ! -f ~/.ssh/id_emc2 ]; then
             # create key with ed25519 named id_emc2 with empty passphrase
             ssh-keygen -t ed25519 -f ~/.ssh/id_emc2 -N "" -C $USER_EMAIL
@@ -70,13 +81,13 @@ initiateDeploySSH() {
             } >> ~/.ssh/config
         fi
         
-        echo "Copying the key"
+        echo -e "${RESET}Copying the key...${RESET}"
         ssh-copy-id -i ~/.ssh/id_emc2.pub $EMC2_USER@$EMC2_HOST
     fi
 
-    echo "SSH-ing into host"
+    echo -e "${RESET}SSH-ing into host${RESET}"
     if ! ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""; then
-        echo "Failed to ssh into emc2 server and run build_and_deploy.sh"
+        echo -e "${RED}Failed to ssh into emc2 server and run build_and_deploy.sh${RESET}"
         exit 1
     fi
 }
