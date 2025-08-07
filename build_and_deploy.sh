@@ -43,8 +43,13 @@ buildType() {
     status=$?
     if [ $status -eq 0 ]; then
         echo "Make failed with code $status."
+        echo "Hint: You may need to fix the errors in red."
         exit 1
     fi
+
+    read -p "User for math server: " MATH_USER
+    read -s -p "Password for math server: " MATH_PASSWORD
+    echo
 
     # sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no /_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
     # status=$?
@@ -66,10 +71,6 @@ echo "Checking out main branch..."
 git checkout main
 git pull origin main
 echo "Pulling from GitHub..."
-
-read -p "User for math server: " MATH_USER
-read -s -p "Password for math server: " MATH_PASSWORD
-echo
 
 if (( $FALL == 1 )); then
     buildType "Fall"
