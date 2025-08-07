@@ -76,9 +76,7 @@ initiateDeploySSH() {
     fi
 
     echo "SSH-ing into host"
-    ssh -t "$EMC2_USER@$EMC2_HOST" TYPE=$type MATH_PATH=$MATH_PATH bash <<EOF
-        cd "$EMC2_PATH" || exit 1
-        bash build_and_deploy.sh \$TYPE -p $MATH_PATH
+    ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""
 EOF
     # the \ means it will be expanded remotely (on the emc2 server while the normal variables will be expanded locally)
 

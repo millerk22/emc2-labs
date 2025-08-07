@@ -31,15 +31,19 @@ if (( $FALL + $WINTER + $ALL != 1 )); then
     exit 1
 fi
 
+git checkout main
+git pull origin main
+
 read -p "User for math server: " MATH_USER
+echo "GOT: $MATH_USER"
 read -s -p "Password for math server: " MATH_PASSWORD
+echo "Got password"
 echo
 echo "hello world" > tst.txt
-sshpass -p "\$MATH_PASSWORD" scp -o StrictHostKeyChecking=no tst.txt "\$MATH_USER@mathdept.byu.edu:$MATH_PATH"
+sshpass -p "$MATH_PASSWORD" scp -o StrictHostKeyChecking=no tst.txt "$MATH_USER@mathdept.byu.edu:$MATH_PATH"
 
 
-# git checkout main
-# git pull origin main
+
 
 
 # if (( $FALL == 1 )); then
