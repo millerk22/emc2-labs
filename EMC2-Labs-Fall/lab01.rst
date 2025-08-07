@@ -327,6 +327,7 @@ Conditionals
 So far we have enough tools to perform arithmetic operations and compare numbers. To define more complicated operations we will need a few more building blocks. One of these is the ``if`` statement.
 
 .. code-block:: python
+   
    if 1<7:
       print("1 is less than 7")
    else:
