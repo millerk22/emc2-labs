@@ -43,8 +43,8 @@ usage() {
 }
 
 buildType() {
-    local Type="$1" # expects Fall or Winter (uppercase first letter)
-    local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # lowercase type (fall or winter)
+    local Type="$1" # expects uppercase first letter ("Fall" or "Winter")
+    local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # expects all lowercase ("fall" or "winter")
 
     echo -e "${PURPLE}Activating environment...${RESET}"
     conda activate emc2_dev

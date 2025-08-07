@@ -64,7 +64,6 @@ initiateDeploySSH() {
     # attempt keyless login, if it fails, it will generate a key
     if ! ssh -o PasswordAuthentication=no "$EMC2_USER@$EMC2_HOST" true 2>/dev/null; then
         read -p "User for EMC2: " EMC2_USER
-        read -p "Host name for EMC2: " EMC2_HOST
         read -p "Your email: " USER_EMAIL
         echo
 
