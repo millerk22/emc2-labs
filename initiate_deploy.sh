@@ -16,6 +16,7 @@ source ./server_config.env
 ### ESCAPE SEQUENCES FOR TEXT COLOR
 RESET=$'\e[39m'
 GREY=$'\e[38;5;242m'
+PURPLE=$'\e[38;5;92m'
 RED=$'\e[31m'
 GREEN=$'\e[32m'
 ###
@@ -65,7 +66,7 @@ initiateDeploySSH() {
         read -p "Your email: " USER_EMAIL
         echo
 
-        echo -e "${RESET}Creating a key...${RESET}"
+        echo -e "${PURPLE}Creating a key...${RESET}"
         if [ ! -f ~/.ssh/id_emc2 ]; then
             # create key with ed25519 named id_emc2 with empty passphrase
             ssh-keygen -t ed25519 -f ~/.ssh/id_emc2 -N "" -C $USER_EMAIL
@@ -81,11 +82,11 @@ initiateDeploySSH() {
             } >> ~/.ssh/config
         fi
         
-        echo -e "${RESET}Copying the key...${RESET}"
+        echo -e "${PURPLE}Copying the key...${RESET}"
         ssh-copy-id -i ~/.ssh/id_emc2.pub $EMC2_USER@$EMC2_HOST
     fi
 
-    echo -e "${RESET}SSH-ing into host${RESET}"
+    echo -e "${PURPLE}SSH-ing into host${RESET}"
     if ! ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""; then
         echo -e "${RED}Failed to ssh into emc2 server and run build_and_deploy.sh${RESET}"
         exit 1

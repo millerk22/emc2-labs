@@ -3,8 +3,9 @@
 set -euo pipefail
 
 ### ESCAPE SEQUENCES FOR TEXT COLOR
-RESET=4'\e[39m'
+RESET=$'\e[39m'
 GREY=$'\e[38;5;242m'
+PURPLE=$'\e[38;5;m'
 RED=$'\e[31m'
 GREEN=$'\e[32m'
 ###
@@ -45,10 +46,10 @@ buildType() {
     local Type="$1" # expects Fall or Winter (uppercase first letter)
     local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # lowercase type (fall or winter)
 
-    echo -e "${RESET}Activating environment...${RESET}"
+    echo -e "${PURPLE}Activating environment...${RESET}"
     conda activate emc2_dev
 
-    echo -e "${RESET}Making html...${RESET}"
+    echo -e "${PURPLE}Making html...${RESET}"
     make -C "EMC2-Labs-$Type" clean
     make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
 
@@ -81,10 +82,10 @@ else
     exit 1
 fi
 
-echo -e "${RESET}Checking out main branch...${RESET}"
+echo -e "${PURPLE}Checking out main branch...${RESET}"
 git checkout main
 git pull origin main
-echo -e "${RESET}Pulling from GitHub...${RESET}"
+echo -e "${PURPLE}Pulling from GitHub...${RESET}"
 
 if (( $FALL == 1 )); then
     buildType "Fall"
