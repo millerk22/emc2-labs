@@ -39,7 +39,7 @@ buildType() {
     conda activate emc2_dev
 
     echo "Making html..."
-    make clean
+    make -C "EMC2-Labs-$Type" clean
     make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
 
     status=$?
