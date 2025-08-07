@@ -43,12 +43,11 @@ initiateDeploySSH() {
     local type="$1"
 
     if [[ "$type" != "-w" && "$type" != "-f" && "$type" != "-a" ]]; then
-        echo "deploySSH used with type = $type which is not 'fall', 'winter', or 'all'"
+        echo "initiateDeploySSH used with type = $type which is not 'fall', 'winter', or 'all'"
         exit 1
     fi
 
     # attempt keyless login, if it fails, it will generate a key
-    echo "going into if"
     if ! ssh -o PasswordAuthentication=no "$EMC2_USER@$EMC2_HOST" true 2>/dev/null; then
         read -p "User for EMC2: " EMC2_USER
         read -p "Host name for EMC2: " EMC2_HOST
@@ -76,28 +75,13 @@ initiateDeploySSH() {
     fi
 
     echo "SSH-ing into host"
-    ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""
-EOF
-    # the \ means it will be expanded remotely (on the emc2 server while the normal variables will be expanded locally)
-
-
-
-
-    # output=$(sshpass -p "$EMC2_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$EMC2_USER@$EMC2_HOST" "cd $EMC2_PATH && echo "Calling script"")
-    # # output=$(sshpass -p "$EMC2_SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$EMC2_USER@$EMC2_HOST" "cd $EMC2_PATH && ./build_and_deploy.sh $type")
-    # status=$?
-    # # verify ssh worked
-    # if [ $status -eq 0 ]; then
-    #     echo "Success:"
-    #     echo "$output"
-    # else
-    #     echo "Failed with exit code $status"
-    #     echo "$output"
-    # fi
+    if ! ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""; then
+        echo "Failed to ssh into emc2 server and run build_and_deploy.sh"
+        exit 1
+    fi
 }
 
 if [[ "$FALL" -eq 1 ]]; then
-    echo "AJLFDS"
     initiateDeploySSH "-f"
 elif [[ "$WINTER" -eq 1 ]]; then
     initiateDeploySSH "-w"

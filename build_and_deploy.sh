@@ -31,42 +31,44 @@ if (( $FALL + $WINTER + $ALL != 1 )); then
     exit 1
 fi
 
+buildType() {
+    local Type="$1" # expects Fall or Winter (uppercase first letter)
+    local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # lowercase type (fall or winter)
+
+    echo "Activating environment..."
+    conda activate emc2_dev
+
+    echo "Making html..."
+    make -C "EMC2-Labs-$Type" html
+    status=$?
+    if [ $status -eq 0 ]; then
+        echo "Make failed with code $status."
+        exit 1
+    fi
+
+    # sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no /_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
+    # status=$?
+    # if [ $status -eq 0 ]; then
+    #     echo "scp failed with code $status."
+    #     exit 1
+    # fi
+}
+
+echo "Checking out main branch..."
 git checkout main
 git pull origin main
+echo "Pulling from GitHub..."
 
 read -p "User for math server: " MATH_USER
-echo "GOT: $MATH_USER"
 read -s -p "Password for math server: " MATH_PASSWORD
-echo "Got password"
 echo
-echo "hello world" > tst.txt
-sshpass -p "$MATH_PASSWORD" scp -o StrictHostKeyChecking=no tst.txt "$MATH_USER@mathdept.byu.edu:$MATH_PATH"
 
-
-
-
-
-# if (( $FALL == 1 )); then
-#     cd "EMC2-Labs-Fall"
-#     make html
-# elif (( $WINTER == 1 )); then
-#     cd "EMC2-Labs-Winter"
-#     make html
-# else
-#     cd "EMC2-Labs-Fall"
-#     make html
-#     status=$?
-#     if [ $status -eq 0 ]; then
-#         echo "Make failed with code $status."
-#     fi
-
-#     cd "../EMC2-Labs-Winter"
-#     make html
-# fi
-
-# status=$?
-# if [ $status -ne 0 ]; then
-#     echo "Make failed with code $status."
-# fi
-
+if (( $FALL == 1 )); then
+    buildType "Fall"
+elif (( $WINTER == 1 )); then
+    buildType "Winter"
+else
+    buildType "Fall"
+    buildType "Winter"
+fi
 
