@@ -54,6 +54,14 @@ buildType() {
     # fi
 }
 
+# Initialize conda
+if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+else
+    echo "conda.sh not found"
+    exit 1
+fi
+
 echo "Checking out main branch..."
 git checkout main
 git pull origin main
