@@ -14,10 +14,10 @@ set -euo pipefail
 source ./server_config.env
 
 ### ESCAPE SEQUENCES FOR TEXT COLOR
-RESET='\e[39m'
-GREY='\e[38;5;242m'
-RED='\e[31m'
-GREEN='\e[32m'
+RESET=$'\e[39m'
+GREY=$'\e[38;5;242m'
+RED=$'\e[31m'
+GREEN=$'\e[32m'
 ###
 
 FALL=0
@@ -32,7 +32,7 @@ while getopts ":fwa" opt; do
         a)
             ALL=1;;
         \?)
-            echo -e "${RED}Invalid option: -$OPTARG${RESET}\n"
+            echo -e "${RED}Invalid option: -$OPTARG${RESET}"
             usage
             ;;
     esac

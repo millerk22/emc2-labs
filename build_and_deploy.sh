@@ -3,10 +3,10 @@
 set -euo pipefail
 
 ### ESCAPE SEQUENCES FOR TEXT COLOR
-RESET='\e[39m'
-GREY='\e[38;5;242m'
-RED='\e[31m'
-GREEN='\e[32m'
+RESET=4'\e[39m'
+GREY=$'\e[38;5;242m'
+RED=$'\e[31m'
+GREEN=$'\e[32m'
 ###
 
 FALL=0
@@ -38,7 +38,7 @@ fi
 
 usage() {
     echo -e "${RED}Usage: build_and_deploy.sh [f|w|a] -p path${RESET}"
-    exit 1;;
+    exit 1
 }
 
 buildType() {
