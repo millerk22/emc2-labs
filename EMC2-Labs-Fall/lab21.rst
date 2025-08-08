@@ -1,197 +1,197 @@
-Lab 21: Least Squares Lab
-=========================
+Lab 21: Applications of SVD
+==================================
 
 
-In this lab you will use least squares to obtain "lines of best fit" in regression tasks.  
+In this lab, you will learn about applications of the singular value decomposition (SVD), like image compression and principal component analysis (PCA). 
+
+Application 1: Image compression
+--------------------------------
+
+For this part of the lab, you will perform image compression using singular value decomposition. 
+Image compression is the process of reducing the amount of data required to represent an image by removing redundant or less important information.
 You will need to import the following:
 
 >>> import numpy as np
 >>> import numpy.linalg as la
->>> from sklearn.datasets import load_diabetes
+>>> import matplotlib.pyplot as plt
+>>> from skimage import data, color
 
-In various scientific domains, experimental data is used to infer mathematical relationships between input variables and associated outputs. 
-We have a set of data points :math:`\{(x_i, y_i)\}_{i=1}^n` where :math:`x_i \in \mathbb{R}^d` are the inputs and :math:`y_i \in \mathbb{R}` are the associated outputs. 
-We desire a function that approximates the mapping from inputs (i.e., independent variables) to outputs (i.e., dependent variables). 
-This task is referred to as **regression**; it is ubiquitous in data-driven modeling and can be solved via the method of least squares. 
-
-=====================
-Polynomial Regression
-=====================
-
-For simplicity, let's consider the degree :math:`p` **polynomial regression** in the 1-D case, where :math:`x_i \in \mathbb{R}`. 
-
-To review least squares for polynomial regression, let :math:`y := (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n` be the vector of output coefficients and let :math:`X` denote the polynomial data matrix
+First, let's do a brief review of the SVD.
+Consider an arbitrary matrix of size :math:`m \times n` called :math:`A`.
+Recall that the singular value decomposition writes :math:`A` in the form
 
 .. math::
-   X = \begin{pmatrix}
-      x_1^p & x_1^{p-1} & \ldots & x_1 & 1 \\
-      x_2^p & x_2^{p-1} & \ldots & x_2 & 1 \\
-      \vdots & \vdots & \ddots & \vdots & \vdots \\
-      x_n^p & x_n^{p-1} & \ldots & x_n & 1 \\
-   \end{pmatrix} \in \mathbb{R}^{n \times (p+1)}.
 
-Any degree :math:`p` polynomial function :math:`f_p` can be identified by a set of coefficients :math:`c_0, c_1, \ldots, c_p \in \mathbb{R}`:
+   A = U \Sigma V^T
 
-.. math::
-   f_p(x) = c_0  +  c_1 x + \ldots + c_{p-1}x^{p-1} + c_p x^p = \sum_{j=0}^p c_j x^j. 
+The matrix :math:`U` is an :math:`m \times m` matrix with orthonormal columns, and :math:`V` is an :math:`n \times n` matrix with orthonormal columns. 
+:math:`\Sigma` is a :math:`m \times n` diagonal matrix whose nonzero entries are the singular values of :math:`A`. 
+We can use the NumPy function ``la.svd()`` to get these matrices in Python.
 
+>>> U,S,VT = la.svd(A)
+
+Python represents :math:`\Sigma` as ``S``, a 1-D NumPy array of the singular values of ``A``. 
+The ``np.diag()`` function will turn a 1-D NumPy array into a diagonal matrix. 
+Remember that one of the most useful features of SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
+
+>>> A_approx = U[:,:s] @ np.diag(S[:s]) @ VT[:s]
+
+This becomes very useful in the context of images.
+Most images are stored in matrices of the size ``(height, width, 3)`` where 3 dimensions refers to the color dimensions, red, blue, and green colors represented by a number between 0 and 255.
+Because the space to store an image is finite, performing SVD on every dimension, and keeping the first ``s`` ranks of the decomposition can greatly reduce the storage space while still preserving much of the image quality.
+For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2-D matrices with values between 0 and 255 (i.e., ``(height, width)``).
+
+We will use a grayscale image of a cat named *Chelsea* from the ``skimage.data`` module, which can be accessed with
+this
+
+>>> A = color.rgb2gray(data.chelsea())
+
+To display the image, use the command
+
+>>> plt.imshow(A, cmap='gray')
+>>> plt.show()
+
+.. image:: _static/cat1.png
+        :align: center
+        :scale: 80%
+
+Now observe what happens when we display the image for different values of compression level, ``s``. 
+This will show what information about the image is preserved in the first few singular vectors. 
+It is impressive how quickly the image can become recognizable with so little data (i.e., singular vectors).
+
+.. image:: _static/cats2.png
+        :align: center
+        :scale: 70%
+
+.. admonition:: Image Arrays
+
+        The command ``A.shape`` shows that the image is stored as a NumPy array of dimensions ``m x n``. 
+        These dimensions represent the coordinates of a pixel in the image with ``(0,0)`` in the top left corner. 
+        The first dimension is the vertical dimension and the second is the horizontal dimension. 
+        Each entry is an integer representing how dark a pixel is (``0=black``, ``255=white``).
+
+.. I need to tie this back to SVD somehow
 
 Task 1
 ------
-Write a function ``compute_data_matrix(x, p)`` that accepts an input vector ``x`` and a non-negative integer power ``p``, and returns the corresponding polynomial data matrix as a ``NumPy`` array.
+
+Write a function ``svd_approx(A, s)`` which takes in a 2-D matrix ``A``\, and rank ``s``, and returns an SVD approximation of ``A`` up to rank ``s``.
+
+.. If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and print ``"s cannot be larger than length of S"``.
 
 
 Task 2
 ------
-Use the following plotting code to be able to visualize a dataset of inputs ``x`` and outputs ``y``.::
 
-   def visualize_data(x, y):
-      assert x.size == y.size 
-      fig, ax = plt.subplots()
-      ax.scatter(x, y)
-      ax.set_xlabel('x')
-      ax.set_ylabel('y')
-      plt.show()
-      return
-
-Now, load in the following data, visualize it, and **determine a reasonable power** :math:`p \in \mathbb{N}` **for this dataset** by running the following:
-
->>> data = np.load("polynomial_data.npz") 
->>> x, y = data['x'], data['y'] 
->>> visualize_data(x, y) 
-
-(Here, *power* refers to the degree of the polynomial that fits the shape of the data.)
+How small can you make ``s`` and still have the image recognizable? Don't worry about a little graininess.
 
 
-We now will compute the least squares fit for the data visualized previously.
+Application 2: Principal Component Analysis (PCA)
+-------------------------------------------------
 
-We seek a set of coefficients :math:`c_0, c_1, \ldots, c_p \in \mathbb{R}` such that the corresponding degree polynomial **coefficient vector** :math:`c \in \mathbb{R}^{p+1}` minimizes the **residual error**:
+Principal component analysis (PCA) is a dimensionality reduction technique used to simplify complex datasets while preserving as much information as possible.
+At its most basic level, PCA seeks to project the data onto a subspace where the most variance exists.
+This can be incredibly useful for visualizing patterns in and understanding structure about data.
 
-.. math::
-   \|Xc - y\|^2 \leq \|Xw - y\|^2 \text{ for all } w \in \mathbb{R}^{p+1}.
+First, we begin with an :math:`m \times n` "data matrix", :math:`X`, where :math:`m` is the number of data points and :math:`n` is the number of features for each data point.
+For example, if you went around interviewing people in the Talmage Building, :math:`m` would be the number of students and :math:`n` would be their answers to various questions.
+The first step is to center each column of the data to obtain :math:`\bar{X}`.
+We need to center the data because we care more about how the data is spread about the mean rather than its scale. 
 
-As discussed in class, the **normal equations** that characterize the **least squares solution** :math:`\hat{c}` are:
+We then need to obtain the sample covariance matrix :math:`C` given by :math:`C = \frac{1}{m} \bar{X}^T \bar{X}`\.
+In a covariance matrix each entry :math:`(i,j)` gives the covariance between feature :math:`i` and feature :math:`j`\.
+This implies the diagonal entries are the variance of each feature. 
+For each eigenvalue and its corresponding eigenvector of the covariance matrix, the larger the eigenvalue, the more variance is captured along that eigenvector.
+Below are the data points of a :math:`100 \times 2` data matrix (i.e., :math:`100` data points each of dimension :math:`2`), plotted along with the associated eigenvectors. 
+As you can see, the first eigenvector represents the direction along with that contains the most variance in the data set.
 
-.. math::
-   X^TX \hat{c} = X^T y,
+.. image:: _static/eigendata.png
+        :align: center
 
-which is a linear system that we can use our linear algebra skills to solve. Under certain assumptions, the matrix :math:`X^TX` is invertible, 
-and so we can write the least squares solution as 
+All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors coresponding to largest eigenvalues). 
+These eigenvectors will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
+When we perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can show that the right singular vectors of :math:`\bar{X}` are the eigenvectors of :math:`C`.
+Because :math:`C` is real-valued and symmetric, it is orthogonally diagonalizable and can be written as follows 
+
+.. in the form :math:`C = PDP^{-1}` where :math:`P` contains the eigenvectors of :math:`C`\, and :math:`D` is a diagonal matrix containing the eigenvalues of :math:`C`.
 
 .. math::
-   \hat{c} = (X^T X)^{-1} X^T y.
+        C = \frac{1}{m}\bar{X} ^T \bar{X}
+        = \frac{1}{m} V \Sigma^T U^T U \Sigma V^T
+        = \frac{1}{m} V \Sigma^T \Sigma V^T
+        = V (\frac{1}{m}  \Sigma^T \Sigma) V^T
+        = V D V^T,
 
-The least squares fit line then is defined as the degree :math:`p` polynomial 
+showing that :math:`V` contains the eigenvectors of :math:`C` and :math:`D` contains the eigenvalues of :math:`C`.
+This means we simply need to compute the right singular vectors of the centered matrix :math:`\bar{X}` (which are the eigenvectors of :math:`C`) and then project :math:`\bar{X}` onto the desired number of dominant eigenvectors to capture the most variance in the desired number of dimensions.
+
+Let's do an example with real-world data. 
+We will use the NASA Star-Type Dataset which contains 240 stars and 4 features for each star; temperature, luminosity, radius, and absolute magnitude.
+If we center each column of the data and obtain :math:`\bar{X}` we can then compute the SVD and get :math:`V`.
+Because we have 4 features, :math:`V` will be a :math:`4 \times 4` matrix. 
+If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to do is take :math:`\bar{X}` and multiply it by the first 2 columns of :math:`V`:
 
 .. math::
-   \hat{f}_p(x) = \hat{c}_0 + \hat{c}_1 x + \ldots, \hat{c}_{p-1} x^{p-1} + \hat{c}_p x^p, 
 
-which when applied to our set of inputs in the data matrix looks like :math:`f = X \hat{c} \in \mathbb{R}^n`. 
+    \bar{\textbf{X}} =
+    \begin{bmatrix}
+        x_{1,1} & x_{1,2} & \cdots & x_{1,4} \\
+        x_{2,1} & x_{2,2} & \cdots & x_{2,4} \\
+        \vdots  & \vdots  & \ddots & \vdots  \\
+        x_{240,1} & x_{240,2} & \cdots & x_{240,4}
+    \end{bmatrix}
+..     \in \mathbb{R}^{240 \times 4}
+
+.. math::
+
+    \textbf{V}_{\text{trunc}} =
+    \begin{bmatrix}
+        v_{1,1} & v_{1,2} \\
+        v_{2,1} & v_{2,2} \\
+        v_{3,1} & v_{3,2} \\
+        v_{4,1} & v_{4,2}
+    \end{bmatrix}
+..     \in \mathbb{R}^{4 \times 2}
+
+.. math::
+
+    \bar{\textbf{X}}_{\text{proj}} = \bar{\textbf{X}} \textbf{V}_{\text{trunc}} =
+    \begin{bmatrix}
+        p_{1,1} & p_{1,2} \\
+        p_{2,1} & p_{2,2} \\
+        \vdots  & \vdots  \\
+        p_{240,1} & p_{240,2}
+    \end{bmatrix}
+..     \in \mathbb{R}^{240 \times 2}
+
+
+Once we plot this data, we obtain the following graph.
+
+.. image:: _static/pca.png
+        :align: center
+
+As you can see above the PCA works very well because we can see almost distinct groupings for each star type.
+Now, just so you can understand more of how the variance is preserved through the first two features, take a look at the two graphs below. 
+On the left we have PCA done with the first 2 columns of :math:`V`, and on the right we have it done with columns 3 and 4.
+It is clear to see how so much more variance, and accuracy, is preserved in columns 1 and 2 compared with 3 and 4.
+
+
+.. image:: _static/pca_vs.png
+        :align: center
+
+.. note::
+                
+        We call them principal components because the axes of these projections carry no physical units (they are not directly interpretable features).
+        So while PCA can be really effective to visualize groupings and relations among the data in datasets, it is limited in producing actual conclusions about how individual features relate to the data.
 
 
 Task 3
 ------
-Replace any ``...`` to complete the function ``plot_least_squares(x, y, p)`` that will compute the least squares solution line and plot it against the data.
-(Equations for :math:`\hat{c}` and :math:`f` are given above.)
-
-.. code-block:: python
-
-   def plot_least_squares(x, y, p):
-      assert x.size == y.size
-      X = ...       # Compute data matrix with inputs x and polynomial power p using your compute_data_matrix function
-      c_hat =  ...  # Compute the least-squares solution using X and y
-      f = ...       # Compute the least-squares output, f = X @ c_hat
-      fig, ax = plt.subplots()
-      ax.scatter(x, y, label='orig data')  # this scatter plots the original data
-      ax.plot(x, f, 'k--', label='LS fit') # this plots the least squares fit line 
-      ax.set_xlabel('x')
-      ax.set_ylabel('y')
-      ax.legend()
-      ax.set_title(f"Least Squares Polynomial fit with degree = {p}")
-      plt.show()
-      return
-
-Description of inputs:
-
-* input vector ``x``
-* output vector ``y``
-* desired polynomial power ``p``
-
-
-Using the data from Task 2, run your ``plot_least_squares`` function, trying different values of the polynomial power, :math:`p`. 
-For example, try :math:`p = 1, 2, 3, 5, 15`.
-
-* What happens if you use a power :math:`p<P`, where :math:`P` is the degree determined in Task 2? 
-* What happens if you use a *much larger* power than :math:`P`?
-
-.. note::
-
-   In the task above, we computed the least-squares solution by solving the normal equations which involved inverting a matrix.
-   However, inverting a matrix is computationally expensive and can be numerically unstable.
-   This is why we solve for the least-squares solution by using the normal equations.
-   NumPy's numerical linear algebra library contains an optimized version of the least-squares method, called ``numpy.linalg.lstsq``, so in the future you can use it to compute the least-squares solution instead. 
-   Note that this still solves the normal equations, but it is more numerically stable and efficient.
-   You will need to view the documentation for ``numpy.linalg.lstsq`` to see how to use it.
-   See `the NumPy reference here <https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html>`_ .
-
-=============================================
-Computing Linear Regression for Diabetes Data
-=============================================
-
-We now turn to a "real-world" regression task of predicting diabetes progression based on patient information and medical measurements. 
-The data is from the `sklearn diabetes dataset <https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html>`_.
-It contains 442 samples with 10 features each. 
-And the features are: Age, Sex, Body Mass Index, Average Blood Pressure, S1, S2, S3, S4, S5, S6.
-Where S1, S2, S3, S4, S5, S6 are the 6 blood serum measurements.
-The target is the disease progression after 1 year of follow-up.
-Let's compute a **linear regression** fit to the data in order to predict the disease progression; that is, we will identify coefficients 
-:math:`\beta_0, \beta_1, \ldots, \beta_d \in \mathbb{R}` to approximate the mapping :math:`x_i \mapsto y_i`
-
-.. math::
-   y_i \approx \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + \ldots + \beta_d x_{i,d} = \beta^T \begin{pmatrix} x_i \\ 1 \\ \end{pmatrix}.
-
-Thus, with a set of data :math:`\{x_i, y_i\}_{i=1}^n \subset \mathbb{R}^d \times \mathbb{R}`, we are computing the least squares fit with data matrix 
-
-.. math::
-   X = \begin{pmatrix}
-      x_{1,1} & x_{1,2} & \ldots & x_{1,d} & 1 \\
-      x_{2,1} & x_{2,2} & \ldots & x_{2,d} & 1\\
-      \vdots & \vdots & \vdots & \vdots & \vdots \\
-      x_{n,1} & x_{n,2} & \ldots & x_{n,d} & 1\\
-   \end{pmatrix} \in \mathbb{R}^{n \times (d+1)}
-
-and output vector :math:`y = (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n`.
+Write a function called ``PCA(X, k)`` which takes in a matrix ``X``, and number of principal components ``k`` and returns an ``m x k`` ``numpy.ndarray`` using the PCA algorithm defined above.
 
 
 Task 4
 ------
-Write a function ``compute_diabetes_fit()`` that computes the least squares fit coefficient vector :math:`\hat{\beta} \in \mathbb{R}^{d+1}` that is computed by ``linalg.lstsq()``. 
-You may find the following code and guidelines to be useful:
 
->>> diabetes_data = load_diabetes()                   # download the diabetes dataset
->>> X, y = diabetes_data.data, diabetes_data.target   # extract the data matrix (X) and targets (outputs) vector y 
-
-- Extend the data matrix with a column of ones to model the offset. **Hint:** `See the numpy function`_ ``numpy.hstack``.
-- Compute the least-squares fit coefficient vector  via ``numpy.linalg.lstsq`` on this data. 
-
-.. _See the numpy function: https://numpy.org/doc/stable/reference/generated/numpy.hstack.html
-
-To conclude, we now analyze the linear regression coefficient result vector, :math:`\hat{\beta}`. The sign of an entry 
-of this coefficient vector indicates the whether or not there is a **positive** or **negative** correlation between the 
-corresponding input variable and the output data, conditioned on the other data. For example, if :math:`\hat{\beta}_j >0` and is **large**, then 
-holding all else equal, a small change in the :math:`j^{th}` feature will lead to a large, positive change in the output. 
-In context of this dataset, that means if the :math:`\hat{\beta}` of the age is positive and large, then a small change in age will lead to a large, positive change in the disease progression.
-
-Task 5
-------
-Extend the capability of your previous function ``compute_diabetes_fit()`` to perform the following:
-
-1. Extract the feature names of this dataset (``feature_names = diabetes_data.feature_names``)
-2. Print out the feature names of the **most positive** and **most negative** regression coefficients. Record the names and values of those coefficients in CodeBuddy.
-
-.. **NOTE: Be careful to account for indexing of the offset column in the data matrix** ``X``. **This is not accounted for in the** ``feature_names`` **list.**
-
-You can check out the description of all the different features (independent variables) in this diabetes dataset by 
-printing out 
-
->>> print(diabetes_data.DESCR)
+Use your newly defined ``PCA(X, k)`` function to perform PCA on the Palmer Penguins dataset, and then print out which two groups are the most similar according to the analysis. 
+The dataset will be provided in CodeBuddy. 

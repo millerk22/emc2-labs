@@ -1,197 +1,239 @@
-Lab 19: Applications of SVD
-==================================
+
+Lab 19: Networks and Eigenvector Centrality
+==============================================
+
+In this lab, you will learn how we model real-world networks as mathematical objects and adjacency matrices. 
+You will also learn how to compute the importance of nodes in a network using `PageRank Centrality <https://en.wikipedia.org/wiki/PageRank>`_, which is the basis of Google's search algorithm.
+
+Graph Theory Background
+------------------------
+
+Graph theory is the study of mathematical structures called graph (networks), which consist of nodes (vertices) connected by edges. 
+These graphs can represent relationships between objects—-like friendships between people, roads between cities, or links between web pages. 
+At its core, graph theory explores how these connections form patterns and what those patterns tell us about the underlying structure.
 
 
-In this lab, you will learn about applications of the singular value decomposition (SVD), like image compression and principal component analysis (PCA). 
+We can apply networks for studying the internet: we model websites as nodes in the graph which are connected by various hyperlinks acting as edges.
+Networks like this allow have traditionally allowed search engines such as Google to rank pages based on importance or relevance.
+In this lab we will walk you through this process of finding the importance of pages.
 
-Application 1: Image compression
---------------------------------
 
-For this part of the lab, you will perform image compression using singular value decomposition. 
-Image compression is the process of reducing the amount of data required to represent an image by removing redundant or less important information.
-You will need to import the following:
+Adjacency Matrices
+------------------
 
->>> import numpy as np
->>> import numpy.linalg as la
->>> import matplotlib.pyplot as plt
->>> from skimage import data, color
-
-First, let's do a brief review of the SVD.
-Consider an arbitrary matrix of size :math:`m \times n` called :math:`A`.
-Recall that the singular value decomposition writes :math:`A` in the form
+Throughout this lab we will use a directed network to represent the *internet*.
+We will start with a matrix of directed edges, where each row contains a starting page and its corresponding ending page.
+It will be a :math:`m \times 2` matrix appearing like,
 
 .. math::
 
-   A = U \Sigma V^T
+    \left[
+    \begin{matrix} 
+    76 & 109 \\
+    76 & 4 \\ 
+    76 & 78 \\
+    \vdots & \vdots
+    \end{matrix}
+    \right]
 
-The matrix :math:`U` is an :math:`m \times m` matrix with orthonormal columns, and :math:`V` is an :math:`n \times n` matrix with orthonormal columns. 
-:math:`\Sigma` is a :math:`m \times n` diagonal matrix whose nonzero entries are the singular values of :math:`A`. 
-We can use the NumPy function ``la.svd()`` to get these matrices in Python.
+For example, this small snippet shows us that page 76 has hyperlinks to page 109, 4, and 78.
+Now, we can take this vector and transform it into a much more useful form of data called an adjacency matrix.
+This matrix is :math:`n \times n` with :math:`n` nodes.
+In this matrix, each row corresponds to a starting page, and each column corresponds to an ending page.
+Therefore every :math:`(i,j)` position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
 
->>> U,S,VT = la.svd(A)
+.. image:: _static/directed_network.PNG
+    :align: center
 
-Python represents :math:`\Sigma` as ``S``, a 1-D NumPy array of the singular values of ``A``. 
-The ``np.diag()`` function will turn a 1-D NumPy array into a diagonal matrix. 
-Remember that one of the most useful features of SVD is that when we use the first ``s`` ranks of ``S``, we can obtain a relatively accurate approximation of the matrix :math:`A`\.
+Consider the directed network above. It contains 5 nodes, and can be represented by the following :math:`5 \times 5` adjacency matrix,
 
->>> A_approx = U[:,:s] @ np.diag(S[:s]) @ VT[:s]
+.. math:: 
+    \left[
+    \begin{matrix} 
+    0 & 1 & 1 & 0 & 1 \\
+    0 & 0 & 0 & 1 & 1 \\
+    1 & 0 & 0 & 0 & 1 \\
+    0 & 0 & 2 & 0 & 1 \\
+    0 & 0 & 0 & 0 & 0 \\ 
+    \end{matrix}
+    \right]
 
-This becomes very useful in the context of images.
-Most images are stored in matrices of the size ``(height, width, 3)`` where 3 dimensions refers to the color dimensions, red, blue, and green colors represented by a number between 0 and 255.
-Because the space to store an image is finite, performing SVD on every dimension, and keeping the first ``s`` ranks of the decomposition can greatly reduce the storage space while still preserving much of the image quality.
-For simplicity we will focus on doing this decomposition on grayscale images which are represented by 2-D matrices with values between 0 and 255 (i.e., ``(height, width)``).
+.. Definitely directly copied this below from the lab haha
 
-We will use a grayscale image of a cat named *Chelsea* from the ``skimage.data`` module, which can be accessed with
-this
-
->>> A = color.rgb2gray(data.chelsea())
-
-To display the image, use the command
-
->>> plt.imshow(A, cmap='gray')
->>> plt.show()
-
-.. image:: _static/cat1.png
-        :align: center
-        :scale: 80%
-
-Now observe what happens when we display the image for different values of compression level, ``s``. 
-This will show what information about the image is preserved in the first few singular vectors. 
-It is impressive how quickly the image can become recognizable with so little data (i.e., singular vectors).
-
-.. image:: _static/cats2.png
-        :align: center
-        :scale: 70%
-
-.. admonition:: Image Arrays
-
-        The command ``A.shape`` shows that the image is stored as a NumPy array of dimensions ``m x n``. 
-        These dimensions represent the coordinates of a pixel in the image with ``(0,0)`` in the top left corner. 
-        The first dimension is the vertical dimension and the second is the horizontal dimension. 
-        Each entry is an integer representing how dark a pixel is (``0=black``, ``255=white``).
-
-.. I need to tie this back to SVD somehow
+Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from node 3 to node 2. 
+Also, notice that there are no non-zero entries in the last row, which corresponds to the fact that node 4 does not have any edges which start from it.
 
 Task 1
 ------
+Define a function ``adj_matrix(edge_matrix)``\. 
+This function should take a :math:`m \times 2`  ``np.array`` and return the respective :math:`n \times n` adjacency matrix.
+Note that because each node is represented by a number between :math:`0` and :math:`n-1` use ``np.max()`` and add 1 to find the size of the adjacency matrix.
+If you are confused on how to set up the adjacency matrix, refer to the notes above.
 
-Write a function ``svd_approx(A, s)`` which takes in a 2-D matrix ``A``\, and rank ``s``, and returns an SVD approximation of ``A`` up to rank ``s``.
 
-.. If ``s`` is greater than the length of ``S``, raise a ``ValueError`` and print ``"s cannot be larger than length of S"``.
+.. There was a part of the original lab where you take 
+.. It talks about explaining that you could add up the amount of nodes points to a node to determine its importance but that would be stupid
+.. So if they think that adding more of it would be useless them I'm not going to do it, unless we feel it's needed
 
+PageRank Centrality
+-------------------
+
+For the next part of the lab, we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
+For the next part of the lab consider the network below.
+
+.. image:: _static/directed_network_gprime.PNG
+    :align: center
+
+The adjacency matrix for this network is defined by
+
+.. math::
+
+   \left[
+   \begin{array}{cccccccc}
+   0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+   0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+   1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\
+   0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+   1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+   0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+   \end{array}
+   \right]
+
+The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the importance of the nodes pointing towards it.
+Basically, to measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
+Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node points to only one other node. 
+Hence :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
+Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to two different nodes. 
+Hence :math:`x_7 = \frac{1}{2} x_6`. 
+If we continue this for all of the nodes in our network we get the following set of equations.
+
+.. math::
+    
+    \begin{array}{cc}
+    x_0 = \frac{1}{2}x_4  + \frac{1}{4}x_2 + x_5 + x_7 & x_4 = \frac{1}{2} x_3 \\
+    x_1 = x_0 & x_5 =  \frac{1}{2}x_6 + \frac{1}{4}x_2 + \frac{1}{2}x_3 \\
+    x_2 = x_1 + \frac{1}{2}x_4 & x_6 = \frac{1}{4}x_2 \\
+    x_3 = \frac{1}{4}x_2 & x_7 = \frac{1}{2} x_6
+    \end{array}
+
+Now we can represent these as a system of equations to solve for the importance of each node.
+
+.. math::
+    \left[
+    \begin{array}{c}
+    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
+    \end{array}
+    \right]
+    =
+    \left[
+    \begin{array}{cccccccc}
+    0 & 0 & \frac{1}{4} & 0 & \frac{1}{2} & 1 & 0 & 1 \\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 \\
+    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 & 0 \\
+    0 & 0 & \frac{1}{4} & \frac{1}{2} & 0 & 0 & \frac{1}{2} & 0 \\
+    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & 0
+    \end{array}
+    \right]
+    \left[
+    \begin{array}{c}
+    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
+    \end{array}
+    \right]
+    .
+
+Now we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
+As you can see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
+
+.. note::
+    This matrix is a `stochastic matrix <https://en.wikipedia.org/wiki/Stochastic_matrix>`_, because each column of the matrix sums to one.
+    By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
+    we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
+    there exists an eigenvalue of 1 and associated eigenvector. 
+
+In `Lab 9 <https://emc2.byu.edu/fall-labs/lab09.html>`_, we used iterative methods to solve for the solution of systems of equations.
+One of these methods is the `Power Method <https://en.wikipedia.org/wiki/Power_iteration>`_ which is an iterative method that solves for the dominant eigenvector of a system of equations.
+It is defined by the equation below:
+
+.. math::
+
+    x_{k+1} = \frac{Px_k}{||Px_k||}
+    
+
+Now consider the vector below whose column adds up to 1.
+
+.. math::
+    x_0 = 
+    \left[
+    \begin{array}{c}
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8 \\
+    1/8
+    \end{array}
+    \right].
+
+Because :math:`P` is a column stochatic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
+and the Power Method becomes :math:`x_{k+1} = Px_k`. 
+Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
+Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
 
 Task 2
 ------
 
-How small can you make ``s`` and still have the image recognizable? Don't worry about a little graininess.
-
-
-Application 2: Principal Component Analysis (PCA)
--------------------------------------------------
-
-Principal component analysis (PCA) is a dimensionality reduction technique used to simplify complex datasets while preserving as much information as possible.
-At its most basic level, PCA seeks to project the data onto a subspace where the most variance exists.
-This can be incredibly useful for visualizing patterns in and understanding structure about data.
-
-First, we begin with an :math:`m \times n` "data matrix", :math:`X`, where :math:`m` is the number of data points and :math:`n` is the number of features for each data point.
-For example, if you went around interviewing people in the Talmage Building, :math:`m` would be the number of students and :math:`n` would be their answers to various questions.
-The first step is to center each column of the data to obtain :math:`\bar{X}`.
-We need to center the data because we care more about how the data is spread about the mean rather than its scale. 
-
-We then need to obtain the sample covariance matrix :math:`C` given by :math:`C = \frac{1}{m} \bar{X}^T \bar{X}`\.
-In a covariance matrix each entry :math:`(i,j)` gives the covariance between feature :math:`i` and feature :math:`j`\.
-This implies the diagonal entries are the variance of each feature. 
-For each eigenvalue and its corresponding eigenvector of the covariance matrix, the larger the eigenvalue, the more variance is captured along that eigenvector.
-Below are the data points of a :math:`100 \times 2` data matrix (i.e., :math:`100` data points each of dimension :math:`2`), plotted along with the associated eigenvectors. 
-As you can see, the first eigenvector represents the direction along with that contains the most variance in the data set.
-
-.. image:: _static/eigendata.png
-        :align: center
-
-All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors coresponding to largest eigenvalues). 
-These eigenvectors will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
-When we perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can show that the right singular vectors of :math:`\bar{X}` are the eigenvectors of :math:`C`.
-Because :math:`C` is real-valued and symmetric, it is orthogonally diagonalizable and can be written as follows 
-
-.. in the form :math:`C = PDP^{-1}` where :math:`P` contains the eigenvectors of :math:`C`\, and :math:`D` is a diagonal matrix containing the eigenvalues of :math:`C`.
-
-.. math::
-        C = \frac{1}{m}\bar{X} ^T \bar{X}
-        = \frac{1}{m} V \Sigma^T U^T U \Sigma V^T
-        = \frac{1}{m} V \Sigma^T \Sigma V^T
-        = V (\frac{1}{m}  \Sigma^T \Sigma) V^T
-        = V D V^T,
-
-showing that :math:`V` contains the eigenvectors of :math:`C` and :math:`D` contains the eigenvalues of :math:`C`.
-This means we simply need to compute the right singular vectors of the centered matrix :math:`\bar{X}` (which are the eigenvectors of :math:`C`) and then project :math:`\bar{X}` onto the desired number of dominant eigenvectors to capture the most variance in the desired number of dimensions.
-
-Let's do an example with real-world data. 
-We will use the NASA Star-Type Dataset which contains 240 stars and 4 features for each star; temperature, luminosity, radius, and absolute magnitude.
-If we center each column of the data and obtain :math:`\bar{X}` we can then compute the SVD and get :math:`V`.
-Because we have 4 features, :math:`V` will be a :math:`4 \times 4` matrix. 
-If we want to project our data :math:`\bar{X}` onto a 2-D space, all we have to do is take :math:`\bar{X}` and multiply it by the first 2 columns of :math:`V`:
-
-.. math::
-
-    \bar{\textbf{X}} =
-    \begin{bmatrix}
-        x_{1,1} & x_{1,2} & \cdots & x_{1,4} \\
-        x_{2,1} & x_{2,2} & \cdots & x_{2,4} \\
-        \vdots  & \vdots  & \ddots & \vdots  \\
-        x_{240,1} & x_{240,2} & \cdots & x_{240,4}
-    \end{bmatrix}
-..     \in \mathbb{R}^{240 \times 4}
-
-.. math::
-
-    \textbf{V}_{\text{trunc}} =
-    \begin{bmatrix}
-        v_{1,1} & v_{1,2} \\
-        v_{2,1} & v_{2,2} \\
-        v_{3,1} & v_{3,2} \\
-        v_{4,1} & v_{4,2}
-    \end{bmatrix}
-..     \in \mathbb{R}^{4 \times 2}
-
-.. math::
-
-    \bar{\textbf{X}}_{\text{proj}} = \bar{\textbf{X}} \textbf{V}_{\text{trunc}} =
-    \begin{bmatrix}
-        p_{1,1} & p_{1,2} \\
-        p_{2,1} & p_{2,2} \\
-        \vdots  & \vdots  \\
-        p_{240,1} & p_{240,2}
-    \end{bmatrix}
-..     \in \mathbb{R}^{240 \times 2}
-
-
-Once we plot this data, we obtain the following graph.
-
-.. image:: _static/pca.png
-        :align: center
-
-As you can see above the PCA works very well because we can see almost distinct groupings for each star type.
-Now, just so you can understand more of how the variance is preserved through the first two features, take a look at the two graphs below. 
-On the left we have PCA done with the first 2 columns of :math:`V`, and on the right we have it done with columns 3 and 4.
-It is clear to see how so much more variance, and accuracy, is preserved in columns 1 and 2 compared with 3 and 4.
-
-
-.. image:: _static/pca_vs.png
-        :align: center
-
-.. note::
-                
-        We call them principal components because the axes of these projections carry no physical units (they are not directly interpretable features).
-        So while PCA can be really effective to visualize groupings and relations among the data in datasets, it is limited in producing actual conclusions about how individual features relate to the data.
-
+Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and returns the corresponding stochastic matrix. 
+You can calculate the stochastic matrix by dividing each row of the matrix by the sum of the row, and then transpose the matrix using ``A.T``.
 
 Task 3
 ------
-Write a function called ``PCA(X, k)`` which takes in a matrix ``X``, and number of principal components ``k`` and returns an ``m x k`` ``numpy.ndarray`` using the PCA algorithm defined above.
 
+Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
+and returns the dominant eigenvector of ``P`` after ``k`` iterations.
+You will need to start with ``x_0 = np.array([1/n, 1/n, ... , 1/n]) = np.full(n, 1/n)`` with ``n`` entries.
+Remember the equation :math:`x_{k} = P^{k}x_0`.
+
+.. note::
+    The numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
+    and fills it in with the fill value.
+
+    >>> np.full(5, 10)
+    [10 10 10 10 10]
+
+    >>> np.full((2,3), 4)
+    [[4 4 4]
+     [4 4 4]]
+        
 
 Task 4
 ------
 
-Use your newly defined ``PCA(X, k)`` function to perform PCA on the Palmer Penguins dataset, and then print out which two groups are the most similar according to the analysis. 
-The dataset will be provided in CodeBuddy. 
+Define a function ``PageRank_cent(edge_matrix, k)``.
+You will need to combine all of your past functions to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
+Then convert the adjacency matrix to a stochastic matrix using the ``stoch_mat`` function.
+You will then need to use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations. 
+
+Task 5
+------
+
+Use your recently created ``PageRank_cent`` to find the index of the most important node of a 499-node network (given in codebuddy).
+You can use ``np.argmax()`` to find the index of the largest element in an array.
+
+Conclusion
+----------
+
+Using the Power Method to compute the PageRank scores was the foundation of Google’s search ranking results for many years.
+Larry Page and Sergey Brin are the original developers of this algorithm.
+The PageRank algorithm is known to converge quite quickly. 
+In their original paper, Brin and Page reported that on a network with 322 million edges the algorithm converged to usable values within 52 iterations.
+
+Finally, as a historical note, the patent for the PageRank algorithm is owned by Stanford University (where Brin and Page were students at the time they developed it). 
+Stanford granted Google exclusive license rights to use the algorithm, in exchange for 1.8 million shares of Google which Stanford sold in 2005 for $336 million. 
+Today those shares would be worth approximately $3.8 billion, all for an algorithm that computes an eigenvector!

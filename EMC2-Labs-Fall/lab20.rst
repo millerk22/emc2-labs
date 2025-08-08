@@ -1,198 +1,470 @@
-Lab 20: Cracking the Vigenère Cipher
-====================================
+Lab 20: Pandas 
+==============================================
 
-To refresh your memory of the Vigenère Cipher, go back to :doc:`lab08` and read about it. 
-You will need your ``key_length`` function from that lab today.
-Your ultimate goal is to determine the plaintext message for the following ciphertext:
+.. https://foundations-of-applied-mathematics.github.io/
 
-.. code-block:: console
+In this lab, you will learn how to use the powerful `Pandas <https://pandas.pydata.org/>`_ library used for data analysis and manipulation.
 
-   CZVEILTUPRIMCGKBTVSVXVJRTCIBTSQQJHBVHVPKQRJSEUMHMGFBPXWXDOAMECWQTUCZXGIBBVLXGIHBFSDGESBTXLBESFJIWTFDRGTTWKBGQXWXDCBMLTKUWFVIGPCGEGESBPUOWXXMJOQPSEBEHHTIHHTQBPZTKUOGKSCLKBVVECWYVNVMHMJSHUIDYCPBQOIAQITJXPEKQRYMIAQIGRMRMWFRUSGVQBIGVHTVWBPWHHUVRYEHVQBFKHTKKBTKRWXTCJPQXGFOFYIAECGFJIRHWZQHSGMJSUQXSTAANFIWXTTRGPKXTMFNITIAOAFWINRWQYLTMJSEVLTINSNUYGXQTZCOXGIOQCMHREVNKRLHWZQDILHTHUVLTMTCHDPTHHURVXXGIICCRSIKQXKRVMJSQCMHBGGJJICLWRQGRARCKUKXTKCPOKXLBVVCKRZXASFTECVNCFGFNAGFGJIGXYOFPSIAKBTUSKXTMEGQPKMOONIXGVVNVRDKFWQCPXVGHUKRZBVGBXIGROIPJSJMQTGJILTAHBJIPKVVRTEQUKHFCCIHKHFGPUHJRRCVDAFSNTMHACZYDIATVSJJICLJSGJSJZJHVVSKXTOSVIGPCFQUMIHEQHTVTWVCUGVIACHFJIDNIVGVSWTXSJQRSXTSQCXIAKGOWXPMVVRVMBXKHNNPHXGARFUJBVSACXJKCZOWXLAGBGJIGTDPVVERMWOYNCIHQYNYEIVJCHVSUBVGJCMHMECNVTDVMSGCRSEQCXGHPMKHNPHIAGBUWVGBGRBPEABESFVEGMGRGQLTKHSRVJDKKHSNEHAGRNEVDLUVRTQXGFHUCXHAGVNFRTOGFOGJDKGGRGRPKCPOKXLBVVRKXWXTOJCMHMECNVTDVMSGQVPPCHPJXDMCYRQYIHHWGCRSUWFAKRVPKHUEYGBQGVVCHAGFNPERKQGFVLTYKSYFEUMGFVVECWHCEVYCTVSYAAPLLIFVMCMKARVSHXGWGRSEWQKACPPKISECFQBVVBNIJGFSEVLTAGRTGMCTPCGJIGFQARPXSHYBJGRITNWPGEUMGFVVRTOGFBPGTVQBFKHTKKBTJSLBPHUGADKNRFJILTUHBIIIHWHNIEXGVVRTEQUKHUQPTPGBGUXGTKUUVSCEKYRCXJGPSYHSGLQARYENTPRGJICWKDCGHHNFRRPPNWQKAUSHNFRRPPNMJOGCPXVGVNFRDMCABOICMVCGJMCDCPBWXHMQDCKRVAGFFGPUUGTBTIHAGTBWRSAGFFGPUYCZYKRVWQKACZTKARRGTLXNZRKXWXTHUGATENKNUZTKARRGTDKUVRHIAEXSEAWAHYZLHSGLJSUCHEEGBGASUMKARCWHAGKRPXSHYBGQPDHMOOQYIAGFNPHIHYCAFIGPJOGYEHZQWAIXDACDCGRCXZHSKVHMUVRVVXXFHBNSDDFCJPECWOOXGSJMYVNVWWXYOFESBBPUGQFJMKHJCWIHQRNTOIHUSRCRNMJWAIXWXPGUGPDHMSQCXIAGGVFIHHHHUGATENOAFRDMKQRFXWTVHUGCLXTSSKPAXFKVVLRNRPBCVSLCBQDSDDUVRNZTLJSEGECWVVRTIHAGGNYQPIUOAFTXVVIEGWWNPUHRSCIGUFULTMQCXFSLGCXNTJGHOCAGSUMJSFJIAOGGNUWWXROFUISBVKNUPPUGZYGHDKCBTGQPKOOYCHTUWHGQLTKIFRCXSBUOCRSXGVARPXXMYOFGQEMAGUGHXWPCGNMZXVCQTSEMJSWCVUHTTRCVDYMWYNMCZUCZGFDWAGBOECTISQVSENVWGKRIHQBRQJIAGQHRFDTTRFCWHAGTRNPETUHVVATENHUQYVAVOYKGTMQVRTWTEHOSVIGLWQUCJPENOFVLXLKGUCPAMJWAMRDMJWAISUMWAONMCZFCJPWITKFFJSLUTOIGXWXAZYCPAMJWAMQTTVVBOILAAWJQYAWPHFCCPGAHUKRVTDCHVMIXXSAKJXYGZYQJUMJSGQTDYVVRJSJLGKUKGWPCGIGVNEKYRNCIKWSQQACWQKAFSLGYCHNHIAGTNNPCXXSEESBXVCNPICWKKBPHTKJCJOECROWYGWXOGTNNPTGDMGJMHMKARULTLCWQCPDNFWZWWIUGURVXXGIGBOILAGFRPIPKVVREICMTSBHXWXGOEVLAXVARUITMJOGYSJEFPRHSJKVVBWWPGFAVNIHWQKAKXWBPYSQVNHWGRGEABESUCHAXCFAVWTOGFNNXWBPUFQJIAKGFQVIBPVRTPTLUCAUMCMJSFELDHNFBQQPGFHUQYVAVVVUAPLPCGCZTKAUBQHDIRCEVYCBVMSQVHAQKVPKDYHVRTOCHYZRFKTTUHUGVTPCGAQSCXVCYKWIXPHBJIGLVWYNMIPCGTQSSITOPVMRXVCFCCXMQJRTCTLVVNVWPUQIGVLTKKUUVHXLVOAEIQNVHUGRXPQBQGVLACHYCXXMWRRQVAHPUVVYSXKJRISIMQOYKGTACRAQMSXCKUCXATVWGWHTPCGBTPDGIWGWHTXKHUGVQNVHUQYVAVHUGCLXTSAKGTZTOAFADKFGGQWPRRFRUICMNMFJIQXIOACKPBPWJQRSXTWSKWWTNZSCPAKKUUVXWKQITJXWXGOEVLWHYTHPRNBVZYUITFVCPQQTHWHNOSCZVVRRIDINSGJEIPCZXYMIAVVRKVWXCRFFSLGYOEFXWXCBGKTPMJWRUMIAKBXULTPCGECXWXTUYCHIAGFRYEHGQCAGPXLVSAKRVMJWFVMBXCGVVHXWPHFQYCWCHNNPIAGFVILIPQFQDYIBUVNNPWTXSGQEHDVVROAWTVHUGRPFGCSVLTVQIAVVNBUMBWOCHYDYGEHXOONOMHMJWFPILSGOYCRSHTOHUXGTNWNCRSLJSGTMTWVCPWVILGMNUWWXUDBMIUTPQLEYGMUSLKRVTUMBWVTYCZYKRVMJFBWKWMJSNKVSHACHVLXGMMBWGDNNRZCRPZGWGCRSPJOGCRXZPCECRIEKHGNIVBTZFJIAEVVVPOBXHCECWZBPUAQMIENBRXIGWQHBCWZIGFUCTHBUVNNPHXGWGYVXMVSAWTHHOSJJIGXFCJPHDPPRBYRIAGFRYEHGQHUKRVXNGRVSSHUCNNMRXUCBPFTZCBGCPZBPUNIEXGFWACLAEOWFUQTOGFLOYRAVCAKKWMKGUQYAWVVVPOSBPOUYEHMJSPCXXAQDRVLTRNZEGQTFDSEJIGLCIPGVDYOWYMEIMGOGKQTWKBNJQNWGOEKAXLJMBWATKGRBYRWXTSJKXWFGHUGVTTTSAQQXVGWAVLTTKFVOEUKCWQDYIRQIZKKWMEOGELPUCHNPHIACHFXIGRNWXGEBHWGRASJDPCJDYIWQQNVWTTVPNVWXPQBQGVPGFVRTIPEKQRDIVTPHBIIIKCHUGVHEGSCAECWYSAVSCLCMVPKIHJSEUIAYKBNFVTTOMFQVIHHKNAHDVCHFGEIUCHFFSRTVGRCXQTVGNPHHHOSGKQTLFCOCXHXCHPCXHYQFLQYHXGOFULTVQIYFRITPGJGVTBVVRTUJXUHVQRXMFWQPXBNEVZCXIXTKUKGWPCMFJIENVWGULTYGZGVLPMUVRYEHWQNVPKDYHOAFLPWLIFVFTZWBGQHGXCAGJEILJSJCWLTNYVPKWTPRVPLPGFKVVLSBPOUCRSLCMVPKIHJSEXIGRGOEPIHMNMAQASBPOUVIAEOSGJIIKWHUFMSRQIRXIGXCHNDEIPJSAUYSWGBYAXWNODGJYBIFCJPWWXEOZGYEHPOUGEEHHGGKGZLCBQFVNEGOIGWPGFHUGJPENKNUSKXTOYKGTPCGAQXPUKHUWVITPRFJIYNODRFYEHPHBJIGYGSGKRPFQARPXHAGZBQOTWWDOWXXMYOFCPAWCFXQZTKJSNFFTYQFRJIGPCGNPSIAGFYQRVICGFCKTTPRGJILAKHRTEQUKHJCWHMKZYKRHBIVGJYGKAWAIHDPPWGVLTKGKNURDMCABOICMVCOGPDLVOJCCLXPHNNMRXNWXGXWXYWAFECWYOFLYHMKBGKQTMQVRCVXMUOLCWXMVIEPISTECEPIGHJALGEGLCBQYLXLMSEULDPNOGGMILISGVMCZUVRYEHVNCFGFTAKBQKXLAGBFJIINTBRFXWXECEPIGUWHGJIGTDPVVAPLPCYQRVXTHBDIHXGBFJIUHWBQJIGLGZSKRPEQBTNSLACZYYLXVJKNUPXMWDOAEGHYCSNEBIUVNPKXGITEQQIAGFBQJIAGFRYIGXFCBTWPENFBWRSMJSUCPAUWHGJINPGFRCPAEQQXGHPGFKUGRPEKQRJESUGSACPAMJSJCCSHYBBPIHBFSNPHJIVVRQXWXTHEAMCZGJRTCSHQFFJILTNYRFWPWNMQQACMJSZKHSEGKBPHTKKBTJSLLJSJCWTOGFGQKTMQIGCKPBPGHFHTGNMFJIRTOSHRSCTNWGVPTMJFRGPTZISQVEQEGOYNQPWGCSUSABFUYCWHMJSEGAPLPCGJMCZQBVVIMVGDGCXXGAUBNHTGMSLCRSTNWPGWUBTGGVLDNIVGYEHMJOGKXBBIVGDIAHPUGQSCXQTGJISHQFFQJIAGVNNPQNVOYCWTBVVRTXWXNCPMWLXTSGQSATTURQVIAGYRAAPLVCBUQPENPHVEITPMECXTBVKBWPSGQHBRICTPMBHXWXOVBYIKXTCAVLTLGQBPHIBOSEQYCWUVREEBXWDBPEAHYQHTXPBPGUGLPWPCGPSIBESQDIUHTSNPHQXJWAFMIPCGNNMIMNSQQSGTDCHVJXYVSRPMCVJSFJMVAUVRVVXXFHUGPXMVZRISAWGBXGCXGVVRNSRDCBQVSWXTUEGEIWGZVILIBVTVVXTWCZVEIDIGBRFXWXFCBTECWHCHPHIACHVVPTWKBGQEHFCZYREHLCURPSIFWQUNEGZGFGJECTTOGJSAXUVRMRTEVRBYRPGFZBQOTWCZBPKIAGDNUWPZGWAVSIAGZBXIABGGGIEGWGBLQYTOGFFCAWHYGUGPDGISQVSVXVCHVSUMJOGFEGDJOYNECWYOAFIGTDCHVEBHPUGJSHXDSQUSUUTWTJXUEQKRTWPGFHUQWTVQCYHSJGVOVPWQNVGUGGDNNRAQXTOGBTGXWXTVRCHIATCHILIAGRBQVLTAOAFIKXPWSOCWXCRJQYAWICGJVDNIVGJSJZJHCQSGTNWPGMIPQIYFFTHHJRTCABVHYGYHXYWGJSJMOMFJSJEFSEUSWAQKVYMHAKQBWPSLJIGWTABMSNVIAXUQBRIXMJWAMMRHWZQKJXHPZLMRTPJCJVSQXIWAHSGRQIFGIHHOOAASJMQTGJILTAHUKRVLJOQJEEIGBRFPPMGZLVLPMCZVEIWTFPRIYCMQHUKRZMJOGXIGRHSJVLXGIGVPHTXFKRTIGXCZYAMBIQGFKFAXVVRTIHXGARFXDUGBBWWTBPKNKXXGIPLVLTEKHGNISHQFFQWWXYSAVFPVMHBVLTMCPYGLPEHVBRMCZUVROMVAVTVPHPGQHUGVZXACAKXDKCHNPCGTVSNDSDDQTEWPTLHCEULJMVWAITTHRZRWTABMSGGPTLECCGWIAKGGKQTLJSSQYCWCZVVXAXDCGVPTHPWGYLXVJQRTXPBPZLYEHGQHUGVTUGTBTIHTKRNNMRXCBQTSJGFHUGRTVMCSVLTUQHGNILTUOCCTTKNOOGPLBVVGJILHTRFFVXGMARDIPNVWSWPARRFVPXTWQBVVMCECFTGPTMVSEUMIPCGNNPKXTMJGPAMQGNAHGBPYZGFJMVVRYMHXNWGVPTTNWPGAPLPCGISXGIHBFSIACHVPEWNTFLPSXENZBQOUBTGGULTLCWQCRSLGSJJIIAGFVVWBTTYRFTDBUCAQVCHVTBTWWXJOQTIPWUSIGVPEPWPGPXMVZRJMHMQFVGWPUQIGELXEFFRPAWHJOQISIUWFAVECWGOGGRJIDMJKPSUGOFVWPGFCGJIGNPDYGEHTPHGJMCZUOYNFTVCIFGXWXAKBWPSGQHEGQTFDSEVLTLKACNIGNNSFVLTBTTEKICWUVNFXPNIVGVLTFUIPJEHMJOGCVTWJCGRSZXTKVNPQNTBLQYXYACHJSAWKHGQSAHPUNPHIACHVHCDNEIGASJKHWAIIGOGFLFITINMJKXWTMBVHIXMWGHCPARDZRGHHTPRFJIWTFBRXIGYQFTQXIXPHUCXXYACHFVXGMAHELUKQANDSIMNSZCVZXFDBKWDGKHVUEAFQGGEIGMCWAVSSBUOTTITPKHUASJLQCAGVDKNOGGVWHYSIGVIAKGOQXIEGKNURDMOOEMISIQWFQRHHCZVEIKXPHHTISMQHNUXTBVOAFJXGFWAIMIOGFLPMRXKHUCHXGHOPVEHHTHBHQXQGRSNEKHWFBHGWXTFLVEGMEIFVEGWRWAGEEINSEQEHMVIEMINMQTSGIPGFVBVFJMVSEGHIHCGGULTOGFLUSDGHWAKWWXFWGQJU
+Pandas is a useful library for data manipulation.
+In 2008 the development of this package began at `AQR Capital Management <https://pandas.pydata.org/about/>`_. 
+It was originally developed to perform quantitative analysis on financial data.
+In fact, Pandas stands for 'panel data', an economic term.
+Over the years the library has been open-sourced and developed into the library that it is today.
 
+The purpose of this lab is to familiarize you with the Pandas library.
+This is a widely used tool across industry and having experience with it can set you apart when getting internships and jobs.
+While it is not necessary to master this library, a general understanding will be helpful for your future in coding and math.
 
+DataFrames
+----------
 
-The main fact we will use to break the cipher is that in most English texts the frequencies of letters are not equal (see the table below).
-For example, the letters ``RSTLNE``, which you may recognize from watching Wheel of Fortune, are among the most frequent.
+.. Dataframe, read_csv, to_csv (explain keyword argument)
 
-.. list-table:: Frequencies of letters in English
-   :header-rows: 1
+To import Pandas we use the following import statement
 
-   * - a
-     - b
-     - c
-     - d
-     - e
-     - f
-     - g
-     - h
-     - i
-   * - .082
-     - .015
-     - .028
-     - .043
-     - .127
-     - .022
-     - .020
-     - .061
-     - .070
+>>> import pandas as pd
 
-.. list-table:: 
-   :header-rows: 1
+The core data structure of the Pandas library is the ``DataFrame``.
+A DataFrame is a table with indexed rows and named columns, like an Excel spreadsheet.
+The rows are indexed using integers, and the columns are chosen by the user.
+First we will examine a ``DataFrame`` and then we will learn a few ways to create it:
 
-   * - j
-     - k
-     - l
-     - m
-     - n
-     - o
-     - p
-     - q
-     - r
-   * - .002
-     - .008
-     - .040
-     - .024
-     - .067
-     - .075
-     - .019
-     - .001
-     - .060
+>>> df
+     Name   Age        City
+0  Norman    25    New York
+1   Kevin    30 Los Angeles
+2     Eli    35     Chicago
 
-.. list-table:: 
-   :header-rows: 1
+In the ``DataFrame`` above, ``"Name", "Age", "City"`` are all columns of the DataFrame.
+The numbers on the left are the index (which always starts at 0).
+There are plenty of ways that you can construct these DataFrames.
+While each of the ``DataFrame``\s will be constructed in different ways, they will all produce the exact same result.
+This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
 
-   * - s
-     - t
-     - u
-     - v
-     - w
-     - x
-     - y
-     - z
-   * - .063
-     - .091
-     - .028
-     - .010
-     - .023
-     - .001
-     - .020
-     - .001
+One way you can do it is through a dictionary of lists. 
+Here, the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
 
-The following is an outline for how to decrypt a ciphertext encoded with the Vigenère Cipher with an unknown key. (Read until the end of the lab before you start working on any individual part.)
+>>> data = {'Name': ['Norman', 'Kevin', 'Eli'], 
+            'Age': [25, 30, 35], 
+            'City': ['New York', 'Los Angeles', 'Chicago']}
+>>> df1 = pd.DataFrame(data)
 
+You can do it from a list of dictionaries.
+In this case each dictionary represents a row of the ``DataFrame``\.
+The different keys in each dictionary represent a row, while the value is the actual data.
 
-1. Compute the key length `K`. (We already did this.)
+>>> data = [{'Name': 'Norman', 'Age': 25, 'City': 'New York'},
+            {'Name': 'Kevin', 'Age': 30, 'City': 'Los Angeles'},
+            {'Name': 'Eli', 'Age': 35, 'City': 'Chicago'}]
+>>> df2 = pd.DataFrame(data)
 
-2. For each ``j`` from ``0`` to ``K-1``: build a string ``S[j]`` comprising the letters of the ciphertext at indices congruent to ``j`` modulo ``K``. For example, if ``ciphertext='ABCDEFGHIJK'`` and the key length is ``K=3``, then
+Next, you can do it from a list of lists using column names.
+In this way every list is a row, however you have to manually set the columns yourself when you initialize the ``DataFrame``\.
 
-   .. code-block:: console
+>>> data = [['Norman', 25, 'New York'],
+            ['Kevin', 30, 'Los Angeles'],
+            ['Eli', 35, 'Chicago']]
+>>> df3 = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
 
-      S[0] = 'ADGJ' # 0, 3, 6, 9
-      S[1] = 'BEHK' # 1, 4, 7, 10
-      S[2] = 'CFI' # 2, 5, 8
+Finally, you can do it through a NumPy array.
+This one functions the same as a list of lists where every row is a row in the ``DataFrame`` and you must manually set the columns. 
 
-   For each ``j``, every letter of ``S[j]`` has been encrypted with the same letter of the key.
+>>> import numpy as np
+>>> arr = np.array([['Norman', 25, 'New York'],
+                    ['Kevin', 30, 'Los Angeles'],
+                    ['Eli', 35, 'Chicago']])
+>>> df4 = pd.DataFrame(arr, columns=['Name', 'Age', 'City'])
 
-3. For each ``j`` from ``0`` to ``K-1``:
+Task 1
+------
 
-   a. For each ``m`` from ``0`` to ``25``, decrypt the ``j``-th string using the ``m``-th letter of the alphabet.
-
-   b. Measure the frequency of each letter in each of the strings in (a), and record these frequencies in a table (list of 26 lists) called ``freq_list``.
-
-   c. Find the value of ``m`` for which the dot product ``freq_list[m]·F`` is maximized, where ``F`` is the vector of letter frequencies
-
-      ``F=[.082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001]`` 
-
-      from the table at the top of the lab.
-      Then the ``j``-th letter of the key is the ``m``-th letter of the alphabet.
-
-4. Decrypt the ciphertext using the key you found in part 5.
-
-.. admonition:: Understanding the logic
-
-   The key insight behind this algorithm is that letter frequencies in English text are not uniform—some letters, like ``E``, ``T``, and ``A``, appear much more often than others. 
-   The Vigenère cipher hides this fact by "spreading out" the effect of each key letter across different parts of the message.
-
-   Once we know the key length, we can group the ciphertext into multiple substrings, where each substring was encrypted with the same letter of the key. 
-   Within each group, we expect the decrypted letters to roughly follow English letter frequency patterns.
-
-   To find the correct key letter for each group, we try all 26 possible Caesar shifts (one for each letter of the alphabet), decrypt the group with each shift, and calculate the letter frequency of the result. 
-   We then compute the **dot product** of that frequency vector with the standard English letter frequency vector. 
-   The shift that gives the largest dot product is considered the best match—because it produces a decrypted string whose letter frequencies are closest to normal English.
-
-   Repeating this process for every group (i.e., for every position in the key) gives us the full key. 
-   With that, we can finally decrypt the entire ciphertext.
+Make a Pandas ``DataFrame`` named ``basketball_games`` with columns ``["Team Name", "Game 1 Score", "Game 2 Score", "Game 3 Score"]``. 
+For the ``"Team Name"`` column, use this list of names ``["Florida", "Houston", "Duke", "Texas Tech", "BYU"]``. 
+For each of the scores generate a random integer between 1 and 100. 
 
 
+CSV Files
+---------
+
+.. What are csv files, and how to read and write to them
 
 
-Task 1: Split the ciphertext
-----------------------------
+A CSV file (Comma-Separated Values) is a text file that stores tabular data. 
+It works like a spreadsheet where each line is a row, and every value is separated by a comma.
+For example, we could have the file ``animals.csv`` ::
+
+     Animal,Weight,Type
+     Elephant,12000,Mammal
+     Eagle,15,Bird
+     Crocodile,1000,Reptile
+     Kangaroo,150,Mammal
+     Penguin,30,Bird
+
+To load this file into a pandas DataFrame we can use ``pd.read_csv()``\.
 
 
-Write a function ``str_split(s,j,k)`` that takes in a string ``s`` and two integers ``j,k``, where ``k >= 1``, and returns a string consisting of each letter of ``s`` whose index is congruent to ``j`` modulo ``k``. 
+>>> import pandas as pd
+>>> df = pd.read_csv("animals.csv")
+>>> print(df)
+     Animal  Weight     Type
+0  Elephant   12000   Mammal
+1     Eagle      15     Bird
+2 Crocodile    1000  Reptile
+3  Kangaroo     150   Mammal
+4  Penguin       30     Bird
 
+If you want to save to a CSV file use ``df.to_csv(filename, index=False)``\. 
+We use ``index=False`` to avoid saving the row numbers as another column. 
+Other file types that Pandas can easily read include Excel, JSON, HTML, Parquet, SQL, and Pickle. 
 
->>> str_split('ABCDEFGHIJK',1,3)
-'BEHK'
+Task 2
+------
 
+.. Have them read the csv file
 
+Read the CSV file named "global_air_pollution_dataset.csv" and save it as a Pandas ``DataFrame`` titled ``pollution_df``. 
 
-Task 2: Measure letter frequencies
-----------------------------------
+Accessing Data
+--------------
+.. Data Manipulation (accessing data loc, iloc, access column (["col_name"], .col_name))
+.. df.head(), sort_values(), unique(), drop,
+.. Problem 1: budget.csv problem (not all of the parts)
+.. Basic Data Manipulation + Basic Stat Functions + Masks(?)
 
+Now that we have our DataFrame we can start accessing the data within.
+We will go through these functions using the DataFrame defined below.
 
-Write a function ``letter_freq(s)`` that takes as input a string ``s`` and outputs a vector of length 26 whose ``i``-th element is the frequency of the ``i``-th letter of the alphabet in the string ``s``.
-The built-in string function ``count`` may be helpful here.
+>>> df
+     Name     Sex  Age  Grade  Attendance (%)
+0   Sarah  Female   19     87              97
+1     Jed    Male   20     85              92
+2   Emily  Female   21     93              99
+3  Carter    Male   22     91              95
+4   James    Male   23     78              88
 
+In general, the best way to access data is through ``loc`` and ``iloc``\. 
+The ``loc`` index selects rows and columns based on their labels, while ``iloc`` selects them based on their integer position.
+For both of these methods, the first and second arguments refer to the rows and columns, respectively, just as in array slicing.
 
->>> s = 'AAAAAAABZZ'
->>> s.count('A')
-7
->>> letter_freq('AAAAAAABZZ')
-[0.7,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2]
-
-
-
-Task 3: Maximize the dot product
---------------------------------
-
-
-Write a function ``maximize_dot(string)`` that takes as input a string ``string`` and outputs the integer ``m`` for which the dot product ``letter_freq(string-decrypted-by-mth-letter)·F`` is maximized.
-Here is an outline for this function.
 
 .. code-block:: python
 
-   def maximize_dot(string):
-      F = [.082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001]
-      alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+     # Use loc to select the Grade column for Sarah and Emily
+     >>> df.loc[[0, 2], "Grade"]
+     0    87
+     2    93
+     Name: Grade, dtype: int64
 
-      freq_list = #list of 26 lists, where the m-th list is letter_freq(string after it has been decrypted using the m-th letter of the alphabet)
-                  #(hint: use a list comprehension)
+     # Use iloc to also select the Grade column for Sarah and Emily
+     >>> df.iloc[[0, 2], 3]
+     0    87
+     2    93
+     Name: Grade, dtype: int64
 
-      for m in range(26):
-         #compute the dot product of freq_list[m] with F
-         #keep the largest dot product you compute
+     # Use ":" to select a range of rows or columns (stop is inclusive)
+     >>> df.iloc[0:2, 3]
+     0    87
+     1    85
+     2    93
+     Name: Grade, dtype: int64
 
-      return #the m for which the dot product was largest
+The most efficient way to access a column is to use the ``[]`` brackets and the name of the column.
+
+.. code-block:: python
+
+     # Create a new column titled Test Score and give everyone a random score
+     >>> df["Test Score"] = np.random.randint(0, 100, 5)
+     >>> df["Test Score"]
+     Name
+     Sarah     5
+     Jed       99
+     Emily     25
+     Carter    46
+     James     73
+     Name: Age, dtype: int64
+
+     # Reset the column so everyone has 100
+     >>> df["Test Score"] = 100
+     >>> df
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0   Sarah  Female   19     87              97         100
+     1     Jed    Male   20     85              92         100
+     2   Emily  Female   21     93              99         100
+     3  Carter    Male   22     91              95         100
+     4   James    Male   23     78              88         100
 
 
->>> maximize_dot('KYVHLZTBSIFNEWFOALDGJFMVIKYVCRQPUFX')
-17
+Datasets can often be very large and thus difficult to visualize. 
+Pandas has various methods to make this easier. 
+The methods ``head()`` and ``tail()`` will show the first or last n data points, respectively, where n defaults to 5. 
+The method ``sample()`` will draw n random entries of the dataset, where n defaults to 1.
+
+
+.. code-block:: python
+
+     # Use head to see the first n rows
+     >>> df.head(n=2)
+         Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0  Sarah  Female   19     87              97         100
+     1    Jed    Male   20     85              92         100
+
+     # Use sample to return a random row
+     >>> df.sample()
+          Name   Sex  Age  Grade  Attendance (%)  Test Score
+     3  Carter  Male   22     91              95         100
+
+You may also want to reorder the columns or sort rows based on values.
+
+.. code-block:: python
+
+     # Reorder Columns
+     >>> df.reindex(columns=["Name", "Attendance (%)", "Age", "Test Score"])
+          Name  Attendance (%)  Age  Test Score 
+     0   Sarah              97   19         100
+     1     Jed              92   20         100
+     2   Emily              99   21         100
+     3  Carter              95   22         100
+     4   James              88   23         100
+
+     # Sort descending according to Attendance (%)
+     >>> df.sort_values("Attendance (%)", ascending=False)
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     2   Emily  Female   21     93              99         100
+     0   Sarah  Female   19     87              97         100
+     3  Carter    Male   22     91              95         100
+     1     Jed    Male   20     85              92         100
+     4   James    Male   23     78              88         100
+
+Now we will go over the ``unique()`` and ``drop()`` methods.
+``unique()`` allows us to find all the unique entries in a column, and their data type.
+``drop()`` makes it possible to easily remove rows.
+
+.. code-block:: python
+
+     # Use unique() to get an array with the unique values and their data type
+     >>> df["Sex"].unique()
+     array(['Female', 'Male'], dtype=object)
+
+     # Use drop() to get rid of a row
+     >>> df.drop("Jed", inplace=True)
+     >>> df
+               Sex  Age  Grade  Attendance (%)  Test Score
+     Name                                                
+     Sarah  Female   19     87              97         100
+     Emily  Female   21     93              99         100
+     Carter   Male   22     91              95         100
+     James    Male   23     78              88         100
+
+
+Here is a list of other methods to be familiar with.
+
+- ``df.shape`` - Get the (rows, columns) of the DataFrame.
+- ``df.rename(columns={'old': 'new'})`` - Rename columns.
+- ``df.fillna(value)`` - Replace NaNs with a specified value.
+- ``df.dropna()`` - Remove rows with missing values.
+- ``df.astype({'col': type})`` - Convert column data types.
+- ``df.columns`` - Get a lsit of column names and data types
+
+.. note::
+
+     NaN stands for "Not a Number". 
+     It represents missing or undefined values.
+     When working with real-world data it is **very common** to have missing values. 
+     It is important to know functions that work with this type of data. 
+     While it is not the focus of this lab, an important step in the data science process involves peapearing data (e.g., dealing with NaNs) for use downstream data science tasks.
 
 
 
-Task 4: Decrypt the ciphertext
-------------------------------
 
 
-Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
+Task 3
+------
 
-As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
-(Follow the outline at the top of the lab to get the pseudocode for this function.)
+Load ``pollution_df``\.
+First, reindex the columns so that ``AQI Value`` and ``AQI Category`` are the first two columns and all other columns maintain their order.
+Next, sort the ``DataFrame`` in descending order based on their ``AQI Value``\.
+Finally, reset all values in the ``Ozone AQI Value`` column to 0.
 
-You can get other test input strings at `<https://mathdept.byu.edu/~doud/Vigenere/>`_
+.. Have them do tasks 2-4 of the budget activity
+.. Maybe Add task about dropping Nans
 
+
+Basic Data Manipulation
+-----------------------
+
+Because the primary pandas data structures are based off of ``np.ndarray``\s, most NumPy functions work
+with pandas structures. For example, basic vector operations work as would be expected:
+
+.. code-block:: python
+
+     # Sum Grade and Attendance (%) of all students
+     >>> df["Grade"] + df["Attendance (%)"]
+     Name
+     Sarah     140.5
+     Jed       134.5
+     Emily     145.5
+     Carter    140.5
+     James     127.0
+     dtype: float64
+
+     # Halve all Grade values
+     >>> df["Grade"] / 2
+     Name
+     Sarah     21.75
+     Jed       21.25
+     Emily     23.25
+     Carter    22.75
+     James     19.50
+     Name: Grade, dtype: float64
+
+Here is a variety of other operations that work well on DataFrames.
+
+- ``df.abs()`` - Object with absolute values taken (of numerical data)  
+- ``df[column_name].idxmax()`` - The index label of the maximum value  
+- ``df[column_name].idxmin()`` - The index label of the minimum value  
+- ``df.count()`` - The number of non-null entries  
+- ``df.cumprod()`` - The cumulative product over an axis  
+- ``df.cumsum()`` - The cumulative sum over an axis  
+- ``df.max()`` - The maximum of the entries  
+- ``df.mean()`` - The average of the entries  
+- ``df.median()`` - The median of the entries  
+- ``df.min()`` - The minimum of the entries  
+- ``df.mode()`` - The most common element(s)  
+- ``df.prod()`` - The product of the elements  
+- ``df.sum()`` - The sum of the elements  
+- ``df.var()`` - The variance of the elements  
+
+
+Masking
+-------
+
+*Masking* in Pandas refers to selecting or updating values based on conditions, usually using boolean indexing. 
+For a quick recap, a mask is an array of truth values.
+This can be useful if you want to find and edit rows given a certain condition. 
+
+.. code-block:: python
+     
+     # Select students with Grade > 90
+     >>> mask = df["Grade"] > 90
+     >>> print(mask)
+     0 False
+     1 False
+     2  True
+     3  True
+     4 False
+
+     # We can use the mask in the dataframe, df[mask], to see students with a grade > 90
+     >>> df[mask] # same as df[df["Grade"] > 90]
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     2   Emily  Female   21     93              99         100
+     3  Carter    Male   22     91              95         100
+
+A mask can also be used with ``loc`` to modify data given certain conditions. 
+You have to make sure that you pass in the arguments correctly as ``df.loc[mask, column_to_edit]``\.
+
+.. code-block:: python
+
+     # Set Test Score to 105 for students with Attendance > 95
+     >>> df.loc[df["Attendance (%)"] > 95, "Test Score"] = 105
+     >>> df
+          Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0   Sarah  Female   19     87              97         105
+     1     Jed    Male   20     85              92         100
+     2   Emily  Female   21     93              99         105
+     3  Carter    Male   22     91              95         100
+     4   James    Male   23     78              88         100
+
+Finally, there are a few syntax differences with Pandas boolean masking. 
+For logical "and" they use ``&`` and for logical "or" they use ``|``. 
+It is also important to note that "not" is ``~``\, but "not equal" is ``!=``\.
+Whenever you use these arguments make sure to surround the mask in ``()``\.
+
+.. code-block:: python
+
+     # Access rows where 'Sex' is 'Female' and 'Test Score' is 105
+     >>> df[(df['Sex'] == 'Female') & (df['Test Score'] == 105)]
+         Name     Sex  Age  Grade  Attendance (%)  Test Score
+     0  Sarah  Female   19     87              97         105
+     2  Emily  Female   21     93              99         105
+
+     # Access rows where 'Sex' is 'Male' or their 'Grade' is not 87
+     >>> df[(df['Sex'] == 'Male') | ~(df['Grade'] == 87)]
+          Name    Sex  Age  Grade  Attendance (%)  Test Score
+     1     Jed   Male   20     85              92         100
+     2   Emily Female   21     93              99         105
+     3  Carter   Male   22     91              95         100
+     4   James   Male   23     78              88         100
+
+
+
+Task 4
+------
+
+Load ``pollution_df``\.
+Create a new column ``Combined AQI Value`` which is the sum of the ``AQI Value``\, ``CO AQI Value``\, ``Ozone AQI Value``\, ``NO2 AQI Value``\, and ``PM2.5 AQI Value`` columns.
+Change the ``AQI Category`` to "terrible" where ``AQI Value`` and ``PM2.5 AQI Value`` are both greater than 100.
+
+
+Basic Statistical Functions
+---------------------------
+
+The Pandas library allows us to easily calculate basic summary statistics of our data, which can be
+useful when we want a quick description of the data. The ``describe()`` function outputs several
+such summary statistics for each column in a DataFrame:
+
+.. code-block:: python
+
+     >>> df
+            Math 290  Math 213  Math 495R
+     Ben          84        87         84
+     Kate         87        94         97
+     Trent        75        98         60
+     Bryce        67        75         94
+     Megan        89        67         66
+
+
+     >>> df.describe()
+             Math 290    Math 213   Math 495R
+     count   5.000000    5.000000    5.000000
+     mean   80.400000   84.200000   80.200000
+     std     9.600520   13.014604   15.711697
+     min    67.000000   67.000000   60.000000
+     25%    75.000000   75.000000   66.000000
+     50%    84.000000   87.000000   84.000000
+     75%    87.000000   94.000000   94.000000
+     max    89.000000   98.000000   97.000000
+
+Use ``rank()`` to rank the values in a data set, either within each entry or within each column. 
+It assigns each element a numeric rank based on the passed in arguments. 
+This function defaults ranking in ascending order: the least will be ranked 1 and the
+greatest will be ranked the highest number.
+
+.. code-block:: python
+
+     # Rank each student's performance in their classes in descending order
+     # (best to worst)
+     # The method keyword specifies what rank to use when ties occur.
+     >>> df.rank(axis=1, method="max", ascending=False)
+               Math 290  Math 213  Math 495R
+     Ben           2.0       1.0       2.0
+     Kate          3.0       2.0       1.0
+     Trent         2.0       1.0       3.0
+     Bryce         3.0       2.0       1.0
+     Megan         1.0       3.0       2.0
+
+Here are some other useful statistical functions.
+
+- ``df.std()`` - The standard deviation of the elements  
+- ``df.nunique()`` - Number of distinct elements  
+- ``df.pct_change()`` - Percentage change between elements  
+- ``df.skew()`` - Sample skewness of each column  
+
+Task 5
+------
+
+.. Have Them do problem 2
+
+Using the ``pollution_df``, find the country with the highest average for the ``AQI Value`` column and set the corresponding variable to that country and average.
 
 
 
