@@ -34,12 +34,12 @@ If this doesn't work, `initiate_deploy.sh` may not have permission to execute. Y
 `chmod +x initiate_deploy.sh`
 
 > [!WARNING]
-> `build_and_deploy.sh` should never be run from your machine.
+> `config/build_and_deploy.sh` should never be run from your machine.
 
 > [!NOTE]
 > The SSH protocol requires three things, the username, hostname, and password. The username and hostname are usually paired together like `<username>@<hostname>`. When this script asks for the username, only put in the actual `username` and not the username-hostname pair.
 
 ## Behind the Scenes
-`initiate_deploy.sh` will access the emc2 server (and make sure you have an ssh key to get in) and call `build_and_deploy.sh` which pulls everything, recompiles, then copies all the changes over to `emc2.byu.edu`.
+`initiate_deploy.sh` will access the emc2 server (and make sure you have an ssh key to get in) and call `config/build_and_deploy.sh` which pulls everything, recompiles, then copies all the changes over to `emc2.byu.edu`.
 
 ![](./config/deployment.svg)
