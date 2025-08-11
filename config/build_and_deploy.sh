@@ -24,7 +24,7 @@ buildType() {
     conda activate emc2_dev
 
     echo -e "${PURPLE}Making html...${RESET}"
-    make -C "../EMC2-Labs-$Type" clean
+    make -C "EMC2-Labs-$Type" clean
     make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
 
     status=$?
@@ -38,7 +38,7 @@ buildType() {
     read -s -p "Password for math department server: " MATH_PASSWORD
     echo
 
-    sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no ../EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
+    sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
     status=$?
     if [ $status -ne 0 ]; then
         echo -e "${RED}scp failed with code $status.${RESET}"
