@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-source ./server_config.env
+source ./config/server_config.env
 
 EMC2_HOST="ym-emc2.byu.edu"
 

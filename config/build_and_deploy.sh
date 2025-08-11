@@ -78,7 +78,7 @@ fi
 
 # verify we are on the math server
 host=$( hostname )
-if [[ "$host" != "math" ]]; then
+if [[ "$host" != "ym-emc2" ]]; then
     echo -e "${RED}build_and_deploy.sh is not being run from the math department's server, but from ${host}. Check the README for details.${RESET}"
     exit 1
 fi
