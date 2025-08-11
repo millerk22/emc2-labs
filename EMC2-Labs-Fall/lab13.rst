@@ -133,7 +133,8 @@ Linear transformations from :math:`\mathbb{R}^2` into :math:`\mathbb{R}^2` can b
   Below is an example of each of these linear transformations.
 
 
-
+.. image:: _static/6turtles.png
+    :align: center
 
 
 Task 1
