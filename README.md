@@ -33,10 +33,10 @@ If this doesn't work, `initiate_deploy.sh` may not have permission to execute. Y
 
 `chmod +x initiate_deploy.sh`
 
-> [! WARNING]
+> [!WARNING]
 > `build_and_deploy.sh` should never be run from your machine.
 
-> [! NOTE]
+> [!NOTE]
 > The SSH protocol requires three things, the username, hostname, and password. The username and hostname are usually paired together like `<username>@<hostname>`. When this script asks for the username, only put in the actual `username` and not the username-hostname pair.
 
 ## Behind the Scenes
