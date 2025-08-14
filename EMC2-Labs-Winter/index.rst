@@ -43,3 +43,4 @@ Choose a lab in the left sidebar.
    lab24
    lab_OOP
    lab_python_intro_2
+   bst
