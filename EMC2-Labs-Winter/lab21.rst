@@ -169,7 +169,7 @@ Then we can verify the accuracy of the model on the test set.
 Task 3
 ------
 
-Using your ``flatten_data`` function, create a new dataframe ``X_flat`` with the flattened data.
+Using your ``flatten_data`` function, create a new DataFrame ``X_flat`` with the flattened data.
 Then split the data into train and test sets using ``train_test_split``.
 Use 20% of the data for the test set.
 Use a random state of 42.

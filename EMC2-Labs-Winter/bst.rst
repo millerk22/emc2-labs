@@ -126,7 +126,7 @@ in Python using a class. This will include the ability to insert new values.
 >>> root.insert(2)  # Left of 5
 >>> root.insert(7)  # Right of 5
 
-This creates the same tree we made earlier by referencing ``left`` and ``right`` attrubutes, but this one just uses ``insert()``.
+This creates the same tree we made earlier by referencing ``left`` and ``right`` attributes, but this one just uses ``insert()``.
 
 .. image:: _static/figures/bst.svg
    :align: center
@@ -148,7 +148,7 @@ Here is the pseudocode for this algorithm:
         if node is None:
             return False
         if target equals node.value:
-            return true
+            return True
         if target is less than node.value:
             return search_bst(node.left, target)
         else:
@@ -253,7 +253,7 @@ Write a method in your ``BST`` class called ``is_balanced()`` that returns ``Tru
 Balancing Trees
 ---------------
 
-Once it is know that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees.
+Once it is known that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees.
 
 .. image:: _static/figures/thanos.png
     :align: center
