@@ -255,9 +255,11 @@ Make sure to copy the array before transforming it.
 Task 4
 ------
 
-Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector :math:`[7, -5, -1]^\mathrm{T}` and save it to the variable ``X_rotated``.
-Note that the plane is already facing in the direction of the vector :math:`[1, 0, 0]^\mathrm{T}`.
-(The data will be in the file ``plane.csv``.)
+Take the data points from the Global Hawk aircraft and apply a combination of these 3 rotations so that the plane faces in the direction of the vector `[7, -5, -1]` and save it to the variable ``X_rotated``.
+Assume the plane is already facing in the direction of the vector `[1, 0, 0]`.
+Remember that `cos(theta) = u*v / ||u||*||v||`. 
+Make sure to round both theta values to 2 decimal places to avoid rounding errors using ``round(theta, 2)``. 
+(The data will be in the file `plane.csv`.)
 
 
 
