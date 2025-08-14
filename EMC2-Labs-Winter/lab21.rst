@@ -61,23 +61,68 @@ This will make it interesting for our classifier to correctly identify the digit
 .. image:: _static/figures/mnist_5.png
     :align: center
 
-Have them plot a 1x3 plot of 3 examples of the digits. 
-show its plt.imshow(image, cmap='gray') for each of the 3 digits.
+Normally you will be able to load the data using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
+However, because of Codebuddy's lack of internet access, we will be using a subset of the data that had been loaded into a csv file.
+5000 samples of the data to be exact. 
+You will be given the data in a pandas dataframe with columns ``data`` and ``label``.
+The ``data`` column is 28x28 pixels of the image given as a ``numpy.ndarray``.
+The ``label`` column is the digit that the image represents.
 
+.. code:: python
 
-Explain why they need to flatten the image. Explain np.reshape 
+    >>> import pandas as pd
+    >>> y = data['label']
+    >>> X = data['data']
 
+Task 1
+------
 
+Create a figure with 3 subplots, and plot the images of the dataset at indexes 13, 3145, and 4321. 
+For each image, use ``plt.imshow(image, cmap='gray')`` to plot the image.
+Use ``plt.title(f"Digit: {label}")`` to display the label of the image.
+Set the title of the figure to ``"MNIST Digits"``.
+Use ``plt.axis('off')`` to remove the axes.
+Use ``plt.tight_layout()`` to adjust the spacing between the subplots.
 
-Because Codebuddy can only take up to 10mb of data, we will be using a subset of the MNIST dataset, 5000 entries exactly. 
+Image Flattening and Reshaping
+------------------------------
+
+You might notice that the MNIST data is a 2D array of 28x28 pixels, and that we can't take the difference between two 2D arrays.
+This is because machine learning algorithms typically expect data in a flat, tabular format rather than as 2D images.
+We basically compare the slices of the image to each other.
+The ``numpy.reshape()`` function allows us to change the shape of an array without changing its data.
+
+.. code:: python
+
+    >>> import numpy as np
+    >>> arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])  # shape is (2, 4)
+    >>> arr
+    [[1 2 3 4]
+     [5 6 7 8]]
+    >>> reshaped = np.reshape(arr, (4, 2))  # change to shape (4, 2)
+    >>> reshaped
+    [[1 2]
+     [3 4]
+     [5 6]
+     [7 8]]
+    >>> original = np.reshape(reshaped, (2, 4))  # change back to original shape
+    >>> original
+    [[1 2 3 4]
+     [5 6 7 8]]
+
+Task 2
+------
+
+Create a function ``flatten_data(X)`` which takes in a pandas dataframe with a column ``data`` and returns a numpy array of the flattened data.
+
 
 Train vs Test 
 -------------
 
-With supervised learning, we will always have a dataset with a known labels. 
+With supervised learning, we will always have a dataset with known labels. 
 When we train a model, we want to know how well it performs. 
 If we were to train the model on all the data, and then test it on the same data, we would not know how well it performs because it was trained on that data.
-Its like testing students on the practice test that we gave them all the answers for. 
+It's like testing students on the practice test that we gave them all the answers for. 
 This is why we split our data into train and test sets.
 We train the model on the train set, and then test it on the test set.
 We can then use the test set to evaluate the performance of the model.
@@ -121,15 +166,63 @@ Then we can verify the accuracy of the model on the test set.
     >>> print(f"The accuracy of the model is {accuracy}")
     The accuracy of the model is 0.80
 
+Task 3
+------
+
+Using your ``flatten_data`` function, create a new dataframe ``X_flat`` with the flattened data.
+Then split the data into train and test sets using ``train_test_split``.
+Use 20% of the data for the test set.
+Use a random state of 42.
+Finally fit a KNN classifier with 3 neighbors to the data, and print the accuracy of the model on the test set.
 
 
+Ablation Study
+--------------
+
+An ablation study is a systematic approach to understanding how different components or parameters of a model affect its performance. 
+The term "ablation" comes from the medical field, where it means removing or modifying parts to study their effects.
+In machine learning, we systematically change one parameter at a time while keeping everything else constant to isolate its impact.
+
+For KNN, the most important parameter to study is **k** (the number of neighbors), as it fundamentally changes how the algorithm makes decisions.
+
+**Common Effects of the Number of Neighbors (k)**
+
+1. **k = 1 (Single Neighbor)**
+   - Makes decisions based on only the closest training example
+   - Very sensitive to noise and outliers
+   - Can lead to overfitting (memorizing the training data)
+   - Creates complex, irregular decision boundaries
+
+2. **k = 3-5 (Small k)**
+   - Balances local patterns with some noise reduction
+   - Often provides good performance for many datasets
+   - Decision boundaries are still relatively complex
+
+3. **k = 7-15 (Medium k)**
+   - More robust to noise
+   - Smoother decision boundaries
+   - May lose some fine-grained local patterns
+
+4. **k > 15 (Large k)**
+   - Very smooth decision boundaries
+   - Less sensitive to noise but may miss important local patterns
+   - Can lead to underfitting (oversimplifying the problem)
+
+Task 4
+------
+
+Create a function ``ablate_k(X, y, k_values, test_size, random_state)`` which takes in the unflattened data, the labels, a list of k values, test size, and random state.
+Flatten the data, split the data into train and test sets, and fit a KNN classifier for each k value.
+For each k value, record the accuracy of the model on the test set.
+Finally, return a list of the k values and the accuracies of the form ``[(k1, accuracy1), (k2, accuracy2), ...]``.
 
 
+Task 5
+------
 
-
-
-
-
-
-
-
+Using your function from task 4, plot the k values (x-axis) and the accuracies (y-axis).
+Title the plot ``"KNN Classifier Accuracy vs k Value"``.
+Label the x-axis ``"k (Number of Neighbors)"`` and the y-axis ``"Accuracy"``.
+for the plotting, pass in the arguments ``['-bo', linewidth=2, markersize=8]``.
+Make sure to use ``plt.tight_layout()`` to adjust the spacing between the subplots.
+Make sure to use ``plt.show()`` to display the plot.
