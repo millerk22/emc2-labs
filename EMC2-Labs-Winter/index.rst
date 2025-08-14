@@ -16,6 +16,7 @@ Choose a lab in the left sidebar.
 .. toctree::
 
    SQLlab
+   bst
    lab01
    lab02
    lab03
