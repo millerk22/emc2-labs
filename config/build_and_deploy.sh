@@ -34,8 +34,10 @@ buildType() {
         exit 1
     fi
 
-    read -p "Username for math department server: " MATH_USER
-    read -s -p "Password for math department server: " MATH_PASSWORD
+    echo -e "${PURPLE}Username for math department server: ${RESET}"
+    read MATH_USER
+    echo -e "${PURPLE}Password for math department server: ${RESET}"
+    read -s MATH_PASSWORD
     echo
 
     sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
