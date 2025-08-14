@@ -62,8 +62,9 @@ Function: ``last_two_deleted``
             The trimmed number
         """
 
-        # Your code here
         # Tip: Use integer division
+        # Replace 'pass' with your code
+        pass
 
 >>> last_two_deleted(246810)
 2468
@@ -87,8 +88,9 @@ Function: ``last_two``
             The trimmed number
         """
 
-        # Your code here
         # Tip: Use the modulo operator (% 100)
+        # Replace 'pass' with your code
+        pass
 
 >>> last_two(246810)
 10
@@ -115,9 +117,10 @@ Function: ``first_half``
             The trimmed word
         """
 
-        # Your code here
         # Tip: Use integer division to exclude the middle character
         # Tip: Use the built-in function len(word) to get the length of word
+        # Replace 'pass' with your code
+        pass
 
 >>> first_half('yourname')
 'your'
@@ -143,9 +146,10 @@ Function: ``backward``
             The reversed word
         """
 
-        # Your code here
         # Tip: Use slicing
         # Tip: The step parameter in [start:stop:step] can be negative.
+        # Replace 'pass' with your code
+        pass
 
 >>> backward('desserts')
 `stressed'
@@ -174,9 +178,10 @@ Use some of your previously written functions to help make this more complicated
             The corresponding letter in the alphabet
         """
 
-        # Your code here
         # Tip: Use a while loop to look at the last two digits of message and convert those digits to a character
         # Repeat this process with a smaller integer message (which is message with the last two digits deleted).
+        # Replace 'pass' with your code
+        pass
 
 >>> int_to_str26(30120)
 `CAT'
@@ -206,10 +211,11 @@ Now do the same, but in reverse.
             The corresponding numbers
         """
 
-        # Your code here
         # Tip: Use a for loop.
         # Tip: If you prefer, you can keep track of the integer using a string (e.g. '123456')
         # Then convert it to an integer at the end (e.g. int('123456')).
+        # Replace 'pass' with your code
+        pass
 
 >>> str_to_int26('CAT')
 030120
