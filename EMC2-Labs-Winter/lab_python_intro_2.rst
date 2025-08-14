@@ -524,7 +524,7 @@ array([ 3,  6,  9, 12])
 
 The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
 
-.. image:: ./_static/broadcasting_stretch.png
+.. image:: ./_static/figures/broadcasting_stretch.png
     :align: center
 
 .. Note::
@@ -543,13 +543,13 @@ Consider the following arrays
 
 All of these arrays are broadcastable with one another because all can be expanded into a ``numpy.ndarray`` of shape ``(3, 4)``.
 
-.. image:: ./_static/broadcasting_abcd_pt2.png
+.. image:: ./_static/figures/broadcasting_abcd.png
     :align: center
     :alt: a, b, c, and d expanded into arrays of shape (3,4)
 
 On the other hand, array ``e`` with shape ``(5, 2)`` could not be broadcast into shape ``(3, 4)`` because none of the corresponding dimensions are the same and none of them are 1.
 
-.. image:: ./_static/broadcasting_e.png
+.. image:: ./_static/figures/broadcasting_e.png
     :align: center
     :height: 300
 
@@ -562,7 +562,7 @@ Consider this example. You are given a list of prices of products in USD and you
 
 We could loop over each of these and find the converted prices that way, or we can use array broadcasting. Right now, ``usd_prices`` has a shape of ``(4,)`` and ``exchange_rates`` has shape ``(3,)``. If we redefine ``exchange_rates`` to have shape ``(3,1)`` then we can use array broadcasting to get an array where each row represents the currency, and each column represents the price.
 
-.. image:: ./_static/broadcasting_currency.png
+.. image:: ./_static/figures/broadcasting_currency.png
     :align: center
     :alt: usd_prices and exchange_rates broadcasted and multiplied together
     :height: 400

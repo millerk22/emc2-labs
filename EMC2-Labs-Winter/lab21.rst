@@ -50,7 +50,7 @@ Each image is 28x28 pixels and is grayscale.
 Each image is a single digit from 0 to 9.
 Here is an example of all 10 digits.
 
-.. image:: _static/mnist_10.png
+.. image:: _static/figures/mnist_10.png
     :align: center
     :width: 80%
 
@@ -58,7 +58,7 @@ What makes this data set interesting is that there is a lot of variation in the 
 As you can see below, here are 5 different examples of the digit "5".
 This will make it interesting for our classifier to correctly identify the digit.
 
-.. image:: _static/mnist_5.png
+.. image:: _static/figures/mnist_5.png
     :align: center
 
 Have them plot a 1x3 plot of 3 examples of the digits. 
