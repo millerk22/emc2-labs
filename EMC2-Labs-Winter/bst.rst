@@ -39,13 +39,7 @@ Key terms:
    :align: center
    :alt: Basic tree diagram
 
-.. admonition:: Graphs
-
-    If you are familiar with graphs, a tree is a graph where each node only has one parent.
-
-In math, trees appear in many forms: parsing expressions in algebra,
-decision trees in statistics, factorization trees in number theory,
-or even tournament brackets in sports.
+Trees appear naturally in maany places like: parsing expressions in algebra, decision trees in statistics, factorization trees in number theory, tournament brackets in sports, or even outside in your front lawn.
 
 .. note::
     A node in a tree can have any amount of child nodes. In this lab, we will focus on **Binary Trees** which can have at most two child nodes.
@@ -66,7 +60,7 @@ If we want to make a generic ``Tree``, all we need is an object that holds 1) a 
 .. note::
     We didn't create a ``Node`` class to go in our ``Tree`` class. This is because each node in a tree can be a tree itself. This is the recursive nature of trees.
 
-To create a simple tree, we just have to create many happy little trees.
+To create a simple tree, we just have to create many sub-trees.
 
 .. code-block:: python
 
@@ -102,11 +96,9 @@ in Python using a class. This will include the ability to insert new values.
 
 .. code-block:: python
 
-    class BST:
+    class BST(Tree):
         def __init__(self, value):
-            self.value = value
-            self.left = None
-            self.right = None
+            super().__init__(value)
 
         def insert(self, value):
             if value < self.value:
@@ -115,7 +107,7 @@ in Python using a class. This will include the ability to insert new values.
                 else:
                     self.left = BST(value)
             else:
-                if self.right:
+                if self.right:  # same thing as saying if self.right is not None (if it exists)
                     self.right.insert(value)
                 else:
                     self.right = BST(value)
@@ -125,6 +117,12 @@ in Python using a class. This will include the ability to insert new values.
 >>> root.insert(15) # Right of 10
 >>> root.insert(2)  # Left of 5
 >>> root.insert(7)  # Right of 5
+
+Notice how our insert method is recursive. It checks the first node to see if the inserted value is bigger or smaller, and then goes righ tor left based on that. It continues this process until it encounters a leaf node. FOr example, inserting 7 in the above example looks like this:
+
+.. image:: _static/figures/bst_insertion.svg
+    :align: center
+    :alt: BST insertion
 
 This creates the same tree we made earlier by referencing ``left`` and ``right`` attrubutes, but this one just uses ``insert()``.
 
@@ -140,27 +138,19 @@ Searching in a BST
 
 Say we want to write a method in our ``BST`` class that will tell us if a value exists in our tree or not. This is fairly simple because at each node, we instantly know which side to search based on how the value we're looking for compares to the current node's value. This is similar to how the binary search algorithm divides a sorted list in half *by index*, a BST just divides the search space *by value*.
 
-Here is the pseudocode for this algorithm:
+The steps to find a value in a BST are as follows:
 
-.. code-block:: text
-
-    search_bst(node, target):
-        if node is None:
-            return False
-        if target equals node.value:
-            return true
-        if target is less than node.value:
-            return search_bst(node.left, target)
-        else:
-            return search_bst(node.right, target)
+#. If the node is ``None``, it is a leaf node and the value doesn't exist.
+#. If the node equals ``target``, return ``True``.
+#. If the node is less than the current node, search the left children.
+#. Otherwise, search the right branch of the node.
 
 How long would it take to determine if a value exists in a Python ``list``? What about in a ``BST``?
 
 Task 1
 ------
 
-Write a method in your ``BST`` class called ``search(node, value)`` that returns ``True`` if the value is in the ``BST``. Starter code will be given to you on codebuddy.
-
+Write a recursive method in your ``BST`` class called ``search(node, value)`` that returns ``True`` if the value is in the ``BST``. Starter code will be given to you on codebuddy.
 
 Returning a Sorted Python List
 -------------------------------
@@ -180,9 +170,7 @@ The *shape* of the tree *is* the ordering rule.
 Task 2
 ------
 
-Write a method in your ``BST`` class called ``inorder_traversal()`` that returns a Python ``list`` of all the data in the ``BST`` in order. Starter code will be given to you on codebuddy.
-
-
+Write a recursive method in your ``BST`` class called ``inorder_traversal()`` that returns a Python ``list`` of all the data in the ``BST`` in order. Starter code will be given to you on codebuddy.
 
 
 Other Tree Metrics
@@ -201,7 +189,7 @@ When working with trees, it can be useful to define metrics for talking about wh
 Task 3
 ------
 
-Write a method in your ``BST`` class called ``height()`` that calculates the height of your ``BST``. Starter code will be given to you on codebuddy.
+Write a recursive method in your ``BST`` class called ``height()`` that calculates the height of your ``BST``. Starter code will be given to you on codebuddy.
 
 Balanced and Unbalanced Trees
 -----------------------------
@@ -217,19 +205,19 @@ Both trees contain the same data (``[1, 2, 3, 4, 5, 6]``), but which one will be
 This is the problem of **balanced** and **unbalanced** trees. The first tree essentially acts the same as a Python ``list`` (``O(n)`` search complexity), while the second acts as a true ``BST`` (``O(log(n))`` search complexity. The difference is how we input the data:
 
 >>> # Figure 1
->>> root = BST(1)   # Root
->>> root.insert(2)  # Right of 1
->>> root.insert(3)  # Right of 2
->>> root.insert(4)  # Right of 3
->>> root.insert(5)  # Right of 4
->>> root.insert(6)  # Right of 5
-
->>> # Figure 2
 >>> root = BST(3)   # Root
 >>> root.insert(1)  # Left of 3
 >>> root.insert(2)  # Right of 1
 >>> root.insert(5)  # Right of 3
 >>> root.insert(4)  # Left of 5
+>>> root.insert(6)  # Right of 5
+
+>>> # Figure 2
+>>> root = BST(1)   # Root
+>>> root.insert(2)  # Right of 1
+>>> root.insert(3)  # Right of 2
+>>> root.insert(4)  # Right of 3
+>>> root.insert(5)  # Right of 4
 >>> root.insert(6)  # Right of 5
 
 A tree is **balanced** if, for every node, the heights of its left and right subtrees differ by no more than one.
@@ -247,13 +235,13 @@ Conceptual takeaway:
 Task 4
 ------
 
-Write a method in your ``BST`` class called ``is_balanced()`` that returns ``True`` if the tree is balanced and ``False`` otherwise. Starter code will be given to you on codebuddy.
+Write a recursive method in your ``BST`` class called ``is_balanced()`` that returns ``True`` if the tree is balanced and ``False`` otherwise. Starter code will be given to you on codebuddy.
 
 
 Balancing Trees
 ---------------
 
-Once it is know that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees.
+Once it is know that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees. Both of these algorithms rely on rotating nodes (changing the root of the subtree) to balance the overall tree. If you take CS 235 you will learn how to implement this algorithm.
 
 .. image:: _static/figures/thanos.png
     :align: center
