@@ -118,13 +118,13 @@ in Python using a class. This will include the ability to insert new values.
 >>> root.insert(2)  # Left of 5
 >>> root.insert(7)  # Right of 5
 
-Notice how our insert method is recursive. It checks the first node to see if the inserted value is bigger or smaller, and then goes righ tor left based on that. It continues this process until it encounters a leaf node. FOr example, inserting 7 in the above example looks like this:
+Notice how our insert method is recursive. It checks the first node to see if the inserted value is bigger or smaller, and then goes right or left based on that. It continues this process until it encounters a leaf node. For example, inserting 7 in the above example looks like this:
 
 .. image:: _static/figures/bst_insertion.svg
     :align: center
     :alt: BST insertion
 
-This creates the same tree we made earlier by referencing ``left`` and ``right`` attrubutes, but this one just uses ``insert()``.
+This creates the same tree we made earlier by referencing ``left`` and ``right`` attributes, but this one just uses ``insert()``.
 
 .. image:: _static/figures/bst.svg
    :align: center
@@ -241,7 +241,7 @@ Write a recursive method in your ``BST`` class called ``is_balanced()`` that ret
 Balancing Trees
 ---------------
 
-Once it is know that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees. Both of these algorithms rely on rotating nodes (changing the root of the subtree) to balance the overall tree. If you take CS 235 you will learn how to implement this algorithm.
+Once it is known that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees. Both of these algorithms rely on rotating nodes (changing the root of the subtree) to balance the overall tree. If you take CS 235 you will learn how to implement this algorithm.
 
 .. image:: _static/figures/thanos.png
     :align: center
