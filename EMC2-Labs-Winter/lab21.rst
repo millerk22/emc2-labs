@@ -1,22 +1,20 @@
 Lab 21: K-Nearest Neighbors Classifier
 ======================================
 
-In this lab you will learn how to split data into train and test sets and use the K-Nearest Neighbors (KNN) classifier to classify images of handwritten digits.
 
 KNN Classifier
 --------------
 
-In Lab 18 we talked about the K-Means clustering algorithm which was a type of unsupervised learning.
+In Lab 18 we talked about the K-Means clustering algorithm which is a type of unsupervised learning.
 This lab will focus on a form of **supervised learning** where the input data has a known label.
-This is the equivalent of us learning how to read. 
-We see hundreds and thousands of different letters when we are young, and we slowly learn how to identify them correctly.
+We are essentially teaching a computer how to read. When we learned to read, we saw hundreds and thousands of different examples and eventually learned how to identify them correctly.
+We do the same for computers. We give them a lot of examples and teach them how to identify them correctly.
 
-
-The K-Nearest Neighbors classifier is a type of supervised learning and it is very easy to understand.
-First we feed it in a set of data with known labels.
-Then it receives a new data point, it looks at the k nearest neighbors to the data point and then votes on the label of the data point.
-"Nearest" can be any defined distance that you choose.
-We will be using the Euclidean distance for this lab.
+The KNN classifier is a supervised learning algorithm. 
+Given a set of data points with known labels, it can take a new data point with an unknown label and classify it. 
+It does this by taking the new data point and finding the :math:`k` number of points that are closest (according to some distance metric, in our case, the Euclidean distance) to it. 
+Then it uses each of those neighbor's labels to vote on the label of the unknown data point. 
+The most common label among the k nearest neighbors becomes the predicted label for the new data point.
 
 .. math::
 
@@ -45,9 +43,8 @@ For that you will use the ``predict(data)`` method which returns an array of the
 The MNIST Dataset
 -----------------
 
-The MNIST dataset is a collection of 70,000 images of handwritten digits.
-Each image is 28x28 pixels and is grayscale.
-Each image is a single digit from 0 to 9.
+The MNIST dataset is a collection of 70,000 images of handwritten digits (0-9). 
+Each of these grayscale images is 28x28 pixels.
 Here is an example of all 10 digits.
 
 .. image:: _static/figures/mnist_10.png
@@ -62,8 +59,7 @@ This will make it interesting for our classifier to correctly identify the digit
     :align: center
 
 Normally you will be able to load the data using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
-However, because of Codebuddy's lack of internet access, we will be using a subset of the data that had been loaded into a csv file.
-5000 samples of the data to be exact. 
+However, because of Codebuddy's lack of internet access, we will be using 5000 samples of the data that has been loaded into a csv file.
 You will be given the data in a pandas dataframe with columns ``data`` and ``label``.
 The ``data`` column is 28x28 pixels of the image given as a ``numpy.ndarray``.
 The ``label`` column is the digit that the image represents.
@@ -71,6 +67,8 @@ The ``label`` column is the digit that the image represents.
 .. code:: python
 
     >>> import pandas as pd
+    # get_data() will be a hidden function defined in codebuddy
+    >>> data = read_mnist_data(mnist_5k.csv)
     >>> y = data['label']
     >>> X = data['data']
 
@@ -78,18 +76,20 @@ Task 1
 ------
 
 Create a figure with 3 subplots, and plot the images of the dataset at indexes 13, 3145, and 4321. 
-For each image, use ``plt.imshow(image, cmap='gray')`` to plot the image.
-Use ``plt.title(f"Digit: {label}")`` to display the label of the image.
-Set the title of the figure to ``"MNIST Digits"``.
-Use ``plt.axis('off')`` to remove the axes.
-Use ``plt.tight_layout()`` to adjust the spacing between the subplots.
+
+* Set the figure size to ``(12, 4)``
+* For each image, use ``plt.imshow(image, cmap='gray')`` to plot the image
+* Use ``ax[i].set_title(f"Digit: {label}")`` to display the label of the image
+* Set the overall title of the figure to ``"MNIST Digits"`` using ``plt.suptitle()``
+* Use ``plt.axis('off')`` to remove the axes
+* Use ``plt.tight_layout()`` to adjust the spacing between the subplots
 
 Image Flattening and Reshaping
 ------------------------------
 
-You might notice that the MNIST data is a 2D array of 28x28 pixels, and that we can't take the difference between two 2D arrays.
+You might notice that the MNIST data is a 2D array of 28x28 pixels, we actually need to flatten the data into a 1D array.
 This is because machine learning algorithms typically expect data in a flat, tabular format rather than as 2D images.
-We basically compare the slices of the image to each other.
+Essentially, we compare each pixel position between images to calculate distances.
 The ``numpy.reshape()`` function allows us to change the shape of an array without changing its data.
 
 .. code:: python
@@ -113,14 +113,15 @@ The ``numpy.reshape()`` function allows us to change the shape of an array witho
 Task 2
 ------
 
-Create a function ``flatten_data(X)`` which takes in a pandas dataframe with a column ``data`` and returns a numpy array of the flattened data.
+Create a function ``flatten_data(X)`` which takes in a pandas dataframe with a column ``data`` and returns a numpy array of the flattened data. 
+The returned array should have shape [n, 784] where n is the number of images and 784 = 28x28 pixels.
 
 
 Train vs Test 
 -------------
 
 With supervised learning, we will always have a dataset with known labels. 
-When we train a model, we want to know how well it performs. 
+When we train a model on a dataset, we want to know how well it performs on new, unseen data.
 If we were to train the model on all the data, and then test it on the same data, we would not know how well it performs because it was trained on that data.
 It's like testing students on the practice test that we gave them all the answers for. 
 This is why we split our data into train and test sets.
@@ -134,17 +135,17 @@ Let's pretend that we want to train a fictitious model to predict whether a numb
 
     >>> from sklearn.model_selection import train_test_split
     >>> X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] # Features
-    >>> y = [True, False, True, False, True, False, True, False, True, False, True] # Labels
+    >>> y = [False, True, False, True, False, True, False, True, False, True] # Labels
 
     # we split the data into train and test sets
     # test_size is the percentage of the data that we want to use for the test set
     >>> X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     >>> X_train
-    [1, 2, 3, 4, 5, 6, 7, 8]
+    [6, 1, 8, 3, 10, 5, 4, 7]
     >>> X_test
-    [9, 10]
+    [9, 2]
     >>> y_train
-    [False, True, False, True, False, True, False, True]
+    [True, False, True, False, True, False, True, False]
     >>> y_test
     [False, True]
 
@@ -157,7 +158,7 @@ Once we have split the data, we can train the model on the train set and test it
     >>> y_pred = model.predict(X_test)
 
 Then we can verify the accuracy of the model on the test set.
-``accuracy_score`` is a function that calculates the accuracy of the model just using simple correct over incorrect. 
+``accuracy_score`` is a function that calculates the accuracy of the model by dividing the number of correct predictions by the total number of predictions.
 
 .. code:: python
 
@@ -166,14 +167,19 @@ Then we can verify the accuracy of the model on the test set.
     >>> print(f"The accuracy of the model is {accuracy}")
     The accuracy of the model is 0.80
 
+.. note:: 
+
+    We use lowercase `y` for labels because it's a common convention in machine learning - `X` represents features (capitalized because it's typically a matrix), while `y` represents the target variable (lowercase because it's typically a vector).
+
 Task 3
 ------
 
-Using your ``flatten_data`` function, create a new DataFrame ``X_flat`` with the flattened data.
+Using your ``flatten_data`` function, create a new array ``X`` with the flattened data.
 Then split the data into train and test sets using ``train_test_split``.
 Use 20% of the data for the test set.
 Use a random state of 42.
 Finally fit a KNN classifier with 3 neighbors to the data, and print the accuracy of the model on the test set.
+(Remember that you need to get ``y`` from the original dataframe.)
 
 
 Ablation Study
@@ -181,7 +187,7 @@ Ablation Study
 
 An ablation study is a systematic approach to understanding how different components or parameters of a model affect its performance. 
 The term "ablation" comes from the medical field, where it means removing or modifying parts to study their effects.
-In machine learning, we systematically change one parameter at a time while keeping everything else constant to isolate its impact.
+In a machine learning context, we systematically change one parameter at a time while keeping everything else constant to isolate its impact.
 
 For KNN, the most important parameter to study is **k** (the number of neighbors), as it fundamentally changes how the algorithm makes decisions.
 
@@ -190,7 +196,7 @@ For KNN, the most important parameter to study is **k** (the number of neighbors
 1. **k = 1 (Single Neighbor)**
    - Makes decisions based on only the closest training example
    - Very sensitive to noise and outliers
-   - Can lead to overfitting (memorizing the training data)
+   - Can lead to overfitting (memorizing the training data to the point where it performs poorly on new data)
    - Creates complex, irregular decision boundaries
 
 2. **k = 3-5 (Small k)**
@@ -211,8 +217,8 @@ For KNN, the most important parameter to study is **k** (the number of neighbors
 Task 4
 ------
 
-Create a function ``ablate_k(X, y, k_values, test_size, random_state)`` which takes in the unflattened data, the labels, a list of k values, test size, and random state.
-Flatten the data, split the data into train and test sets, and fit a KNN classifier for each k value.
+Create a function ``ablate_k(X, y, k_values, test_size, random_state)`` which takes in the flattened data, the labels, a list of k values, test size, and random state.
+Split the data into train and test sets, and fit a KNN classifier for each k value.
 For each k value, record the accuracy of the model on the test set.
 Finally, return a list of the k values and the accuracies of the form ``[(k1, accuracy1), (k2, accuracy2), ...]``.
 
@@ -220,9 +226,11 @@ Finally, return a list of the k values and the accuracies of the form ``[(k1, ac
 Task 5
 ------
 
-Using your function from task 4, plot the k values (x-axis) and the accuracies (y-axis).
-Title the plot ``"KNN Classifier Accuracy vs k Value"``.
-Label the x-axis ``"k (Number of Neighbors)"`` and the y-axis ``"Accuracy"``.
-for the plotting, pass in the arguments ``['-bo', linewidth=2, markersize=8]``.
-Make sure to use ``plt.tight_layout()`` to adjust the spacing between the subplots.
-Make sure to use ``plt.show()`` to display the plot.
+Using your function from task 4, plot the k values from 1 to 10 (x-axis) and the accuracies (y-axis).
+
+* Use a test size of 0.2 and a random seed of 39
+* Title the plot ``"KNN Classifier Accuracy vs k Value"``
+* Label the x-axis ``"k (Number of Neighbors)"`` and the y-axis ``"Accuracy"``
+* For the plotting, pass in the arguments ``['-bo', linewidth=2, markersize=8]``
+* Use ``plt.tight_layout()`` to adjust the spacing between the subplots
+* Use ``plt.show()`` to display the plot
