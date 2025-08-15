@@ -47,7 +47,7 @@ For linear transformations from :math:`\mathbb{R}^2` to :math:`\mathbb{R}^2`, th
 Linear transformations can be interpreted geometrically.
 To demonstrate this, consider an array of points :math:`T` that collectively form the picture of the BYU Turtle above.
 The coordinate pairs :math:`\mathbf{x}_i` are organized by column, so the array has two rows: one for :math:`x`-coordinates, and one for :math:`y`-coordinates.
-Matrix multiplication on the left transforms each coordinate pair, resulting in another matrix :math:`H'` whose columns are the transformed coordinate pairs:
+Matrix multiplication on the left transforms each coordinate pair, resulting in another matrix :math:`T'` whose columns are the transformed coordinate pairs:
 
 .. math::
 

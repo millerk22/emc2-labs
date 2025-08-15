@@ -14,7 +14,7 @@ At its core, graph theory explores how these connections form patterns and what 
 
 
 We can apply networks for studying the internet: we model websites as nodes in the graph which are connected by various hyperlinks acting as edges.
-Networks like this allow have traditionally allowed search engines such as Google to rank pages based on importance or relevance.
+Networks like this have traditionally allowed search engines such as Google to rank pages based on importance or relevance.
 In this lab we will walk you through this process of finding the importance of pages.
 
 
@@ -67,7 +67,7 @@ Task 1
 ------
 Define a function ``adj_matrix(edge_matrix)``\. 
 This function should take a :math:`m \times 2`  ``np.array`` and return the respective :math:`n \times n` adjacency matrix.
-Note that because each node is represented by a number between :math:`0` and :math:`n-1` use ``np.max()`` and add 1 to find the size of the adjacency matrix.
+Note that because each node is represented by a number between :math:`0` and :math:`n-1`, use ``np.max()`` and add 1 to find the size of the adjacency matrix.
 If you are confused on how to set up the adjacency matrix, refer to the notes above.
 
 
@@ -181,7 +181,7 @@ Now consider the vector below whose column adds up to 1.
     \end{array}
     \right].
 
-Because :math:`P` is a column stochastic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
+Because :math:`P` is a column stochastic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one, the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
 and the Power Method becomes :math:`x_{k+1} = Px_k`. 
 Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 

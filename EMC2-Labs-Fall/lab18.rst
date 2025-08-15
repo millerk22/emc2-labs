@@ -106,7 +106,7 @@ The following is an outline for how to decrypt a ciphertext encoded with the Vig
       from the table at the top of the lab.
       Then the ``j``-th letter of the key is the ``m``-th letter of the alphabet.
 
-4. Decrypt the ciphertext using the key you found in part 5.
+4. Decrypt the ciphertext using the key you found.
 
 .. admonition:: Understanding the logic
 

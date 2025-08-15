@@ -449,7 +449,7 @@ the first line of the function.
       def arithmetic(i, j):
          k = i + 2
          l = k * j
-         w = k - 5
+         w = l - 5
          return w
 
    What output do the following commands produce? (Try to figure it out before you run the code.)
@@ -501,7 +501,7 @@ a ``return`` statement. In other words, write a function that does the exact sam
    This is a very important step in programming -- don't skip it!
 
    >>> arithmetic2(3, 4)
-   0
+   15
    >>> arithmetic2(-10, 1)
    -13
 
@@ -518,7 +518,7 @@ number ``x``, and returns the absolute value of ``x``.
 
 Task 4
 ------
-Define a function called ``avg(x,y)`` which takes two values ``x`` and ``y`` as input, and outputs the mean of ``x`` and ``y``. Recall that the *mean* of two numbers :math:`a` and :math:`b` is defined to be :math:`(a+b)/2`.
+Define a function called ``avg(x,y)`` which takes two values ``x`` and ``y`` as input, and outputs the mean of ``x`` and ``y``.
 
 >>> avg(10, 30)
 20

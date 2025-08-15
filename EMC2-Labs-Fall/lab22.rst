@@ -22,4 +22,4 @@ Complete every level from each of the following worlds:
 #. Addition World
 #. Multiplication World
 
-In the next lab, you will complete worlds 4-6.
+In the next 290 lab, (:doc:`lab24`), you will complete worlds 4-6.

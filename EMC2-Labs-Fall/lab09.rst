@@ -14,9 +14,9 @@ Methods such as Gaussian elimination can give us the exact solution for :math:`x
 While this is straightforward for small matrices like :math:`2 \times 2` or :math:`3 \times 3` it becomes harder to solve as the matrices get larger. 
 This same challenge applies when using computers. 
 Furthermore, because computers store numbers with finite precision, rounding errors can often occur during calculation. 
-This effect is amplified when a matrix is ill-conditioned, that is, small changes in :math:`A, b` greatly change :math:`x`.
+This effect is amplified when a matrix is ill-conditioned, that is, small changes in :math:`A` and/or :math:`b` greatly change :math:`x`.
 This leads to incorrect solutions even when the math is solid.
-Both of these effects combined leads to us often avoiding Gaussian elimination when solving large systems. 
+Both of these effects combined lead to us often avoiding Gaussian elimination when solving large systems. 
 
 Hence, in these scenarios we use iterative methods to solve for :math:`x`.
 Iterative methods involve using initial values to generate a sequence of improving approximate solutions. 
@@ -29,7 +29,7 @@ When we plug this vector into an iterative method, we obtain a better estimate f
 
 As we continue to iterate, we will generate a *sequence* of iterates :math:`\{x^0, x^1, \dots, x^k\}` that is *converging* to :math:`x`.
 You will have the chance in Math 341 to learn more about *sequences* and *convergence*.
-For now just think of it as limit in the sense that :math:`\lim_{k\to \infty} x^k = x`.
+For now, just think of it as limit in the sense that :math:`\lim_{k\to \infty} x^k = x`.
 
 Once again, the reason we use these iterative methods is because they are often straight forward equations that can be calculated easily. 
 You will see two types of iterative methods used for solving systems of linear equations. 
@@ -107,17 +107,20 @@ and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outpu
 
 .. note::
 
-    It is important to note that when dealing when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are both column vectors and not simply vectors.
-    We pass them in as vectors for simplicity's sake, however it is important to know the different ways to create vectors, column vectors, and row vectors in ``numpy``\.
+    It is important to note that when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are written as column vectors to ensure that the dimensions work out. This can be confusing because NumPy doesn't have a specific orientation for one dimensional vectors (they act as if they are column or row vectors).
 
     .. code-block:: python
         
-        # How to write a vector
+        # NumPy vector
         >>> a = np.array([1, 2, 3])
         >>> a.shape
         (3,)
         >>> a
         array([1, 2, 3])
+
+    To make a vector explicitly a column vector or row vector, we can reshape it.
+
+    .. code-block:: python
 
         # How to write a row vector
         >>> b = np.array([[1, 2, 3]])
@@ -135,6 +138,7 @@ and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outpu
                [2],
                [3]])
 
+    In our functions, ``x``, ``A``, and ``b`` are passed in as one dimensional vectors for simplicity's sake.
 
 
 Task 2
@@ -189,7 +193,7 @@ If we generalize this formula to a :math:`2 \times 2` matrix we get the formula
 Notice how that the only difference between this method and Jacobi's method, is the :math:`x_1^{k+1}` used in the calculation of :math:`x_2^{k+1}`.
 Unlike Jacobi's method, Gauss-Seidel uses updated values as soon as they are computed. 
 This constitutes the biggest change between the 2 methods. 
-The benefit of Jacobi's method is that it can run in parallel. For now all you need to know is that this means it can be quickly run on a GPU.
+The benefit of Jacobi's method is that it can run in parallel. For now, all you need to know is that this means it can be quickly run on a GPU.
 Gauss-Seidel's method often has a faster convergence and needs less iterations than Jacobi, and in some cases it even converges when the Jacobi cannot.
 
 Task 3
@@ -225,7 +229,7 @@ np.array([3, 4])
 Task 5
 ------
 
-Write a function called ``gauss_seidel_error(A, b, x, sol, tol)``. This function will take in 
+Write a function called ``gauss_seidel_error(A, b, x, sol, tol)``which takes in 
 a matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), vector ``b``, initial vector guess ``x``\, solution vector ``sol``\, and a desired error level ``tol``.
 You will need to modify ``gauss_seidel_method`` to perform iterations until the distance between the iterate and ``sol`` is less than or equal to the tolerance, and then returns the approximate solution.
 

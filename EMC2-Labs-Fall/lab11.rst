@@ -53,7 +53,7 @@ The steps of Rayleigh's method are:
 
 A Simple Pendulum
 ~~~~~~~~~~~~~~~~~
-As simple example of Rayleigh's method, lets consider how long a pendulum takes to complete a swing. This is called the period. We assume that the period :math:`t` (in units of time) is based on the quantities :math:`m` (mass), :math:`l` (length), :math:`g` (acceleration due to gravity), and :math:`C` (some dimensionless constant).
+As a simple example of Rayleigh's method, let's consider how long a pendulum takes to complete a swing. This is called the period. We assume that the period :math:`t` (in units of time) is based on the quantities :math:`m` (mass), :math:`l` (length), :math:`g` (acceleration due to gravity), and :math:`C` (some dimensionless constant).
 
 .. image:: ./_static/pendulum.png
     :width: 40%
@@ -191,7 +191,7 @@ Use ``numpy.round(a, decimals)`` to round your answers to 2 decimal places. ``a`
 Task 3: Estimate the Energy Yield
 ---------------------------------
 
-With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a function ``energy_yield(R, t)`` that will estimate the energy yield of the bomb for any given radius ``R`` and time ``t``. Use it to estimate the energy yield of the bomb for all of the pictures shown above. Assume :math:`C=1`.
+With the correct values for :math:`x`, :math:`y`, and :math:`z`, write a function ``energy_yield(R, t)`` that will estimate the energy yield of the bomb for any given radius ``R`` and time ``t``. Use it to estimate the energy yield of the bomb for all of the pictures shown above. Assume :math:`C=1`. Round your answer to the nearest tenth's place using Python's ``round(number, digits)`` function.
 
 .. note::
 

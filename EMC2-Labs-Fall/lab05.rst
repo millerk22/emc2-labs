@@ -16,10 +16,10 @@ For ease of readability, Python also accepts this:
         [ 7,  8,  9],
         [10, 11, 12]]
 
-Nested for Loops
+Nested For Loops
 ----------------
 
-When working with vectors represented as Python ``list``\s, we used a single for loop, but when working with matrices it is helpful to use multiple for loops, one to go over rows, and another to go over columns. We call these nested ``for`` loops. Consider the following simple code.
+When working with vectors represented as Python ``list``\s, we used a single ``for`` loop, but when working with matrices it is helpful to use multiple ``for`` loops, one to go over rows, and another to go over columns. We call these nested ``for`` loops. Consider the following simple code.
 
 .. code-block:: python
 
@@ -58,7 +58,7 @@ of this code is shown below.
    i = 3 and j = 1
    i = 3 and j = 2
 
-Let's print out the values of matrix ``A`` from above using nested for loops.
+Let's print out the values of matrix ``A`` from above using nested ``for`` loops.
 
 .. code-block:: python
 
@@ -95,9 +95,9 @@ This code works well for 4x3 matrices. If we want to generalize to any matrix, w
 We can now use this function on any matrix as long as it is represented as a list of lists.
 
 Consider the following, slightly more complex, code. Here we define a function that takes
-a matrix ``M``, and replaces all of the negative entries with their absolute values (so for example,
+a matrix ``M``, and replaces all of the negative entries with their absolute values. For example,
 if a ``-2`` occurs somewhere in the matrix, that entry is replaced with ``2``, while any nonnegative
-entries are left alone).
+entries are left alone.
 
 .. code-block:: python
 
@@ -114,9 +114,9 @@ In the above function, we first create two variables, ``n_rows`` and ``n_cols`` 
 number of rows and columns in ``M`` respectively. After defining these two variables there are two
 loops, one inside of the other. The outside loop uses the variable ``i``, which loops through the
 different row indices in ``range(n_rows)``. For each step in the outside ``i`` loop (which we think of
-as being a row of ``M``), we run through another for loop, this time cycling through the column
+as being a row of ``M``), we run through another ``for`` loop, this time cycling through the column
 indices in ``range(n_cols)``. For each combination of ``i`` and ``j``, we test whether the entry ``M[i,j]``
-in the ``i, j`` location is negative, and if it is we replace it with its absolute value.
+in the ``i, j`` location is negative, and if it is, we replace it with its absolute value.
 
 Now, we can see if the function actually does what we think it should:
 
@@ -167,7 +167,7 @@ a NumPy array), and adds up all of the entries.
 Task 2
 ------
 
-Using nested for loops, write a function ``matrix_sum(A, B)`` that takes in two Python lists of lists and returns the matrix sum. Raise a ``ValueError`` if the matrices are different shapes
+Using nested ``for`` loops, write a function ``matrix_sum(A, B)`` that takes in two Python lists of lists and returns the matrix sum. Raise a ``ValueError`` if the matrices are different shapes
 
 >>> matrix_sum([[1, 2], [3, 4]], [[5, 6], [7, 8]])
 [[6, 8], [10, 12]]

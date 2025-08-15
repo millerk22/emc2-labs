@@ -1,7 +1,7 @@
 Lab 24: The Lean Theorem Prover Part II
 =======================================
 
-This lab is a continuation of `Lab 23 <lab23.html>`_ where you learn to use Lean.
+This lab is a continuation of :doc:`lab22`.
 
 Task 1
 ------

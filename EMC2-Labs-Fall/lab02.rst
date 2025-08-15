@@ -51,16 +51,16 @@ Consider the following function from Lab 1:
 
 .. code-block:: python
 
-    def arithmetic(i, j):
-        k = i + 2
-        l = k * j
-        w = k - 5
-        return w
+   def arithmetic(i, j):
+      k = i + 2
+      l = k * j
+      w = l - 5
+      return w
 
 One important thing to note is how variables are treated by Python when they are defined inside of a function (like the variables ``k``, ``l``, and ``w`` above). These are examples of **local** variables, which are defined and can only be accessed from within the function itself. For example, when calling the function ``arithmetic(3)``, the intermediate variable ``k`` is assigned the value of ``15`` as part of the evaluation. However, as soon as the function finishes evaluating, the variable ``k`` and its value are immediately discarded, and can no longer be accessed. Trying to access it will result in an error message, indicating that we did something wrong:
 
 >>> arithmetic(3, 4)
-10
+15
 >>> k
 NameError: name 'k' is not defined
 
@@ -83,7 +83,7 @@ Task 1
 ------
 
 1. Define a function called ``triple(y)`` which takes a value ``y`` as input, and outputs ``3y``.
-2. Define a function called ``avg(x,y)`` which takes two values ``x`` and ``y`` as input, and outputs the mean of ``x`` and ``y``. Recall that the *mean* of two numbers :math:`a` and :math:`b` is defined to be :math:`(a+b)/2`.
+2. Define a function called ``avg(x,y)`` which takes two values ``x`` and ``y`` as input, and outputs the mean of ``x`` and ``y``.
 3. Define a function called ``combine(x,y)`` which takes a pair of input values ``x`` and ``y``, and finds the mean of ``x`` and ``3y``. The function ``combine(x,y)`` should call both of your functions ``triple(y)`` and ``avg(x,y)`` in its definition.
 
 >>> triple(10)
@@ -245,14 +245,14 @@ For Loops
 
 Loops are another tool we have in programming. They are commonly used to perform repetitive tasks like repeating calculations, processing items in a list, or automating steps that would be tedious to write out individually. In Python, the most common types of loops are ``for`` loops and ``while`` loops. Let's start by exploring ``for`` loops. In this lab, we will be using loops and lists to do vector arithmetic. 
 
-This is what a for loop looks like.
+This is what a ``for`` loop looks like.
 
 .. code-block:: python
    
    for variable in sequence:
       # code to execute
 
-``variable`` takes the value of each item in ``sequence`` one by one, then the indented block under the for statement runs for each value of ``variable``. Let's think of this as our "for-sequence" loop. Here is an example,
+``variable`` takes the value of each item in ``sequence`` one by one, then the indented block under the ``for`` statement runs for each value of ``variable``. Let's think of this as our "for-sequence" loop. Here is an example,
 
 .. code-block:: python
 
@@ -270,7 +270,7 @@ This is what a for loop looks like.
 
 When executing a loop, Python starts by assigning the variable (in this case, ``item``) to the first element in the sequence (``A``). Then, Python executes all of the lines that are tabbed in under the loop. For us, this just prints the item to the screen. After it has completed all the tabbed lines, Python returns to the top of the loop and checks if it is done. After one iteration, there are still three more items in the list so we need to keep going. Python will then set ``item`` to the second item in ``L``, which is ``-6.7`` and print it to the screen. Then we return to the top of the loop and continue the process until there are no more items in ``L``.
 
-Another kind of for loop uses the ``range()`` function. Let's call this our "for-range" loop.
+Another kind of ``for`` loop uses the ``range()`` function. Let's call this our "for-range" loop.
 
 .. code-block:: python
 
@@ -299,7 +299,7 @@ Now let's try something slightly more complicated. Let's say we wanted to sum up
 
    print(sum)
 
-We start by defining our list ``L`` and setting our ``sum`` variable to 0. Then, we step into our for loop. The first step in the loop will take the first element in ``L`` (``1``) and assign it to ``num``. Then, we take the previous ``sum`` and add it to ``num`` and make that the new ``sum``. At that point, our loop is done with its first iteration, so Python goes back up to the top of the loop and follows the same process with the next value in ``L``, which, in this case is ``5``.
+We start by defining our list ``L`` and setting our ``sum`` variable to 0. Then, we step into our ``for`` loop. The first step in the loop will take the first element in ``L`` (``1``) and assign it to ``num``. Then, we take the previous ``sum`` and add it to ``num`` and make that the new ``sum``. At that point, our loop is done with its first iteration, so Python goes back up to the top of the loop and follows the same process with the next value in ``L``, which, in this case is ``5``.
 
 Notice that we initially set our ``sum`` variable to ``0`` because we are treating it as a running sum that we calculate as we move through the list.
 
@@ -486,7 +486,7 @@ and save it as a variable called ``long_list``.
 Task 10
 -------
 
-Using list comprehension, write a function called ``cel_to_fah(f)`` that takes in a list of temperatures in Celsius and returns a list of temperatures in Fahrenheit. The formula is :math:`\frac{9}{5}c + 32 = f`.
+Using list comprehension, write a function called ``cel_to_fah(c)`` that takes in a list of temperatures in Celsius and returns a list of temperatures in Fahrenheit. The formula is :math:`\frac{9}{5}c + 32 = f`.
 
 >>> cel_to_fah([0, 32, 100, 15])
 [32.0, 89.6, 212.0, 59.0]
