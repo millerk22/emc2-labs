@@ -108,7 +108,7 @@ As you can see, the first eigenvector represents the direction along with that c
 .. image:: _static/eigendata.png
         :align: center
 
-All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors coresponding to largest eigenvalues). 
+All we need to do is find the eigenvectors of :math:`C` and then project :math:`X` onto the dominant eigenvectors (i.e., eigenvectors corresponding to largest eigenvalues). 
 These eigenvectors will form a basis for the space, allowing the most information to be preserved on the least amount of dimensions.
 When we perform SVD on :math:`\bar{X}` to get :math:`\bar{X} = U \Sigma V^T`\, we can show that the right singular vectors of :math:`\bar{X}` are the eigenvectors of :math:`C`.
 Because :math:`C` is real-valued and symmetric, it is orthogonally diagonalizable and can be written as follows 

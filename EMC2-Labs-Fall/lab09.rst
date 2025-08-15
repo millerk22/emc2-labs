@@ -108,7 +108,7 @@ and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outpu
 .. note::
 
     It is important to note that when dealing when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are both column vectors and not simply vectors.
-    We pass them in as vectors for simplicitie's sake, however it is important to know the different ways to create vectors, column vectors, and row vectors in ``numpy``\.
+    We pass them in as vectors for simplicity's sake, however it is important to know the different ways to create vectors, column vectors, and row vectors in ``numpy``\.
 
     .. code-block:: python
         

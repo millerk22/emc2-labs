@@ -31,7 +31,7 @@ Write a function ``gcd(a, b)`` that computes the GCD of ``a`` and ``b`` recursiv
 
 
 
-The Extended GCD Algoirthm
+The Extended GCD Algorithm
 --------------------------
 
 In addition to computing the GCD :math:`d` of two integers :math:`a` and :math:`b`, the extended Euclidean algorithm also computes integers :math:`x` and :math:`y` such that :math:`d` can be written as the linear combination :math:`d = ax+by`. 
@@ -43,7 +43,7 @@ We will need three separate cases, the recursive case, the base case, and the sw
 Recursive Case
 **************
 
-Normally when doing a extended GCD algorithm problem, we care about the coefficients :math:`x` and :math:`y` in :math:`gcd(a,b) = d = ax + by`. To understand the recursive case (we can also think of this as the inductive step), we want to understand what happens after one more iteration of the GCD algorithm. We already know :math:`gcd(a,b)=d` and :math:`b=aq + r`. One more iteration takes us to :math:`gcd(r,a) = d` (note that :math:`r=b%a`). This gets us some different coefficients :math:`e` and :math:`f` in :math:`gcd(r,a) = d = re + af`. These coefficients represent the coefficients of the recursive case (sub-problem). Lets assume that the algoirthm will figure out these coefficients for us. All we have to do now is figure out how :math:`e` and :math:`f` relate to :math:`x` and :math:`y`.
+Normally when doing a extended GCD algorithm problem, we care about the coefficients :math:`x` and :math:`y` in :math:`gcd(a,b) = d = ax + by`. To understand the recursive case (we can also think of this as the inductive step), we want to understand what happens after one more iteration of the GCD algorithm. We already know :math:`gcd(a,b)=d` and :math:`b=aq + r`. One more iteration takes us to :math:`gcd(r,a) = d` (note that :math:`r=b%a`). This gets us some different coefficients :math:`e` and :math:`f` in :math:`gcd(r,a) = d = re + af`. These coefficients represent the coefficients of the recursive case (sub-problem). Lets assume that the algothithm will figure out these coefficients for us. All we have to do now is figure out how :math:`e` and :math:`f` relate to :math:`x` and :math:`y`.
 
 .. math::
    re + af &= d\\

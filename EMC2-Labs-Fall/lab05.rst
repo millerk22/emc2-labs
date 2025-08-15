@@ -83,7 +83,7 @@ Let's print out the values of matrix ``A`` from above using nested for loops.
 
 Notice how when we print the elements of ``A``, we print ``A[i][j]``. Remember, ``A`` is a list of lists, so the first thing we do is index it with ``i`` which will get us whatever row we are on (e.g.,  ``[ 1,  2,  3]`` or ``[ 7,  8,  9]``). Then we index that list by ``j`` which represents the column. This way, we end up with a single value.
 
-This code works well for 4x3 matirces. If we want to generalize to any matrix, we need to change the ``range``\s based on the shape of the matrix. We can fix this using ``len()`` which gets the length of a Python ``list``. We might as well put this code in a function too.
+This code works well for 4x3 matrices. If we want to generalize to any matrix, we need to change the ``range``\s based on the shape of the matrix. We can fix this using ``len()`` which gets the length of a Python ``list``. We might as well put this code in a function too.
 
 .. code-block:: python
    
@@ -248,7 +248,7 @@ Using a double list comprehension, write a function ``cartesian_product(A, B)`` 
 Task 4
 ------
 
-Rewrite ``matrix_sum(A, B)`` using a nested list comprehsion. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum. Don't worry about raising a value error if the matrices are different sizes.
+Rewrite ``matrix_sum(A, B)`` using a nested list comprehension. ``matrix_sum`` should take in two Python lists of lists and returns the matrix sum. Don't worry about raising a value error if the matrices are different sizes.
 
 >>> matrix_sum([[1, 2], [3, 4]], [[5, 6], [7, 8]])
 [[6, 8], [10, 12]]

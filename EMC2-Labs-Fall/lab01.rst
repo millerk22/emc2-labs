@@ -211,7 +211,7 @@ To properly swap variables, we have to introduce a
 
 This will store the value of ``x`` in ``temporary_variable`` before reassigning ``x``. So our original ``x`` value is saved!
 
-   Pratice: Enter the following commands into a cell. What do you expect the output will be? Now, execute the cell and check your answers.
+   Practice: Enter the following commands into a cell. What do you expect the output will be? Now, execute the cell and check your answers.
 
    >>> b=5
    >>> print(b)
@@ -236,7 +236,7 @@ which is ``20``. Save the actual expression with the addition, multiplication, d
 Python Types
 ------------
 
-One import thing you need to understand about Python is how it uses **types**. We can think of a type like a real world category. For example, you may cook a pancake, but you definitely don't cook a waterbottle. You may drink from a waterbottle, but not a pancake. Categories, or types, tell us what we can do with objects. So far, you have seen four out of five main Python types, and we will introduce the last one later in this lab.
+One important thing you need to understand about Python is how it uses **types**. We can think of a type like a real world category. For example, you may cook a pancake, but you definitely don't cook a waterbottle. You may drink from a waterbottle, but not a pancake. Categories, or types, tell us what we can do with objects. So far, you have seen four out of five main Python types, and we will introduce the last one later in this lab.
 
 .. list-table:: Python Types
     :widths: 25 25 25 25
@@ -287,14 +287,14 @@ To figure out what type a variable or value is, you can use ``type()``.
     >>> likes_pizza = True 
     >>> age = 16
 
-    For exmaple, to figure out the type of ``name``, you would do ``type(name)``.
+    For example, to figure out the type of ``name``, you would do ``type(name)``.
 
 Each of these data types operate differently from the others. We will get into what you can do with each type later, but for right now, you just need to know what each type looks like.
 
 Booleans and Comparison Operators
 ---------------------------------
 
-Earlier you learned about symbols like ``+``, ``-``, ``*``, ``/``, ``**``, and ``=`` that work for ``int``\s and ``float``\s. We can also use Python operators to compare values. For example, ``<`` and ``>`` unsurprisingly represent our less than and greater than symbols. We can alsue use ``<=`` and ``>=`` to test quantities that are less than or equal to, or greater than or equal to each other. 
+Earlier you learned about symbols like ``+``, ``-``, ``*``, ``/``, ``**``, and ``=`` that work for ``int``\s and ``float``\s. We can also use Python operators to compare values. For example, ``<`` and ``>`` unsurprisingly represent our less than and greater than symbols. We can also use ``<=`` and ``>=`` to test quantities that are less than or equal to, or greater than or equal to each other. 
 
 >>> a = 5
 >>> print (7 <= a)

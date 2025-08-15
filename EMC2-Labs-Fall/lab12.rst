@@ -5,12 +5,12 @@ Recursion is an important technique used in computer programming and is very sim
 
 You are at your favorite restaurant on a Friday night and the line has gone out the door into the parking lot. You want to figure out how many people are ahead of you before you try a different restaurant. 
 You could walk down the entire line and count each person one-by-one, but then you would lose your spot and perhaps even begin to feel bad about yourself for going out to eat alone on a Friday night. 
-To avoid this effort and embarassment, another option would be to ask the person ahead of you how many people are ahead of them. Then they ask the person ahead of them the same question, and the pattern continues all the way down the line until you reach the person at the counter. That person says there are 0 people in front of them. 
+To avoid this effort and embarrassment, another option would be to ask the person ahead of you how many people are ahead of them. Then they ask the person ahead of them the same question, and the pattern continues all the way down the line until you reach the person at the counter. That person says there are 0 people in front of them. 
 This message is then passed up the line towards you with each person adding one to the count. 
 
 This illustrates a recursive method for solving a problem. You delegated subtasks to people ahead of you and each person provided a little bit of information at each step. We can think of this as a chain of calls, where each person is a function that calls the next person in line.
 
-Recursion is generally implemented in functions in computer programming. If we were to write pesudocode for our restaurant example, it may look something like this:
+Recursion is generally implemented in functions in computer programming. If we were to write pseudocode for our restaurant example, it may look something like this:
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ At which point, ``line_count`` would see that the position of ``James`` is ``1``
                    = 1 + 3
                    = 4
 
-You may have noticed that we could also have used a ``for`` loop to solve this problem. In theory, every problem that can be done with recursion can be done with iteration. The pseudoceode for an iterative ``line_count`` would look like this:
+You may have noticed that we could also have used a ``for`` loop to solve this problem. In theory, every problem that can be done with recursion can be done with iteration. The pseudocode for an iterative ``line_count`` would look like this:
 
 .. code-block:: python
 
@@ -162,7 +162,7 @@ Write a function ``sum_digits(n)`` that will sum up all the digits in a number.
 21
 
 .. hint::
-   Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor divison) removes the remainder after division.
+   Remember ``a % b`` returns the remainder after integer division, and ``//`` (floor division) removes the remainder after division.
 
 
 .. Task 3

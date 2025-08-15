@@ -26,7 +26,7 @@ Functions can get confusing sometimes, especially when written by someone else. 
         parameter1 : type
             This parameter is ...
         parameter2 : type
-            This prameter is ...
+            This parameter is ...
         ...
 
         Returns:
@@ -167,7 +167,7 @@ Use some of your previously written functions to help make this more complicated
 
         This function takes a number "message" and returns the corresponding letters in the alphabet, i.e.,
         A = 01, B = 02, C = 03, D = 04, ... Z = 26
-        It returns an empty string ("") if the integer does not corespond to a letter.
+        It returns an empty string ("") if the integer does not correspond to a letter.
 
         Parameters:
         message : int

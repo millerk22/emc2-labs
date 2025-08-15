@@ -181,7 +181,7 @@ Now consider the vector below whose column adds up to 1.
     \end{array}
     \right].
 
-Because :math:`P` is a column stochatic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
+Because :math:`P` is a column stochastic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
 and the Power Method becomes :math:`x_{k+1} = Px_k`. 
 Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
 Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 

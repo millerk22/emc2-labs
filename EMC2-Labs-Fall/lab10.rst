@@ -23,7 +23,7 @@ The SymPy package has some useful functions for primality testing and factoring:
 
    `SymPy <https://www.sympy.org/en/index.html>`_ is a library created to do symbolic mathematics. 
    You can write math expressions to use in code in the way that you do on paper.
-   It also provides very nice functions to do algerbra, calculus, linear algerbra, and equation solving. 
+   It also provides very nice functions to do algebra, calculus, linear algebra, and equation solving. 
 
 "Proposition" 2: Mersenne Primes
 --------------------------------

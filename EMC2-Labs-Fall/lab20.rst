@@ -39,7 +39,7 @@ In the ``DataFrame`` above, ``"Name", "Age", "City"`` are all columns of the Dat
 The numbers on the left are the index (which always starts at 0).
 There are plenty of ways that you can construct these DataFrames.
 While each of the ``DataFrame``\s will be constructed in different ways, they will all produce the exact same result.
-This means that you can take liberties when chosing how to set up your own ``DataFrame``\s.
+This means that you can take liberties when choosing how to set up your own ``DataFrame``\s.
 
 One way you can do it is through a dictionary of lists. 
 Here, the keys of the dictionary represent the columns of the ``DataFrame`` and the values represent the data. 
@@ -263,7 +263,7 @@ Here is a list of other methods to be familiar with.
 - ``df.fillna(value)`` - Replace NaNs with a specified value.
 - ``df.dropna()`` - Remove rows with missing values.
 - ``df.astype({'col': type})`` - Convert column data types.
-- ``df.columns`` - Get a lsit of column names and data types
+- ``df.columns`` - Get a list of column names and data types
 
 .. note::
 
@@ -271,7 +271,7 @@ Here is a list of other methods to be familiar with.
      It represents missing or undefined values.
      When working with real-world data it is **very common** to have missing values. 
      It is important to know functions that work with this type of data. 
-     While it is not the focus of this lab, an important step in the data science process involves peapearing data (e.g., dealing with NaNs) for use downstream data science tasks.
+     While it is not the focus of this lab, an important step in data science involves preparing data (e.g., dealing with NaNs) for future analysis.
 
 
 

@@ -113,7 +113,7 @@ When we represent this system of equations in a matrix form, we get
 .. note::
     The rows represent the physical dimension (:math:`M`, :math:`L`, and :math:`T`) and the columns represent the powers (:math:`x`, :math:`y`, and :math:`z`).
 
-So the main idea with dimensional analysis is that you can create an equation relating several independent variables and one dependent variable. We can then use Rayleigh's method to ensure that the base units work out. If the units do balance, it provides us a vaild framework for understanding the relationship between the variables.
+So the main idea with dimensional analysis is that you can create an equation relating several independent variables and one dependent variable. We can then use Rayleigh's method to ensure that the base units work out. If the units do balance, it provides us a valid framework for understanding the relationship between the variables.
 
 Task 1: Solve the System
 ------------------------
