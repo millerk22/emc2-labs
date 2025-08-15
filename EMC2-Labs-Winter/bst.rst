@@ -140,10 +140,9 @@ Say we want to write a method in our ``BST`` class that will tell us if a value 
 
 The steps to find a value in a BST are as follows:
 
-#. If the node is ``None``, it is a leaf node and the value doesn't exist.
 #. If the node equals ``target``, return ``True``.
-#. If the node is less than the current node, search the left children.
-#. Otherwise, search the right branch of the node.
+#. If the node is less than the current node, search the left child if it exists.
+#. Otherwise, search the right branch of the node if it exists.
 
 How long would it take to determine if a value exists in a Python ``list``? What about in a ``BST``?
 
