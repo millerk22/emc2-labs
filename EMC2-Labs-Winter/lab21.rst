@@ -5,21 +5,24 @@ Lab 21: K-Nearest Neighbors Classifier
 KNN Classifier
 --------------
 
-In Lab 18 we talked about the K-Means clustering algorithm which is a type of unsupervised learning.
-This lab will focus on a form of **supervised learning** where the input data has a known label.
-We are essentially teaching a computer how to read. When we learned to read, we saw hundreds and thousands of different examples and eventually learned how to identify them correctly.
-We do the same for computers. We give them a lot of examples and teach them how to identify them correctly.
+In Lab 18, we talked about the K-Means clustering algorithm which is a method for unsupervised learning.
+This lab will focus on **supervised learning** where each of the data points has a known label.
+We are essentially teaching a computer how to read. 
+When we learned to read, we saw hundreds and thousands of different examples of each letter and number.
+Through this constant exposure, we eventually learned how to identify them correctly. 
+This is the process that we want to replicate for computers.
+Give them different examples of something to classify, and teach them what their labels are so that they can classify new examples correctly.
 
 The KNN classifier is a supervised learning algorithm. 
-Given a set of data points with known labels, it can take a new data point with an unknown label and classify it. 
-It does this by taking the new data point and finding the :math:`k` number of points that are closest (according to some distance metric, in our case, the Euclidean distance) to it. 
-Then it uses each of those neighbor's labels to vote on the label of the unknown data point. 
-The most common label among the k nearest neighbors becomes the predicted label for the new data point.
+Given a :math:`n \times d` matrix :math:`X` with :math:`n` data points with :math:`d` features each, 
+and known labels :math:`y_1,...,y_n`, it predicts the label of a new data point :math:`\tilde{x}` by finding the :math:`k` closest points in :math:`X` to :math:`\tilde{x}`.
+Then it uses each of those neighbor's labels to vote on the label of :math:`\tilde{x}`. 
 
 .. math::
 
-    d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
+    d(\mathbf{x}, \mathbf{z}) = \sqrt{\sum_{i=1}^d (x_i - z_i)^2}
 
+The most common label among the :math:`k` nearest neighbors becomes the predicted label for :math:`\tilde{x}`.
 Scikit-learn makes it really easy to use the KNN classifier. All you need to do is import the model.
 
 .. code:: python
@@ -33,8 +36,9 @@ Then you can fit the model to the training data.
 
     >>> model.fit(X, y) # X is the features and y is the labels
 
-Once you have fitted the model, you can use it to predict the labels of any set of data.
-For that you will use the ``predict(data)`` method which returns an array of the predicted labels.
+Once you have fit the model, it can be used to predict the labels of new points.
+For example, we can use the ``predict`` method to get the predicted labels for a set of inputs :math:`X_{test}`.
+The output, :math:`y_{pred}`, is a vector of predicted labels for each of the inputs in :math:`X_{test}`.
 
 .. code:: python
 
@@ -53,22 +57,22 @@ Here is an example of all 10 digits.
 
 What makes this data set interesting is that there is a lot of variation in the handwriting.
 As you can see below, here are 5 different examples of the digit "5".
-This will make it interesting for our classifier to correctly identify the digit.
+This will make it interesting (and potentially more difficult) for our classifier to correctly identify the digit.
 
 .. image:: _static/figures/mnist_5.png
     :align: center
 
-Normally you will be able to load the data using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
-However, because of Codebuddy's lack of internet access, we will be using 5000 samples of the data that has been loaded into a csv file.
-You will be given the data in a pandas dataframe with columns ``data`` and ``label``.
+Normally you will be able to load this data set using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
+However, because of Codebuddy's lack of internet access, we have provided a csv file containing 5000 samples of the data.
+You will load the data into a Pandas ``DataFrame`` with columns ``data`` and ``label``.
 The ``data`` column is 28x28 pixels of the image given as a ``numpy.ndarray``.
 The ``label`` column is the digit that the image represents.
 
 .. code:: python
 
     >>> import pandas as pd
-    # get_data() will be a hidden function defined in codebuddy
-    >>> data = read_mnist_data(mnist_5k.csv)
+    # read_mnist_data() will be a hidden function defined in codebuddy
+    >>> data = read_mnist_data('mnist_5k.csv')
     >>> y = data['label']
     >>> X = data['data']
 
@@ -87,8 +91,8 @@ Create a figure with 3 subplots, and plot the images of the dataset at indexes 1
 Image Flattening and Reshaping
 ------------------------------
 
-You might notice that the MNIST data is a 2D array of 28x28 pixels, we actually need to flatten the data into a 1D array.
-This is because machine learning algorithms typically expect data in a flat, tabular format rather than as 2D images.
+You might notice that each MNIST image is a 2D array of 28x28 pixels, so we need to flatten each image into a 1D array.
+This is because the KNN classifier expects data in a vector format rather than as 2D images.
 Essentially, we compare each pixel position between images to calculate distances.
 The ``numpy.reshape()`` function allows us to change the shape of an array without changing its data.
 
@@ -122,14 +126,15 @@ Train vs Test
 
 With supervised learning, we will always have a dataset with known labels. 
 When we train a model on a dataset, we want to know how well it performs on new, unseen data.
-If we were to train the model on all the data, and then test it on the same data, we would not know how well it performs because it was trained on that data.
+We can't evaluate the performance of a model on the same data that it was trained on.
 It's like testing students on the practice test that we gave them all the answers for. 
 This is why we split our data into train and test sets.
 We train the model on the train set, and then test it on the test set.
-We can then use the test set to evaluate the performance of the model.
+We use the test set to evaluate the performance of the model.
 
-We will be using scikit-learn's functions for splitting the data and verifying accuracy of the model.
-Let's pretend that we want to train a fictitious model to predict whether a number is even. First we want to split the data into train and test sets.
+We will be using scikit-learn's functions for splitting the data into train and test sets and verifying accuracy of the model.
+Let's pretend that we want to train a fictitious classifier (let's call it ``FictitiousModel``) to predict whether a number is even. 
+First we want to split the data into train and test sets.
 
 .. code:: python
 
@@ -153,6 +158,7 @@ Once we have split the data, we can train the model on the train set and test it
 
 .. code:: python
 
+    >>> from fictitious_classifiers import FictitiousModel 
     >>> model = FictitiousModel()
     >>> model.fit(X_train, y_train)
     >>> y_pred = model.predict(X_test)
@@ -169,17 +175,17 @@ Then we can verify the accuracy of the model on the test set.
 
 .. note:: 
 
-    We use lowercase `y` for labels because it's a common convention in machine learning - `X` represents features (capitalized because it's typically a matrix), while `y` represents the target variable (lowercase because it's typically a vector).
+    We use lowercase `y` for labels because it's a common convention in machine learning - `X` represents features (capitalized because it's typically a matrix), 
+    while `y` represents the target variable (lowercase because it's typically represented in a vector form).
 
 Task 3
 ------
 
 Using your ``flatten_data`` function, create a new array ``X`` with the flattened data.
 Then split the data into train and test sets using ``train_test_split``.
-Use 20% of the data for the test set.
-Use a random state of 42.
+Set the test size to 0.2 and the random state to 42 when splitting the data.
 Finally fit a KNN classifier with 3 neighbors to the data, and print the accuracy of the model on the test set.
-(Remember that you need to get ``y`` from the original dataframe.)
+(Remember that you need to get the labels ``y`` from the original dataframe.) 
 
 
 Ablation Study
@@ -189,27 +195,30 @@ An ablation study is a systematic approach to understanding how different compon
 The term "ablation" comes from the medical field, where it means removing or modifying parts to study their effects.
 In a machine learning context, we systematically change one parameter at a time while keeping everything else constant to isolate its impact.
 
-For KNN, the most important parameter to study is **k** (the number of neighbors), as it fundamentally changes how the algorithm makes decisions.
+For a KNN classifier, the most important parameter to study is k (the number of neighbors), as it changes how the algorithm makes decisions.
+Below are some of the common effects of the number of neighbors (k) on the performance of a KNN classifier.
 
-**Common Effects of the Number of Neighbors (k)**
+1. **k = 1 (Single Neighbor)** 
 
-1. **k = 1 (Single Neighbor)**
    - Makes decisions based on only the closest training example
    - Very sensitive to noise and outliers
    - Can lead to overfitting (memorizing the training data to the point where it performs poorly on new data)
    - Creates complex, irregular decision boundaries
 
 2. **k = 3-5 (Small k)**
+
    - Balances local patterns with some noise reduction
    - Often provides good performance for many datasets
    - Decision boundaries are still relatively complex
 
 3. **k = 7-15 (Medium k)**
+
    - More robust to noise
    - Smoother decision boundaries
    - May lose some fine-grained local patterns
 
 4. **k > 15 (Large k)**
+
    - Very smooth decision boundaries
    - Less sensitive to noise but may miss important local patterns
    - Can lead to underfitting (oversimplifying the problem)
@@ -226,7 +235,7 @@ Finally, return a list of the k values and the accuracies of the form ``[(k1, ac
 Task 5
 ------
 
-Using your function from task 4, plot the k values from 1 to 10 (x-axis) and the accuracies (y-axis).
+Using your function from Task 4, plot the effect of the parameter k as a function of the accuracies (k values 1-10 on the x-axis and the accuracies on the y-axis).
 
 * Use a test size of 0.2 and a random seed of 39
 * Title the plot ``"KNN Classifier Accuracy vs k Value"``
