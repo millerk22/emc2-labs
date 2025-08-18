@@ -140,8 +140,8 @@ Say we want to write a method in our ``BST`` class that will tell us if a value 
 
 The steps to find a value in a BST are as follows:
 
-#. If the node's value equals ``target``, return ``True``.
-#. If the node's value is less than the current node, search the left child if it exists.
+#. If the target value is equal to the current node's value, return ``True``.
+#. If the target value is less than the current node's value, search the left child if it exists.
 #. Otherwise, search the right branch of the node if it exists.
 
 How long would it take to determine if a value exists in a Python ``list``? What about in a ``BST``?
@@ -149,7 +149,7 @@ How long would it take to determine if a value exists in a Python ``list``? What
 Task 1
 ------
 
-Write a recursive method in your ``BST`` class called ``search(value)`` that returns ``True`` if the value is in the ``BST``. Starter code will be given to you on codebuddy.
+Write a recursive method in your ``BST`` class called ``search(value)`` that returns ``True`` if the value is in the ``BST``, and ``False`` otherwise. Starter code will be given to you on codebuddy.
 
 
 Node Characteristics
@@ -227,6 +227,16 @@ A tree is **balanced** if, for every node, the heights of its left and right sub
     :alt: Unbalanced vs Balanced Trees
 
     Both trees are created by inserting ``[2, 1, 4, 3, 5]``, but as soon as we add ``6``, the tree becomes unbalanced.
+
+.. admonition:: Tree Balancing Edge Case
+
+    What happens when a node doesn't have any children on the right or left side?
+
+    .. figure:: _static/figures/unbalanced.svg
+        :align: center
+        :alt: Very unbalanced tree
+
+    This tree is obviously unbalanced at node ``2``, but is not unbalanced at node ``4``. If the balance value is to be greater than 1, what number should we use as the empty node's height?
 
 Conceptual takeaway:
     - The order you insert items determines the *shape* of the tree.
