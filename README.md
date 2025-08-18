@@ -23,7 +23,7 @@ Live Server will automatically update this page whenever you use `make html`.
 
 # Deploying the Compiled Code to emc2.byu.edu
 ## Prerequisites
-A file named `server_config.env` should be in the directory `emc2_labs` (on the same level as the deployment scripts). It should contain:
+A file named `server_config.env` should be in the directory `emc2_labs/config`. It should contain:
 
 ```
 EMC2_USER=<username>
