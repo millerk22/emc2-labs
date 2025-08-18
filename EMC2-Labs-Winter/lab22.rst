@@ -1,249 +1,335 @@
-Lab 22: Fractals with Turtle
-============================
+Lab 22: Binary Search Trees
+===========================
 
-In this lab we will be using Python's ``Turtle`` library. This library allows us to direct a pen to draw shapes. In your Math 341 class, you were introduced to the Cantor set, an example of a fractal. This fractal is one-dimensional and so is hard to see. In this lab, we will create an example of a two-dimensional fractal, the Sierpiński triangle.
+In the last lab (:doc:`lab06`), we implemented **binary search** on a sorted list.
+Each step in binary search "cuts" the search space in half. Binary Search Trees (BSTs)
+carry a similar idea into a new structure where the data itself is arranged
+so that searching becomes efficient.
 
-``Turtle`` works slightly differently depending on if you are using Google Colab or not. This lab is split into three sections. If you are using Google Colab, read the section with Google Colab. If you are using a different IDE (for example, `replit.com <https://www.replit.com>`_ also has ``Turtle`` capabilities), choose the section about other IDEs. You are not required to read both of the first two sections, but everyone must read the third section on constructing the Sierpiński triangle.
+As you have learned, lists are very common **data structure** (a way to represent data) in programming. Binary Search Trees are another data structure that work a little differently. BST's are really good when you want to:
 
-Google Colab
-------------
+- Search quickly (like the binary search algorithm does in a sorted list)
+- Keep your data in order while still being able to add/remove items easily
+- Avoid having to re-sort after every change
 
-As with all libraries, we must first import the library. Here is how it is imported in Google Colab. Place the following in a separate cell because you will only need to run it once.
+Think of a BST as a *living*, *growing* sorted list where the layout of the data
+already encodes where each item belongs.
 
-.. code:: console
+Before defining a **Binary Search Tree**, let's talk about **trees** in general.
 
-    !pip3 install ColabTurtle
-    from ColabTurtle.Turtle import *
+What is a Tree?
+---------------
 
-Then, to create a turtle, we need only use the line 
+A tree is a set of **nodes** connected in a hierarchy.
 
->>> initializeTurtle()
+.. image:: _static/figures/tree.svg
+   :align: center
+   :alt: Basic tree diagram
 
-This command will also erase everything the turtle has done so that we can start over.
+Key terms:
 
-Now that we have a turtle, we can begin drawing! We draw by directing where the turtle should go. The turtle begins at the center of the screen and faces north. The commands are basic and intuitively named. Here are a list of some of the main commands you'll be using. We highly recommend that you immediately set the turtle speed to maximum  when you are drawing something large.
+- **Root** - The "top" node of the tree (diagrams are often drawn upside down).
+- **Parent** - A node that has one or more children.
+- **Child** - A node that descends from another node.
+- **Leaf** - A node with no children.
+- **Branch** - A path from the root to a leaf.
+- **Edges** - The connections between nodes.
 
-.. list-table:: Turtle Commands
-    :widths: 10 40
-    :header-rows: 1
+.. image:: _static/figures/tree_annotated.svg
+   :align: center
+   :alt: Basic tree diagram
 
-    * - Command
-      - Explanation
-    * - ``forward(length)``  
-      - moves the turtle forward ``length`` pixels 
-    * - ``backward(length)``  
-      - moves the turtle backwards ``length`` pixels 
-    * - ``left(angle)``  
-      - turns the turtle left by ``angle`` degrees (not radians!) 
-    * - ``right(angle)``  
-      - turns the turtle right by ``angle`` degrees 
-    * - ``pendown()``  
-      - puts the pen down to draw whenever the turtle moves 
-    * - ``penup()``  
-      - puts the pen up so that the turtle can move without drawing 
-    * - ``speed(n)``  
-      - sets the turtle speed where ``n`` is in ``[1,13]``, with ``1`` slowest and ``13`` fastest 
-    * - ``goto(x,y)``  
-      - moves the turtle to a point ``(x,y)``; the coordinates of the turtle's frames are ``(0,0)`` at the top left and ``(800,500)`` at the bottom right, so all ``x`` and ``y`` values are nonnegative.
-    * - ``setheading(angle)``  
-      - points the turtle toward ``angle`` degrees, where ``0`` degrees is directly right and angles go clockwise
+Trees appear naturally in maany places like: parsing expressions in algebra, decision trees in statistics, factorization trees in number theory, tournament brackets in sports, or even outside in your front lawn.
 
+.. note::
+    A node in a tree can have any amount of child nodes. In this lab, we will focus on **Binary Trees** which can have at most two child nodes.
 
-There are also some fun things that you can do to customize your turtle. None of these are required, but are fun to know:
+Connecting Nodes
+----------------
 
-.. list-table:: More Turtle Commands
-    :widths: 20 40
-    :header-rows: 1
+If we want to make a generic **binary** ``Tree``, all we need is an object that holds 1) a value and 2) references to other ``Tree``\s.
 
-    * - Command 
-      - Explanation 
-    * - ``shape(sh)`` 
-      - changes the turtle's shape, but only ``"circle"`` and ``"turtle"`` are accepted 
-    * - ``color(r,g,b)`` or ``color(colorstring)`` 
-      - changes the pen color according to RGB values or a color name 
-    * - ``bgcolor(r,g,b)`` or ``bgcolor(colorstring)`` 
-      - changes the background color 
+.. code-block:: python
 
+    class Tree:
+        def __init__(self, value):
+            self.value = value
+            self.left = None
+            self.right = None
 
+.. note::
+    We didn't create a ``Node`` class to go in our ``Tree`` class. This is because each node in a tree can be a tree itself. This is the recursive nature of trees.
 
-For a full list of the commands that you can use, check out `<https://github.com/tolgaatam/ColabTurtle>`_.
+To create a simple tree, we just have to create many sub-trees.
 
-So that you can get a feel for how to draw things with ``Turtle`` graphics, here is an example of drawing a square. Run this code on your own and check that you understand what is happening.  It may be useful to lower the speed if you cannot see what is happening.
+.. code-block:: python
 
-
-.. code:: python
-
-    initializeTurtle()
-    speed(13)
-
-    penup()         # lifts the pen, otherwise goto will draw a line
-    goto(350,300)   # moves the turtle so the square is centered
-    pendown()       # pen back down
-
-    for i in range(4):
-        forward(100)    # one side
-        right(90)       # one corner
-
-
-Now that we have the basic set-up for Python Turtle, skip to the last section of this lab, `The Sierpiński Triangle`_.
-
-Other IDEs
-----------
-
-As with all libraries, we must first import the library. Here is how it is imported in most IDEs.
-
-
->>> from turtle import *
-
-
-Now that we have a turtle, we can begin drawing! We draw by directing where the turtle should go. The turtle begins at the center of the screen and faces to the right. (There is a chance that your turtle may begin facing a different direction, so it is worth it to check this.) The commands are basic and intuitively named. Here are a list of some of the main commands you'll be using. We highly recommend that you immediately set the turtle speed to maximum when you are drawing something large.
-
-.. list-table:: Turtle Commands
-    :widths: 10 40
-    :header-rows: 1
-
-    * - Command
-      - Explanation
-    * - ``forward(length)``  
-      - moves the turtle forward ``length`` pixels 
-    * - ``backward(length)``  
-      - moves the turtle backwards ``length`` pixels 
-    * - ``left(angle)``  
-      - turns the turtle left by ``angle`` degrees (not radians!) 
-    * - ``right(angle)``  
-      - turns the turtle right by ``angle`` degrees 
-    * - ``pendown()``  
-      - puts the pen down to draw whenever the turtle moves 
-    * - ``penup()``  
-      - puts the pen up so that the turtle can move without drawing 
-    * - ``speed(n)``  
-      - sets the turtle speed, where ``n`` is in ``[0, 10]``, with ``1`` slowest, ``n > 1`` getting faster, and ``0`` fastest
-    * - ``goto(x,y)``  
-      - moves the turtle to a point ``(x,y)``; the coordinates of the turtle's frames are exactly like the ``xy``-plane with ``(0,0)`` at the center and positive and negative ``x`` and ``y`` accepted. There is a chance that your IDE may set ``0`` degrees to be north with angles going counterclockwise. This is worth checking.
-    * - ``setheading(angle)``  
-      - points the turtle toward ``angle`` degrees, where ``0`` degrees is directly right and angles go counterclockwise
-
-
-
-
-There are also some fun things that you can do to customize your turtle. None of these are required, but are fun to know:
-
-.. list-table:: More Turtle Commands
-    :widths: 20 40
-    :header-rows: 1
-
-    * - Command 
-      - Explanation 
-    * - ``shape(sh)`` 
-      - changes the turtle's shape, options are ``"arrow”``, ``"turtle”``, ``"circle”``, ``"square”``, ``"triangle”``, ``"classic”``
-    * - ``color(r,g,b)`` or ``color(colorstring)`` 
-      - changes the pen color according to RGB values or a color name 
-    * - ``bgcolor(r,g,b)`` or ``bgcolor(colorstring)`` 
-      - changes the background color 
-
-.. \begin{tabular}{c|c}
-..     Command & Explanation \\
-..     \hline
-..     ``shape(sh)`` & changes the turtle's shape; options are ``"arrow”``, \\
-..     & ``"turtle”``, ``"circle”``, ``"square”``, \\ 
-..     & ``"triangle”``, ``"classic”`` \\
-..     ``color(r,g,b)`` or ``color(colorstring)`` & changes the pen color according to RGB \\ 
-..     & values or a color name \\
-..     ``bgcolor(r,g,b)`` or ``bgcolor(colorstring)`` & changes the background color \\
-.. \end{tabular}
-
-
-`For a full list of the commands that you can use, click here <https://docs.python.org/3/library/turtle.html>`_.
-
-So that you can get a feel for how to draw things with ``Turtle`` graphics, here is an example of drawing a square. Run this code on your own and check that you understand what is happening. It may be useful to lower the speed if you cannot see what is happening.
-
-
-.. code:: python
-
-    speed(0)
-
-    penup()         # lifts the pen, otherwise goto will draw a line
-    goto(-50,-50)   # moves the turtle so the square is centered
-    pendown()       # pen back down
-
-    for i in range(4):
-        forward(100)    # one side
-        left(90)       # one corner
-
-
-Now that we have the basic set-up for Python ``Turtle``, we can continue on to the last section of this lab.
-
-
-The Sierpiński Triangle
------------------------
-
-The instructions given in this section apply to both IDE options. The figures here were made with Google Colab, but the results from other IDEs should be similar.
-
-
-1. Draw an equilateral triangle using the turtle. Make the side lengths ``100`` pixels. What is the angle that the turtle must turn at each corner? You are encouraged to use a ``for`` loop. It may be helpful to turn the turtle before beginning to draw.
-
-
-The end goal of this lab is to draw the Sierpiński triangle. Since we will be drawing so many triangles, it makes sense to define a function ``draw_triangle``.
-
-
-
-2. Write a function ``draw_triangle(side_length)`` that accepts a float ``side_length`` and will draw a triangle with that side length. For all of your triangles to face the same direction, decide now what angle you want to assume that the turtle is facing whenever this function is called. A reasonable choice is pointed ``30`` degrees to the right of north, but you may choose whatever makes most sense to you.
-
-3. With this function, draw the first image below. You must use your ``draw_triangle`` function whenever you draw a triangle. (This can typically be done with either two or three calls to the function.) Your turtle does not have to end in the same location as depicted, but it will be useful to know how to get the turtle into a position such as this as we continue on. *Hint*: Some of the triangles begin at odd locations and it may be difficult to determine their location in the ``xy``-plane precisely. Note that you do not have to know the the exact coordinates of a point, only how to get to it. Retracing is allowed.
-
-.. figure:: _static/figures/Starting-Sierpinski.png
-    :width: 45%
+    root = Tree(10)
+    root.left = Tree(5)
+    root.right = Tree(15)
+    root.left.left = Tree(2)
+    root.left.right = Tree(7)
+   
+.. image:: _static/figures/bst.svg
     :align: center
+    :alt: Tree created from Python code
 
-    (The Triforce)
+What Makes a Binary Search Tree?
+--------------------------------
 
+A **Binary Search Tree** is a binary tree with an ordering rule:
 
+- The left child contains only values **less than** the parent's value.
+- The right child contains only values **greater than** the parent's value.
 
-A fractal is an infinite process to create, but we can make approximations by taking a finite number of steps. Drawing a single triangle creates a first approximation, and the figure that you drew in Problem 3 created a better one. We want to be able to continue this process without copying code over and over again. However, each time that we draw more triangles inside another, the side length must decrease for some triangles but not for others, so we cannot simply use a ``for`` loop. We will use a recursive function ``sierpinski(start_length, min_length)`` to draw the fractal.
-
-
-Let's compare the first picture with the next step to get a good feel for how the recursion should play out. 
-
-
-.. figure:: _static/figures/Sierpinski-2.png
-    :width: 45%
+.. image:: _static/figures/trees.svg
     :align: center
+    :alt: Both trees
 
-    (Triforce Inception)
+The above image contains the two examples shared earlier in this lab. Which one follows the rules of a Binary Search Tree?
+
+A Basic Python BST Class
+------------------------
+
+Before we look at how searching works, let's examine one way to represent a BST
+in Python using a class. This will include the ability to insert new values.
+
+.. code-block:: python
+
+    class BST(Tree):
+        def __init__(self, value):
+            super().__init__(value)
+
+        def insert(self, value):
+            if value < self.value:
+                if self.left:   # same thing as saying "if self.right is not None" (if self.right exists)
+                    self.left.insert(value)
+                else:
+                    self.left = BST(value)
+            else:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right = BST(value)
+
+>>> root = BST(10)  # The root node
+>>> root.insert(5)  # Left of 10
+>>> root.insert(15) # Right of 10
+>>> root.insert(2)  # Left of 5
+>>> root.insert(7)  # Right of 5
+
+Notice how our insert method is recursive. It checks the first node to see if the inserted value is bigger or smaller, and then goes right or left based on that. It continues this process until it encounters a leaf node. For example, inserting 7 in the above example looks like this:
+
+.. image:: _static/figures/bst_insertion.svg
+    :align: center
+    :alt: BST insertion
+
+This creates the same tree we made earlier by referencing ``left`` and ``right`` attributes, but this one just uses ``insert()``.
+
+.. image:: _static/figures/bst.svg
+   :align: center
+   :alt: Basic tree diagram
+
+This class-based approach lets each node handle its own insertions.
+The tree “grows” downward automatically.
+
+Searching in a BST
+------------------
+
+Say we want to write a method in our ``BST`` class that will tell us if a value exists in our tree or not. This is fairly simple because at each node, we instantly know which side to search based on how the value we're looking for compares to the current node's value. This is similar to how the binary search algorithm divides a sorted list in half *by index*, a BST just divides the search space *by value*.
+
+The steps to find a value in a BST are as follows:
+
+#. If the target value is equal to the current node's value, return ``True``.
+#. If the target value is less than the current node's value, search the left child if it exists.
+#. Otherwise, search the right branch of the node if it exists.
+
+How long would it take to determine if a value exists in a Python ``list``? What about in a ``BST``?
+
+Task 1
+------
+
+Write a recursive method in your ``BST`` class called ``search(value)`` that returns ``True`` if the value is in the ``BST``, and ``False`` otherwise. Starter code will be given to you on codebuddy.
 
 
-Comparing the two figures, we can see that each of the three triangles in the corners has the beginnings of another Sierpiński triangle. This makes sense: if we zoom in on part of a fractal, it should look exactly the same. So after we draw each triangle, we should recursively call the ``sierpinski`` function with a start length that is half of the length of the previous step. This can be summarized by the following pseudocode. Recall that all recursive functions *must* have a base case or they will run infinitely many times. If you drew the original shape from problem 3 using only two calls to the ``draw_triangle`` function, you may need to adapt this pseudocode slightly.
+Node Characteristics
+--------------------
 
-.. code:: python
+When working with trees, it can be useful to define metrics for talking about where different nodes are in the tree.
 
-    def sierpinski(start_length, min_length):
-        if start_length < min_length:
-            return
-        else:
-            Draw the bottom left triangle
-            Recursively call sierpinski with start_length/2
-            Draw the top middle triangle
-            Recursively call sierpinski with start_length/2
-            Draw the bottom right triangle
-            Recursively call sierpinski with start_length/2
-        
+- **Depth**: Distance from a node to the root node. It is commonly defined with the root node being at depth 0. Depth is calculated by counting the number of edges in the path between the root and node.
 
+- **Height**: Distance from a node to its deepest descendant leaf. Height is calculated by counting the number of edges in the path between node and its deepest descendant leaf.
 
-Note that the base case is only reached if ``min_length > 0``. You can program in an exception if an invalid ``min_length`` is passed in, but this is optional.
+.. image:: _static/figures/bst_attributes_annotated.svg
+   :align: center
+   :alt: Basic tree diagram
 
+Task 2
+------
+
+Write a recursive method in your ``BST`` class called ``height()`` that calculates the height of your ``BST``. Starter code will be given to you on codebuddy.
 
 
-4. With the above pseudocode and your ``draw_triangle`` function, write a recursive function ``sierpinski(start_length, min_length)`` that will draw the Sierpiński triangle to the accuracy of ``min_length``.
+Tree Traversal
+--------------
 
-5. Test your function with ``start_length = 200`` and
-    * ``min_length = 200``
-    * ``min_length = 100``
-    * ``min_length = 50``
-    * ``min_length = 25`` 
-    * ``min_length = 10``
+If we visit all the nodes in a ``BST`` from left to right (called *in-order traversal*),
+we will see the values in ascending order.
 
-If it is taking too long to do some of the later ones repeatedly, you may skip to the last value. We highly recommend that you set the speed to maximum.
+Why this works:
+    - Everything in the left subtree is smaller than the root.
+    - Everything in the right subtree is larger than the root.
+    - Visiting them in this order naturally respects the sorted sequence.
+
+This is a direct example of how a BST encodes order in its shape —
+you don't need to sort the list after building it.  
+The *shape* of the tree *is* the ordering rule.
+
+Task 3
+------
+
+Write a recursive method in your ``BST`` class called ``inorder_traversal()`` that returns a Python ``list`` of all the data in the ``BST`` in order. Starter code will be given to you on codebuddy.
+
+Balanced and Unbalanced Trees
+-----------------------------
+
+The main benefit of using a ``BST`` over a Python ``list`` is that it is really easy to search and sort in ``O(log(n))`` time. Consider the following two trees.
+
+.. image:: _static/figures/balanced_v_unbalanced.svg
+   :align: center
+   :alt: Unbalanced vs Balanced Trees
+
+Both trees contain the same data (``[1, 2, 3, 4, 5, 6]``), but which one will be quicker when searching for a value?
+
+This is the problem of **balanced** and **unbalanced** trees. The first tree essentially acts the same as a Python ``list`` (``O(n)`` search complexity), while the second acts as a true ``BST`` (``O(log(n))`` search complexity. The difference is how we input the data:
+
+>>> # Figure 1
+>>> root = BST(3)   # Root
+>>> root.insert(1)  # Left of 3
+>>> root.insert(2)  # Right of 1
+>>> root.insert(5)  # Right of 3
+>>> root.insert(4)  # Left of 5
+>>> root.insert(6)  # Right of 5
+
+>>> # Figure 2
+>>> root = BST(1)   # Root
+>>> root.insert(2)  # Right of 1
+>>> root.insert(3)  # Right of 2
+>>> root.insert(4)  # Right of 3
+>>> root.insert(5)  # Right of 4
+>>> root.insert(6)  # Right of 5
+
+A tree is **balanced** if, for every node, the heights of its left and right subtrees differ by no more than one.
+
+.. figure:: _static/figures/balanced_v_unbalanced_annotated.svg
+    :align: center
+    :alt: Unbalanced vs Balanced Trees
+
+    Both trees are created by inserting ``[2, 1, 4, 3, 5]``, but as soon as we add ``6``, the tree becomes unbalanced.
+
+.. admonition:: Tree Balancing Edge Case
+
+    What happens when a node doesn't have any children on the right or left side?
+
+    .. figure:: _static/figures/unbalanced.svg
+        :align: center
+        :alt: Very unbalanced tree
+
+    This tree is obviously unbalanced at node ``2``, but is not unbalanced at node ``4``. If the balance value is to be greater than 1, what number should we use as the empty node's height?
+
+Conceptual takeaway:
+    - The order you insert items determines the *shape* of the tree.
+    - This shape affects performance.
+
+Task 4
+------
+
+Write a recursive method in your ``BST`` class called ``is_balanced()`` that returns ``True`` if the tree is balanced and ``False`` otherwise. Starter code will be given to you on codebuddy.
 
 
-Lastly, to complete your work of art you may find the command ``hideturtle()`` (and the corresponding ``showturtle()``) to be useful, but this is not required.
+Balancing Trees
+---------------
 
+Once it is known that a tree is unbalanced, trees are rebalanced with algorithms like AVL (Adelson-Velsky and Landis, the names of its creators), or Red-Black Trees. Both of these algorithms rely on rotating nodes (changing the root of the subtree) to balance the overall tree. If you take CS 235 you will learn how to implement this algorithm.
+
+.. image:: _static/figures/thanos.png
+    :align: center
+    :width: 400
+
+Summary
+-------
+
+- A BST is like a *binary search algorithm* built directly into a tree.
+- Trees are naturally recursive.
+- An in-order traversal gives you sorted data.
+- Balanced trees are faster for search and insertion.
+
+
+
+.. Connect to earlier Binary Search (lab 6)
+.. In binary search, each iteration would cut the search space in half. That concept is similar to how the Binary Search works.
+
+.. Why even BST's?
+.. - if you want to search in a list fast (think Binary Search)
+.. - Storing ordered data
+
+.. Before we dive into what a BST is, lets talk about trees and nodes
+
+.. What is a Tree (definitions) (have an image, mention trees are normally shown upside down)
+.. - nodes (parent, child, and leaf)
+.. - root
+.. - branch
+.. - head
+
+.. (include the code for a basic python node class)
+.. (show how to dynamically build a tree with a linked list like structure)
+
+.. Cool attributes about trees
+.. - Naturally recusive algorithms (include an analogy)
+
+.. Useful metrics
+.. - depth
+.. - heights
+
+.. Explain what makes a BST a BST
+.. - left and right children
+.. - similar to binary search - each level cuts the search space in half (is there a conceptual analogy we could use with this?)
+
+.. Walk through a height and depth function
+
+.. Task: search function
+
+.. Task: Return a sorted python list
+
+.. Show how to create BSTs
+.. - from a list
+..     - show how depending on how you input the list, the tree can be balanced or unbalanced, talk about how that affects performance
+.. - talk about tree balancing, but don't go super into depth
+
+
+.. To do:
+.. - define objects
+.. - construct bst
+.. - search function in bst
+.. - depth function for bst (show how you get different depths when you put different heights in)
+.. - return a Python list
+
+
+
+.. Code:
+.. - node class
+.. - BST class
+
+.. Things to not include
+.. - insertion
+.. - balancing
+.. - removal
+.. - AVL
+
+
+
+
+
+.. Other things
+.. include multiple examples becaue it is ok for binary search trees to be organized differently
