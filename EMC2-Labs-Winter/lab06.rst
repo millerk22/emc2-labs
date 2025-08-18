@@ -42,6 +42,7 @@ Constant Time (``O(1)``)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
+
 	def get_last_element(arr):
     	return arr[-1]  # Always takes the same amount of time
 
@@ -173,9 +174,9 @@ Remember the two rules:
 					return True
 		return False
 
-.. admonition::
+.. admonition:: Key Takeaway
 
-	The main thing to take away with :math:`\text{Big-}O` notation is that it helps us understand how much time a function will take to run.
+	:math:`\text{Big-}O` notation helps us understand how much time a function will take to run.
 
 Bubble Sort
 -----------
