@@ -2,7 +2,7 @@ Lab 18: Cracking the Vigenère Cipher
 ====================================
 
 To refresh your memory of the Vigenère Cipher, go back to :doc:`lab08` and read about it. 
-You will need your ``key_length`` function from that lab today.
+You will need your ``decrypt_vigenere``, ``num_coincidences``, and ``key_length`` functions from that lab today (tasks 2, 4, and 5 respectively).
 Your ultimate goal is to determine the plaintext message for the following ciphertext:
 
 .. code-block:: console
@@ -81,7 +81,7 @@ For example, the letters ``RSTLNE``, which you may recognize from watching Wheel
 The following is an outline for how to decrypt a ciphertext encoded with the Vigenère Cipher with an unknown key. (Read until the end of the lab before you start working on any individual part.)
 
 
-1. Compute the key length `K`. (We already did this.)
+1. Compute the key length `K`. (We already did this in Lab 8 Task 5.)
 
 2. For each ``j`` from ``0`` to ``K-1``: build a string ``S[j]`` comprising the letters of the ciphertext at indices congruent to ``j`` modulo ``K``. For example, if ``ciphertext='ABCDEFGHIJK'`` and the key length is ``K=3``, then
 
@@ -160,6 +160,7 @@ Task 3: Maximize the dot product
 
 Write a function ``maximize_dot(string)`` that takes as input a string ``string`` and outputs the integer ``m`` for which the dot product ``letter_freq(string-decrypted-by-mth-letter)·F`` is maximized.
 Here is an outline for this function.
+(You should copy over your ``vignere_decrypt`` function from lab 8 task 2 in Codebuddy.)
 
 .. code-block:: python
 
@@ -187,6 +188,7 @@ Task 4: Decrypt the ciphertext
 
 
 Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
+(You should copy over your ``num_coincidences`` function from lab 8 task 4 and your ``key_length`` function from lab 9 task 5 in Codebuddy.)
 
 As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
 (Follow the outline at the top of the lab to get the pseudocode for this function.)
