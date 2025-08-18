@@ -215,10 +215,10 @@ Remember the equation :math:`x_{k} = P^{k}x_0`.
 Task 4
 ------
 
-Define a function ``PageRank_cent(edge_matrix, k)``.
-You will need to combine all of your past functions to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
+Define a function ``PageRank_cent(edge_matrix, k)`` that combines all of your past functions to find the page rank centrality of a network with a given edgematrix and a number of iterations. 
+You will first need to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
 Then convert the adjacency matrix to a stochastic matrix using the ``stoch_mat`` function.
-You will then need to use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations. 
+Finally, use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations.
 
 Task 5
 ------
