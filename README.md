@@ -12,6 +12,15 @@ To compile sphinx code, check out their [main build page](https://www.sphinx-doc
 ### Configure your environment
 1) run `conda env create -f config/environment.yml`. This will install all the necessary libraries to run sphinx and create a conda environment for you. Activate it using `conda activate emc2_dev`.
 
+# Development
+To develop the labs without Deploying each time, install the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.Live Server) extension which can display the compiled html code on your browser.
+
+To recompile with sphinx, run `make html` in either `EMC2-Labs-Fall` or `EMC2-Labs-Winter` and it will compile the associated html.
+
+Once you have the extension installed, and have compiled new html code, click "Go Live" at the bottom right of your screen (see Live Server's documentation for more info) and Live Server will open a web browser window. Navigate to the `_build/html` directory from that window and it will display the labs as they have been created.
+
+Live Server will automatically update this page whenever you use `make html`.
+
 # Deploying the Compiled Code to emc2.byu.edu
 ## Prerequisites
 A file named `server_config.env` should be in the directory `emc2_labs` (on the same level as the deployment scripts). It should contain:
