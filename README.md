@@ -23,7 +23,7 @@ Live Server will automatically update this page whenever you use `make html`.
 
 # Deploying the Compiled Code to emc2.byu.edu
 ## Prerequisites
-A file named `server_config.env` should be in the directory `emc2_labs/config`. It should contain:
+Create a file named `server_config.env` in the directory `emc2_labs/config`. It should contain:
 
 ```
 EMC2_USER=<username>
@@ -31,7 +31,7 @@ EMC2_PATH=<path_to_emc2_labs>
 MATH_PATH=<path_to_emc2_labs>
 ```
 
-Where everything in `<>` should be replaced with the actual values. Note that the `EMC2_PATH` and the `MATH_PATH` are different.
+Where everything in `<>` should be replaced with the actual values (get these from the current leader of the project). Note that the `EMC2_PATH` and the `MATH_PATH` are different.
 
 ## Usage
 Run `initiate_deploy.sh` with the options -f, -w, or -a (for fall, winter, or all)
