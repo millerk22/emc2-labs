@@ -47,7 +47,7 @@ Trees appear naturally in maany places like: parsing expressions in algebra, dec
 Connecting Nodes
 ----------------
 
-If we want to make a generic ``Tree``, all we need is an object that holds 1) a value and 2) references to other ``Tree``\s.
+If we want to make a generic **binary** ``Tree``, all we need is an object that holds 1) a value and 2) references to other ``Tree``\s.
 
 .. code-block:: python
 
@@ -102,12 +102,12 @@ in Python using a class. This will include the ability to insert new values.
 
         def insert(self, value):
             if value < self.value:
-                if self.left:
+                if self.left:   # same thing as saying "if self.right is not None" (if self.right exists)
                     self.left.insert(value)
                 else:
                     self.left = BST(value)
             else:
-                if self.right:  # same thing as saying if self.right is not None (if it exists)
+                if self.right:
                     self.right.insert(value)
                 else:
                     self.right = BST(value)
@@ -140,8 +140,8 @@ Say we want to write a method in our ``BST`` class that will tell us if a value 
 
 The steps to find a value in a BST are as follows:
 
-#. If the node equals ``target``, return ``True``.
-#. If the node is less than the current node, search the left child if it exists.
+#. If the node's value equals ``target``, return ``True``.
+#. If the node's value is less than the current node, search the left child if it exists.
 #. Otherwise, search the right branch of the node if it exists.
 
 How long would it take to determine if a value exists in a Python ``list``? What about in a ``BST``?
@@ -149,10 +149,30 @@ How long would it take to determine if a value exists in a Python ``list``? What
 Task 1
 ------
 
-Write a recursive method in your ``BST`` class called ``search(node, value)`` that returns ``True`` if the value is in the ``BST``. Starter code will be given to you on codebuddy.
+Write a recursive method in your ``BST`` class called ``search(value)`` that returns ``True`` if the value is in the ``BST``. Starter code will be given to you on codebuddy.
 
-Returning a Sorted Python List
--------------------------------
+
+Node Characteristics
+--------------------
+
+When working with trees, it can be useful to define metrics for talking about where different nodes are in the tree.
+
+- **Depth**: Distance from a node to the root node. It is commonly defined with the root node being at depth 0. Depth is calculated by counting the number of edges in the path between the root and node.
+
+- **Height**: Distance from a node to its deepest descendant leaf. Height is calculated by counting the number of edges in the path between node and its deepest descendant leaf.
+
+.. image:: _static/figures/bst_attributes_annotated.svg
+   :align: center
+   :alt: Basic tree diagram
+
+Task 2
+------
+
+Write a recursive method in your ``BST`` class called ``height()`` that calculates the height of your ``BST``. Starter code will be given to you on codebuddy.
+
+
+Tree Traversal
+--------------
 
 If we visit all the nodes in a ``BST`` from left to right (called *in-order traversal*),
 we will see the values in ascending order.
@@ -166,29 +186,10 @@ This is a direct example of how a BST encodes order in its shape —
 you don't need to sort the list after building it.  
 The *shape* of the tree *is* the ordering rule.
 
-Task 2
-------
-
-Write a recursive method in your ``BST`` class called ``inorder_traversal()`` that returns a Python ``list`` of all the data in the ``BST`` in order. Starter code will be given to you on codebuddy.
-
-
-Other Tree Metrics
-------------------
-
-When working with trees, it can be useful to define metrics for talking about where different nodes are in the tree.
-
-- **Depth**: Distance from a node to the root node. It is commonly defined with the root node being at depth 0. Depth is calculated by counting the number of edges in the path between the root and node.
-
-- **Height**: Distance from a node to its deepest descendant leaf. Height is calculated by counting the number of edges in the path between node and its deepest descendant leaf.
-
-.. image:: _static/figures/bst_attributes_annotated.svg
-   :align: center
-   :alt: Basic tree diagram
-
 Task 3
 ------
 
-Write a recursive method in your ``BST`` class called ``height()`` that calculates the height of your ``BST``. Starter code will be given to you on codebuddy.
+Write a recursive method in your ``BST`` class called ``inorder_traversal()`` that returns a Python ``list`` of all the data in the ``BST`` in order. Starter code will be given to you on codebuddy.
 
 Balanced and Unbalanced Trees
 -----------------------------
