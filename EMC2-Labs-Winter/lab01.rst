@@ -1,181 +1,585 @@
-Lab 1: Introduction to Plotting
-===============================
+Lab 1: Introduction to Python, Revisited
+==============================================
 
-.. Find a place to put this information about array masking. 
-..
-.. Array Masking
-.. -------------
-.. Array masking is a powerful tool in numpy that allows you to filter data using conditions. When you apply a condition on a NumPy array, it returns a new array of boolean values with ``True`` where the condition is met, and ``False`` otherwise. This is called a **boolean mask**. For example,
+This lab covers additional topics in Python and NumPy that will expand your programming knowledge.
 
-.. >>> a = np.array([1, 2, 3, 4])
-.. >>> a > 2
-.. array([False, False,  True,  True])
+f-strings
+---------
 
-.. You can then use this mask to select the elements only where the condition is ``True``.
+Python f-strings are an efficient and simple way of formatting strings. They are generally faster and more readable than other methods of string formatting (including string concatenation with ``+``).
 
-.. >>> a = np.array([1, 2, 3, 4])
-.. >>> b = a > 2
-.. >>> a[b]
-.. array([3, 4])
+An f-string is declared by placing an ``f`` in front of the string. ``{}`` can be used inside f-strings to get the ``str`` value of python code.
 
-This material is adapted from the ACME lab on MatPlotLib.
+>>> a = 10
+>>> b = 37
+>>> print(f"The value of a is: '{a}'")
+The value of a is: '10'
+>>> print(f'The value of a * b is: {a * b}')
+The value of a * b is: 370
 
-Raw numerical data is rarely helpful unless it can be visualized. 
-Fortunately there is a helpful Python package ``matplotlib`` that can help you create nice visualizations of your data. You have already seen this package in your SVD lab, but in this lab you will learn
-more about its capabilities.
+.. Note::
+    In the example above we used single quotes ``''`` inside double quotes ``""``. This is necessary if we want to include single quotes in our string. If you want to have both single and double quotes inside the f-string, just create the f-string ``"""`` or ``'''``.
 
-We will focus on creating *line plots*. The following code creates an array of outputs of
-the function :math:`f(x) = x^2`, then visualizes the array using ``matplotlib``.
+    >>> print(f"""'This' is too many "quotes".""")
+    'This' is too many "quotes".
 
-.. code-block:: python
-	
-	import numpy as np
-	from matplotlib import pyplot as plt
+f-strings also make it possible for fancier formatting. Check out the `Python documentation <https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting>`_ to learn more.
 
-	y = np.arange(-5,6)**2
+Raw Strings
+-----------
 
-	# Visualize the plot.
-	plt.plot(y)                     # Draw the line plot.
-	plt.show()                      # Reveal the resulting plot.
+Raw strings in Python look very similar to f-strings, but they are prefixed by an ``r`` or ``R`` rather than an ``f``. The main difference between raw strings and other strings is how they treat backslashes (``\``). In normal strings backslashes indicate **escape characters** which are special characters like tabs, backspaces, and newlines. For example, ``\n`` is the newline character.
 
+>>> print("Hello\nWorld")
+Hello
+World
 
+To use a backslash in a normal Python string, we have to prefix it with another backslash character:
 
-The result is shown below in (a). Just as ``np`` is a standard alias for ``numpy``, ``plt`` is a standard alias for ``matplotlib.pyplot`` in the Python community.
+>>> print("Hello\\World")
+Hello\World
 
-.. image:: _static/figures/y=x2.png
-  :align: center
-  :width: 90%
+Raw strings treat backslashses as the actual backslash character. This is especially useful when working with windows filepaths (which use the ``\`` character, ``C:\Users\Documents``), regular expressions (which we won't get into), or LaTeX.
 
-The call ``plt.plot(y)`` creates a figure and draws straight lines connecting the entries of ``y`` relative to the ``y``-axis. The ``x``-axis is (by default) the index of the array, which in this case is the integers from 0 to 10. Calling ``plt.show()`` then displays the figure.
+>>> print(r"Hello\\World")
+Hello\\World
+>>> print(R'Hello\nWorld')
+Hello\nWorld
+>>> print(R"""Hello\t\\World""")
+Hello\t\\World
 
-An obvious problem with plot (a) is that the ``x``-axis does not correspond correctly to the ``y``-axis for the function :math:`f(x) = x^2` that is being drawn. To correct this, define an array ``x`` for the domain, then use it to calculate the image :math:`y = f(x)`. The command ``plt.plot(x,y)`` plots ``x`` against ``y`` by drawing a line between the consecutive points ``(x[i], y[i])``. Note that the arrays must have the same number of elements to be compatible.
+Later, we will use raw strings to display LaTeX on plots.
 
-Another problem with plot (a) is its poor resolution: the curve is visibly bumpy, especially near the bottom of the curve. ``numpy``'s ``linspace()`` function makes it easy to get a higher-resolution domain by creating an array of evenly-spaced values in a given interval where the **number of elements** is specified.
+Lambda Functions
+----------------
 
-.. code-block:: python
+Lambda functions are a shorthand way of defining functions. They are excellent for creating simple, one-time use functions. The syntax for creating a lambda function looks like:
 
-	# Get 4 evenly-spaced values between 0 and 32 (including endpoints).
-	np.linspace(0, 32, 4)
+.. code:: python
 
-	# Get 50 evenly-spaced values from -5 to 5 (including endpoints).
-	x = np.linspace(-5, 5, 50)
-	y = x**2                        # Calculate the range of f(x) = x**2.
-	plt.plot(x, y)
-	plt.show()
+    lambda arguments: expression
 
+A simple lambda function that computes a power would look like:
 
-The resulting plot is shown in (b). This time, the ``x``-axis correctly matches up with the ``y``-axis. The resolution is also much better because ``x`` and ``y`` have ``50`` entries each instead of only ``10``.
+.. code:: python
 
+    lambda a, n: a ** n
 
-Task 1
-------
+This is the same as writing:
 
-Write a function that plots the functions ``sin(x)``, ``cos(x)``, and ``arctan(x)`` on the domain ``[-2π, 2π]`` (use ``np.pi`` for π). Call ``plt.xlim(-2*np.pi, 2*np.pi)`` before ``plt.show()`` to stretch the ``x``-axis appropriately. Make sure the domain is refined enough to produce a figure with good resolution.
+.. code:: python
 
-*Note*: For this lab, the autograder is testing to see if your graphs are a pixel-perfect match for the solution graphs, so follow the instructions closely. Future labs will mostly rely on alternative grading methods.
+    def power(a, n):
+        return a**n
 
-Plot Customization
+.. Note::
+    The downside to lambda functions is that they reduce readability. Only use them for very small functions where the functionality is clear.
+
+A slightly more complicated lambda function would look like:
+
+.. code:: python
+
+    # checks if a number is even
+    lambda x: x % 2 == 0
+
+This is the same as:
+
+.. code:: python
+    
+    def is_even(x):
+        return x % 2 == 0
+
+Sometimes, it is necessary to use a lambda function in multiple places. In this case, we can assign it to a variable.
+
+>>> is_even = lambda x: x % 2 == 0
+
+We can treat the variable as if it were a normal function defined with ``def``.
+
+>>> is_even(14)
+True
+>>> is_even(27)
+False
+
+.. Note::
+    Lambda functions are frequently used as parameters in other functions. For example, the ``map(func, a)`` function in Python exectues ``func`` on every element in ``a``. ``a`` can be anything you can iterate over (like a list or a string).
+
+    This will capitalize every word in a list
+
+    >>> x = map(lambda letter: letter.upper(), ["hello", "world"])
+    >>> x = x.list()    # convert it to a list for readability
+    >>> print(x)
+    ['HELLO', 'WORLD']
+
+Task 1: Basic Functions
+-----------------------
+Write each function as a lambda function. Assign each to the variables ``mean``, ``sigmoid``, and ``prime_count_approx``.
+
+.. math::
+    :label: eq:(1)
+
+    \mu = \frac{\sum_{i=1}^{n}x_i}{n}
+
+.. math::
+    :label: eq:(2)
+
+    \sigma(\text{x}) = \frac{1}{1 + e^{-x}}
+
+.. math::
+    :label: eq:(3)
+
+    f(x) = \frac{x}{\log(x)}
+
+.. hint about using array sum for part 1 of this
+
+Task 2: Sort
+------------
+``sorted(a, key)`` is a built-in python function that sorts an iterable (something you can iterate over like a list, string, etc.). ``a`` is the iterable, and ``key`` is a function that specifies how the iterable should be sorted.
+
+Here is an example of sorting a list of tuples by the second element.
+
+>>> pairs = [(1, 3), (2, 2), (4, 1)]
+>>> sorted_pairs = sorted(pairs, key=lambda pair: pair[1])
+>>> print(sorted_pairs)
+[(4, 1), (2, 2), (1, 3)]
+
+.. note::
+    The ``sorted()`` function works great for lists, but has limitations when it comes to NumPy arrays which is why we are using Python lists in this task.
+
+Write a function ``sort_list(a)`` that takes in ``a`` which is a Python ``list`` of ``tuples`` and returns the list sorted by the mean of each tuple. 
+Make sure to assign your ``lambda`` function to the ``key`` parameter of ``sorted()``!
+
+.. hint about using np.mean()
+
+More Operators
+--------------
+You are familiar with simple operators like ``+``, ``-``, and ``*``. It is common to take a variable and set it to itself added, subtracted, or multiplied with another number. Python has a syntax for this:
+
+>>> var = 120
+>>> var += 32
+>>> var
+152
+
+Remember this is the same as ``var = var + 32``. This same syntax works for ``-``, ``*``, ``/``, ``%``, ``**``, and others as well. Here are some more examples
+
+>>> var = 20
+>>> var *= 2
+>>> var
+40
+>>> var -= 30
+>>> var
+10
+>>> var /= 2
+>>> var
+5.0
+>>> var %= 2
+>>> var
+1.0
+
+Try/Except
 ------------------
 
-The plots you created in Task 1 are extremely basic. Most plots are greatly improved by the addition of color, legends, axis labels and titles.
+The try/except block is used for catching errors in code blocks without breaking the entire program.
 
-``plt.plot()`` receives several keyword arguments for customizing the drawing. For example, the color and style of the line are specified by the following string arguments.
+.. code:: python
 
-.. list-table:: 
-   :widths: 10 50 10 10 200
-   :header-rows: 1
+    def divide(denominator):
+        try:    # without the try/except block, we would just get a ZeroDivisionError
+            1/denominator
+        except:
+            print("An error occurred")
+            
+>>> divide(0)
+An error occurred
 
-   * - Key
-     - Color
-     - 
-     - Key
-     - Style
-   * - ``"b"``
-     - blue
-     - 
-     - ``"-"``
-     - solid line
-   * - ``"g"``
-     - green
-     - 
-     - ``"--"``
-     - dashed line
-   * - ``"r"``
-     - red
-     - 
-     - ``"-."``
-     - dash-dot line
-   * - ``"c"``
-     - cyan
-     - 
-     - ``":"``
-     - dotted line
-   * - ``"k"``
-     - black
-     - 
-     - ``"o"``
-     - circle marker
+.. admonition:: Bonus: more error catching
 
+    ``try`` and ``except`` are the basics of error catching in python. Other elements like ``else`` and ``finally`` along with error-specific catching can be very useful when working with large programs. Here is an example with all of them together.
 
-Specify one or both of these string codes as the third argument to ``plt.plot()`` to change from the default color and style. Other ``plt`` functions further customize a figure.
+    .. code:: python
 
-.. list-table:: 
-   :header-rows: 1
+        def divide_element(i, n):
+            """Gets the the element at index i from my_list and divides it by n. Then adds 10 to the result.
+            
+            If there is an error, it returns 0.
+            """
 
-   * - Function
-     - Description
-   * - ``legend()``
-     - Place a legend in the plot
-   * - ``title()``
-     - Add a title to the plot
-   * - ``xlim()`` / ``ylim()``
-     - Set the limits of the ``x``- or ``y``-axis
-   * - ``xlabel()`` / ``ylabel()``
-     - Add a label to the ``x``- or ``y``-axis
+            my_list = [1, 2, 3]
+            try:
+                val = my_list[i]/n
+            except IndexError:                  # catches only IndexErrors
+                print("Got an Index Error")
+                val = 0
+            except ZeroDivisionError:           # catches only ZeroDivisionErrors
+                print("Got a Zero Division Error")
+                val = 0
+            else:                               # if it didn't catch any errors
+                print("Successful")
+                val += 10
+            finally:                            # always run this no matter what happens
+                return val
+            
+    >>> print(divide_element(2, 1))
+    Successful
+    13.0
+    >>> print(divide_element(10, 1))
+    Got an Index Error
+    0
+    >>> print(divide_element(2, 0))
+    Got a Zero Division Error
+    0
 
+Task 3: Matrix Multiplication
+-----------------------------
+Write a function ``mat_mul(a, b)`` that takes in ``numpy.ndarray``\s ``a`` and ``b`` and performs matrix multiplication on them. ``mat_mul`` should return the string ``Error: matrix a with shape (n,m) is not compatible with matrix b with shape (n,m)`` when the matrices are of incompatible shapes.
+
+Type Declarations in Functions
+------------------------------
+
+We have talked about functions and docstrings before, but python has an additional way to document the types that functions take in.
+
+.. code:: python
+
+    def add(a: int, b: float) -> float:
+        """Adds an int and a float together."""
+        return a + b
+
+This says that ``a`` should be an ``int``, ``b`` should be a ``float``, and the return value should be a ``float``.
+
+.. Warning::
+    Python doesn't enforce type declarations in functions, it is purely for documentation purposes.
+
+Additionally, you can have default parameters for functions. This way, the user doesn't need to pass in a parameter.
+
+.. code:: python
+
+    def calculate_force(mass: float, acceleration: float = 9.8) -> float:
+        """Returns the force from a given mass and acceleration.
+        
+        The default value for acceleration is 9.8 m/s^2 from gravity."""
+        return mass * acceleration
+
+>>> calculate_force(10)
+98.0
+>>> calculate_force(10, acceleration=3.73)  # mars
+70
+
+Dictionaries
+------------
+
+A dictionary is another Python data type. It is similar to a list, but while a list uses an integer index to retrieve another data type, a dictionary can use any data type to retrieve another data type. This is called "mapping".
+
+Dictionaries contain key-value pairs i.e., given a key, we can retrieve a value (but not the other way around).
+We access dictionaries using the ``[]`` notation.
+
+>>> my_dict = {"apple": "red", "orange": 12, "blueberry": True}
+>>> my_dict["apple"]
+'red'
+>>> my_dict["orange"]
+12
+>>> my_dict["blueberry"]
+True
+
+To insert or change a value in a dictionary, we use the same notation
+
+>>> my_dict["strawberry"] = "red"
+>>> my_dict
+{"apple": "red", "orange": 12, "blueberry": True, "strawberry": "red"}
+>>> my_dict["apple"] = "green"
+>>> my_dict
+{"apple": "green", "orange": 12, "blueberry": True, "strawberry": "red"}
+
+It is often helpful to iterate over the entries in a dictionary. We can do this with the ``.items()`` method which returns a tuple of each key and value in the dictionary.
+
+>>> my_dict.items()
+dict_items([('apple', 'red'), ('orange', 12), ('blueberry', True), ('strawberry', 'red')])
+>>> for key, value in my_dict.items():
+>>>     print(f"my_dict key: {key}, my_dict value: {value}")
+my_dict key: apple, my_dict value: green
+my_dict key: orange, my_dict value: 12
+my_dict key: blueberry, my_dict value: True
+my_dict key: strawberry, my_dict value: red
+
+Here are some other useful functions and methods for dictionaries:
+
+- ``len(my_dict)`` the length of the dictionary (how many entries there are)
+- ``my_dict.keys()`` gets all the keys in the dictionary
+- ``my_dict.values()`` gets all the values from the dictionary
+- ``my_dict.items()`` gets a list of tuples containing the all the keys and values (used in the example above)
+
+Task 4: Sorting a Dictionary
+----------------------------
+Write a function ``sort_dict(d)`` which sorts a dictionary of student's scores from highest to lowest.
+``d`` is a dictionary that maps from a student's name (``str``) to their percentage in the class (``float``). 
+``sort_dict(d)`` should return a list of tuples containing the student's name and their grade i.e., ``[("peter", 97.5), ("james", 96.1), ("john", 94.8)]``.
+
+Importing
+---------
+At this point, you are familiar with how to import a module or package in python using
+
+.. code:: python
+
+    import package
+
+and
+
+.. code:: python
+
+    import package as pk
+
+Here are a few other ways to import a module:
+
+.. code:: python
+
+    # import a specific function or class from a module to call it directly (without package.function)
+    from package import function    
+
+    # import all of the functions or classes from a module so you can call them directly. This method is not very common.
+    from package import *   
+
+    # import a function or class from a module with an alias so you can call the function directly
+    from package import function as func    
+
+.. note:: 
+
+    Many packages contain subpackages. You can use subpackage functions in two ways.
+
+    >>> import numpy as np
+    >>> v = [3, 4]
+    >>> np.linalg.norm(v)
+    5.0
+    >>> import numpy.linalg as la
+    >>> la.norm(v)
+    5.0
+
+    The first option will import all of NumPy, while the second will only import the ``linalg`` subpackage.
+
+So far in this class we have been using Google Colab for our projects. Google Colab is convenient because it allows us to write Python code in our browser and it has lots of Python libraries pre-installed.
+
+When working on a large project it is better to run Python locally on your computer. This is commonly done with an Integrated Development Environment (IDE) like VS Code, PyCharm, or even a simple text editor and the command line. We won't get into this now, but it is important to know that Google Colab is just an intro.
+
+NumPy Stacking
+--------------
+
+NumPy has different functions to merge and concatenate NumPy arrays. It is important to know that these functions exist, but you don't need to know all the details.
+
+.. ``numpy.column_stack`` 
+.. ~~~~~~~~~~~~~~~~~~~~~~
+.. Takes 1d arrays and stacks them as the columns of a 2d array.
+
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> b = np.array([4, 5, 6, 7])
+.. >>> np.column_stack((a, b))
+.. array([[1, 4],
+..        [2, 5],
+..        [3, 6],
+..        [4, 7]])
+
+``numpy.vstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them vertically (along the first axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.vstack((a, b))
+array([[1, 2, 3, 4],
+       [4, 5, 6, 7]])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.vstack((c, d))
+array([[ 1,  2],
+       [ 3,  4],
+       [ 5,  6],
+       [ 6,  7],
+       [ 8,  9],
+       [10, 11]])
+       
+``numpy.hstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them horizontally (along the second axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.hstack((a, b))
+array([1, 2, 3, 4, 4, 5, 6, 7])
+
+>>> c = np.array([[1, 2], [3, 4], [5, 6]])
+>>> d = np.array([[6, 7], [8, 9], [10, 11]])
+>>> np.hstack((c, d))
+array([[ 1,  2,  6,  7],
+       [ 3,  4,  8,  9],
+       [ 5,  6, 10, 11]])
+
+``numpy.dstack``
+~~~~~~~~~~~~~~~~
+Takes a set of arrays and stacks them according to 'depth' (along the third axis)
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.dstack((a, b))
+array([[[1, 4],
+        [2, 5],
+        [3, 6],
+        [4, 7]]])
 
 .. code-block:: python
 
-	x1 = np.linspace(-2, 4, 100)
-	plt.plot(x1, np.exp(x1), 'g:', linewidth=6, label="Exponential")
-	plt.title("This is the title.", fontsize=18)
-	plt.legend(loc="upper left")    	# plt.legend() uses the 'label' argument of
-	plt.show()                      	# plt.plot() to create a legend.
+    >>> c = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> d = np.array([[6, 7], [8, 9], [10, 11]])
+    >>> np.dstack((c, d))
+    array([[[ 1,  6],
+            [ 2,  7]],
 
-	x2 = np.linspace(1, 4, 100)
-	plt.plot(x2, np.log(x2), 'r*', markersize=4)
-	plt.xlim(0, 5)                  	# Set the visible limits of the x axis.
-	plt.xlabel("The x axis")        	# Give the x axis a label.
-	plt.show()
+        [[ 3,  8],
+            [ 4,  9]],
 
+        [[ 5, 10],
+            [ 6, 11]]])
 
-.. image:: _static/figures/green-red-plots.png
-  :align: center
-  :width: 90%
+.. code-block:: python
 
+    >>> e = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+    >>> f = np.array([[[2, 3], [4, 5]], [[6, 7], [8, 9]]])
+    >>> np.dstack((e, f))
+    array([[[1, 2, 2, 3],
+            [3, 4, 4, 5]],
 
-See `the MatPlotLib documentation <https://matplotlib.org/stable/index.html>`_ for more comprehensive lists of colors, line styles, and figure customization routines.
+        [[5, 6, 6, 7],
+            [7, 8, 8, 9]]])
 
-Task 2
-------
+``numpy.stack``
+~~~~~~~~~~~~~~~
+Joins a set of arrays along a *new* axis. When ``axis=-1``, it will join along the last axis.
 
-Write a function to plot the curve :math:`f(x) = \dfrac{1}{x-1}` on the domain [-2, 6].
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> np.stack((a, b), axis=0)
+array([[1, 2, 3, 4],
+       [4, 5, 6, 7]])
+>>> np.stack((a, b), axis=1)
+array([[1, 4],
+       [2, 5],
+       [3, 6],
+       [4, 7]])
+>>> np.stack((a,b), axis=-1)
+array([[1, 4],
+       [2, 5],
+       [3, 6],
+       [4, 7]])
 
-a. Although :math:`f(x)` has a discontinuity at :math:`x = 1`, a single call to ``plt.plot()`` in the usual way will make the curve look continuous. Split up the domain into :math:`[-2, 1)` and :math:`(1,6]`. Plot the two sides of the curve separately so that the graph looks discontinuous at :math:`x = 1`.
+.. code-block:: python
 
-   If we use the two functions ``x1 = np.linspace(-2,1,N)`` and ``x2 = np.linspace(1,6,N)`` to generate our domains, then each domain will contain ``1``, and therefore there will be division by ``0`` if we plug those endpoints into the function. You should remove the last number from the first list, and the first number from the second list, getting rid of the ``1`` s to prevent division by ``0``.
+    >>> c = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> d = np.array([[6, 7], [8, 9], [10, 11]])
+    >>> np.stack((c, d), axis=0)
+    array([[[ 1,  2],
+            [ 3,  4],
+            [ 5,  6]],
 
-b. Plot both curves with a dashed magenta line. Set the keyword argument ``linewidth`` (or ``lw``) of ``plt.plot()`` to ``4`` to make the line a little thicker than the default setting.
+        [[ 6,  7],
+            [ 8,  9],
+            [10, 11]]])
+    >>> np.stack((c, d), axis=1)
+    array([[[ 1,  2],
+            [ 6,  7]],
 
-c. Use ``plt.xlim()`` and ``plt.ylim()`` to change the range of the ``x``-axis to :math:`[-2, 6]` and the range of the ``y``-axis to :math:`[-6, 6]`.
+        [[ 3,  4],
+            [ 8,  9]],
 
-The plot should resemble the figure below.
+        [[ 5,  6],
+            [10, 11]]])
+    >>> np.stack((c, d), axis=2)
+    array([[[ 1,  6],
+            [ 2,  7]],
 
-.. image:: _static/figures/magenta-plot.png
-  :align: center
-  :width: 45%
+        [[ 3,  8],
+            [ 4,  9]],
 
+        [[ 5, 10],
+            [ 6, 11]]])
 
+Task 5: Images
+--------------
 
+Write three functions (listed below). Each should take in three NumPy arrays of shape ``(n, m)`` and return an array of the specified shape
 
+* ``rgb_image_one(r, g, b)`` returns an array of shape ``(n, m, 3)``
+* ``rgb_image_two(r, g, b)`` returns an array of shape ``(n, 3, m)``
+* ``rgb_image_three(r, g, b)`` returns an array of shape ``(3, n, m)``
 
+Array Broadcasting
+------------------
+
+This section is taken from the `Broadcasting <https://numpy.org/doc/stable/user/basics.broadcasting.html>`_ NumPy documentation.
+
+Broadcasting in NumPy is what enables us to do things like multiply element-wise in a vector and also do scalar multiplication.
+
+>>> a = np.array([1, 2, 3, 4])
+>>> b = np.array([4, 5, 6, 7])
+>>> a * b
+array([ 4, 10, 18, 28])
+>>> c = 3
+>>> a * c
+array([ 3,  6,  9, 12])
+
+The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
+
+.. image:: ./_static/figures/broadcasting_stretch.png
+    :align: center
+
+.. Note::
+    NumPy doesn't actually create this temporary array ``c`` with shape ``(4,)``. This is just a good way to think about it.
+
+Array broadcasting does not work on any shape of array. NumPy determines compatibility by comparing the shapes of the arrays starting with the rightmost dimension. Dimensions are compatible when they are equal, or one of the dimensions is one. A ``ValueError: operands could not be broadcast together`` is raised when arrays are not compatible (`General Broadcasting Rules <https://numpy.org/doc/stable/user/basics.broadcasting.html#general-broadcasting-rules>`_).
+
+The result array of an operation will have the same number of dimensions as the array with the greatest number of dimensions in the operation. The size of each dimension in the result array will be the largest corresponding dimension in the input arrays. Any missing dimensions are treated as having dimension 1.
+
+Consider the following arrays
+
+* ``a = np.array([[a1], [a2], [a3]])`` with shape ``(3, 1)``
+* ``b = np.array([[b1, b2, b3, b4]])`` with shape ``(1, 4)``
+* ``c = np.array([c1, c2, c3, c4])`` with shape ``(4,)``
+* ``d`` is a scalar
+
+All of these arrays are broadcastable with one another because all can be expanded into a ``numpy.ndarray`` of shape ``(3, 4)``.
+
+.. image:: ./_static/figures/broadcasting_abcd.png
+    :align: center
+    :alt: a, b, c, and d expanded into arrays of shape (3,4)
+
+On the other hand, array ``e`` with shape ``(5, 2)`` could not be broadcast into shape ``(3, 4)`` because none of the corresponding dimensions are the same and none of them are 1.
+
+.. image:: ./_static/figures/broadcasting_e.png
+    :align: center
+    :height: 300
+
+But, array ``f`` with shape ``(5, 1, 1)`` is compatible with arrays ``a``, ``b``, ``c``, and ``d`` because the dimensions corresponding to ``a``, ``b``, ``c``, and ``d`` are all 1. In this case, each ``a``, ``b``, ``c``, and ``d`` would be stretched to match dimension ``5`` in ``f``.
+
+Consider this example. You are given a list of prices of products in USD and you want to convert that list of prices into different currencies like EUR, JPY, and GBP.
+
+>>> usd_prices = np.array([9.90, 10.28, 6.75, 3.09])
+>>> exchange_rates = np.array([0.88, 144.3, 0.74])  # [EUR, JPY, GBP]
+
+We could loop over each of these and find the converted prices that way, or we can use array broadcasting. Right now, ``usd_prices`` has a shape of ``(4,)`` and ``exchange_rates`` has shape ``(3,)``. If we redefine ``exchange_rates`` to have shape ``(3,1)`` then we can use array broadcasting to get an array where each row represents the currency, and each column represents the price.
+
+.. image:: ./_static/figures/broadcasting_currency.png
+    :align: center
+    :alt: usd_prices and exchange_rates broadcasted and multiplied together
+    :height: 400
+
+>>> usd_prices = np.array([9.90, 10.28, 6.75, 3.09])
+>>> exchange_rates = np.array([[0.88], [144.3], [0.74]])    # shape (3,1)
+>>> np.round(exchange_rates * usd_prices, decimals=2)   # shape: (4,3)
+array([[   8.71,    9.05,    5.94,    2.72],
+       [1428.57, 1483.4 ,  974.03,  445.89],
+       [   7.33,    7.61,    5.  ,    2.29]])
+
+Task 6: Normalization
+---------------------
+Normalization is a basic statistical method to scale data so all of the points lie between 0 and 1. Here is the formula:
+
+.. math::
+    x_{\text{norm}} = \frac{x - x_{min}}{x_{max} - x_{min}}
+
+You are given data on recent college graduates and their median earnings based on their major.
+Use array broadcasting to create a normalized set of median earnings. The data is given in CodeBuddy.

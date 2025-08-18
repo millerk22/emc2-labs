@@ -1,160 +1,181 @@
-Lab 2: Introduction to Plotting and Sequences 
-=============================================
+Lab 2: Introduction to Plotting
+===============================
 
-Plotting sequences
-------------------
+.. Find a place to put this information about array masking. 
+..
+.. Array Masking
+.. -------------
+.. Array masking is a powerful tool in numpy that allows you to filter data using conditions. When you apply a condition on a NumPy array, it returns a new array of boolean values with ``True`` where the condition is met, and ``False`` otherwise. This is called a **boolean mask**. For example,
 
-As you have seen in class, a sequence is a countably infinite ordered list of numbers. We are often wondering whether a particular sequence has a limit or not, and one of the most intuitive tools that we have to explore this is plotting. For example, if you saw the two plots below, you would guess that sequence :math:`(a_n)` has a limit (probably :math:`0`) and sequence :math:`(b_n)` does not. While this is not a rigorous proof, it can help build intuition about convergence and divergence of sequences. The goal of this lab is to learn how to create plots like these.
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> a > 2
+.. array([False, False,  True,  True])
 
-.. figure:: _static/figures/a_n-example.png
+.. You can then use this mask to select the elements only where the condition is ``True``.
+
+.. >>> a = np.array([1, 2, 3, 4])
+.. >>> b = a > 2
+.. >>> a[b]
+.. array([3, 4])
+
+This material is adapted from the ACME lab on MatPlotLib.
+
+Raw numerical data is rarely helpful unless it can be visualized. 
+Fortunately there is a helpful Python package ``matplotlib`` that can help you create nice visualizations of your data. You have already seen this package in your SVD lab, but in this lab you will learn
+more about its capabilities.
+
+We will focus on creating *line plots*. The following code creates an array of outputs of
+the function :math:`f(x) = x^2`, then visualizes the array using ``matplotlib``.
+
+.. code-block:: python
+	
+	import numpy as np
+	from matplotlib import pyplot as plt
+
+	y = np.arange(-5,6)**2
+
+	# Visualize the plot.
+	plt.plot(y)                     # Draw the line plot.
+	plt.show()                      # Reveal the resulting plot.
+
+
+
+The result is shown below in (a). Just as ``np`` is a standard alias for ``numpy``, ``plt`` is a standard alias for ``matplotlib.pyplot`` in the Python community.
+
+.. image:: _static/figures/y=x2.png
   :align: center
-  :width: 45%
+  :width: 90%
 
-  Sequence :math:`(a_n)` converges to :math:`0`
+The call ``plt.plot(y)`` creates a figure and draws straight lines connecting the entries of ``y`` relative to the ``y``-axis. The ``x``-axis is (by default) the index of the array, which in this case is the integers from 0 to 10. Calling ``plt.show()`` then displays the figure.
 
-.. figure:: _static/figures/b_n-example.png
-  :align: center
-  :width: 45%
+An obvious problem with plot (a) is that the ``x``-axis does not correspond correctly to the ``y``-axis for the function :math:`f(x) = x^2` that is being drawn. To correct this, define an array ``x`` for the domain, then use it to calculate the image :math:`y = f(x)`. The command ``plt.plot(x,y)`` plots ``x`` against ``y`` by drawing a line between the consecutive points ``(x[i], y[i])``. Note that the arrays must have the same number of elements to be compatible.
 
-  Sequence :math:`(b_n)` does not converge
+Another problem with plot (a) is its poor resolution: the curve is visibly bumpy, especially near the bottom of the curve. ``numpy``'s ``linspace()`` function makes it easy to get a higher-resolution domain by creating an array of evenly-spaced values in a given interval where the **number of elements** is specified.
 
+.. code-block:: python
 
+	# Get 4 evenly-spaced values between 0 and 32 (including endpoints).
+	np.linspace(0, 32, 4)
 
-
-In the previous lab, you saw how to plot functions using the ``matplotlib`` package. When plotting a function on :math:`\mathbb R`, we needed many intermediary values to make the function look smooth. Because of these intermediary values, we used NumPy's ``arange``. However, plotting a sequence is generally much simpler since we no longer need intermediary values. We can instead collect the terms of the sequence into a list. In the example below, we will plot the sequence whose ``n``-th term is given by
-
-.. math::
-	a_n = (-1)^n \frac{n}{2n + 1}
-
-.. code-block::
-
-	import matplotlib.pyplot as plt   # importing matplotlib
-	                                  # and giving it the name plt
-
-	N = 20      # the number of terms to generate
-	a = []      # start with an empty list
-
-	for n in range(0,N):
-	    a.append(((-1.0)**n)*n/(2.0*n+1.0))     # populate the list
-	plt.plot(a,".")    # the "." tells the program to plot discrete points
-	plt.show()         # displays the plot
+	# Get 50 evenly-spaced values from -5 to 5 (including endpoints).
+	x = np.linspace(-5, 5, 50)
+	y = x**2                        # Calculate the range of f(x) = x**2.
+	plt.plot(x, y)
+	plt.show()
 
 
-If you recognize this example, it is because it can be found on page 128 of your Math 341 textbook.
-Let's look at what differs from plotting a function in this example. In all our previous examples of using the ``plot`` function, we passed in two lists: a list for the ``x``-coordinates and a list for the ``y``-coordinates. If we instead pass in only one list, that list is assumed to be the list of ``y``-coordinates and the list of ``x``-coordinates is assumed to be a list of indices: a list of integers starting at ``0`` and ending just before the length of the list of ``y``-coordinates. In the example above, the ``y``-coordinates are given by 
-
-.. math::
-	a_n = (-1)^n \frac{n}{2n + 1}
-
-
-for ``0 <= n <= 19`` and the ``x`` coordinates are given by the list ``[0,1,...,19]``.
+The resulting plot is shown in (b). This time, the ``x``-axis correctly matches up with the ``y``-axis. The resolution is also much better because ``x`` and ``y`` have ``50`` entries each instead of only ``10``.
 
 
 Task 1
 ------
 
-Write a function, ``plot_monotonic()``, to plot the sequence
+Write a function that plots the functions ``sin(x)``, ``cos(x)``, and ``arctan(x)`` on the domain ``[-2π, 2π]`` (use ``np.pi`` for π). Call ``plt.xlim(-2*np.pi, 2*np.pi)`` before ``plt.show()`` to stretch the ``x``-axis appropriately. Make sure the domain is refined enough to produce a figure with good resolution.
 
-.. math::
-	a_n = \frac{n}{\sqrt{n^2 + 1}}
+*Note*: For this lab, the autograder is testing to see if your graphs are a pixel-perfect match for the solution graphs, so follow the instructions closely. Future labs will mostly rely on alternative grading methods.
 
-for :math:`n = 0,1,\ldots,19` using the ``sqrt`` function from the ``math`` library. Title the plot :math:`a_n = \frac{n}{\sqrt{n^2 + 1}}`. We can put the raw LaTeX inside a raw string to do this (``r"$a_n = \frac{n}{\sqrt{n^2 + 1}}$"``). Then, label the axes :math:`n` and :math:`a_n` also using raw strings and LaTeX. Then, adjust the x-axis ticks to be the indices of your sequence.
-
-Does the sequence appear to converge? If so, to what limit? Compare with Example 8.2 in the text.
-
-
-Customizing graphs
+Plot Customization
 ------------------
 
-Just as with plotting functions, we may customize our graphs using all the same commands as before. The only difference is that we will prefer to have discrete points to differentiate a sequence from a function on :math:`\mathbb R`. Thus we will use keywords such as ``"."`` or ``"o"`` to get discrete points.
-As an example, we can add a title and change the limits of the ``x`` and ``y`` axes in our first example:
+The plots you created in Task 1 are extremely basic. Most plots are greatly improved by the addition of color, legends, axis labels and titles.
 
-.. code-block::
+``plt.plot()`` receives several keyword arguments for customizing the drawing. For example, the color and style of the line are specified by the following string arguments.
 
-	import matplotlib.pyplot as plt
+.. list-table:: 
+   :widths: 10 50 10 10 200
+   :header-rows: 1
 
-	N = 20
-	a = []
+   * - Key
+     - Color
+     - 
+     - Key
+     - Style
+   * - ``"b"``
+     - blue
+     - 
+     - ``"-"``
+     - solid line
+   * - ``"g"``
+     - green
+     - 
+     - ``"--"``
+     - dashed line
+   * - ``"r"``
+     - red
+     - 
+     - ``"-."``
+     - dash-dot line
+   * - ``"c"``
+     - cyan
+     - 
+     - ``":"``
+     - dotted line
+   * - ``"k"``
+     - black
+     - 
+     - ``"o"``
+     - circle marker
 
-	for n in range(0,N):
-	    a.append(((-1.0)**n)*n/(2.0*n+1.0))
 
-	plt.title("A plot of {a_n}")  # titles the plot
-	plt.xlim([-1,20])             # sets the x range to between -1 and 20
-	plt.ylim([-1,1])              # sets the y range to between -1 and 1
-	plt.plot(a,"mo")              # magenta circle markers
+Specify one or both of these string codes as the third argument to ``plt.plot()`` to change from the default color and style. Other ``plt`` functions further customize a figure.
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Function
+     - Description
+   * - ``legend()``
+     - Place a legend in the plot
+   * - ``title()``
+     - Add a title to the plot
+   * - ``xlim()`` / ``ylim()``
+     - Set the limits of the ``x``- or ``y``-axis
+   * - ``xlabel()`` / ``ylabel()``
+     - Add a label to the ``x``- or ``y``-axis
+
+
+.. code-block:: python
+
+	x1 = np.linspace(-2, 4, 100)
+	plt.plot(x1, np.exp(x1), 'g:', linewidth=6, label="Exponential")
+	plt.title("This is the title.", fontsize=18)
+	plt.legend(loc="upper left")    	# plt.legend() uses the 'label' argument of
+	plt.show()                      	# plt.plot() to create a legend.
+
+	x2 = np.linspace(1, 4, 100)
+	plt.plot(x2, np.log(x2), 'r*', markersize=4)
+	plt.xlim(0, 5)                  	# Set the visible limits of the x axis.
+	plt.xlabel("The x axis")        	# Give the x axis a label.
 	plt.show()
 
 
-In the above examples, we used a ``for`` loop to construct our ``a`` and ``y`` values. However, we have other options.  We simply need a list. We could have used list comprehension or created a function that makes a list. The code block below shows the first example reworked using list comprehension:
+.. image:: _static/figures/green-red-plots.png
+  :align: center
+  :width: 90%
 
 
-.. code-block::
-
-	import matplotlib.pyplot as plt
-
-	N = 20      # the number of terms to generate
-	a = [((-1.0)**n)*n/(2.0*n+1.0) for n in range(0,N)] # generate all of a
-
-	plt.plot(a,".")
-	plt.show()
-
-
-We will create two different plots for the same function rule, one using the natural numbers as the domain and one using an interval of the real line as the domain. 
+See `the MatPlotLib documentation <https://matplotlib.org/stable/index.html>`_ for more comprehensive lists of colors, line styles, and figure customization routines.
 
 Task 2
 ------
-Plot the sequence 
 
-.. math::
-	a_n = (1-\tfrac{1}{n})^n
+Write a function to plot the curve :math:`f(x) = \dfrac{1}{x-1}` on the domain [-2, 6].
 
+a. Although :math:`f(x)` has a discontinuity at :math:`x = 1`, a single call to ``plt.plot()`` in the usual way will make the curve look continuous. Split up the domain into :math:`[-2, 1)` and :math:`(1,6]`. Plot the two sides of the curve separately so that the graph looks discontinuous at :math:`x = 1`.
 
-for ``1 <= n <= 20``. Use list comprehension to create the sequence. Add a title, change the color and/or style, label the ``x`` and ``y`` axes, and play with the ``x`` and ``y`` limits until you are satisfied with the output. Does it look like this sequence has a limit?
+   If we use the two functions ``x1 = np.linspace(-2,1,N)`` and ``x2 = np.linspace(1,6,N)`` to generate our domains, then each domain will contain ``1``, and therefore there will be division by ``0`` if we plug those endpoints into the function. You should remove the last number from the first list, and the first number from the second list, getting rid of the ``1`` s to prevent division by ``0``.
 
-Task 3
-------
+b. Plot both curves with a dashed magenta line. Set the keyword argument ``linewidth`` (or ``lw``) of ``plt.plot()`` to ``4`` to make the line a little thicker than the default setting.
 
-We will create two different plots for the same function rule, one using the natural numbers as the domain and one using an interval of the real line as the domain.
+c. Use ``plt.xlim()`` and ``plt.ylim()`` to change the range of the ``x``-axis to :math:`[-2, 6]` and the range of the ``y``-axis to :math:`[-6, 6]`.
 
-Write a function, ``plot_function()``, to plot the function
+The plot should resemble the figure below.
 
-.. math::
-	f(x) = (1-\tfrac{1}{x})^x
-
-
-over ``x`` in ``[1,20]``. Use a NumPy ``arange`` to generate these non-integer ``x`` values with a distance between each point of 0.1. Use list comprehension to generate your ``y`` values. Note that ``y = [f(x) for x in xlist]``. Use ``"-"`` as your marker argument when plotting to emphasize that this is a function plot.
-
-How can you customize this plot and your plot from part (a) to emphasize that one is a plot of a sequence and the other is a plot of a function on ``R``?
+.. image:: _static/figures/magenta-plot.png
+  :align: center
+  :width: 45%
 
 
-
-The Fibonacci Sequence
-~~~~~~~~~~~~~~~~~~~~~~
-
-Consider the Fibonacci sequence defined recursively by 
-
-.. math::
-  F_0 = 0, F_1 = 1, \text{ and } F_n = F_{n-1} + F_{n-2} \text{ for all $n \geq 2$}.
-
-    
-Task 4
-------
-
-Write a function ``fib_list(N)`` that generates a list of the first ``N`` terms of the Fibonacci sequence, starting with :math:`F_0`.
-
-
-Task 5
-------
-Let :math:`r_n = \dfrac{F_{n+1}}{F_{n}}` for :math:`n \geq 1`. Write a function ``fib_ratios(N)`` that generates a list of the first ``N`` terms of the sequence of ratios, starting with :math:`r_1`. Plot this sequence of ratios for ``N=20``.
-
-Task 6
-------
-Make a conjecture about the limit of the sequence :math:`(r_n)`. Plot this limit as a horizontal line. You can plot multiple sequences (or functions) on the same axes by making another call to ``plt.plot(b)`` for some other sequence ``b``. Make the horizontal line look connected (not like discrete points) and a different color than the :math:`(r_n)`.
-
-Task 7
-------
-Repeat this process with more terms and adjust your ``x`` and ``y`` limits accordingly. Does your horizontal line still appear to be the limit? If not, change it to match your new conjecture. What do you think the limit of the sequence :math:`(r_n)` equals?
 
 
 
