@@ -31,12 +31,12 @@ EMC2_PATH=<path_to_emc2_labs>
 MATH_PATH=<path_to_emc2_labs>
 ```
 
-Where everyting in `<>` should be replaced with the actual values. Note that the `EMC2_PATH` and the `MATH_PATH` are different.
+Where everything in `<>` should be replaced with the actual values. Note that the `EMC2_PATH` and the `MATH_PATH` are different.
 
 ## Usage
 Run `initiate_deploy.sh` with the options -f, -w, or -a (for fall, winter, or all)
 
-Usage: `initiate_deploy.sh [f|w|a]`
+Usage: `initiate_deploy.sh -[f|w|a]`
 
 If this doesn't work, `initiate_deploy.sh` may not have permission to execute. You can fix this with
 
