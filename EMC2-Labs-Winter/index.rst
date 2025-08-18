@@ -16,7 +16,6 @@ Choose a lab in the left sidebar.
 .. toctree::
 
    SQLlab
-   bst
    lab01
    lab02
    lab03
@@ -41,5 +40,3 @@ Choose a lab in the left sidebar.
    lab22
    lab23
    lab24
-   lab_OOP
-   lab_python_intro_2
