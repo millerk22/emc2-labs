@@ -113,5 +113,5 @@ elif (( $WINTER == 1 )); then
 else
     buildType "Fall"
     buildType "Winter"
-    printf "${GREEN}Successfully deployed both Fall and Winter.${RESET}\n"
+    printf "${GREEN}Successfully deployed both Fall and Winter labs.${RESET}\n"
 fi
