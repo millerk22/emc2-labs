@@ -25,6 +25,17 @@ buildType() {
     local Type="$1" # expects uppercase first letter ("Fall" or "Winter")
     local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # converts to all lowercase ("fall" or "winter")
 
+    # Make html
+    printf "${PURPLE}Making html...${RESET}\n"
+    make -C "EMC2-Labs-$Type" clean
+    make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
+    status=$?
+    if [ $status -ne 0 ]; then
+        printf "${RED}Make failed with code $status.${RESET}\n"
+        printf "${GREEN}Hint: You may need to fix the errors in red.${RESET}\n"
+        exit 1
+    fi
+
     sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
     status=$?
     if [ $status -ne 0 ]; then
@@ -90,17 +101,6 @@ conda activate emc2_dev
 status=$?
 if [ $status -ne 0 ]; then
     printf "${RED}Conda activate failed with code $status.${RESET}\n"
-    exit 1
-fi
-
-# Make html
-printf "${PURPLE}Making html...${RESET}\n"
-make -C "EMC2-Labs-$Type" clean
-make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
-status=$?
-if [ $status -ne 0 ]; then
-    printf "${RED}Make failed with code $status.${RESET}\n"
-    printf "${GREEN}Hint: You may need to fix the errors in red.${RESET}\n"
     exit 1
 fi
 
