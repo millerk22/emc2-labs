@@ -40,7 +40,7 @@ initiateDeploySSH() {
         printf "${PURPLE}No SSH Key found for $EMC2_USER on $EMC2_HOST.${RESET}\n"
         printf "${PURPLE}Follow this process to create a key.${RESET}\n"
 
-        read -p "${PRUPLE}Username for EMC2 server: ${RESET}" EMC2_USER
+        read -p "${PURPLE}Username for EMC2 server: ${RESET}" EMC2_USER
         read -p "${PURPLE}Your email (for identification): ${RESET}" USER_EMAIL
 
         printf "${PURPLE}Creating a key...${RESET}\n"
