@@ -12,42 +12,27 @@ GREEN=$'\e[32m'
 
 ### FUNCTIONS
 usage() {
-    echo -e "${RED}Usage: build_and_deploy.sh [f|w|a] -p path${RESET}"
+    printf "${RED}Usage: build_and_deploy.sh [f|w|a] -p path${RESET}\n"
     exit 1
+}
+
+getServerCredentials() {
+    read -p "${PURPLE}Username for math department server: ${RESET}" MATH_USER
+    read -s -p "${PURPLE}Password for math department server: ${RESET}" MATH_PASSWORD
 }
 
 buildType() {
     local Type="$1" # expects uppercase first letter ("Fall" or "Winter")
     local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # converts to all lowercase ("fall" or "winter")
 
-    echo -e "${PURPLE}Activating environment...${RESET}"
-    conda activate emc2_dev
-
-    echo -e "${PURPLE}Making html...${RESET}"
-    make -C "EMC2-Labs-$Type" clean
-    make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
-
-    status=$?
-    if [ $status -ne 0 ]; then
-        echo -e "${RED}Make failed with code $status.${RESET}"
-        echo -e "${GREEN}Hint: You may need to fix the errors in red.${RESET}"
-        exit 1
-    fi
-
-    echo -e "${PURPLE}Username for math department server: ${RESET}"
-    read MATH_USER
-    echo -e "${PURPLE}Password for math department server: ${RESET}"
-    read -s MATH_PASSWORD
-    echo
-
     sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
     status=$?
     if [ $status -ne 0 ]; then
-        echo -e "${RED}scp failed with code $status.${RESET}"
+        printf "${RED}scp failed with code $status.${RESET}\n"
         exit 1
     fi
 
-    echo -e "${GREEN}Successfully built and deployed $Type labs.${RESET}"
+    printf "${GREEN}Successfully built and deployed $Type labs.${RESET}\n"
 }
 ###
 
@@ -65,23 +50,23 @@ while getopts ":fwap:" opt; do
         p)
             MATH_PATH="$OPTARG";;
         :)
-            echo -e "${RED}Error: Option -$OPTARG requires an argument.${RESET}" >&2
+            printf "${RED}Error: Option -$OPTARG requires an argument.${RESET}\n" >&2
             usage;;
         \?)
-            echo -e "${RED}Invalid option: -$OPTARG${RESET}"
+            printf "${RED}Invalid option: -$OPTARG${RESET}\n"
             usage;;
     esac
 done
 
 if (( $FALL + $WINTER + $ALL != 1 )); then
-    echo -e "${RED}Only one argument allowed.${RESET}"
+    printf "${RED}Only one argument allowed.${RESET}\n"
     usage
 fi
 
 # verify we are on the math server
 host=$( hostname )
 if [[ "$host" != "ym-emc2" ]]; then
-    echo -e "${RED}build_and_deploy.sh is not being run from the math department's server, but from ${host}. Check the README for details.${RESET}"
+    printf "${RED}build_and_deploy.sh is not being run from the math department's server, but from ${host}. Check the README for details.${RESET}\n"
     exit 1
 fi
 
@@ -89,14 +74,37 @@ fi
 if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
     source "$HOME/miniconda3/etc/profile.d/conda.sh"
 else
-    echo -e "${RED}conda.sh not found.${RESET}"
+    printf "${RED}conda.sh not found.${RESET}\n"
     exit 1
 fi
 
-echo -e "${PURPLE}Checking out main branch...${RESET}"
+printf "${PURPLE}Checking out main branch...${RESET}\n"
 git checkout main
 git pull origin main
-echo -e "${PURPLE}Pulling from GitHub...${RESET}"
+printf "${PURPLE}Pulling from GitHub...${RESET}\n"
+
+
+# Activate Conda
+printf "${PURPLE}Activating environment...${RESET}\n"
+conda activate emc2_dev
+status=$?
+if [ $status -ne 0 ]; then
+    printf "${RED}Conda activate failed with code $status.${RESET}\n"
+    exit 1
+fi
+
+# Make html
+printf "${PURPLE}Making html...${RESET}\n"
+make -C "EMC2-Labs-$Type" clean
+make SPHINXOPTS="-W" -C "EMC2-Labs-$Type" html  # compile in -C directory and -W will treat warnings as errors
+status=$?
+if [ $status -ne 0 ]; then
+    printf "${RED}Make failed with code $status.${RESET}\n"
+    printf "${GREEN}Hint: You may need to fix the errors in red.${RESET}\n"
+    exit 1
+fi
+
+getServerCredentials
 
 if (( $FALL == 1 )); then
     buildType "Fall"
@@ -105,5 +113,5 @@ elif (( $WINTER == 1 )); then
 else
     buildType "Fall"
     buildType "Winter"
-    echo -e "${GREEN}Successfully deployed both Fall and Winter.${RESET}"
+    printf "${GREEN}Successfully deployed both Fall and Winter.${RESET}\n"
 fi

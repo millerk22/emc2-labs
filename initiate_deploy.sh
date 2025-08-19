@@ -23,7 +23,7 @@ GREEN=$'\e[32m'
 
 ### FUNCTIONS
 usage() {
-    echo -e "${RED}Usage: initiate_deploy.sh [f|w|a]${RESET}"
+    printf "${RED}Usage: initiate_deploy.sh [f|w|a]${RESET}\n"
     exit 1
 }
 
@@ -31,22 +31,19 @@ initiateDeploySSH() {
     local type="$1"
 
     if [[ "$type" != "-w" && "$type" != "-f" && "$type" != "-a" ]]; then
-        echo -e "${RED}initiateDeploySSH used with type = $type which is not 'fall', 'winter', or 'all'.${RESET}"
+        printf "${RED}initiateDeploySSH used with type = $type which is not 'fall', 'winter', or 'all'.${RESET}\n"
         exit 1
     fi
 
     # attempt keyless login, if it fails, it will generate a key
     if ! ssh -o PasswordAuthentication=no "$EMC2_USER@$EMC2_HOST" true 2>/dev/null; then
-        echo -e "${PURPLE}No SSH Key found for $EMC2_USER on $EMC2_HOST.${RESET}"
-        echo -e "${PURPLE}Follow this process to create a key.${RESET}"
+        printf "${PURPLE}No SSH Key found for $EMC2_USER on $EMC2_HOST.${RESET}\n"
+        printf "${PURPLE}Follow this process to create a key.${RESET}\n"
 
-        echo -e "${PRUPLE}Username for EMC2 server: ${RESET}"
-        read EMC2_USER
-        echo -e "${PURPLE}Your email (for identification): ${RESET}"
-        read USER_EMAIL
-        echo
+        read -p "${PRUPLE}Username for EMC2 server: ${RESET}" EMC2_USER
+        read -p "${PURPLE}Your email (for identification): ${RESET}" USER_EMAIL
 
-        echo -e "${PURPLE}Creating a key...${RESET}"
+        printf "${PURPLE}Creating a key...${RESET}\n"
         if [ ! -f ~/.ssh/id_emc2 ]; then
             # create key with ed25519 named id_emc2 with empty passphrase
             ssh-keygen -t ed25519 -f ~/.ssh/id_emc2 -N "" -C $USER_EMAIL
@@ -54,21 +51,21 @@ initiateDeploySSH() {
         # generate a key with id_emc2 id and add it to config so it will be automatically recognized
         if ! grep -q "Host $EMC2_HOST" ~/.ssh/config 2>/dev/null; then
             {
-                echo ""
-                echo "Host $EMC2_HOST"
-                echo "  HostName $EMC2_HOST"
-                echo "  User $EMC2_USER"
-                echo "  IdentityFile ~/.ssh/id_emc2"
+                printf "\n"
+                printf "Host $EMC2_HOST\n"
+                printf "  HostName $EMC2_HOST\n"
+                printf "  User $EMC2_USER\n"
+                printf "  IdentityFile ~/.ssh/id_emc2\n"
             } >> ~/.ssh/config
         fi
         
-        echo -e "${PURPLE}Copying the key to $EMC2_HOST${RESET}"
+        printf "${PURPLE}Copying the key to $EMC2_HOST${RESET}\n"
         ssh-copy-id -i ~/.ssh/id_emc2.pub $EMC2_USER@$EMC2_HOST
     fi
 
-    echo -e "${PURPLE}SSH-ing into host${RESET}"
+    printf "${PURPLE}SSH-ing into host${RESET}\n"
     if ! ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash config/build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""; then
-        echo -e "${RED}Failed to ssh into emc2 server and run build_and_deploy.sh${RESET}"
+        printf "${RED}Failed to ssh into emc2 server and run build_and_deploy.sh${RESET}\n"
         exit 1
     fi
 }
@@ -87,14 +84,14 @@ while getopts ":fwa" opt; do
         a)
             ALL=1;;
         \?)
-            echo -e "${RED}Invalid option: -$OPTARG${RESET}"
+            printf "${RED}Invalid option: -$OPTARG${RESET}\n"
             usage
             ;;
     esac
 done
 
 if (( $FALL + $WINTER + ALL != 1 )); then
-    echo -e "${RED}Error: Only one argument allowed.${RESET}"
+    printf "${RED}Error: Only one argument allowed.${RESET}\n"
     usage
 fi
 
