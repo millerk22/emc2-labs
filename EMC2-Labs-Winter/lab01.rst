@@ -1,5 +1,5 @@
 Lab 1: Introduction to Python, Revisited
-==============================================
+========================================
 
 This lab covers additional topics in Python and NumPy that will expand your programming knowledge.
 
@@ -512,7 +512,7 @@ Array Broadcasting
 
 This section is taken from the `Broadcasting <https://numpy.org/doc/stable/user/basics.broadcasting.html>`_ NumPy documentation.
 
-Broadcasting in NumPy is what enables us to do things like multiply element-wise in a vector and also do scalar multiplication.
+NumPy array broadcasting is what enables operations like element-wise multiplication of two vectors, scalar multiplication, and other, unique operations.
 
 >>> a = np.array([1, 2, 3, 4])
 >>> b = np.array([4, 5, 6, 7])
@@ -522,7 +522,7 @@ array([ 4, 10, 18, 28])
 >>> a * c
 array([ 3,  6,  9, 12])
 
-The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by 'stretching' certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``.
+The main idea of array broadcasting is that operations can be performed on ``numpy.array``\s with different shapes. NumPy handles this by "stretching" certain dimensions so the arrays are compatible for the operation. In the example above, ``a`` has shape ``(4,)`` and ``b`` has shape ``(4,)`` so numpy does the multiplication operation element wise. When ``a`` is multiplied by ``c`` with shape ``()``, ``c`` is stretched to the shape ``(4,)``, and the operation is continued element-wise.
 
 .. image:: ./_static/figures/broadcasting_stretch.png
     :align: center
@@ -555,7 +555,7 @@ On the other hand, array ``e`` with shape ``(5, 2)`` could not be broadcast into
 
 But, array ``f`` with shape ``(5, 1, 1)`` is compatible with arrays ``a``, ``b``, ``c``, and ``d`` because the dimensions corresponding to ``a``, ``b``, ``c``, and ``d`` are all 1. In this case, each ``a``, ``b``, ``c``, and ``d`` would be stretched to match dimension ``5`` in ``f``.
 
-Consider this example. You are given a list of prices of products in USD and you want to convert that list of prices into different currencies like EUR, JPY, and GBP.
+Consider this example. You are given a list of prices of products in dollars and you want to convert that list of prices into different currencies like EUR, JPY, and GBP.
 
 >>> usd_prices = np.array([9.90, 10.28, 6.75, 3.09])
 >>> exchange_rates = np.array([0.88, 144.3, 0.74])  # [EUR, JPY, GBP]
@@ -573,6 +573,43 @@ We could loop over each of these and find the converted prices that way, or we c
 array([[   8.71,    9.05,    5.94,    2.72],
        [1428.57, 1483.4 ,  974.03,  445.89],
        [   7.33,    7.61,    5.  ,    2.29]])
+
+.. warning::
+
+    Broadcasting can cause issues when working with vectors and matrices if you are not careful. Consider the following vectors, ``a``, and ``b``:
+
+    >>> a = np.array([1, 2, 3])
+    >>> a
+    array([1, 2, 3])
+    >>> b = np.array([[10],[20],[30]])
+    >>> b
+    array([[10],
+           [20],
+           [30]])
+    
+    While ``a`` visually could be termed a "row" vector, and ``b`` a "column" vector, treating them this way in NumPy often leads to problems. For example, NumPy is ok multipliying either of these vectors with a :math:`3\times3` matrix, but this operation would be illegal normally.
+
+    >>> A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    >>> A
+    array([[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9]])
+    >>> A @ a   # multiply shape (3,3) by shape (3,) which is ok in NumPy, but illegal normally (3,3)x(1,3)
+    array([14, 32, 50])
+    >>> A @ b   # multiply shape (3,3) by shape (3,1) which is ok in NumPy, and ok normally (3,3)x(3,1)
+    array([[140],
+           [320],
+           [500]])
+    
+    Both operations result in a vector of the same shape as the input vector. If you had assumed that both operations came out with either a row vector, or column vector, you may have tried adding them together.
+
+    >>> (A @ a) + (A @ b)
+    array([[154, 172, 190],
+           [334, 352, 370],
+           [514, 532, 550]])
+
+    Which returns a matrix---definitely not what you were intending. This is one of the blessings and curses of array broadcasting. In the currency example, creating a matrix from two vectors is exactly what we wanted, but in this example, if we had wrongly assumed we could add a "row" vector and "column" vector as we would normally, we would end up with very unexpected results.
+
 
 Task 6: Normalization
 ---------------------

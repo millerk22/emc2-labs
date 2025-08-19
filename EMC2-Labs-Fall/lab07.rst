@@ -53,6 +53,22 @@ array([1, 9, 7])
 >>> 3 * my_vect      # multiplying by scalars
 array([3, 6, -3])
 
+.. note::
+
+    While the vectors,
+
+    .. math::
+        \left[\begin{array}1 1 & 2 & -1\end{array}\right] \text{, and} \left[\begin{array}1 1 \\ 2 \\ -1\end{array}\right]
+
+    mean different things when we write them out, NumPy represents row and column vectors in the exact same way:
+    
+    .. code:: python
+        
+        >>> np.array([1, 2, -1])
+        array([ 1,  2, -1])
+
+    Both row and column vectors will be created with a one dimensional NumPy array.
+
 NumPy makes working with vectors very easy. They even have ``dot()`` which replaces our ``dot_product()`` function.
 
 >>> array1=np.array([1,2,3])

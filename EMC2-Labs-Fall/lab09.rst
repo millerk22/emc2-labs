@@ -105,40 +105,40 @@ Task 1
 Write a function ``jacobi_iteration(x, A, b)`` which takes in an initial vector guess ``x``\, matrix ``A`` (:math:`2 \times 2` ``numpy.array``\), and vector ``b`` , 
 and returns :math:`x^{k+1}` using Jacobi's method. Remember all inputs and outputs should be ``np.array``\s.
 
-.. note::
+.. .. note::
 
-    It is important to note that when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are written as column vectors to ensure that the dimensions work out. This can be confusing because NumPy doesn't have a specific orientation for one dimensional vectors (they act as if they are column or row vectors).
+..     It is important to note that when solving for :math:`x` in :math:`Ax=b` that :math:`x` and :math:`b` are written as column vectors to ensure that the dimensions work out. This can be confusing because NumPy doesn't have a specific orientation for one dimensional vectors (they act as if they are column or row vectors).
 
-    .. code-block:: python
+..     .. code-block:: python
         
-        # NumPy vector
-        >>> a = np.array([1, 2, 3])
-        >>> a.shape
-        (3,)
-        >>> a
-        array([1, 2, 3])
+..         # NumPy vector
+..         >>> a = np.array([1, 2, 3])
+..         >>> a.shape
+..         (3,)
+..         >>> a
+..         array([1, 2, 3])
 
-    To make a vector explicitly a column vector or row vector, we can reshape it.
+..     To make a vector explicitly a column vector or row vector, we can reshape it.
 
-    .. code-block:: python
+..     .. code-block:: python
 
-        # How to write a row vector
-        >>> b = np.array([[1, 2, 3]])
-        >>> b.shape
-        (1, 3)
-        >>> b
-        array([[1, 2, 3]])
+..         # How to write a row vector
+..         >>> b = np.array([[1, 2, 3]])
+..         >>> b.shape
+..         (1, 3)
+..         >>> b
+..         array([[1, 2, 3]])
 
-        # How to write a column vector
-        >>> c = np.array([[1], [2], [3]])
-        >>> c.shape
-        (3, 1)
-        >>> c
-        array([[1],
-               [2],
-               [3]])
+..         # How to write a column vector
+..         >>> c = np.array([[1], [2], [3]])
+..         >>> c.shape
+..         (3, 1)
+..         >>> c
+..         array([[1],
+..                [2],
+..                [3]])
 
-    In our functions, ``x``, ``A``, and ``b`` are passed in as one dimensional vectors for simplicity's sake.
+..     In our functions, ``x``, ``A``, and ``b`` are passed in as one dimensional vectors for simplicity's sake.
 
 
 Task 2
