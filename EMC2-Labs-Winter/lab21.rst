@@ -10,13 +10,16 @@ This lab will focus on **supervised learning** where each of the data points has
 We are essentially teaching a computer how to read. 
 When we learned to read, we saw hundreds and thousands of different examples of each letter and number.
 Through this constant exposure, we eventually learned how to identify them correctly. 
-This is the process that we want to replicate for computers.
+This is the process that we want to replicate for computers: 
 Give them different examples of something to classify, and teach them what their labels are so that they can classify new examples correctly.
 
 The KNN classifier is a supervised learning algorithm. 
-Given a :math:`n \times d` matrix :math:`X` with :math:`n` data points with :math:`d` features each, 
-and known labels :math:`y_1,...,y_n`, it predicts the label of a new data point :math:`\tilde{x}` by finding the :math:`k` closest points in :math:`X` to :math:`\tilde{x}`.
-Then it uses each of those neighbor's labels to vote on the label of :math:`\tilde{x}`. 
+Given a :math:`n \times d` matrix :math:`X` with :math:`n` data points and :math:`d` features, 
+along with known labels for each data point, :math:`y_1,...,y_n`, 
+the KNN classifier predicts the label of a new data point :math:`\tilde{x}` 
+by finding the :math:`k` closest points in :math:`X` to :math:`\tilde{x}`. 
+Then it uses each of those neighbor's labels to vote on the label of :math:`\tilde{x}`.
+
 
 .. math::
 
@@ -62,7 +65,7 @@ This will make it interesting (and potentially more difficult) for our classifie
 .. image:: _static/figures/mnist_5.png
     :align: center
 
-Normally you will be able to load this data set using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
+Normally you would be able to load this data set using ``sklearn.datasets.fetch_openml`` or ``tensorflow.keras.datasets.mnist``.
 However, because of Codebuddy's lack of internet access, we have provided a csv file containing 5000 samples of the data.
 You will load the data into a Pandas ``DataFrame`` with columns ``data`` and ``label``.
 The ``data`` column is 28x28 pixels of the image given as a ``numpy.ndarray``.
@@ -81,11 +84,11 @@ Task 1
 
 Create a figure with 3 subplots, and plot the images of the dataset at indexes 13, 3145, and 4321. 
 
-* Set the figure size to ``(12, 4)``
-* For each image, use ``plt.imshow(image, cmap='gray')`` to plot the image
+* Set the figure size to ``(12, 4)`` when creating the figure
+* For each image, use ``ax[i].imshow(image, cmap='gray')`` to plot the image
 * Use ``ax[i].set_title(f"Digit: {label}")`` to display the label of the image
+* Use ``ax[i].axis('off')`` to remove the axes for each subplot
 * Set the overall title of the figure to ``"MNIST Digits"`` using ``plt.suptitle()``
-* Use ``plt.axis('off')`` to remove the axes
 * Use ``plt.tight_layout()`` to adjust the spacing between the subplots
 
 Image Flattening and Reshaping
@@ -117,7 +120,9 @@ The ``numpy.reshape()`` function allows us to change the shape of an array witho
 Task 2
 ------
 
-Create a function ``flatten_data(X)`` which takes in a pandas dataframe with a column ``data`` and returns a numpy array of the flattened data. 
+Create a function ``flatten_data(X)`` which takes in a Pandas Series and returns a ``numpy.ndarray`` of the flattened data. 
+``X`` will be ``data['data']`` from the ``DataFrame`` that you loaded in Task 1. 
+Call ``X.values`` to get the ``numpy.ndarray`` from the ``Series`` that you can iterate over.
 The returned array should have shape [n, 784] where n is the number of images and 784 = 28x28 pixels.
 
 
@@ -181,11 +186,14 @@ Then we can verify the accuracy of the model on the test set.
 Task 3
 ------
 
-Using your ``flatten_data`` function, create a new array ``X`` with the flattened data.
-Then split the data into train and test sets using ``train_test_split``.
-Set the test size to 0.2 and the random state to 42 when splitting the data.
-Finally fit a KNN classifier with 3 neighbors to the data, and print the accuracy of the model on the test set.
-(Remember that you need to get the labels ``y`` from the original dataframe.) 
+For this task, you will be training a KNN classifier on the MNIST dataset.
+
+* Using your ``flatten_data`` function, create a new array ``X_flat`` with the flattened data.
+* Split ``X_flat`` into train and test sets using ``train_test_split``.
+* Set the test size to 0.2 and the random state to 42 when splitting the data.
+* Fit a KNN classifier with 3 neighbors to the train set, and print the accuracy of the model on the test set.
+
+(Remember that you need to get the features ``X`` and labels ``y`` from the original dataframe.) 
 
 
 Ablation Study
@@ -226,20 +234,24 @@ Below are some of the common effects of the number of neighbors (k) on the perfo
 Task 4
 ------
 
-Create a function ``ablate_k(X, y, k_values, test_size, random_state)`` which takes in the flattened data, the labels, a list of k values, test size, and random state.
-Split the data into train and test sets, and fit a KNN classifier for each k value.
-For each k value, record the accuracy of the model on the test set.
-Finally, return a list of the k values and the accuracies of the form ``[(k1, accuracy1), (k2, accuracy2), ...]``.
+Create a function ``ablate_k(X, y, k_values, test_size, random_state)`` that will perform an ablation study on the KNN classifier.
+It should:
+
+* Split the data into train and test sets according to the parameters ``test_size`` and ``random_state``
+* Fit a KNN classifier for each k value
+* For each k value, record the accuracy of the model on the test set
+* Return a list of the k values and the accuracies of the form ``[(k1, accuracy1), (k2, accuracy2), ...]``
 
 
 Task 5
 ------
 
-Using your function from Task 4, plot the effect of the parameter k as a function of the accuracies (k values 1-10 on the x-axis and the accuracies on the y-axis).
+Using your function from Task 4, plot the effect of the parameter k as a function of the accuracies (plot the k values 1-10 on the x-axis and the accuracies on the y-axis).
 
 * Use a test size of 0.2 and a random seed of 39
 * Title the plot ``"KNN Classifier Accuracy vs k Value"``
 * Label the x-axis ``"k (Number of Neighbors)"`` and the y-axis ``"Accuracy"``
 * For the plotting, pass in the arguments ``['-bo', linewidth=2, markersize=8]``
+* Use ``plt.grid(True)`` to add a grid to the plot
 * Use ``plt.tight_layout()`` to adjust the spacing between the subplots
 * Use ``plt.show()`` to display the plot
