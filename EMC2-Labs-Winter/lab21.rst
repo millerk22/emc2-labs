@@ -40,8 +40,8 @@ Then you can fit the model to the training data.
     >>> model.fit(X, y) # X is the features and y is the labels
 
 Once you have fit the model, it can be used to predict the labels of new points.
-For example, we can use the ``predict`` method to get the predicted labels for a set of inputs :math:`X_{test}`.
-The output, :math:`y_{pred}`, is a vector of predicted labels for each of the inputs in :math:`X_{test}`.
+For example, we can use the ``predict`` method to get the predicted labels for a set of inputs ``X_test``.
+The output, ``y_pred``, is a vector of predicted labels for each of the inputs in ``X_test``.
 
 .. code:: python
 
