@@ -257,10 +257,10 @@ Let's look at the algorithmic complexity of programs that we have made.
 
 - What is the complexity of Bubble Sort? On average, about how many comparisons are we doing? How many ``for`` loops are there? Note that the input ``n`` that grows is the size of the list.
 
-- What is the complexity of the binary search function from :doc:`lab04`? Hint: this algorithm does **not** run in either ``O(n)`` or ``O(n^2)`` time. We are cutting the search space in half each time. If we started with a list of ``16`` elements, how many times do we have to cut in half to be certain that we have found the correct index? Can you generalize that to a list of arbitrary length? Remember that with big ``O`` we do not need to be perfectly precise.
+- What is the complexity of the binary search function from :doc:`lab04`? Hint: this algorithm does **not** run in either ``O(n)`` or ``O(n^2)`` time. We are cutting the search space in half each time. If we started with a list of ``16`` elements, how many times do we have to cut in half to be certain that we have found the correct index? Can you generalize that to a list of arbitrary length? Remember that with :math:`\text{Big-}O` we do not need to be perfectly precise.
 
 
-As promised, here is the formal definition of big ``O``. This is a common concept in computing, but it is also something that you may run into in math classes in the future. We will state the definition in terms of two real-valued functions, but we may instead consider ``f`` to be an algorithm of some kind.
+As promised, here is the formal definition of :math:`\text{Big-}O`. This is a common concept in computing, but it is also something that you may run into in math classes in the future. We will state the definition in terms of two real-valued functions, but we may instead consider ``f`` to be an algorithm of some kind.
 
 .. admonition:: Definition
 
@@ -272,7 +272,7 @@ As promised, here is the formal definition of big ``O``. This is a common concep
 
 
 
-In other words, a big ``O`` gives an approximate upper bound on the growth of a function as ``x -> ∞``.
+In other words, a :math:`\text{Big-}O` gives an approximate upper bound on the growth of a function as ``x -> ∞``.
 
 .. https://www.youtube.com/watch?v=D6xkbGLQesk
 .. graph them
