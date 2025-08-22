@@ -1,13 +1,13 @@
 Lab 6: Sorting and Complexity of Algorithms 
 ===========================================
 
-In :doc:`lab04`, we created a binary search algorithm to search in a **sorted** list. What do we do if we have an unsorted list? We sort it of course! There are many ways to sort lists. Say, for example, you had a shuffled deck of cards and you wanted to order them by number and by suit. What strategies would you take to sort the entire deck?
+In :doc:`lab05`, we created a binary search algorithm to search in a **sorted** list. What do we do if we have an unsorted list? We sort it of course! There are many ways to sort lists. Say, for example, you had a shuffled deck of cards and you wanted to order them by number and by suit. What strategies would you take to sort the entire deck?
 
 The goal of this lab is to create a function that sorts an unsorted list. We will use a sorting algorithm called Bubble Sort to accomplish this. It is not the fastest sorting algorithm, but it works well as an introduction to sorting. If you take CS 235, you will be introduced to more sorting algorithms. Some of them are faster but can be a bit more difficult to understand. Before diving into that, we will talk about :math:`\text{Big-}O` notation and time complexity.
 
 
-Algorithmic Complexity and :math:`\text{Big}O` Notation
--------------------------------------------------------
+Algorithmic Complexity and :math:`\text{Big-}O` Notation
+--------------------------------------------------------
 
 **Time complexity** is a way to describe how the running time of an algorithm increases as the size of its input grows. Say we have a function ``sum_elements`` that adds up all the elements in a list:
 
@@ -185,7 +185,7 @@ To learn about Bubble Sort, consider this example.
 
 Suppose that Alice is having a party with ``4`` friends. At one point during the party, she hands out t-shirts with numbers on them and tells everyone to line up with their numbers going from smallest to largest. (This is, of course, a common party game among mathematicians.) However, they are in a tight hallway and chaos ensues. Eventually, everyone lines up against the wall, out of order. How can they get in order in an organized fashion?
 
-.. image:: _static/figures/unsorted-1.png
+.. image:: _static/figures/bubble_sort_unsorted.svg
 	:width: 45%
 	:align: center
 
@@ -193,7 +193,7 @@ Alice has an idea. Every pair should compare shirts and decide whether or not to
 
 Starting on the left, each pair compares numbers. If they are out of order, they swap. When they have gone through the line once, they start again at the beginning and repeat the process. They continue until they are finally in order. In the figure below, note that ``0 < 2`` and ``2 < 4``, so we don't need to swap either of these. However, ``4 > 1``, so we swap ``4`` and ``1``. Likewise, we swap ``3`` and ``4``. When we reach the end of the line of people, we start again at the beginning and repeat until everyone is in order.
 
-.. image:: _static/figures/unsorted-2.png
+.. image:: _static/figures/bubble_sort_process.svg
 	:width: 45%
 	:align: center
 
@@ -245,58 +245,9 @@ Write a function ``bubble_sort`` that takes as a parameter an unsorted list ``l`
 
 .. 	l = [48, 81, 25, 12, 47, 4, 15, 90, 95, 7, 80, 68, 88, 8, 42, 3, 6, 14, 76, 19, 91, 52, 15, 51, 95, 1, 6, 81, 35, 99, 23, 24, 72, 94, 98, 88, 20, 84, 55, 32, 45, 99, 40, 51, 2, 25, 82, 66, 75, 30, 38, 8, 75, 33, 2, 7, 98, 61, 28, 2, 39, 100, 25, 89, 70, 41, 91, 8, 78, 61, 26, 9, 88, 92, 59, 44, 41, 60, 99, 80, 28, 53, 45, 95, 96, 84, 39, 55, 32, 98, 41, 23, 4, 14, 22, 4, 64, 12, 79, 43]
         
+.. admonition:: Question: Bubble Sort Complexity
 
-Algorithmic Complexity
-----------------------
-
-We now study the **complexity** of the Bubble Sort algorithm. The complexity of an algorithm is the number of steps it takes as a function of the size of the input. The more steps, the longer the algorithm will take to run. 
-
-For the Bubble Sort, is the number of steps a linear function of the length :math:`n` of the list?  A quadratic function?  An exponential function?  We don't need to know the function exactly; it will suffice to know how it grows for large :math:`n`. If one algorithm involves :math:`n^2` steps and another involves :math:`n^2 + 1` steps or even :math:`10n^2 + 1000`, they will grow roughly the same as :math:`n` gets large. 
-We say all of these algorithms are :math:`O(n^2)`. This is said as "big-:math:`O` of :math:`n^2`." 
-(For an exact definition of big-:math:`O` notation, see the end of this lab.) 
-Similarly, an algorithm that takes around :math:`n` steps on average is said to be :math:`O(n)`. 
-We have a similar interpretations for algorithms that are :math:`O(\log{n})`, :math:`O(n \log{n})`, :math:`O(n^3)`, etc.
-
-We consider some examples and find their algorithmic complexity.
-
-.. code-block:: python
-
-	def my_sum_funct(n):
-	    total = 0
-	    for i in range(n):
-	        total = total + i
-	    return total
-
-
-Within the function, we run a single ``for`` loop which looks at all numbers between ``0`` and ``n-1``, inclusive. So for every choice of ``n``, we will iterate over ``n`` things. Thus, this function is ``O(n)``. Let's look at another example.
-
-.. code-block:: python
-
-	def my_mult_funct(n):
-	    prod = 1
-	    for i in range(1,n):
-	        for j in range(1,i):
-	            prod *= i+j
-	    return prod
-
-
-Now, we have a nested ``for`` loop. The outer ``for`` loop iterates over ``n-1`` items. The inner loop iterates over ``i-1`` items for every ``i``. We can find out how many iterations are done exactly by evaluating 
-
-.. math::
-    \sum_{i = 1}^{n-1} (i - 1) = \frac{n(n-1)}{2} - (n-1) = \frac{1}{2}n^2 - \frac{3}{2}n + 1.
-
-So this algorithm is ``O(n^2)``.
-
-As a general rule, we don't need to evaluate how many steps there will be exactly. Each ``for`` loop contributes a multiple of ``n`` **if the** ``for`` **loop depends on** ``n``. For example, the function below is ``O(1)`` even though it has a ``for`` loop within it. That is because it always has the exact same number of iterations for every input of ``n``.
-
-.. code-block:: python
-
-	def bad_factorial_funct(n):
-	    prod = 1
-	    for i in range(1,10):
-	        prod *= i
-	    return prod
-
+	Turn to a neighbor and discuss what the algorithmic complexity of Bubble Sort is. Why?
 
 Task 4
 ------
