@@ -235,15 +235,15 @@ Write a function ``mat_mul(a, b)`` that takes in ``numpy.ndarray``\s ``a`` and `
 Type Declarations in Functions
 ------------------------------
 
-We have talked about functions and docstrings before, but python has an additional way to document the types that functions take in.
+We have talked about functions and docstrings before, but python has an additional way to document the types that functions use.
 
 .. code:: python
 
-    def add(a: int, b: float) -> float:
-        """Adds an int and a float together."""
+    def def add(a: int, b: list[float]) -> list[float]:
+        """Adds an int and a list of floats together."""
         return a + b
 
-This says that ``a`` should be an ``int``, ``b`` should be a ``float``, and the return value should be a ``float``.
+This says that ``a`` should be an ``int``, ``b`` should be a ``list`` of ``float``\s, and the return value should be a ``list`` of ``float``\s.
 
 .. Warning::
     Python doesn't enforce type declarations in functions, it is purely for documentation purposes.
@@ -253,15 +253,17 @@ Additionally, you can have default parameters for functions. This way, the user 
 .. code:: python
 
     def calculate_force(mass: float, acceleration: float = 9.8) -> float:
-        """Returns the force from a given mass and acceleration.
+        """
+        Returns the force from a given mass and acceleration.
         
-        The default value for acceleration is 9.8 m/s^2 from gravity."""
+        The default value for acceleration is 9.8 m/s^2 from gravity.
+        """
         return mass * acceleration
 
 >>> calculate_force(10)
 98.0
 >>> calculate_force(10, acceleration=3.73)  # mars
-70
+37.3
 
 Dictionaries
 ------------
@@ -581,11 +583,11 @@ array([[   8.71,    9.05,    5.94,    2.72],
     >>> a = np.array([1, 2, 3])
     >>> a
     array([1, 2, 3])
-    >>> b = np.array([[10],[20],[30]])
+    >>> b = np.array([[1],[2],[3]])
     >>> b
-    array([[10],
-           [20],
-           [30]])
+    array([[1],
+           [2],
+           [3]])
     
     While ``a`` visually could be termed a "row" vector, and ``b`` a "column" vector, treating them this way in NumPy often leads to problems. For example, NumPy is ok multipliying either of these vectors with a :math:`3\times3` matrix, but this operation would be illegal normally.
 
@@ -597,16 +599,16 @@ array([[   8.71,    9.05,    5.94,    2.72],
     >>> A @ a   # multiply shape (3,3) by shape (3,) which is ok in NumPy, but illegal normally (3,3)x(1,3)
     array([14, 32, 50])
     >>> A @ b   # multiply shape (3,3) by shape (3,1) which is ok in NumPy, and ok normally (3,3)x(3,1)
-    array([[140],
-           [320],
-           [500]])
+    array([[14],
+           [32],
+           [50]])
     
-    Both operations result in a vector of the same shape as the input vector. If you had assumed that both operations came out with either a row vector, or column vector, you may have tried adding them together.
+    Both operations result in a vector of the same shape as the input vector. If you had assumed that both operations came out with either a row vector, or column vector, you may have tried adding them together:
 
     >>> (A @ a) + (A @ b)
-    array([[154, 172, 190],
-           [334, 352, 370],
-           [514, 532, 550]])
+    array([[ 28,  46,  64],
+           [ 46,  64,  82],
+           [ 64,  82, 100]])
 
     Which returns a matrix---definitely not what you were intending. This is one of the blessings and curses of array broadcasting. In the currency example, creating a matrix from two vectors is exactly what we wanted, but in this example, if we had wrongly assumed we could add a "row" vector and "column" vector as we would normally, we would end up with very unexpected results.
 
