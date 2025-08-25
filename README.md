@@ -52,3 +52,18 @@ If this doesn't work, `initiate_deploy.sh` may not have permission to execute. Y
 `initiate_deploy.sh` will access the emc2 server (and make sure you have an ssh key to get in) and call `config/build_and_deploy.sh` which pulls everything, recompiles, then copies all the changes over to `emc2.byu.edu`.
 
 ![](./config/deployment.svg)
+
+# Future Features
+If you are feeling really ambitious, Codebuddy can be hard to work with---especially when trying to align tasks in the `.rst` files and the ones written in Codebuddy. Codebuddy *does* have a feature where you can import/export assignments ("Import Assignment" button in the course homepage or "Export Assignment" in the assignment page) as `json` files. This means that you *could* write a program that would go through all the `.rst` files and extract out all the task instructions, and then save them to a `json` file that could be imported to Codebuddy.
+
+Here are a few thoughts on this idea:
+- If the program could handle some of the other features of Codebuddy like hints, solutions, verification code, and tests, that would be great.
+    - The last three of those examples would obviously not be written in the ``rst`` files, but maybe a separate file in a separate folder that sphinx doesn't touch?
+- Codebuddy can't handle $\text{LaTeX}$, but many of our tasks use $\text{LaTeX}$ in the description, perhaps a tool that could strip this out would be useful. 
+    - Codebuddy also uses markdown which is slightly different than `rst` syntax (see how bulleted lists are made in both), so handling that would be great as well
+- Integrating this program into our `make` file would enable these `json` files to be updated every time we deployed or used `make` locally, but I think we would still have to import the `json` file by hand.
+- having an option to `[include_previous]` (see codebuddy task instruction for more info) would be a great feature
+
+This would be a lot of work and I don't know if the amount of work would be worth it. We may not even be using codebuddy in the future. It is also possible Codebuddy improves and gets an API for importing and exporting assignments (which may make this project wortwhile).
+
+> -EF 08/25/2025
