@@ -59,11 +59,12 @@ If you are feeling really ambitious, Codebuddy can be hard to work with---especi
 Here are a few thoughts on this idea:
 - If the program could handle some of the other features of Codebuddy like hints, solutions, verification code, and tests, that would be great.
     - The last three of those examples would obviously not be written in the ``rst`` files, but maybe a separate file in a separate folder that sphinx doesn't touch?
-- Codebuddy can't handle $\text{LaTeX}$, but many of our tasks use $\text{LaTeX}$ in the description, perhaps a tool that could strip this out would be useful. 
-    - Codebuddy also uses markdown which is slightly different than `rst` syntax (see how bulleted lists are made in both), so handling that would be great as well
-- Integrating this program into our `make` file would enable these `json` files to be updated every time we deployed or used `make` locally, but I think we would still have to import the `json` file by hand.
-- having an option to `[include_previous]` (see codebuddy task instruction for more info) would be a great feature
+- Codebuddy can't handle $\text{LaTeX}$, but many of our tasks use $\text{LaTeX}$ in the description, perhaps a tool that could strip this out, or replace it with Markdown inline code would be nice.
+    - Codebuddy also uses Markdown which is slightly different than `rst` syntax (see how bulleted lists are made in both), so handling that would be great as well.
+    - The same issue occurs with code blocks in Markdown and `rst`
+- Integrating this program into our `make` file would enable these `json` files to be updated every time we deployed or used `make` locally, but (as of right now) I think we would still have to import the `json` file by hand.
+- having an option to `[include_previous]` (see Codebuddy task instruction for more info) would be a great feature.
 
-This would be a lot of work and I don't know if the amount of work would be worth it. We may not even be using codebuddy in the future. It is also possible Codebuddy improves and gets an API for importing and exporting assignments (which may make this project wortwhile).
+This would be a lot of work and I don't know if the amount of work would be worth it. We may not even be using Codebuddy in the future. It is also possible Codebuddy improves and gets an API for importing and exporting assignments (which may make this project wortwhile).
 
 > -EF 08/25/2025
