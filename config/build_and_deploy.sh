@@ -19,6 +19,7 @@ usage() {
 getServerCredentials() {
     read -p "${PURPLE}Username for math department server: ${RESET}" MATH_USER
     read -s -p "${PURPLE}Password for math department server: ${RESET}" MATH_PASSWORD
+    printf "\n"
 }
 
 buildType() {
