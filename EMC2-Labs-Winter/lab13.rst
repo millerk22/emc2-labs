@@ -21,6 +21,9 @@ Can you use the theorems from Chapter 11 to prove that the sequence has a limit 
 .. 1. Plot the first :math:`1000` terms and make a conjecture about its limit points.
 .. 2. Can you use the theorems from Chapter 11 to prove that the sequence has a limit point? Either do so or explain why it is not possible.
 
+.. hint::
+    If you don't remember how to plot a sequence, check out :doc:`lab03` again.
+
 Task 1b
 -------
 
