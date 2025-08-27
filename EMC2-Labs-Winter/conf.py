@@ -14,7 +14,14 @@ release = "2026"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser", "sphinx.ext.mathjax"]
+extensions = [
+    "myst_parser",
+    "sphinx.ext.mathjax",
+    "sphinx_copybutton"
+    ]
+
+# excludes all line numbers, prompt characters, and console outputs
+copybutton_exclude = '.linenos, .gp, .go'
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
