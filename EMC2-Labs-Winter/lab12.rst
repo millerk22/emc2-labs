@@ -47,8 +47,7 @@ results in Newton's method.
 
 To be effective, a descent method must also use a good step size :math:`\alpha_k`. If :math:`\alpha_k` is too large, the method may repeatedly overstep the minimum, as shown in the figure below; if :math:`\alpha_k` is too small, the method may converge extremely slowly.
 
-.. image:: _static/figures/overstep.png
-	:width: 45 %
+.. image:: _static/figures/diff_newt.png
 	:align: center
 
 Given a search direction :math:`\mathbf p_k`, the best step size :math:`\alpha_k` minimizes the function
@@ -107,18 +106,44 @@ Specifically, compute ``a`` for each step of the algorithm by finding the minimi
 Task 5
 ------
 
-The convergence of an algorithm is the function, ``L(tol)``, (often simplified to the largest order) that describes how the number of iterations to converge within the error tolerance as that tolerance gets closer to zero. Newton's method for optimization is a quadratic method and exact gradient descent is a linear method. Optimization methods tend to work best when the function we are optimizing on is convex. This is because convex functions have a unique minimizer.
+.. image:: _static/figures/rosen_3d.png
+	:align: center
+	:width: 60 %
 
-The Rosenbrock function, ``f = lambda x, y: (a - x) ** 2 + b * (y - x ** 2) ** 2`` is non-convex for all values of ``a``, ``b`` except ``a, b = 0, 0``. Classically, we set ``a, b = 1, 100``. As such, it takes much longer for gradient descent to converge for this function than most convex functions.
+The Rosenbrock function, ``f = lambda x, y: (a - x) ** 2 + b * (y - x ** 2) ** 2`` is non-convex for all values of ``a``, ``b`` except ``a, b = 0, 0``. 
+Classically, we set ``a, b = 1, 100``. 
+As such, it takes much longer for gradient descent to converge for this function than most convex functions.
+Here is a visualization of the convergence of gradient descent on the Rosenbrock function at multiple starting points.
+Note that this is convergence over 5000 iterations, so it does take a long time. 
+
+.. image:: _static/figures/rosenbrock_gradient_descent.gif
+	:align: center
+	:width: 60 %
+
+
+
+The convergence of an algorithm is the function, ``L(tol)``, (often simplified to the largest order) that describes how the number of iterations to converge within the error tolerance as that tolerance gets closer to zero. Newton's method for optimization is a quadratic method and exact gradient descent is a linear method. Optimization methods tend to work best when the function we are optimizing on is convex. This is because convex functions have a unique minimizer.
 
 Write a function, ``plot_convergence(a, b)``, that takes as input the constants for the Rosenbrock function, ``a, b``, and performs gradient descent on the corresponding version of the Rosenbrock function for many values of ``tol``, recording the number of iterations needed to converge (making sure that the algorithm converged), using ``x0 = np.zeros(2)``, and then creates a plot of the number of iterations needed to converge, ``n``, as a function of the required error tolerance, ``tol``, with ``tol`` measured on a logarithmic scale (use ``plt.semilogx`` instead of ``plt.plot``). Make sure to label your plot and axes.
 
 Notice that your graph ought to look approximately linear i.e. like a step function that is bounded above by a linear function for the given axes.
 
+Task 6
+------
 
+Create a function, ``plot_rosenbrock_gradient_descent(starting_position, learning_rate, tol, maxiter, a, b)`` that takes as input the starting position as a numpy array, ``starting_position``, the learning rate, ``learning_rate``, the tolerance, ``tol``, the maximum number of iterations, ``maxiter``, the value of ``a``, and the value of ``b``, and plots the progress of gradient descent on the Rosenbrock function.
 
+You will need to modify your ``grad_descent_const()`` function to return the path of the gradient descent (make sure to include the starting position in the path).
 
-
-
-
+* Set the figure size to ``(10, 8)`` when creating the figure
+* Create a meshgrid with x-range ``[-2, 2]`` and y-range ``[-1, 3]`` using 300 points for each axis (Then apply the Rosenbrock function to the meshgrid)
+* Add ``1e-10`` to function values to avoid :math:`\log(0)` issues
+* Use ``plt.imshow(Z)`` with arguments ``extent=[-2, 2, -1, 3]``, ``origin='lower'``, ``cmap='viridis'``, and ``norm=LogNorm()`` to display the Rosenbrock function as a heatmap and save it as the variable ``im``
+* Then call ``plt.colorbar(im, label='Function Value')`` to add a colorbar
+* Use ``plt.contour(X, Y, Z)`` with arguments ``levels=10``, ``norm=LogNorm()``, ``colors='white'``, and ``alpha=0.5`` to show contour lines
+* Plot the gradient descent path using ``plt.plot()`` with arguments ``color='orange'``, ``alpha=0.8``, ``linewidth=2``, ``marker='o'``, and ``markersize=4``with the label "Gradient Descent Path"
+* Set the title to "Rosenbrock Function Gradient Descent"
+* Label the x-axis as "x" and y-axis as "y"
+* Set xlim to ``[-2, 2]`` and ylim to ``[-1, 3]``
+* Include a legend
 
