@@ -239,7 +239,7 @@ We have talked about functions and docstrings before, but python has an addition
 
 .. code:: python
 
-    def def add(a: int, b: list[float]) -> list[float]:
+    def add(a: int, b: list[float]) -> list[float]:
         """Adds an int and a list of floats together."""
         return a + b
 
