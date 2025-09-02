@@ -131,7 +131,7 @@ Notice that your graph ought to look approximately linear i.e. like a step funct
 Task 6
 ------
 
-Create a function, ``plot_rosenbrock_gradient_descent(starting_position, learning_rate, tol, maxiter, a, b)`` that takes as input the starting position as a numpy array, ``starting_position``, the learning rate, ``learning_rate``, the tolerance, ``tol``, the maximum number of iterations, ``maxiter``, the value of ``a``, and the value of ``b``, and plots the progress of gradient descent on the Rosenbrock function.
+Create a function, ``plot_rosenbrock_gradient_descent(starting_position, learning_rate, tol, maxiter, a, b)`` that takes as input the starting position as a NumPy array, ``starting_position``, the learning rate, ``learning_rate``, the tolerance, ``tol``, the maximum number of iterations, ``maxiter``, the value of ``a``, and the value of ``b``, and plots the progress of gradient descent on the Rosenbrock function.
 
 You will need to modify your ``grad_descent_const()`` function to return the path of the gradient descent (make sure to include the starting position in the path).
 
@@ -139,9 +139,9 @@ You will need to modify your ``grad_descent_const()`` function to return the pat
 * Create a meshgrid with x-range ``[-2, 2]`` and y-range ``[-1, 3]`` using 300 points for each axis (Then apply the Rosenbrock function to the meshgrid)
 * Add ``1e-10`` to function values to avoid :math:`\log(0)` issues
 * Use ``plt.imshow(Z)`` with arguments ``extent=[-2, 2, -1, 3]``, ``origin='lower'``, ``cmap='viridis'``, and ``norm=LogNorm()`` to display the Rosenbrock function as a heatmap and save it as the variable ``im``
-* Then call ``plt.colorbar(im, label='Function Value')`` to add a colorbar
+* Call ``plt.colorbar(im, label='Function Value')`` to add a colorbar
 * Use ``plt.contour(X, Y, Z)`` with arguments ``levels=10``, ``norm=LogNorm()``, ``colors='white'``, and ``alpha=0.5`` to show contour lines
-* Plot the gradient descent path using ``plt.plot()`` with arguments ``color='orange'``, ``alpha=0.8``, ``linewidth=2``, ``marker='o'``, and ``markersize=4``with the label "Gradient Descent Path"
+* Plot the gradient descent path using ``plt.plot()`` with arguments ``color='orange'``, ``alpha=0.8``, ``linewidth=2``, ``marker='o'``, and ``markersize=4`` with the label "Gradient Descent Path"
 * Set the title to "Rosenbrock Function Gradient Descent"
 * Label the x-axis as "x" and y-axis as "y"
 * Set xlim to ``[-2, 2]`` and ylim to ``[-1, 3]``
