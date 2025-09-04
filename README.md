@@ -73,6 +73,8 @@ Running [`initiate_deploy.sh`](./initiate_deploy.sh) accesses the emc2 server (a
 
 ## Future Features
 
+### Codebuddy
+
 If you are feeling really ambitious, Codebuddy can be hard to work with---especially when trying to align tasks in the `.rst` files and the ones written in Codebuddy. Codebuddy *does* have a feature where you can import/export assignments ("Import Assignment" button in the course homepage or "Export Assignment" in the assignment page) as `json` files. This means that you *could* write a program that would go through all the `.rst` files and extract out all the task instructions, and then save them to a `json` file that could be imported to Codebuddy.
 
 Here are a few thoughts on this idea:
@@ -86,3 +88,22 @@ Here are a few thoughts on this idea:
 - having an option to `[include_previous]` (see Codebuddy task instruction for more info) would be a great feature.
 
 This would be a lot of work and I don't know if the amount of work would be worth it. We may not even be using Codebuddy in the future. It is also possible Codebuddy improves and gets an API for importing and exporting assignments (which may make this project worthwhile).
+
+### Live Code Cells
+
+Sphinx allows for extnesions that enable live code execution. This can be really useful for students who want a more interactive experience, but has some development costs.
+
+Positives:
+- Allows students to play with the code themselves
+- More of an interactive experience, easier to see how Python works directly.
+- Runs quickly
+- The developer does not have to write the output of the python code, it is executed when sphinx compiles everything.
+Negatives:
+- We may have to change Fall Lab 1 with how we introduce python and how we introduce the idea of cells.
+- The backend software needs to create a bunch of Backend images which takes 5 to 10 minutes. If we implemented this, we would probably want to add something to the deployment script to deploy to the website only after the Docker images are created.
+- We would need to change all of the code cells to a different format, which would take time, but wouldn't be that intense.
+Other:
+- After playing with code, a simple refresh brings it back to the original state, which can be good or bad.
+- Cells act just like a jupyter notebook where variables are retained over cells. This may cause a problem if we had previously redefined variables in labs and a student ran cells out of order. We would have to check for that.
+
+The following [GitHub repository](https://github.com/EliFarrer/sphinx_thebe) is a small example of how this can be done.
