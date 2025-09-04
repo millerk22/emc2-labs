@@ -1,8 +1,7 @@
-name: emc2_dev
+name: emc2dev
 channels:
   - defaults
   - conda-forge
-  - pypi
 dependencies:
   - sphinx=8.2.3
   - myst-parser=4.0.1
@@ -14,4 +13,6 @@ dependencies:
   - scikit-image
   - imageio
   - scikit-learn
-  - sphinx-copybutton
+  - pip
+  - pip:
+    - sphinx-copybutton
