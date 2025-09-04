@@ -2,3 +2,4 @@
 **/.DS_Store
 Code/
 **/server_config*
+config/deployment_history.txt

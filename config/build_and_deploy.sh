@@ -47,7 +47,7 @@ buildType() {
 
     printf "${GREEN}Successfully built and deployed $Type labs.${RESET}\n"
 
-    dateStr=$(date +"%Y-%m-%d %H:%M")
+    dateStr=$("MST7MDT" date +"%Y-%m-%d %H:%M") # Mountain time
     echo "$dateStr: Deployed $Type for commit $commit." >> deployment_history.txt
 }
 ###
