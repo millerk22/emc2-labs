@@ -102,7 +102,7 @@ gitCommit=$(git rev-parse --short HEAD)
 
 # Activate Conda
 printf "${PURPLE}Activating environment...${RESET}\n"
-conda activate emc2_dev
+conda activate emc2dev
 status=$?
 if [ $status -ne 0 ]; then
     printf "${RED}Conda activate failed with code $status.${RESET}\n"
