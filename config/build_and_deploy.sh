@@ -25,6 +25,7 @@ getServerCredentials() {
 buildType() {
     local Type="$1" # expects uppercase first letter ("Fall" or "Winter")
     local type=$(echo "$Type" | tr '[:upper:]' '[:lower:]') # converts to all lowercase ("fall" or "winter")
+    local commit="$2"
 
     # Make html
     printf "${PURPLE}Making html...${RESET}\n"
@@ -45,6 +46,9 @@ buildType() {
     fi
 
     printf "${GREEN}Successfully built and deployed $Type labs.${RESET}\n"
+
+    dateStr=$(date +"%Y-%m-%d %H:%M")
+    echo "$dateStr: Deployed $Type for commit $commit." >> deployment_history.txt
 }
 ###
 
@@ -94,7 +98,7 @@ printf "${PURPLE}Checking out main branch...${RESET}\n"
 git checkout main
 git pull origin main
 printf "${PURPLE}Pulling from GitHub...${RESET}\n"
-
+gitCommit=$(git rev-parse --short HEAD)
 
 # Activate Conda
 printf "${PURPLE}Activating environment...${RESET}\n"
@@ -108,11 +112,11 @@ fi
 getServerCredentials
 
 if (( $FALL == 1 )); then
-    buildType "Fall"
+    buildType "Fall" $gitCommit
 elif (( $WINTER == 1 )); then
-    buildType "Winter"
+    buildType "Winter" $gitCommit
 else
-    buildType "Fall"
-    buildType "Winter"
+    buildType "Fall" $gitCommit
+    buildType "Winter" $gitCommit
     printf "${GREEN}Successfully deployed both Fall and Winter labs.${RESET}\n"
 fi
