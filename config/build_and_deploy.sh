@@ -49,6 +49,11 @@ buildType() {
 
     dateStr=$(date +"%Y-%m-%d %H:%M")
     echo "$dateStr: Deployed $Type for commit $commit." >> deployment_history.txt
+
+    git add config/deployment_history.txt
+    git commit -m "updated deployment history"
+    git push
+
 }
 ###
 
