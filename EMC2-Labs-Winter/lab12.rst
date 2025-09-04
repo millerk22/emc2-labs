@@ -101,7 +101,9 @@ Adapt your code from the previous exercise to write a function, ``grad_descent_e
 
 Specifically, compute ``a`` for each step of the algorithm by finding the minimizer of ``f(x - a * df(x))`` for a fixed ``x`` instead of accepting it as an argument.
 
+.. hint::
 
+	``scipy.optimize.minimize_scalar(f).x`` returns the ``x`` value for the local minimum of a function ``f``.
 
 Task 5
 ------
