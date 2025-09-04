@@ -23,7 +23,7 @@ GREEN=$'\e[32m'
 
 ### FUNCTIONS
 usage() {
-    printf "${RED}Usage: initiate_deploy.sh [f|w|a]${RESET}\n"
+    printf "${RED}Usage: initiate_deploy.sh -[f|w|a]${RESET}\n"
     exit 1
 }
 
