@@ -86,7 +86,7 @@ Notice how when we print the elements of ``A``, we print ``A[i][j]``. Remember, 
 This code works well for 4x3 matrices. If we want to generalize to any matrix, we need to change the ``range``\s based on the shape of the matrix. We can fix this using ``len()`` which gets the length of a Python ``list``. We might as well put this code in a function too.
 
 .. code-block:: python
-   
+
    def print_matrix(M):
       for i in range(len(M)):          # the number of rows
          for j in range(len(M[0])):    # the number of columns in a row
@@ -125,7 +125,7 @@ Now, we can see if the function actually does what we think it should:
            [ 1,  1,  1,  1, -2, -1]]
 >>> print(mat)
 [[1, -1, 2, -3, 1, 1], [-2, -2, 0, 1, 1, -5], [1, 1, 1, 1, -2, -1]]
->>> abs_mat=abs_matrix(mat) 
+>>> abs_mat=abs_matrix(mat)
 >>> print(abs_mat)
 [[1, 1, 2, 3, 1, 1], [2, 2, 0, 1, 1, 5], [1, 1, 1, 1, 2, 1]]
 
@@ -151,16 +151,15 @@ Now, we can see if the function actually does what we think it should:
                if row_copy[j] < 0:              # if row_copy[i] is negative, we make it positive.
                   row_copy[j] = -row_copy[j]    # set the new value
          return new_M
-         
-   This way, we create a new matrix ``new_M`` and copy each row of ``M`` into it, so that we don't change the original matrix. 
+
+   This way, we create a new matrix ``new_M`` and copy each row of ``M`` into it, so that we don't change the original matrix.
 
 Task 1
 ------
 
-Define a function, called ``matrix_sum(M)``, which takes as input a matrix ``M`` (as
-a NumPy array), and adds up all of the entries.
+Define a function, called ``matrix_sum(M)``, which takes as input a matrix ``M``, and adds up all of the entries.
 
->>> mat=np.array([[1,-1,2,-3,1,1],[-2,-2,0,1,1,-5],[1,1,1,1,-2,-1]])
+>>> mat = [[1,-1,2,-3,1,1],[-2,-2,0,1,1,-5],[1,1,1,1,-2,-1]]
 >>> matrix_sum(mat)
 -5
 
@@ -326,7 +325,7 @@ Note that the trigonometric functions in NumPy are computed in terms of radians,
 Task 5
 ------
 
-Find the value of 
+Find the value of
 
 .. math::
    \frac{e^5 - \log(\sqrt 5)}{e^{\cos 3}}
@@ -358,8 +357,8 @@ function ``np.array``.
 Alternatively, one could create my_vect simply by writing
 
 .. code-block::
-   
-   my_vect=np.array([1,2,-1]) 
+
+   my_vect=np.array([1,2,-1])
 
 
 To define matrices in NumPy, we define them as "lists of lists". In other words, a matrix
@@ -368,7 +367,7 @@ rows of the matrix, and then plugging it into the function ``np.array()``. For e
 the matrix
 
 .. math::
-   \left[ \begin{array}4 
+   \left[ \begin{array}4
    1 & 2 & 3 & 4 \\
    -5 & -6 & -7 & -8 \\
    1 & 5 & 2 & 3
@@ -402,36 +401,36 @@ Task 6
 Let
 
 .. math::
-   \vec{u} = 
+   \vec{u} =
    \left[
       \begin{array}1
          1 \\
          3 \\
          -2 \\
          4 \\
-         5 
+         5
       \end{array}
    \right]
    \qquad
-   \vec{v} = 
+   \vec{v} =
    \left[
       \begin{array}1
          1 \\
          1 \\
          -2 \\
          1 \\
-         1 
+         1
       \end{array}
    \right]
    \qquad
-   \vec{w} = 
+   \vec{w} =
    \left[
       \begin{array}1
          1 \\
          0 \\
          1 \\
          0 \\
-         1 
+         1
       \end{array}
    \right]
 
