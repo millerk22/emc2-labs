@@ -38,6 +38,12 @@ buildType() {
         exit 1
     fi
 
+    printf "${PURPLE}Checking SSH from emc2 server to math server${RESET}\n"
+    if ! ssh -t "$MATH_USER@$MATH_PATH" "exit 0"; then
+        printf "${RED}Failed to ssh into math server\n${RESET}"
+        exit 1
+    fi
+
     sshpass -p "$MATH_PASSWORD" scp -r -o StrictHostKeyChecking=no EMC2-Labs-$Type/_build/html/* "$MATH_USER@mathdept.byu.edu:$MATH_PATH/${type}-labs/"
     status=$?
     if [ $status -ne 0 ]; then

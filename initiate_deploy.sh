@@ -23,7 +23,8 @@ GREEN=$'\e[32m'
 
 ### FUNCTIONS
 usage() {
-    printf "${RED}Usage: initiate_deploy.sh -[f|w|a]${RESET}\n"
+    printf "${RED}Usage: initiate_deploy.sh -[f|w|a]\n"
+    printf "f: fall    w: winter    a: fall and winter${RESET}\n"
     exit 1
 }
 
@@ -58,14 +59,19 @@ initiateDeploySSH() {
                 printf "  IdentityFile ~/.ssh/id_emc2\n"
             } >> ~/.ssh/config
         fi
-        
+
         printf "${PURPLE}Copying the key to $EMC2_HOST${RESET}\n"
         ssh-copy-id -i ~/.ssh/id_emc2.pub $EMC2_USER@$EMC2_HOST
     fi
 
-    printf "${PURPLE}SSH-ing into host${RESET}\n"
+    printf "${PURPLE}Checking SSH for emc2 server${RESET}\n"
+    if ! ssh -t "$EMC2_USER@$EMC2_HOST" "exit 0"; then
+        printf "${RED}Failed to ssh into emc2 server\n"
+        exit 1
+    fi
+    printf "${PURPLE}SSH-ing into emc2 server${RESET}\n"
     if ! ssh -t "$EMC2_USER@$EMC2_HOST" "cd \"$EMC2_PATH\" && bash config/build_and_deploy.sh \"$type\" -p \"$MATH_PATH\""; then
-        printf "${RED}Failed to ssh into emc2 server and run build_and_deploy.sh${RESET}\n"
+        printf "${RED}./build_and_deploy.sh failed on the emc2 server\n"
         exit 1
     fi
 }

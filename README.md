@@ -12,7 +12,6 @@ Check out the [RST primer](https://www.sphinx-doc.org/en/master/usage/restructur
 
 The file [`config/environment.yml`](./config/deployment.svg) contains the [conda](https://anaconda.org/anaconda/conda) environment configuration used when compiling the labs.
 Create the environment from scratch:
->>>>>>> f7dbf71 (slightly clean conf files, add some startup details to README)
 
 ```bash
 conda deactivate
@@ -41,7 +40,7 @@ open _build/html/index.html  # Open the compiled labs in a browser.
 ## Deploying Compiled Code to emc2.byu.edu
 
 In order for the labs to show up on the EMC2 website, we need to compile the labs to HTML and move them to the right server.
-First, create a file named `server_config.env` in the directory `emc2_labs/config`. It should contain the following::
+First, create a file named `server_config.env` in the directory `emc2_labs/config`. It should contain the following:
 
 ```txt
 EMC2_USER=<username>
@@ -94,6 +93,7 @@ This would be a lot of work and I don't know if the amount of work would be wort
 Sphinx allows for extnesions that enable live code execution. This can be really useful for students who want a more interactive experience, but has some development costs.
 
 Positives:
+
 - Allows students to play with the code themselves
 - More of an interactive experience, easier to see how Python works directly.
 - Runs quickly
