@@ -1,5 +1,4 @@
-Lab 20
-: Applications of SVD
+Lab 20: Applications of SVD
 ==================================
 
 
