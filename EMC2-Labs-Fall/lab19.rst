@@ -1,239 +1,201 @@
+Lab 19: Cracking the Vigenère Cipher
+====================================
 
-Lab 19: Networks and Eigenvector Centrality
-==============================================
+To refresh your memory of the Vigenère Cipher, go back to :doc:`lab08` and read about it. 
+You will need your ``decrypt_vigenere``, ``num_coincidences``, and ``key_length`` functions from that lab today (tasks 2, 4, and 5 respectively).
+Your ultimate goal is to determine the plaintext message for the following ciphertext:
 
-In this lab, you will learn how we model real-world networks as mathematical objects and adjacency matrices. 
-You will also learn how to compute the importance of nodes in a network using `PageRank Centrality <https://en.wikipedia.org/wiki/PageRank>`_, which is the basis of Google's search algorithm.
+.. code-block:: console
 
-Graph Theory Background
-------------------------
-
-Graph theory is the study of mathematical structures called graph (networks), which consist of nodes (vertices) connected by edges. 
-These graphs can represent relationships between objects—-like friendships between people, roads between cities, or links between web pages. 
-At its core, graph theory explores how these connections form patterns and what those patterns tell us about the underlying structure.
+   CZVEILTUPRIMCGKBTVSVXVJRTCIBTSQQJHBVHVPKQRJSEUMHMGFBPXWXDOAMECWQTUCZXGIBBVLXGIHBFSDGESBTXLBESFJIWTFDRGTTWKBGQXWXDCBMLTKUWFVIGPCGEGESBPUOWXXMJOQPSEBEHHTIHHTQBPZTKUOGKSCLKBVVECWYVNVMHMJSHUIDYCPBQOIAQITJXPEKQRYMIAQIGRMRMWFRUSGVQBIGVHTVWBPWHHUVRYEHVQBFKHTKKBTKRWXTCJPQXGFOFYIAECGFJIRHWZQHSGMJSUQXSTAANFIWXTTRGPKXTMFNITIAOAFWINRWQYLTMJSEVLTINSNUYGXQTZCOXGIOQCMHREVNKRLHWZQDILHTHUVLTMTCHDPTHHURVXXGIICCRSIKQXKRVMJSQCMHBGGJJICLWRQGRARCKUKXTKCPOKXLBVVCKRZXASFTECVNCFGFNAGFGJIGXYOFPSIAKBTUSKXTMEGQPKMOONIXGVVNVRDKFWQCPXVGHUKRZBVGBXIGROIPJSJMQTGJILTAHBJIPKVVRTEQUKHFCCIHKHFGPUHJRRCVDAFSNTMHACZYDIATVSJJICLJSGJSJZJHVVSKXTOSVIGPCFQUMIHEQHTVTWVCUGVIACHFJIDNIVGVSWTXSJQRSXTSQCXIAKGOWXPMVVRVMBXKHNNPHXGARFUJBVSACXJKCZOWXLAGBGJIGTDPVVERMWOYNCIHQYNYEIVJCHVSUBVGJCMHMECNVTDVMSGCRSEQCXGHPMKHNPHIAGBUWVGBGRBPEABESFVEGMGRGQLTKHSRVJDKKHSNEHAGRNEVDLUVRTQXGFHUCXHAGVNFRTOGFOGJDKGGRGRPKCPOKXLBVVRKXWXTOJCMHMECNVTDVMSGQVPPCHPJXDMCYRQYIHHWGCRSUWFAKRVPKHUEYGBQGVVCHAGFNPERKQGFVLTYKSYFEUMGFVVECWHCEVYCTVSYAAPLLIFVMCMKARVSHXGWGRSEWQKACPPKISECFQBVVBNIJGFSEVLTAGRTGMCTPCGJIGFQARPXSHYBJGRITNWPGEUMGFVVRTOGFBPGTVQBFKHTKKBTJSLBPHUGADKNRFJILTUHBIIIHWHNIEXGVVRTEQUKHUQPTPGBGUXGTKUUVSCEKYRCXJGPSYHSGLQARYENTPRGJICWKDCGHHNFRRPPNWQKAUSHNFRRPPNMJOGCPXVGVNFRDMCABOICMVCGJMCDCPBWXHMQDCKRVAGFFGPUUGTBTIHAGTBWRSAGFFGPUYCZYKRVWQKACZTKARRGTLXNZRKXWXTHUGATENKNUZTKARRGTDKUVRHIAEXSEAWAHYZLHSGLJSUCHEEGBGASUMKARCWHAGKRPXSHYBGQPDHMOOQYIAGFNPHIHYCAFIGPJOGYEHZQWAIXDACDCGRCXZHSKVHMUVRVVXXFHBNSDDFCJPECWOOXGSJMYVNVWWXYOFESBBPUGQFJMKHJCWIHQRNTOIHUSRCRNMJWAIXWXPGUGPDHMSQCXIAGGVFIHHHHUGATENOAFRDMKQRFXWTVHUGCLXTSSKPAXFKVVLRNRPBCVSLCBQDSDDUVRNZTLJSEGECWVVRTIHAGGNYQPIUOAFTXVVIEGWWNPUHRSCIGUFULTMQCXFSLGCXNTJGHOCAGSUMJSFJIAOGGNUWWXROFUISBVKNUPPUGZYGHDKCBTGQPKOOYCHTUWHGQLTKIFRCXSBUOCRSXGVARPXXMYOFGQEMAGUGHXWPCGNMZXVCQTSEMJSWCVUHTTRCVDYMWYNMCZUCZGFDWAGBOECTISQVSENVWGKRIHQBRQJIAGQHRFDTTRFCWHAGTRNPETUHVVATENHUQYVAVOYKGTMQVRTWTEHOSVIGLWQUCJPENOFVLXLKGUCPAMJWAMRDMJWAISUMWAONMCZFCJPWITKFFJSLUTOIGXWXAZYCPAMJWAMQTTVVBOILAAWJQYAWPHFCCPGAHUKRVTDCHVMIXXSAKJXYGZYQJUMJSGQTDYVVRJSJLGKUKGWPCGIGVNEKYRNCIKWSQQACWQKAFSLGYCHNHIAGTNNPCXXSEESBXVCNPICWKKBPHTKJCJOECROWYGWXOGTNNPTGDMGJMHMKARULTLCWQCPDNFWZWWIUGURVXXGIGBOILAGFRPIPKVVREICMTSBHXWXGOEVLAXVARUITMJOGYSJEFPRHSJKVVBWWPGFAVNIHWQKAKXWBPYSQVNHWGRGEABESUCHAXCFAVWTOGFNNXWBPUFQJIAKGFQVIBPVRTPTLUCAUMCMJSFELDHNFBQQPGFHUQYVAVVVUAPLPCGCZTKAUBQHDIRCEVYCBVMSQVHAQKVPKDYHVRTOCHYZRFKTTUHUGVTPCGAQSCXVCYKWIXPHBJIGLVWYNMIPCGTQSSITOPVMRXVCFCCXMQJRTCTLVVNVWPUQIGVLTKKUUVHXLVOAEIQNVHUGRXPQBQGVLACHYCXXMWRRQVAHPUVVYSXKJRISIMQOYKGTACRAQMSXCKUCXATVWGWHTPCGBTPDGIWGWHTXKHUGVQNVHUQYVAVHUGCLXTSAKGTZTOAFADKFGGQWPRRFRUICMNMFJIQXIOACKPBPWJQRSXTWSKWWTNZSCPAKKUUVXWKQITJXWXGOEVLWHYTHPRNBVZYUITFVCPQQTHWHNOSCZVVRRIDINSGJEIPCZXYMIAVVRKVWXCRFFSLGYOEFXWXCBGKTPMJWRUMIAKBXULTPCGECXWXTUYCHIAGFRYEHGQCAGPXLVSAKRVMJWFVMBXCGVVHXWPHFQYCWCHNNPIAGFVILIPQFQDYIBUVNNPWTXSGQEHDVVROAWTVHUGRPFGCSVLTVQIAVVNBUMBWOCHYDYGEHXOONOMHMJWFPILSGOYCRSHTOHUXGTNWNCRSLJSGTMTWVCPWVILGMNUWWXUDBMIUTPQLEYGMUSLKRVTUMBWVTYCZYKRVMJFBWKWMJSNKVSHACHVLXGMMBWGDNNRZCRPZGWGCRSPJOGCRXZPCECRIEKHGNIVBTZFJIAEVVVPOBXHCECWZBPUAQMIENBRXIGWQHBCWZIGFUCTHBUVNNPHXGWGYVXMVSAWTHHOSJJIGXFCJPHDPPRBYRIAGFRYEHGQHUKRVXNGRVSSHUCNNMRXUCBPFTZCBGCPZBPUNIEXGFWACLAEOWFUQTOGFLOYRAVCAKKWMKGUQYAWVVVPOSBPOUYEHMJSPCXXAQDRVLTRNZEGQTFDSEJIGLCIPGVDYOWYMEIMGOGKQTWKBNJQNWGOEKAXLJMBWATKGRBYRWXTSJKXWFGHUGVTTTSAQQXVGWAVLTTKFVOEUKCWQDYIRQIZKKWMEOGELPUCHNPHIACHFXIGRNWXGEBHWGRASJDPCJDYIWQQNVWTTVPNVWXPQBQGVPGFVRTIPEKQRDIVTPHBIIIKCHUGVHEGSCAECWYSAVSCLCMVPKIHJSEUIAYKBNFVTTOMFQVIHHKNAHDVCHFGEIUCHFFSRTVGRCXQTVGNPHHHOSGKQTLFCOCXHXCHPCXHYQFLQYHXGOFULTVQIYFRITPGJGVTBVVRTUJXUHVQRXMFWQPXBNEVZCXIXTKUKGWPCMFJIENVWGULTYGZGVLPMUVRYEHWQNVPKDYHOAFLPWLIFVFTZWBGQHGXCAGJEILJSJCWLTNYVPKWTPRVPLPGFKVVLSBPOUCRSLCMVPKIHJSEXIGRGOEPIHMNMAQASBPOUVIAEOSGJIIKWHUFMSRQIRXIGXCHNDEIPJSAUYSWGBYAXWNODGJYBIFCJPWWXEOZGYEHPOUGEEHHGGKGZLCBQFVNEGOIGWPGFHUGJPENKNUSKXTOYKGTPCGAQXPUKHUWVITPRFJIYNODRFYEHPHBJIGYGSGKRPFQARPXHAGZBQOTWWDOWXXMYOFCPAWCFXQZTKJSNFFTYQFRJIGPCGNPSIAGFYQRVICGFCKTTPRGJILAKHRTEQUKHJCWHMKZYKRHBIVGJYGKAWAIHDPPWGVLTKGKNURDMCABOICMVCOGPDLVOJCCLXPHNNMRXNWXGXWXYWAFECWYOFLYHMKBGKQTMQVRCVXMUOLCWXMVIEPISTECEPIGHJALGEGLCBQYLXLMSEULDPNOGGMILISGVMCZUVRYEHVNCFGFTAKBQKXLAGBFJIINTBRFXWXECEPIGUWHGJIGTDPVVAPLPCYQRVXTHBDIHXGBFJIUHWBQJIGLGZSKRPEQBTNSLACZYYLXVJKNUPXMWDOAEGHYCSNEBIUVNPKXGITEQQIAGFBQJIAGFRYIGXFCBTWPENFBWRSMJSUCPAUWHGJINPGFRCPAEQQXGHPGFKUGRPEKQRJESUGSACPAMJSJCCSHYBBPIHBFSNPHJIVVRQXWXTHEAMCZGJRTCSHQFFJILTNYRFWPWNMQQACMJSZKHSEGKBPHTKKBTJSLLJSJCWTOGFGQKTMQIGCKPBPGHFHTGNMFJIRTOSHRSCTNWGVPTMJFRGPTZISQVEQEGOYNQPWGCSUSABFUYCWHMJSEGAPLPCGJMCZQBVVIMVGDGCXXGAUBNHTGMSLCRSTNWPGWUBTGGVLDNIVGYEHMJOGKXBBIVGDIAHPUGQSCXQTGJISHQFFQJIAGVNNPQNVOYCWTBVVRTXWXNCPMWLXTSGQSATTURQVIAGYRAAPLVCBUQPENPHVEITPMECXTBVKBWPSGQHBRICTPMBHXWXOVBYIKXTCAVLTLGQBPHIBOSEQYCWUVREEBXWDBPEAHYQHTXPBPGUGLPWPCGPSIBESQDIUHTSNPHQXJWAFMIPCGNNMIMNSQQSGTDCHVJXYVSRPMCVJSFJMVAUVRVVXXFHUGPXMVZRISAWGBXGCXGVVRNSRDCBQVSWXTUEGEIWGZVILIBVTVVXTWCZVEIDIGBRFXWXFCBTECWHCHPHIACHVVPTWKBGQEHFCZYREHLCURPSIFWQUNEGZGFGJECTTOGJSAXUVRMRTEVRBYRPGFZBQOTWCZBPKIAGDNUWPZGWAVSIAGZBXIABGGGIEGWGBLQYTOGFFCAWHYGUGPDGISQVSVXVCHVSUMJOGFEGDJOYNECWYOAFIGTDCHVEBHPUGJSHXDSQUSUUTWTJXUEQKRTWPGFHUQWTVQCYHSJGVOVPWQNVGUGGDNNRAQXTOGBTGXWXTVRCHIATCHILIAGRBQVLTAOAFIKXPWSOCWXCRJQYAWICGJVDNIVGJSJZJHCQSGTNWPGMIPQIYFFTHHJRTCABVHYGYHXYWGJSJMOMFJSJEFSEUSWAQKVYMHAKQBWPSLJIGWTABMSNVIAXUQBRIXMJWAMMRHWZQKJXHPZLMRTPJCJVSQXIWAHSGRQIFGIHHOOAASJMQTGJILTAHUKRVLJOQJEEIGBRFPPMGZLVLPMCZVEIWTFPRIYCMQHUKRZMJOGXIGRHSJVLXGIGVPHTXFKRTIGXCZYAMBIQGFKFAXVVRTIHXGARFXDUGBBWWTBPKNKXXGIPLVLTEKHGNISHQFFQWWXYSAVFPVMHBVLTMCPYGLPEHVBRMCZUVROMVAVTVPHPGQHUGVZXACAKXDKCHNPCGTVSNDSDDQTEWPTLHCEULJMVWAITTHRZRWTABMSGGPTLECCGWIAKGGKQTLJSSQYCWCZVVXAXDCGVPTHPWGYLXVJQRTXPBPZLYEHGQHUGVTUGTBTIHTKRNNMRXCBQTSJGFHUGRTVMCSVLTUQHGNILTUOCCTTKNOOGPLBVVGJILHTRFFVXGMARDIPNVWSWPARRFVPXTWQBVVMCECFTGPTMVSEUMIPCGNNPKXTMJGPAMQGNAHGBPYZGFJMVVRYMHXNWGVPTTNWPGAPLPCGISXGIHBFSIACHVPEWNTFLPSXENZBQOUBTGGULTLCWQCRSLGSJJIIAGFVVWBTTYRFTDBUCAQVCHVTBTWWXJOQTIPWUSIGVPEPWPGPXMVZRJMHMQFVGWPUQIGELXEFFRPAWHJOQISIUWFAVECWGOGGRJIDMJKPSUGOFVWPGFCGJIGNPDYGEHTPHGJMCZUOYNFTVCIFGXWXAKBWPSGQHEGQTFDSEVLTLKACNIGNNSFVLTBTTEKICWUVNFXPNIVGVLTFUIPJEHMJOGCVTWJCGRSZXTKVNPQNTBLQYXYACHJSAWKHGQSAHPUNPHIACHVHCDNEIGASJKHWAIIGOGFLFITINMJKXWTMBVHIXMWGHCPARDZRGHHTPRFJIWTFBRXIGYQFTQXIXPHUCXXYACHFVXGMAHELUKQANDSIMNSZCVZXFDBKWDGKHVUEAFQGGEIGMCWAVSSBUOTTITPKHUASJLQCAGVDKNOGGVWHYSIGVIAKGOQXIEGKNURDMOOEMISIQWFQRHHCZVEIKXPHHTISMQHNUXTBVOAFJXGFWAIMIOGFLPMRXKHUCHXGHOPVEHHTHBHQXQGRSNEKHWFBHGWXTFLVEGMEIFVEGWRWAGEEINSEQEHMVIEMINMQTSGIPGFVBVFJMVSEGHIHCGGULTOGFLUSDGHWAKWWXFWGQJU
 
 
-We can apply networks for studying the internet: we model websites as nodes in the graph which are connected by various hyperlinks acting as edges.
-Networks like this have traditionally allowed search engines such as Google to rank pages based on importance or relevance.
-In this lab we will walk you through this process of finding the importance of pages.
+
+The main fact we will use to break the cipher is that in most English texts the frequencies of letters are not equal (see the table below).
+For example, the letters ``RSTLNE``, which you may recognize from watching Wheel of Fortune, are among the most frequent.
+
+.. list-table:: Frequencies of letters in English
+   :header-rows: 1
+
+   * - a
+     - b
+     - c
+     - d
+     - e
+     - f
+     - g
+     - h
+     - i
+   * - .082
+     - .015
+     - .028
+     - .043
+     - .127
+     - .022
+     - .020
+     - .061
+     - .070
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - j
+     - k
+     - l
+     - m
+     - n
+     - o
+     - p
+     - q
+     - r
+   * - .002
+     - .008
+     - .040
+     - .024
+     - .067
+     - .075
+     - .019
+     - .001
+     - .060
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - s
+     - t
+     - u
+     - v
+     - w
+     - x
+     - y
+     - z
+   * - .063
+     - .091
+     - .028
+     - .010
+     - .023
+     - .001
+     - .020
+     - .001
+
+The following is an outline for how to decrypt a ciphertext encoded with the Vigenère Cipher with an unknown key. (Read until the end of the lab before you start working on any individual part.)
 
 
-Adjacency Matrices
-------------------
+1. Compute the key length `K`. (We already did this in Lab 8 Task 5.)
 
-Throughout this lab we will use a directed network to represent the *internet*.
-We will start with a matrix of directed edges, where each row contains a starting page and its corresponding ending page.
-It will be a :math:`m \times 2` matrix appearing like,
+2. For each ``j`` from ``0`` to ``K-1``: build a string ``S[j]`` comprising the letters of the ciphertext at indices congruent to ``j`` modulo ``K``. For example, if ``ciphertext='ABCDEFGHIJK'`` and the key length is ``K=3``, then
 
-.. math::
+   .. code-block:: console
 
-    \left[
-    \begin{matrix} 
-    76 & 109 \\
-    76 & 4 \\ 
-    76 & 78 \\
-    \vdots & \vdots
-    \end{matrix}
-    \right]
+      S[0] = 'ADGJ' # 0, 3, 6, 9
+      S[1] = 'BEHK' # 1, 4, 7, 10
+      S[2] = 'CFI' # 2, 5, 8
 
-For example, this small snippet shows us that page 76 has hyperlinks to page 109, 4, and 78.
-Now, we can take this vector and transform it into a much more useful form of data called an adjacency matrix.
-This matrix is :math:`n \times n` with :math:`n` nodes.
-In this matrix, each row corresponds to a starting page, and each column corresponds to an ending page.
-Therefore every :math:`(i,j)` position of the adjacency matrix will be a directed edge from node :math:`v_i` to node :math:`v_j`
+   For each ``j``, every letter of ``S[j]`` has been encrypted with the same letter of the key.
 
-.. image:: _static/directed_network.PNG
-    :align: center
+3. For each ``j`` from ``0`` to ``K-1``:
 
-Consider the directed network above. It contains 5 nodes, and can be represented by the following :math:`5 \times 5` adjacency matrix,
+   a. For each ``m`` from ``0`` to ``25``, decrypt the ``j``-th string using the ``m``-th letter of the alphabet.
 
-.. math:: 
-    \left[
-    \begin{matrix} 
-    0 & 1 & 1 & 0 & 1 \\
-    0 & 0 & 0 & 1 & 1 \\
-    1 & 0 & 0 & 0 & 1 \\
-    0 & 0 & 2 & 0 & 1 \\
-    0 & 0 & 0 & 0 & 0 \\ 
-    \end{matrix}
-    \right]
+   b. Measure the frequency of each letter in each of the strings in (a), and record these frequencies in a table (list of 26 lists) called ``freq_list``.
 
-.. Definitely directly copied this below from the lab haha
+   c. Find the value of ``m`` for which the dot product ``freq_list[m]·F`` is maximized, where ``F`` is the vector of letter frequencies
 
-Notice the 2 in the 4th row, 3rd column, since there are two edges traveling from node 3 to node 2. 
-Also, notice that there are no non-zero entries in the last row, which corresponds to the fact that node 4 does not have any edges which start from it.
+      ``F=[.082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001]`` 
 
-Task 1
-------
-Define a function ``adj_matrix(edge_matrix)``\. 
-This function should take a :math:`m \times 2`  ``np.array`` and return the respective :math:`n \times n` adjacency matrix.
-Note that because each node is represented by a number between :math:`0` and :math:`n-1`, use ``np.max()`` and add 1 to find the size of the adjacency matrix.
-If you are confused on how to set up the adjacency matrix, refer to the notes above.
+      from the table at the top of the lab.
+      Then the ``j``-th letter of the key is the ``m``-th letter of the alphabet.
+
+4. Decrypt the ciphertext using the key you found.
+
+.. admonition:: Understanding the logic
+
+   The key insight behind this algorithm is that letter frequencies in English text are not uniform—some letters, like ``E``, ``T``, and ``A``, appear much more often than others. 
+   The Vigenère cipher hides this fact by "spreading out" the effect of each key letter across different parts of the message.
+
+   Once we know the key length, we can group the ciphertext into multiple substrings, where each substring was encrypted with the same letter of the key. 
+   Within each group, we expect the decrypted letters to roughly follow English letter frequency patterns.
+
+   To find the correct key letter for each group, we try all 26 possible Caesar shifts (one for each letter of the alphabet), decrypt the group with each shift, and calculate the letter frequency of the result. 
+   We then compute the **dot product** of that frequency vector with the standard English letter frequency vector. 
+   The shift that gives the largest dot product is considered the best match—because it produces a decrypted string whose letter frequencies are closest to normal English.
+
+   Repeating this process for every group (i.e., for every position in the key) gives us the full key. 
+   With that, we can finally decrypt the entire ciphertext.
 
 
-.. There was a part of the original lab where you take 
-.. It talks about explaining that you could add up the amount of nodes points to a node to determine its importance but that would be stupid
-.. So if they think that adding more of it would be useless them I'm not going to do it, unless we feel it's needed
 
-PageRank Centrality
--------------------
 
-For the next part of the lab, we are going to explore how Google and other companies actually determine the importance of pages through PageRank Centrality.
-For the next part of the lab consider the network below.
+Task 1: Split the ciphertext
+----------------------------
 
-.. image:: _static/directed_network_gprime.PNG
-    :align: center
 
-The adjacency matrix for this network is defined by
+Write a function ``str_split(s,j,k)`` that takes in a string ``s`` and two integers ``j,k``, where ``k >= 1``, and returns a string consisting of each letter of ``s`` whose index is congruent to ``j`` modulo ``k``. 
 
-.. math::
 
-   \left[
-   \begin{array}{cccccccc}
-   0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-   0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-   1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\
-   0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
-   1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-   0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\
-   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-   \end{array}
-   \right]
+>>> str_split('ABCDEFGHIJK',1,3)
+'BEHK'
 
-The basis of PageRank Centrality is that the importance of every node, :math:`x_i`\, is determined by the importance of the nodes pointing towards it.
-Basically, to measure a node's importance, sum the importance of each node pointing to it, divided by the number of nodes they point to.
-Consider node :math:`1`. Only node :math:`0` is pointing towards it, and this node points to only one other node. 
-Hence :math:`x_1 = x_0`, or the importance of node :math:`1` is equal to the importance of node :math:`0`.
-Now look at node :math:`7`. Only node :math:`6` is pointing there, but node :math:`6` is pointing to two different nodes. 
-Hence :math:`x_7 = \frac{1}{2} x_6`. 
-If we continue this for all of the nodes in our network we get the following set of equations.
 
-.. math::
-    
-    \begin{array}{cc}
-    x_0 = \frac{1}{2}x_4  + \frac{1}{4}x_2 + x_5 + x_7 & x_4 = \frac{1}{2} x_3 \\
-    x_1 = x_0 & x_5 =  \frac{1}{2}x_6 + \frac{1}{4}x_2 + \frac{1}{2}x_3 \\
-    x_2 = x_1 + \frac{1}{2}x_4 & x_6 = \frac{1}{4}x_2 \\
-    x_3 = \frac{1}{4}x_2 & x_7 = \frac{1}{2} x_6
-    \end{array}
 
-Now we can represent these as a system of equations to solve for the importance of each node.
+Task 2: Measure letter frequencies
+----------------------------------
 
-.. math::
-    \left[
-    \begin{array}{c}
-    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
-    \end{array}
-    \right]
-    =
-    \left[
-    \begin{array}{cccccccc}
-    0 & 0 & \frac{1}{4} & 0 & \frac{1}{2} & 1 & 0 & 1 \\
-    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 \\
-    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 & 0 \\
-    0 & 0 & \frac{1}{4} & \frac{1}{2} & 0 & 0 & \frac{1}{2} & 0 \\
-    0 & 0 & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & 0
-    \end{array}
-    \right]
-    \left[
-    \begin{array}{c}
-    x_0\\ x_1\\ x_2\\ x_3\\ x_4\\ x_5\\ x_6\\ x_7
-    \end{array}
-    \right]
-    .
 
-Now we have a matrix of the form :math:`x=Px` or :math:`Px=x` where :math:`x` is the importance of each vector. 
-As you can see, we are solving for an eigenvector whose corresponding :math:`\lambda` is 1.
+Write a function ``letter_freq(s)`` that takes as input a string ``s`` and outputs a vector of length 26 whose ``i``-th element is the frequency of the ``i``-th letter of the alphabet in the string ``s``.
+The built-in string function ``count`` may be helpful here.
 
-.. note::
-    This matrix is a `stochastic matrix <https://en.wikipedia.org/wiki/Stochastic_matrix>`_, because each column of the matrix sums to one.
-    By the `Perron-Frobenius theorem <https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem>`_ 
-    we are guaranteed that if a matrix's columns all sum up to 1 and all entries are non-negative, then 
-    there exists an eigenvalue of 1 and associated eigenvector. 
 
-In `Lab 9 <https://emc2.byu.edu/fall-labs/lab09.html>`_, we used iterative methods to solve for the solution of systems of equations.
-One of these methods is the `Power Method <https://en.wikipedia.org/wiki/Power_iteration>`_ which is an iterative method that solves for the dominant eigenvector of a system of equations.
-It is defined by the equation below:
+>>> s = 'AAAAAAABZZ'
+>>> s.count('A')
+7
+>>> letter_freq('AAAAAAABZZ')
+[0.7,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2]
 
-.. math::
 
-    x_{k+1} = \frac{Px_k}{||Px_k||}
-    
 
-Now consider the vector below whose column adds up to 1.
+Task 3: Maximize the dot product
+--------------------------------
 
-.. math::
-    x_0 = 
-    \left[
-    \begin{array}{c}
-    1/8 \\
-    1/8 \\
-    1/8 \\
-    1/8 \\
-    1/8 \\
-    1/8 \\
-    1/8 \\
-    1/8
-    \end{array}
-    \right].
 
-Because :math:`P` is a column stochastic matrix, as long as the entries of :math:`x_k` are non-negative and add up to one, the entries of :math:`x_{k+1}` will also add up to one and be non-negative,
-and the Power Method becomes :math:`x_{k+1} = Px_k`. 
-Therefore, we can generalize the equation to :math:`x_{k} = P^{k}x_0`.
-Like all iterative methods, as we increase the amount of iterations, the iterate becomes more and more accurate. 
+Write a function ``maximize_dot(string)`` that takes as input a string ``string`` and outputs the integer ``m`` for which the dot product ``letter_freq(string-decrypted-by-mth-letter)·F`` is maximized.
+Here is an outline for this function.
+(You should copy over your ``vignere_decrypt`` function from lab 8 task 2 in Codebuddy.)
 
-Task 2
-------
+.. code-block:: python
 
-Define a function ``stoch_mat(A)`` which will take an adjacency matrix ``A`` and returns the corresponding stochastic matrix. 
-You can calculate the stochastic matrix by dividing each row of the matrix by the sum of the row, and then transpose the matrix using ``A.T``.
+   def maximize_dot(string):
+      F = [.082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001]
+      alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-Task 3
-------
+      freq_list = #list of 26 lists, where the m-th list is letter_freq(string after it has been decrypted using the m-th letter of the alphabet)
+                  #(hint: use a list comprehension)
 
-Define a function ``stoch_eig(P, k)`` which takes a ``n x n`` stochastic matrix ``P`` and number of iterations ``k`` 
-and returns the dominant eigenvector of ``P`` after ``k`` iterations.
-You will need to start with ``x_0 = np.array([1/n, 1/n, ... , 1/n]) = np.full(n, 1/n)`` with ``n`` entries.
-Remember the equation :math:`x_{k} = P^{k}x_0`.
+      for m in range(26):
+         #compute the dot product of freq_list[m] with F
+         #keep the largest dot product you compute
 
-.. note::
-    The numpy function ``np.full(shape, value)`` takes in a shape, ``n`` for one dimensional vectors and ``(m, n)`` for multi-dimensional matrices,
-    and fills it in with the fill value.
+      return #the m for which the dot product was largest
 
-    >>> np.full(5, 10)
-    [10 10 10 10 10]
 
-    >>> np.full((2,3), 4)
-    [[4 4 4]
-     [4 4 4]]
-        
+>>> maximize_dot('KYVHLZTBSIFNEWFOALDGJFMVIKYVCRQPUFX')
+17
 
-Task 4
-------
 
-Define a function ``PageRank_cent(edge_matrix, k)`` that combines all of your past functions to find the page rank centrality of a network with a given edgematrix and a number of iterations. 
-You will first need to take ``edge_matrix`` and convert it to an adjacency matrix using the ``adj_matrix`` function.
-Then convert the adjacency matrix to a stochastic matrix using the ``stoch_mat`` function.
-Finally, use the ``stoch_eig`` function to return the dominant eigenvector after ``k`` iterations.
 
-Task 5
-------
+Task 4: Decrypt the ciphertext
+------------------------------
 
-Use your recently created ``PageRank_cent`` to find the index of the most important node of a 499-node network (given in codebuddy).
-You can use ``np.argmax()`` to find the index of the largest element in an array.
 
-Conclusion
-----------
+Write a function ``vigenere_crack(message)`` that takes in a string ``message`` and outputs a list of two strings: the most likely key and the most likely plaintext.
+(You should copy over your ``num_coincidences`` function from lab 8 task 4 and your ``key_length`` function from lab 9 task 5 in Codebuddy.)
 
-Using the Power Method to compute the PageRank scores was the foundation of Google’s search ranking results for many years.
-Larry Page and Sergey Brin are the original developers of this algorithm.
-The PageRank algorithm is known to converge quite quickly. 
-In their original paper, Brin and Page reported that on a network with 322 million edges the algorithm converged to usable values within 52 iterations.
+As a test input, use the ciphertext at the top of this page. It will be very clear if you have computed the correct key and plaintext. 
+(Follow the outline at the top of the lab to get the pseudocode for this function.)
 
-Finally, as a historical note, the patent for the PageRank algorithm is owned by Stanford University (where Brin and Page were students at the time they developed it). 
-Stanford granted Google exclusive license rights to use the algorithm, in exchange for 1.8 million shares of Google which Stanford sold in 2005 for $336 million. 
-Today those shares would be worth approximately $3.8 billion, all for an algorithm that computes an eigenvector!
+You can get other test input strings at `<https://mathdept.byu.edu/~doud/Vigenere/>`_
+
+
+
+
+
