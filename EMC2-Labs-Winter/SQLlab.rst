@@ -74,3 +74,5 @@ Complete every exercise from each of the following lessons:
 4. Lesson 4: Filtering and sorting Query results
 5. Review: Simple SELECT Queries
 6. Lesson 6: Multi-table queries with JOINs
+7. Lesson 7: OUTER JOINs 
+8. Lesson 8: A short note on NULLs
